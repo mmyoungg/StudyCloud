@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+
+.mento_intro {
+    background-color: #aacde5;
+    height: 200px;
+}
+
+.mento_intro_content {
+    position: relative;
+    padding: 84px 2rem 38px;
+    text-align: center;
+}
+
+
+a {
+    color: white;
+    cursor: pointer;
+}
+
+.btn {
+    border: solid 1px #6cc4dc;
+    background-color: #6cc4dc;
+}
+
+.btn:hover {
+    border: solid 1px #6cc4dc;
+    background-color: #6cc4dc;
+}
+
+
+.all_content {
+    margin: 150px 150px 0px 150px;
+    height: 1100px;
+}
+
+.form_txt {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.rq {
+   color: #e5503c;
+}
+.form-select {
+	cursor: pointer;
+}
+
+#date_pk {
+	cursor: pointer !important;
+	margin-top: 3px;
+}
+
+#time_select {
+	cursor: pointer;
+	margin-top: 5px; 
+	font-size: 14px" 
+}
+
+.btn-zip {
+	width: 102%;
+    padding-left: 574px;
+    margin-top: 70px;
+}
+
+#write_form {
+	width: 50%;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+.scroll_scope {
+	height: 700px;
+    overflow: auto;
+}
+
+.naming {
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+
+p {
+	font-size: 10px;
+	margin-bottom: 3px;
+}
