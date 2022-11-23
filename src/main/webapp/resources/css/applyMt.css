@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+.mento_intro {
+    background-color: #aacde5;
+    height: 200px;
+}
+
+.mento_intro_content {
+    position: relative;
+    padding: 76px 2rem 22px;
+    text-align: center;
+}
+
+
+a {
+    color: white;
+    cursor: pointer;
+}
+
+
+.mentoring_txt {
+    line-height: 1.47;
+    font-size: 16px;
+    color: black;
+}
+
+.btn {
+    border: solid 1px #6cc4dc;
+    background-color: #6cc4dc;
+}
+
+.btn:hover {
+    border: solid 1px #6cc4dc;
+    background-color: #6cc4dc;
+}
+
+.all_content {
+    margin: 150px 150px 0px 150px;
+    height: 1100px;
+}
+
+.applyForm {
+	width: 50%;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+.form-select {
+	cursor: pointer;
+}
+
+.naming {
+	margin-bottom: 35px;
+}
+
+
+#exampleFormControlTextarea1 {
+	 font-size: 14px;
+}
+
+
+#apply_btn {
+	float: right;
+	margin-top: 20px;
+}
+
+#ok_btn{
+	margin:auto;
+    display:block;
+}
+	
+
