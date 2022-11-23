@@ -1,0 +1,255 @@
+@charset "UTF-8";
+
+/* === 배너 === */
+.carousel-item {
+	height: 350px;
+}
+    
+/* ==== search box ==== */
+.search {
+    padding-top: 50px;
+    padding-bottom: 25px;
+/*     width: 580px; */
+    margin: 0 auto;
+	
+/* 	display: flex;	 */
+	align-items: center;
+}
+
+.search_title {
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    color: #6cc4dc;
+}
+
+.search_wrap {
+	max-width: 580px;
+	width: 100%;
+	position: relative;
+	text-align: center;
+	
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+}
+
+.search_input {
+    padding-top: 64px;
+    width: 100%;
+    padding: 12px 24px;
+
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    
+    color: #575756;
+    background-color: transparent;
+
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    
+    display: flex;
+}
+
+.search_input:hover {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+.search_input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+/* 지금 뜨고있는 멘토 */
+
+.mentoRank {
+	margin-top: 70px;
+}
+
+.mentoRank-title {
+	padding-left: 20px;
+	font-size: 22px;
+	margin: 0 auto;
+	font-weight: bold;
+}
+
+.mento-list .mento-item {
+    padding: 16px 30px;
+    margin: 30px 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+}
+
+.mento-list .mento-item.color {
+    border: 1.5px solid #68cbd7;
+}
+
+.mento-title { /* 타이틀 폰트 */
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 300;
+    color: #3c4142;
+    text-decoration: none;
+}
+
+.mento-title:hover { /* 타이틀 폰트 hover */
+    color: #68cbd7;
+    text-decoration: none;
+}
+
+.mento-name { /* 멘토 이름  */
+    color: #b1bac5;
+    margin-bottom: 0.625rem;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.mento-profile { /* 프로필 사진-wrap */
+    width: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+}
+
+.mento-profile-pic { /* 프로필 이미지 */
+    width: 100%;
+    border-radius: 50%;
+}
+
+.mento-participants { /* 프로필 사진 부분 왼쪽 여백 삭제 */
+    padding: 0;
+    margin: 0;
+}
+
+
+.owl-item { /* 내부 컨텐트 크기 */
+    width: 25%;
+}
+
+.owl-prev { /* prev 버튼 */
+  width: 100px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  margin-left: 0;
+  display: block !important;
+  /* background-image: linear-gradient(to right, #F4F7FD, transparent) !important; */
+}
+
+.owl-prev .owl-nav-wrapper { /* prev 버튼 위치 */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.owl-next { /* next 버튼 */
+  width: 100px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block !important;
+  /* background-image: linear-gradient(to right, transparent, #F4F7FD) !important; */
+}
+
+.owl-next .owl-nav-wrapper { /* next 버튼 위치 */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+
+
+/* 마감임박 스터디 */
+
+.studyRank {
+	margin-top: 70px;
+}
+
+.studyRank-title {
+	padding-left: 20px;
+	font-size: 22px;
+	margin: 0 auto;
+	font-weight: bold;
+}
+
+.study-list .study-item {
+    padding: 16px 30px;
+    margin: 30px 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+}
+
+.study-list .study-item.color {
+    border: 1.5px solid #68cbd7;
+}
+
+.study-title { /* 타이틀 폰트 */
+    display: block;
+    margin-bottom: 0.625rem;
+    font-weight: 300;
+    color: #3c4142;
+    text-decoration: none;
+}
+
+.study-title:hover { /* 타이틀 폰트 hover */
+    color: #68cbd7;
+    text-decoration: none;
+}
+
+.study-name { /* 멘토 이름  */
+    color: #b1bac5;
+    margin-bottom: 0.625rem;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.study-profile { /* 프로필 사진-wrap */
+    width: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+}
+
+.study-profile-pic { /* 프로필 이미지 */
+    width: 100%;
+    border-radius: 50%;
+}
+
+.study-participants { /* 프로필 사진 부분 왼쪽 여백 삭제 */
+    padding: 0;
+    margin: 0;
+}
+
