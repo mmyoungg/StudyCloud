@@ -8,7 +8,7 @@
 <title>글쓰기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:import url="../layout/header.jsp" /> 
-<link rel="stylesheet" href="/resources/se2/css/mtBoardWrite.css">   
+<link rel="stylesheet" href="/resources/css/mtBoardWrite.css">   
 <script src="../resources/js/mtBoardWrite.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 
@@ -16,19 +16,18 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 
 </head>
 <body>
-
-<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		
-		//스마트에디터에 작성된 내용을 #content에 반영
+		//작성된 내용을 #content에 반영
 		updateContents();
 		
 		$("form").submit();
@@ -37,7 +36,7 @@ $(document).ready(function() {
 })
 
 function updateContents() {
-	//스마트 에디터에 작성된 내용을 #content에 반영한다
+	// 작성된 내용을 #content에 반영
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 }
 </script>
@@ -135,7 +134,7 @@ function updateContents() {
 <!-- 데이트피커 -->
 <div class="form-group">
 <label for="date_pk">
-<i class="fa-solid fa-calendar-days"></i>&nbsp;멘토링 가능 일정<span class="rq">*</span></label>
+&nbsp;<i class="fa-solid fa-calendar-days"></i>&nbsp;멘토링 가능 일정<span class="rq">*</span></label>
 <input class="form-control datepicker" id="date_pk" name="date_pk">
 </div>
 
@@ -168,11 +167,11 @@ function updateContents() {
 <br><br><br>
 
 <div class="form-group">
-<label for="title">&nbsp;제목</label>
+<label for="title">&nbsp;제목<span class="rq">*</span></label>
 <input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해주세요"  style="margin-top: 5px; font-size: 13px"></div>
 
 <div class="form-group">
-<label for="content">소개글을 작성 해주세요</label>
+<label for="content">소개글을 작성 해주세요<span class="rq">*</span></label>
 <textarea id="content" name="content" rows="11"></textarea>
 </div>
 

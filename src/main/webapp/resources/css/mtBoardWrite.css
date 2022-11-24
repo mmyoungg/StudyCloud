@@ -86,8 +86,24 @@ p {
 
 #content {
 	width: 100%; 
-/* 	border: 1px solid #5F5F5F */
 }
+
+#form-group {
+	padding: 10px;
+}
+
+label {
+	padding-top: 28px;
+}
+
+
+
+
+
+
+
+
+
 
 
 
