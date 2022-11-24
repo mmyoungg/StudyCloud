@@ -12,6 +12,8 @@ target/
 .project
 META-INF/
 
+pom.xml
+
 ### Eclipse ###
 .metadata
 bin/
