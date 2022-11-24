@@ -34,6 +34,13 @@ public class MtBoardController {
 		 */
 	}
 	
+	@RequestMapping(value="/mtboard/delete", method = RequestMethod.GET)
+	public void mtBoardDelete() {
+		/*
+		 * logger.info("/mtboard/list [GET]성공");
+		 */
+	}
+
 	@RequestMapping(value="/mtboard/detail", method = RequestMethod.GET)
 	public void mtBoardDetail() {
 		/*
