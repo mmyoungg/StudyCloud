@@ -13,7 +13,6 @@
 
 <style type="text/css" >
 
-
 .padding {
     padding: 3rem !important
 }
