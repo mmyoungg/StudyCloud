@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<!-- 캘린더 -->
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${path}/resources/css/admin/calendar.css" />
+
 
 <!DOCTYPE html>
 <html>
@@ -17,8 +21,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<style type="text/css">
+<!-- 폰트 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
 
+<style type="text/css">
 
 .bd-placeholder-img {
     font-size: 1.125rem;
@@ -93,11 +100,10 @@ header {
 
 </style>
 
-
 </head>
 <body>
 
-<div class="container"> <!-- 헤더 사이즈 [보류] -->
+<div class="container-fluid">
    <header class="navbar sticky-top">
        <a class="navbar-brand col-md-3 col-lg-2 me-0" href="#">StudyCloud</a>
        <div class="navbar-nav">
@@ -112,8 +118,8 @@ header {
     </header>
 </div>
 
-<div class="container"> <!-- 컨텐트 사이즈 [보류] -->
-<!-- <div class="container-fluid"> -->
+
+<div class="container-fluid">
    <div class="row">
        <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block collapse">
            <div class="position-sticky pt-3">
@@ -168,28 +174,121 @@ header {
            </div> -->
 
            <div class="row todayApply">
-               <div class="col-sm-6">
+               <div class="col-sm-4">
                    <p class="mainTitle">멘토 신청</p>
-                   <div class="card">
+                   <div class="card" style="height:200px;">
                        <div class="card-body">
                            <h5 class="card-title">Special title treatment</h5>
                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                        </div>
                    </div>
                </div>
-               <div class="col-sm-6">
+               <div class="col-sm-4">
                    <p class="mainTitle">스터디 신청</p>
-                   <div class="card">
+                   <div class="card" style="height:200px;">
                        <div class="card-body">
                            <h5 class="card-title">Special title treatment</h5>
                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                        </div>
                    </div>
                </div>
-           </div>
+               
+               
+                <div class="col-sm-4">
+					<p class="mainCalendar">달력 공간</p>
+               			<div class="elegant-calencar d-md-flex">
+							<div class="calendarHeadWrap d-flex align-items-center">
+								<p id="reset">reset</p>
+						        <div id="calendarHead" class="p-0">
+						            <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div>
+						            <div class="head-info">
+						                <div class="head-day"></div>
+						                <div class="head-month"></div>
+						            </div>
+						            <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div>
+						        </div>
+					      	</div>
+					      	
+					      	<div class="calendar-wrap">
+						        <table id="calendar">
+						            <thead>
+						                <tr>
+						                    <th>Sun</th>
+						                    <th>Mon</th>
+						                    <th>Tue</th>
+						                    <th>Wed</th>
+						                    <th>Thu</th>
+						                    <th>Fri</th>
+						                    <th>Sat</th>
+						                </tr>
+						            </thead>
+						            
+						            <tbody>
+						                <tr>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                </tr>
+						                <tr>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                </tr>
+						                <tr>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                </tr>
+						                <tr>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                </tr>
+						                <tr>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                </tr>
+						                <tr>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                  <td></td>
+						                </tr>
+						            </tbody>
+						        </table>
+					      	</div>
+				      	</div>
+	               </div><!-- 달력 end  -->
+	           </div><!-- row -->
+           
+           
 
-
-           <div class="row sndrow">
+			<!-- 두 번째 라인 -->
+			<div class="row sndrow">
                <div class="col-sm-8">
                    <p class="mainTitle">QnA 답변</p>
                    <table class="table qnaTable">
@@ -225,15 +324,13 @@ header {
                         </tbody>
                     </table>
                 </div>
-
-                <div class="col-sm-2">
-                    <p class="mainTitle">달력공간</p>
-                    <div class="title">
-                    </div>
-                </div>
             </div>
         </main>
     </div>
 </div><!-- container -->
+
+<!-- 캘린더 js -->
+<script type="text/javascript" src="${path}/resources/js/admin/calendar.js" />
+
 </body>
 </html>
