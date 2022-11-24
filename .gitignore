@@ -10,7 +10,7 @@ pom.properties
 MANIFEST.MF
 target/
 .project
-
+META-INF/
 
 ### Eclipse ###
 .metadata

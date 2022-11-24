@@ -18,6 +18,27 @@
 </head>
 <body>
 
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$("#btnWrite").click(function() {
+		location.href = "/mtboard/write"
+	})
+	
+	$("#btnUpdate").click(function() {
+		location.href = "/mtboard/update?boardNo=${viewBoard.boardNo }"
+	})
+	
+	$("#btnDelete").click(function() {
+		location.href = "/mtboard/delete?boardNo=${viewBoard.boardNo }"
+	})
+})
+
+
+</script>
+
+
+
 <!-- content 전체 wrap -->
 <main id="main">
 
@@ -180,10 +201,11 @@
 </tbody>
 </table>
 
+<!-- 멘토만 보이게 -->
 <div class="btn-zip">
- <a class="btn btn-primary" href="/mtboard/write" role="button">글쓰기</a>
- <a class="btn btn-primary" href="/mtboard/update" role="button">수정</a>
- <a class="btn btn-primary" href="/mtboard/delete" role="button">삭제</a>
+<button id="btnWrite" class="btn btn-primary pull-right">글쓰기</button>
+<button id="btnUpdate" class="btn btn-primary pull-right">수정</button>
+<button id="btnDelete" class="btn btn-primary pull-right">삭제</button>
 </div>
 
 <br><br><br><br><br><br><br><br><br>

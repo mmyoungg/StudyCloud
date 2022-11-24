@@ -16,20 +16,18 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 
 </head>
 <body>
-
-<!-- 라이브러리 추가 예정 -->
-<!-- <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		
-		//스마트에디터에 작성된 내용을 #content에 반영
+		//작성된 내용을 #content에 반영
 		updateContents();
 		
 		$("form").submit();
@@ -38,11 +36,11 @@ $(document).ready(function() {
 })
 
 function updateContents() {
-	//스마트 에디터에 작성된 내용을 #content에 반영한다
+	// 작성된 내용을 #content에 반영
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 }
 </script>
- -->
+
 
 
 <!-- content 전체 wrap -->
@@ -60,6 +58,7 @@ function updateContents() {
 <main class="all_content">
 
 <form action="./write" method="post" enctype="multipart/form-data">
+
 <div id="write_form">
 <p class="form_txt">멘토링 소개</p>
 <br><br><br><br>
@@ -70,14 +69,19 @@ function updateContents() {
 
 <h6 style="font-weight: bold; padding-bottom: 20px">&nbsp;기본 정보</h6>
 
-<div class="naming">&nbsp;이메일<span class="rq"> *</span>
-<input class="form-control" type="text" placeholder="이메일 주소를 입력해주세요"  style="margin-top: 3px; font-size: 13px"></div>
-<div class="naming">&nbsp;이름<span class="rq"> *</span>
-<input class="form-control" type="text" placeholder="실명을 입력해주세요"  style="margin-top: 3px; font-size: 13px"></div>
+<div class="form-group">
+<label for="email">&nbsp;이메일<span class="rq">*</span></label>
+<input class="form-control" id="email" name="email" type="text" placeholder="이메일 주소를 입력해주세요"  style="margin-top: 3px; font-size: 13px">
+</div>
 
+<div class="form-group">
+<label for="name">&nbsp;이름<span class="rq">*</span></label>
+<input class="form-control" id="name" name="name" type="text" placeholder="실명을 입력해주세요"  style="margin-top: 3px; font-size: 13px">
+</div>
 
-<div class="naming">&nbsp;분야<span class="rq"> *</span>
-<select class="form-select"  id="apply_fd" style="margin-top: 3px; font-size: 13px">
+<div class="form-group">
+<label for="field">&nbsp;분야<span class="rq">*</span></label>
+<select class="form-select"  id="apply_fd" name="apply_fd" style="margin-top: 3px; font-size: 13px">
   <option selected value="1">개발 · 프로그래밍</option>
   <option value="2">어학 · 외국어</option>
   <option value="3">직무 · 마케팅</option>
@@ -89,9 +93,9 @@ function updateContents() {
 <br><br><br>
 <h6 style="font-weight: bold; padding-bottom: 20px">&nbsp;멘토링 정보</h6>
 
-
-<div class="naming">&nbsp;직군<span class="rq"> *</span>
-<select class="form-select form-select-sm" onchange="selectChange(this)">
+<div class="form-group">
+<label for="jobgroup">&nbsp;직군<span class="rq">*</span></label>
+<select class="form-select form-select-sm" id="jobgroup" name="jobgroup" onchange="selectChange(this)">
   <option>선택</option>
   <option value="1">개발</option>
   <option value="2">디자인</option>
@@ -100,14 +104,16 @@ function updateContents() {
 </select>
 </div>
 
-<div class="naming">&nbsp;직무<span class="rq"> *</span>
-<select id="select2" class="form-select form-select-sm">
+<div class="form-group">
+<label for="jobduty">&nbsp;직무<span class="rq">*</span></label>
+<select id="jobduty" name="jobduty" class="form-select form-select-sm">
  	<option>선택</option>
 </select>
 </div>
 
-<div class="naming">&nbsp;경력<span class="rq"> *</span>
-<select class="form-select form-select-sm">
+<div class="form-group">
+<label for="career">&nbsp;경력<span class="rq">*</span></label>
+<select id="career" name="career" class="form-select form-select-sm">
   <option>선택</option>
   <option value="1">신입 (1년이하)</option>
   <option value="2">주니어 (1~3년)</option>
@@ -116,18 +122,20 @@ function updateContents() {
 </select>
 </div>
 
+<div class="form-group">
+<label for="co">&nbsp;현직</label>
+<input class="form-control" type="text" id="co" name="co" placeholder="현재 근무하는 회사명을 적어주세요"  style="margin-top: 3px; font-size: 13px"></div>
 
-<div class="naming">&nbsp;현직
-<input class="form-control" type="text" placeholder="현재 근무하는 회사명을 적어주세요"  style="margin-top: 3px; font-size: 13px"></div>
-
-<div class="naming">&nbsp;가격<span class="rq"> *</span>
+<div class="form-group">
+<label for="price">&nbsp;가격<span class="rq">*</span></label>
 <p>&nbsp;(원 / 5000원이상)</p>
-<input class="form-control" type="text" placeholder="ex. 10,000원"  style="margin-top: 3px; font-size: 13px"></div>
+<input class="form-control" type="text" id="price" name="price" placeholder="ex. 10,000원"  style="margin-top: 3px; font-size: 13px"></div>
 
 <!-- 데이트피커 -->
-<div class="naming">
-<i class="fa-solid fa-calendar-days"></i>&nbsp;멘토링 가능 일정<span class="rq"> *</span>
-<input class="form-control datepicker" id="date_pk">
+<div class="form-group">
+<label for="date_pk">
+&nbsp;<i class="fa-solid fa-calendar-days"></i>&nbsp;멘토링 가능 일정<span class="rq">*</span></label>
+<input class="form-control datepicker" id="date_pk" name="date_pk">
 </div>
 
 <script>
@@ -136,8 +144,9 @@ function updateContents() {
   })
 </script>
 
-<div class="naming">&nbsp;시간<span class="rq"> *</span><p>&nbsp;(1시간단위 / 중복가능)</p>
-<select class="form-select"  id="time_select">
+<div class="form-group">
+<label for="time_sel">&nbsp;시간<span class="rq">*</span></label><p>&nbsp;(1시간단위 / 중복가능)</p>
+<select class="form-select"  id="time_sel" name="time_sel">
   <option selected value="1">09:00 ~ 10:00</option>
   <option value="2">10:00 ~ 11:00</option>
   <option value="3">11:00 ~ 12:00</option>
@@ -156,11 +165,35 @@ function updateContents() {
 </div>
 
 <br><br><br>
-<div class="naming">&nbsp;제목
-<input class="form-control" type="text" placeholder="제목을 입력해주세요"  style="margin-top: 5px; font-size: 13px"></div>
 
-<!-- 라이브러리 추가예정 -->
-<!-- <script type="text/javascript">
+<div class="form-group">
+<label for="title">&nbsp;제목<span class="rq">*</span></label>
+<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해주세요"  style="margin-top: 5px; font-size: 13px"></div>
+
+<div class="form-group">
+<label for="content">소개글을 작성 해주세요<span class="rq">*</span></label>
+<textarea id="content" name="content" rows="11"></textarea>
+</div>
+
+
+<!-- 서블릿컨텍스트에 멀티파트 설정 해줘야됨 -->
+<div class="form-group">
+	<label for="file">&nbsp;첨부파일</label>
+	<input type="file" id="file" name="file">
+</div>
+<br><br><br>
+
+</div><!-- 스크롤바 -->
+
+<div class="btn-zip">
+<input type="reset" id="cancel" class="btn btn-primary" value="닫기">
+ <!-- 글전송 구현해야됨 -->
+ <button class="btn btn-primary" id="btnWrite">등록</button>
+</div>
+
+</div><!-- write_form 끝 -->
+
+<script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
@@ -168,25 +201,10 @@ nhn.husky.EZCreator.createInIFrame({
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 })
-</script> -->
-
-<div class="form">
-	<label for="file">&nbsp;첨부파일</label>
-	<input type="file" id="file" name="file">
-</div>
-<br><br><br>
-</div><!-- 스크롤바 -->
-
-
-<div class="btn-zip">
- <a class="btn btn-primary" href="/mtboard/list" role="button">닫기</a>
- <!-- 글전송 구현해야됨 -->
- <a class="btn btn-primary" role="button">등록</a>
-</div>
-
-</div><!-- write_form 끝 -->
-
+</script>
 </form>
+
+
 </main>
 </main>
 

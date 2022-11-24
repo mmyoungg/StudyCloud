@@ -51,7 +51,7 @@ a {
 	margin-top: 3px;
 }
 
-#time_select {
+#time_sel {
 	cursor: pointer;
 	margin-top: 5px; 
 	font-size: 14px" 
@@ -83,3 +83,28 @@ p {
 	font-size: 10px;
 	margin-bottom: 3px;
 }
+
+#content {
+	width: 100%; 
+}
+
+#form-group {
+	padding: 10px;
+}
+
+label {
+	padding-top: 28px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
