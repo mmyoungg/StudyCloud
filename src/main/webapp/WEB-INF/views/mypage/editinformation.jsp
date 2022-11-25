@@ -20,17 +20,32 @@ $("#file").on('change',function(){
 
 <style type="text/css">
 
+body {
+	background-color: #f9f9fa
+	
+}
+
+.card {
+	border: 0;
+	border-radius: 0px;
+ 	margin-bottom: 30px; 
+ 	height: 650px;
+	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+	-webkit-transition: .5s;
+	transition: .5s;
+}
+
 .row {
 	padding-top: 25px;
 	margin-left: 12%;
 }
 
-
 .profile-button {
 	background: #6CC4DC;
 	box-shadow: none;
 	border: none;
-	margin-left: -4%;
+	margin-left: -20%;
 	font-size: 15px;
 	padding: 10px;
 	width: 30%;
@@ -50,10 +65,16 @@ $("#file").on('change',function(){
 	box-shadow: none;
 }
 
+
 /* input form css  */
 
 .form-wrap {
-	margin-left: 10%;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+/* 	padding: 3rem;  */
+	line-height: 2.5;
+	margin-left: 50%;
+	margin-top: -25%;
 	width: 70%;
 }
 
@@ -61,12 +82,12 @@ $("#file").on('change',function(){
 	border-color: #ebebeb;
 	border-radius: 2px;
 	color: #8b95a5;
-	padding: 8px 1px;
+	padding: 2px 1px;
 	font-size: 12px;
 	line-height: inherit;
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
-	width: 80%;
+	width: 40%;
 /* 	margin: 0 auto; */
 }
 
@@ -127,9 +148,9 @@ $("#file").on('change',function(){
 <body>
 
 	<div class="container rounded bg-white mt-5">
-		<div class="row">
+		<form class="card">
 			<div class="col-md-4 border-right">
-				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				<div class="d-flex flex-column align-items-center text-center p-3 py-5" >
 					<img class="rounded-circle mt-5"
 						src="https://img.icons8.com/color/512/test-account.png" width="90"><br>
 					<span class="font-weight-bold">John Doe</span> <span
@@ -140,8 +161,8 @@ $("#file").on('change',function(){
 					</div>
 				</div>
 			</div>
-			<div class="col-md-8">
-				<div class="p-3 py-5 form-wrap">
+			<div class="col-md-8 form-wrap">
+				<div class="p-3 py-5">
 					<div class="row mt-2 input-wrap">
 						<div class="form-name">비밀번호</div>
 						<input class="form-control" type="password"
@@ -168,9 +189,9 @@ $("#file").on('change',function(){
 					<button class="btn btn-primary profile-button" type="button">수정내역
 						저장</button>
 				</div>
-			</div>
+				</div>
+			</form>
 		</div>
-	</div>
 	<br><br><br><br><br>
 
 
