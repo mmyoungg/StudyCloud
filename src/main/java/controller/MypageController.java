@@ -27,5 +27,14 @@ public class MypageController {
 		return "mypage/editinformation";
 	
 	}
+	
+	@GetMapping("/withdrawal")
+	public String withdrawal() {
+		
+		logger.info("/withdrawal [GET]성공");
+		
+		return "mypage/withdrawal";
+	
+	}
 
 }
