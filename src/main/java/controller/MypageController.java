@@ -18,5 +18,14 @@ public class MypageController {
 		return "mypage/mypageMain";
 	
 	}
+	
+	@GetMapping("/editinformation")
+	public String editinformation() {
+		
+		logger.info("/editinformation [GET]성공");
+		
+		return "mypage/editinformation";
+	
+	}
 
 }

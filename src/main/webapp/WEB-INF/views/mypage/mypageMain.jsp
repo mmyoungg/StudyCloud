@@ -17,37 +17,12 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: 'Poppins', sans-serif
 	}
 
 body {
 	min-height: 100vh
 	}
 
-body::before { 
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-/* 	background: linear-gradient(#2d2dff, #ff2f2f); */
-	clip-path: circle(25% at right)
-	
-	}
-	
-body::after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	min-height: 100vh;
-	height: 100%;
-/* 	background: linear-gradient(#870aec, #6e0b81); */
-	clip-path: circle(20% at 10% 10%)
-	}
-	
 .container { 
 	margin-top: 80px;
 	margin-bottom: 80px;
@@ -55,8 +30,13 @@ body::after {
 	z-index: 100;
 	}
 	
+.card-wrap {
+	margin: -4.2%;
+	padding: 50px;
+}
+	
 .container .row .card {
-	width: 300px;
+	width: 250px;
 	height: 300px;
 	margin: 30px;
 	background: rgba(255, 255, 255, 0.1);
@@ -65,7 +45,8 @@ body::after {
 	border-top: 1px solid rgba(255, 255, 255, 0.5);
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
 	border-radius: 15px;
-	cursor: pointer
+	cursor: pointer;
+	text-align: center;
 	}
 
 .container .row .card .card-body {
@@ -79,7 +60,7 @@ body::after {
 	object-fit: cover;
 	transform: translateY(50px);
 	transition: 0.5s;
-	border-radius: 50%
+	border-radius: 50%;
 	}
 	
 .container .row .card .card-body .name {
@@ -89,7 +70,7 @@ body::after {
 	
 .container .row .card .card-body .testimonial {
 	font-size: 0.9rem;
-	pointer-events: none;
+/* 	pointer-events: none; */
 	transform: translateY(10px);
 	transition: 0.5s;
 	opacity: 0 
@@ -110,6 +91,16 @@ body::after {
 		}
 	}
 
+a { 
+     color: #737373; 
+     padding: 0.375rem 0.5rem; 
+     font-weight: 400; 
+     text-decoration: none; 
+ } 
+
+a:hover {
+	color: #3F92B7;
+}
 
 </style>
 </head>
@@ -120,29 +111,43 @@ body::after {
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 d-flex justify-content-center">
+        <div class="col-lg-4 d-flex justify-content-center card-wrap">
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="card-img pt-2 pb-3"> <img src="https://images.pexels.com/photos/6625914/pexels-photo-6625914.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""> </div>
-                    <div class="name h5">회원 프로필</div>
-                    <div class="testimonial">프로필 사진 변경 <br> 내 쪽지함 <br> 회원 정보 수정 <br> 회원 탈퇴  </div>
+                    <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/dusk/512/circled-user-male-skin-type-3.png" alt=""> </div>
+                    <div class="name h5">회원 프로필</div><br>
+                   <a href="" class="testimonial">회원 정보 수정</a><br><br>
+                   <a href="" class="testimonial">내 쪽지함</a><br><br>
+                   <a href="" class="testimonial">회원 탈퇴</a>
+                    
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 d-flex justify-content-center">
+        <div class="col-lg-4 d-flex justify-content-center card-wrap">
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="card-img pt-2 pb-3"> <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""> </div>
-                    <div class="name h5">참여중인 스터디</div>
-                    <div class="testimonial">나의 멘토 <br> 나의 스터디 <br> 온라인 스터디 </div>
+                    <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/dusk/512/conference-call.png" alt=""> </div>
+                    <div class="name h5">참여중인 스터디</div><br>
+                    <a href="" class="testimonial">나의 멘토</a><br><br>
+                    <a href="" class="testimonial">나의 스터디</a><br><br>
+                    <a href="" class="testimonial">온라인 스터디</a><br><br>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 d-flex justify-content-center">
+        <div class="col-lg-4 d-flex justify-content-center card-wrap">
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="card-img pt-2 pb-3"> <img src="https://images.pexels.com/photos/4946604/pexels-photo-4946604.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" /> </div>
-                    <div class="name h5"> 위시리스트 <br> 결제내역 </div>
+                    <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/external-sbts2018-outline-color-sbts2018/512/external-wishlist-black-friday-5-sbts2018-outline-color-sbts2018.png" /> </div>
+                    <div class="name h5"> 위시리스트</div>
+                    <div class="testimonial">  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 d-flex justify-content-center card-wrap">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/cotton/512/card-in-use.png" /> </div>
+                    <div class="name h5"> 결제 내역 </div>
                     <div class="testimonial">  </div>
                 </div>
             </div>
