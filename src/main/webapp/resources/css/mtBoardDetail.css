@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 
+
 .mento_intro {
     background-color: #aacde5;
     height: 200px;
@@ -28,12 +29,14 @@
 }
 
 
-
+/* wrap1 */
 #heart, #share, #msg  {
 	font-size: 15px;
  	float: right; 
 	margin-left: 5px;
 	border-radius: 9999px;
+	padding-top: 9px;
+    padding-bottom: 5px;
 }
 
 #link_btn {
@@ -86,23 +89,32 @@ span.write_date {
 	color: gray;
 	font-size: 14px;
 }
-/* wrap1 css끝 */
 
 
+
+
+/* 본문 */
 .mt_wrap2 {
 	margin-bottom: 100px;
 }
 
 .mt_content {
 	margin-top: 50px;
-	color: #494949;
+	color: #696969;
 	padding-bottom: 130px;
+	font-size: 15px;
 }
-/* 본문 끝 */
 
+
+/* wrap3 */
 .text-bold {
     font-size: 13px;
     padding-left: 16px;
+    color: #696969;
+}
+
+#mt_review {
+	margin-bottom: 5rem!important;
 }
 
 #mt_review fieldset {
@@ -140,10 +152,14 @@ span.write_date {
     box-sizing: border-box;
     border:  1px solid #d3d3d3;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
     resize: none;
     margin-top: 3px;
     margin-bottom: 5px;
+}
+
+textarea::placeholder {
+	color:#d3d3d3!important;
 }
 
 #btnReview {
@@ -155,49 +171,11 @@ span.write_date {
 }
 
 
-#mt_review2 label {
-	font-size: 27px;
-	color: #fad103;
-}
-
-.review_list {
-	width: 100%;
-    height: 100px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: solid 1.5px #D3D3D3;
-    border-radius: 5px;
-    font-size: 14px;
-    resize: none;
-    margin-top: 3px;
-    margin-bottom: 5px;
-}
-
 #btnList, #btnUpdate, #btnDelete {
 	font-size: 15px;
 	margin-top: 15px;
 }
 
-/* 리뷰 */
-/* 리뷰쓰기 버튼 */
-  .reply_button_wrap{
-  	padding : 10px;
-  	width: 100%;
-  }
-  .reply_button_wrap button{
-	background-color: #6cc4dc;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    padding: 5px 12px;
-    cursor: pointer;  
-  }
-  .reply_button_wrap button:hover{
-  	background-color: #6cc4dc;
-  }
-  
-  
-  
   
   
   /* 리뷰 영역 */
@@ -268,19 +246,16 @@ span.write_date {
 	}
 	.pageMaker_btn{
 		float: left;
-	    width: 25px;
 	    height: 25px;
 	    line-height: 25px;
 	    margin-left: 20px;
-	    font-size: 10px;
+	    font-size: 13px;
 	    cursor: pointer;
 	}
 	.active{
-		border : 2px solid black;
 		font-weight:400;	
 	}
 	.next, .prev {
-	    border: 1px solid #ccc;
 	    padding: 0 10px;
 	}	
   
