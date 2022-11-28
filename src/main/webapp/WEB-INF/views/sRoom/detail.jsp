@@ -1,33 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../layout/header.jsp"%> 
+
+    
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>StudyCloud</title>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script> -->
 
 <!-- 폰트어썸 -->
 <script src="https://kit.fontawesome.com/ca40b4f408.js"></script>
 
-<script src="../resources/js/sRoomDetail.js?ver=1"></script>
-<link rel="stylesheet" href="../resources/css/sRoomDetail.css?ver=2"> 
+<!-- TimePicker -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+<!-- flatPickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 
 <!-- 카카오맵 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1fd53e5f5c7d4e395ac101da53469ee2&libraries=services,clusterer,drawing"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<!-- 카카오 sdk -->
+
+<link rel="stylesheet" href="../resources/css/sRoomDetail.css?ver=3">
+<script defer src="../resources/js/sRoomDetail.js?ver=2"></script>
+
+<script type="text/javascript">
+
+</script>
 </head>
+
+
 <body>
+
 
 <div class="content">
 	<div class="detail-wrap">
 		<div class="left">
-			<h2>스터디룸 이름.</h2>
+			<h2>💠 스터디룸 이름.</h2>
 			<img src="https://ifh.cc/g/SG0cCl.jpg" class="img-fluid" alt="...">
 			<div id="menu-wrap">
 				<ul class="menu-ul">
@@ -40,7 +59,7 @@
 			</div>
 			
 			<div class="sec-1 scroll" id="sec1">
-				<h3>스터디룸 소개</h3>
+				<h3>💠 스터디룸 소개</h3>
 				<div class="infoBox">
 				<p>스터디룸 소개</p>
 				<p>스터디룸 소개</p>
@@ -63,7 +82,7 @@
 			</div>
 			
 			<div class="sec-2 scroll" id="sec2">
-				<h3>이용&환불규정</h3>
+				<h3>❕ 이용&환불규정</h3>
 				<div class="infoBox">
 				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
 				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
@@ -93,7 +112,7 @@
 			
 			<div class="sec-3 scroll" id="sec3">
 				<div class="qna">
-					<h3 class="qna_h3">오시는길</h3>
+					<h3 class="qna_h3">🚖 오시는길</h3>
 				</div>
 				<div class="infoBox">
 					<div id="map" style="width:100%; height:400px; margin-top: 30px;"></div>
@@ -108,7 +127,7 @@
 			<div class="sec-4 scroll" id="sec4">
 				<!-- Trigger/Open The Modal -->
 				<div class="qna">
-					<h3 class="qna_h3">QnA</h3>
+					<h3 class="qna_h3">❔ QnA</h3>
 					<button class="modal-custom-button" href="#myModal1">QnA 작성</button>
 				</div>
 				
@@ -174,7 +193,7 @@
 			
 			<div class="sec-5 scroll" id="sec5">
 				<div class="qna">
-					<h3 class="qna_h3">리뷰</h3>
+					<h3 class="qna_h3">💬 리뷰</h3>
 					<button class="modal-custom-button" href="#myModal2">리뷰 쓰기</button>
 					<h6 class="review_intro">후기 개수
 						<strong class="review_point"><em>31</em>개</strong>
@@ -282,8 +301,29 @@
 
 		<div class="right">
 			<div class="sRoomBtn">
-				<button class="detail-button">찜하기</button>
-				<button class="detail-button">공유하기</button>
+				<button class="detail-button"><img src="https://ifh.cc/g/67soWT.png">찜하기</button>
+				<button class="detail-button-share"><img src="https://ifh.cc/g/phQSC6.png">공유하기</button>
+				<div class="shareModal hidden">
+				  <div class="bg"></div>
+				  <div class="modalBox">
+				  	<div class="shareSpace">
+				    	<a class="shareIcon" id="kakaoShareBtn"><img src="https://ifh.cc/g/kfhxzw.png" border="0">&nbsp;&nbsp;카카오톡 공유하기</a>
+				    </div>
+				    
+				    <div class="shareSpace">
+				   		<a class="shareIcon" id="twitterShareBtn"><img src="https://ifh.cc/g/VxDANH.png" border="0">&nbsp;&nbsp;트위터 공유하기</a>
+				    </div>
+				    
+				    <div class="shareSpace" style="margin: 25px 25px 5px 25px;">
+				   		<a href="#" class="shareIcon" id="urlShareBtn" title="복사"><img src="https://ifh.cc/g/yWfbMz.png" border="0">&nbsp;&nbsp;URL 복사하기</a>
+				    </div>
+				    
+				    <div class="shareSpace-copied-msg" id="urlCopiedMsg"><img src="https://ifh.cc/g/rOZoRQ.png">&nbsp;URL이 복사 되었습니다.</div>
+				    
+				    <button class="share-closeBtn">닫기</button>
+				  </div>
+				</div>
+				
 			</div>
 			
 			<div class="detail-resrve-info">
@@ -296,34 +336,71 @@
 					<p class="s-addr" id="s-addr">최소인원 : 3명</p>
 				</div>
 				<div class="detail-right-info">
-					<h5>이용날짜</h5>
+					<h5>이용날짜 📅</h5>
 				</div>
 				<div class="detail-right-calendar">
-					<table align="center" id="calendar" class="sRoom-Cal">
-				        <tr class="sRoom-Cal-head">
-				            <td><font size=2%; color="#3f92b7"><label id="beforeC" ></label></font></td>
-				            <td colspan="5" align="center" id="yearmonth" style="font-size:18px; background-color: #e3eff9;"></td>
-				            <td><font size=2%; color="#3f92b7"><label id="nextC"></label></font></td>
-				        </tr>
-				        <tr>
-				            <td align="center"> <font color="#FF9090">일</font></td>
-				            <td align="center"> 월 </td>
-				            <td align="center"> 화 </td>
-				            <td align="center"> 수 </td>
-				            <td align="center"> 목 </td>
-				            <td align="center"> 금 </td>
-				            <td align="center"><font color=#7ED5E4>토</font></td>
-				        </tr>
-				    </table>
+					<input type="text" id="sRoomSelectDate" class="sRoom-cal" placeholder="예약날짜를 선택하세요.">
 				</div>
 				
+				<div class="detail-right-info">
+					<div class="detail-right-time" style="margin-top: 15px;">
+					<h5>이용 시간 🕙</h5>
+				</div>
+				
+				<div class="detail-right-time-select">
+					<input id="sTimepicker" class="time-select" type="text" placeholder="시작시간을 선택하세요." value="" >
+					<input id="eTimepicker" class="time-select" type="text" placeholder="시작시간을 선택하세요." value="">					
+				</div>
+				
+				<div class="detail-right-time">
+					<div class="detail-right-info">
+					<h5>예약정보 확인 ✔️</h5>
+				</div>
+					
+				</div>
+				<div class="detail-right-info">	
+					<div class="detail-clicked-info-wrap">			
+ 					<input type="text" id="clickedDate" value="" class="sRoom-clicked-info" readyonly>
+					<input type="text" id="clickedStartTime" value="" class="sRoom-clicked-info-time" readyonly>
+					<input type="text" id="timeDuration" class="sRoom-timeDuration" value="" style="width: 53px;" readyonly> 
+					</div>
+				</div>
+				<div class="detail-right-time">
+					<div class="detail-right-info">
+					<h5>이용 인원 👨‍👧‍👧</h5>
+				</div>
+				
+				<div class="detail-right-people-select">
+					<div id="menu2">
+						<div class="list-member">
+							<div class="number-input">
+							<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+ 							<input class="quantity" min="1" name="quantity" value="1" type="number">
+  							<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+							</div>		
+						</div>
+					</div>    					
+				</div>
+				
+				<div class="detail-right-time">
+					<div class="detail-right-info">
+					<h4>가격</h4>
+					
+					<input type="text" value="3,000원" class="price-input-box">
+				</div>
+				
+				<div>
+					<button class="detail-reserve-button">예약하기</button>
+				</div>
 				
 			</div>
 			
-		</div>
 	</div>
-
 </div>
+</div>
+</div>
+</div>
+
 <script src="../resources/js/sRoomCalendar.js?ver=1"></script>
 </body>
 

@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
 	  var menu = $("#menu-wrap").offset().top;
 	  $(window).scroll(function() {
 	    var window = $(this).scrollTop();
@@ -13,9 +13,79 @@ $(function() {
           event.preventDefault();
           $('html,body').animate({scrollTop:$(this.hash).offset().top}, 300);
   	  });
+  	  
+  	  // 시간선택
+  	  $('#sTimepicker').timepicker({
+    	 timeFormat: 'H:00', // 분을 빼고 00으로 설정
+    	 interval: 60, // 1시간 간격
+    	 startTime: '9:00am',
+    	 minTime: new Date(), //// 최소 시작시간을 현재시간으로 설정
+    	 maxTime: '22:00pm',
+    	 dynamic: false,
+    	 dropdown: true,
+    	 scrollbar: true,
+    	 change: stimeSelectChange
+      })
+      
+      var stTime = "";
+ 	  var endTime = "";
+ 	  
+ 	  $("#eTimepicker").prop('disabled', true);
+ 
+	  function stimeSelectChange(){
+	  	stTime = $("#sTimepicker").val();
+	  	console.log(stTime);
+	  	$('#eTimepicker').prop('disabled', false);
+	  	$('#eTimepicker').timepicker('option', 'minTime', stTime+'1:00');
+			  
+    	document.getElementById("clickedStartTime").value = stTime;
+	  } 	    		
+    	    		
+    $('#eTimepicker').timepicker({
+    	 timeFormat: 'H:00',
+    	 interval: 60,
+    	 //maxTime: '0:00',
+    	 dynamic: false,
+    	 dropdown: true,
+    	 scrollbar: true,
+    	 change: etimeSelectChange
+    });
+      
+    function etimeSelectChange(){
+	  endTime = $("#eTimepicker").val();
+	  stTime = $("#sTimepicker").val();
+	  
+	  console.log(stTime);
+	  console.log(endTime);
+	  document.getElementById("clickedStartTime").value += '~' + endTime;
+	  
+	  // 일부 자르기
+	  var strStTime = stTime.slice(0,2);
+	  var strEndTime = endTime.slice(0,2);
+	 
+	  // String -> int 형변환
+	  var intStTime = parseInt(strStTime);
+	  var intEndTime = parseInt(strEndTime);
+	  
+	  // 시간차이 구하기
+	  var durationTime = intEndTime-intStTime
+	  console.log(durationTime);
+	
+	  
+	  // 시간차이 반영
+	  document.getElementById("timeDuration").value = '(' + durationTime + '시간)';
+	}
+	
+	
+      
+  	  
 });
 
+
+
+ 
 window.onload = function() {
+
 var btn = document.querySelectorAll("button.modal-custom-button");
 var modals = document.querySelectorAll('.modal-custom');
 var spans = document.getElementsByClassName("close-modal");
@@ -43,8 +113,6 @@ window.onclick = function (event) {
         }
     }
 }
-
-
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -97,6 +165,93 @@ geocoder.addressSearch(sradr, function(result, status) {
     } 
 });    
 
+// 캘린더
+var selectedDate = "";
 
+var flatpk = flatpickr(document.getElementById("sRoomSelectDate"), {
+	'monthSelectorType' : 'static',
+	"locale": "ko",
+	 dateFormat: "Y년 m월 d일",
+	 minDate: "today",
+	 inline: true, 
 	
+	onChange: function() {
+		selectedDate = document.getElementById("sRoomSelectDate").value;
+		console.log(selectedDate);
+		document.getElementById("clickedDate").value = selectedDate;
+		
+	}
+});
+
+// 공유하기
+const open = () => {
+    document.querySelector(".shareModal").classList.remove("hidden");
+  }
+
+  const close = () => {
+    document.querySelector(".shareModal").classList.add("hidden");
+  }
+  document.querySelector(".detail-button-share").addEventListener("click", open);
+  document.querySelector(".share-closeBtn").addEventListener("click", close);
+  document.querySelector(".bg").addEventListener("click", close);
+
+
+  // 카카오 공유하기
+  document.getElementById("kakaoShareBtn").addEventListener("click", shareKakao);	
+  function shareKakao() {
+ 
+  // 사용할 앱의 JavaScript 키 설정
+  Kakao.init('fe630bd53dba8a69ff6f81c29b1b2bba');
+ 
+  // 카카오링크 버튼 생성
+  Kakao.Link.createDefaultButton({
+    container: '#kakaoShareBtn', // 카카오공유버튼ID
+    objectType: 'feed',
+    content: {
+      title: "스터디룸 이름", // 보여질 제목
+      description: "스터디룸 이름 정보 및 예약페이지", // 보여질 설명
+      imageUrl: "https://ifh.cc/g/SG0cCl.jpg", // 콘텐츠 썸네일 URL
+      link: {
+         mobileWebUrl: "http://localhost:8888/sRoom/detail",
+         webUrl: "http://localhost:8888/sRoom/detail"
+      }
+    }
+ });   
+}
+  
+   // 트위터 공유하기
+  document.getElementById("twitterShareBtn").addEventListener("click", shareTwitter);	
+  function shareTwitter() {
+    var sendText = "스터디룸 이름 정보 및 예약페이지"; // 전달할 텍스트
+    var sendUrl = "http://localhost:8888/sRoom/detail"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+        	
+   // 현재페이지 url 확인
+   var sRoomUrl = document.location.href;
+   console.log(sRoomUrl); 
+   
+   // 현재페이지 url 복사
+  document.getElementById("urlShareBtn").addEventListener("click", clip);	
+  
+  function clip(){
+  	var url = '';    // <a>태그에서 호출한 함수인 clip 생성
+    var textarea = document.createElement("textarea");  
+    //url 변수 생성 후, textarea라는 변수에 textarea의 요소를 생성
+        
+    document.body.appendChild(textarea); //</body> 바로 위에 textarea를 추가(임시 공간이라 위치는 상관 없음)
+    url = window.document.location.href;  //url에는 현재 주소값을 넣어줌
+    textarea.value = url;  // textarea 값에 url를 넣어줌
+    textarea.select();  //textarea를 설정
+    document.execCommand("copy");   // 복사
+    document.body.removeChild(textarea); //extarea 요소를 없애줌
+        
+    var urlMsg = document.getElementById("urlCopiedMsg");
+    if(urlMsg.style.display=="none"){ 		
+    	urlMsg.style.display = "block"; 	
+    } else {
+    	urlMsg.style.display = "none";
+    }
+    }
+       	
 }

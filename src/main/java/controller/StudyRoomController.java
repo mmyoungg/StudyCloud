@@ -15,5 +15,10 @@ public class StudyRoomController {
 	@RequestMapping("/sRoom/payResult")
 	public void pay() {}
 	
+	@RequestMapping("/sRoom/reserve")
+	public void reserve() {}
+	
+	@RequestMapping("/sRoom/insert")
+	public void insert() {}
 	
 }
