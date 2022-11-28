@@ -8,6 +8,7 @@
 <head>
 <meta  charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 <title>StudyCloud☁️</title>
+<c:import url="../layout/header.jsp" />
 
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -88,14 +89,38 @@
 		
 		<div class="button">
 <!-- 			<button type="button" class="btn" type="submit">등록하기</button> -->
-			<input type="submit" id="submit" class="btn btn-secondary" value="등록하기" style="margin-right: 5px;">
+<!-- 			<input type="submit" id="submit" class="btn btn-secondary" value="등록하기" style="margin-right: 5px;"> -->
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  			등록하기
+			</button>
 			<input type="reset" id="cancel" class="btn btn-secondary" value="취소하기" style="margin-left: 5px;">
 		</div>
 		
 	</div>
 </form>
 
+<!-- 번개 게시글 등록 완료 모달 -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Success!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        번개스터디 글 등록이 완료되었습니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" style="background-color: #6cc4dc;" onclick="location.href='./mboardmain'">확인</button>
+      </div>
+    </div>
+  </div>
 </div>
-	
+
+</div>
+
+<br><br><br><br><br>
+
+<c:import url="../layout/footer.jsp" />
 </body>
 </html>
