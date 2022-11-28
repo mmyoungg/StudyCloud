@@ -8,10 +8,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StudyCloud☁️</title>
+<c:import url="../layout/header.jsp" />
 
 <!-- 부트스트랩 5.2  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
 <style type="text/css">
 
@@ -44,6 +48,7 @@
 
 .btn {
 	background-color:  #6cc4dc;
+	--bs-btn-hover-bg: #3f92b7;
 }
 
 .sboard-list {
@@ -72,7 +77,8 @@
 	margin-right: 10px;
 	margin-bottom: 30px;
 	margin-top: 30px;
-	background-color: #3f92b7;
+/*  	background-color: #3f92b7;  */
+ 	background-color: #aacde5; 
 /* 	.bg-{color} : #e3eff9; */
 }
 
@@ -87,7 +93,7 @@
 
 :root {
 	--bs-border-radius: 0.7rem;
-	--bs-body-color: #60392a;
+ 	--bs-body-color: #60392a; 
 	--bs-body-bg-rgb: 250,250,250;
 }
 
@@ -117,6 +123,14 @@
 	--bs-pagination-color:  #6cc4dc;
 }
 
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.08)!important;
+}
+
+h4, h6 {
+	color: #636363;
+}
+
 </style>
 
 </head>
@@ -126,22 +140,27 @@
 
 	<div class="header-box">
 		다양한 스터디를 만들고 참여해보세요!<br>
-		Publish And Join the Flash-Gathering!
+		Publish And Join the Studies!
 	</div>
 	
 	<div class="button-menu">
 		<span class="button-op">
-			<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">스터디 개설하기</button>
+			<a class="btn btn-primary" href="./enrollstudy" role="button" style="background-color: #6cc4dc; border: none;">스터디 개설하기</a>
 		</span>
 		<span class="button-op">
-			<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">스터디 찾아보기</button>
+			<a class="btn btn-primary" role="button" style="background-color: #6cc4dc; border: none;">스터디 찾아보기</a>
 		</span>
 	</div>
 	
-	<br><br>
 	
-
-		<div class="container">
+<div class="container">
+	
+	<div class="search-tag" style="padding-left: 30px; margin-bottom: 25px;">
+		<form class="d-flex" role="search">
+	        	<input class="form-control me-2" type="search" placeholder="#태그를 검색해보세요." aria-label="Search">
+	        	<button class="btn btn-outline-light" type="submit">search</button>
+	     </form>
+	</div>
 			<div class="nav-option">
 				<!-- 인원 선택 드롭박스 -->
 				<div class="dropdown" style="float: left;">
@@ -182,7 +201,7 @@
 		
 			<ul class="sboard-list">
 				<li class="study" style="list-style-type:none;">
-					<div class="shadow p-3 mb-5 bg-body rounded">
+					<div class="shadow p-3 mb-5 bg-body rounded" onclick="location.href='./sboarddetail'">
 						<span class="badge">모집중</span>
 						<span class="title-and-detail">
 							<h4 class="study-title">Spring 스터디</h4>
@@ -191,7 +210,7 @@
 					</div>
 					
 					<div class="shadow p-3 mb-5 bg-body rounded">
-						<span class="badge">모집중</span>
+						<span class="badge" style="background-color: #DBDBDB; margin-left: 25px;">모집완료</span>
 						<span class="title-and-detail">
 							<h4 class="study-title">Spring 스터디</h4>
 							<h6 class="study-detail">spring 스터디 모집합니다.</h6>
@@ -238,5 +257,6 @@
 
 </div>
 
+<c:import url="../layout/footer.jsp" />
 </body>
 </html>

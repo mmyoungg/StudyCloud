@@ -1,7 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
+    
 <%@ include file="../layout/header.jsp"%>
 
 
@@ -12,6 +11,7 @@
 <title>StudyCloud</title>
 
 <style type="text/css">
+
 .padding {
 	padding: 10rem !important
 }
@@ -21,6 +21,7 @@ body {
 }
 
 /* card css */
+
 .card {
 	border: 0;
 	border-radius: 0px;
@@ -34,7 +35,7 @@ body {
 .card-title {
 	font-family: Roboto, sans-serif;
 	font-weight: 300;
-	line-height: 1.8;
+	line-height: 5;
 	margin-bottom: 0;
 	padding: 15px 20px;
 	border-bottom: 1px solid rgba(77, 82, 89, 0.07);
@@ -50,6 +51,11 @@ body {
 }
 
 /* card 내부 */
+
+.message {
+	font-size: 10pt;
+}
+
 .fw-400 {
 	font-weight: 400 !important;
 }
@@ -59,19 +65,6 @@ body {
 	width: 60%;
 }
 
-.form-id, .form-phone, .form-email {
-	width: 350px;
-	color: #323232;
-	font-size: 10pt;
-	font-weight: 540;
-}
-
-.form-pwck {
-	width: 380px;
-	color: #323232;
-	font-size: 10pt;
-	font-weight: 540;
-}
 
 .form-pw {
 	width: 350px;
@@ -80,12 +73,6 @@ body {
 	font-weight: 540;
 }
 
-.form-name {
-	width: 330px;
-	color: #323232;
-	font-size: 10pt;
-	font-weight: 540;
-}
 
 .form-group {
 	padding: 12px;
@@ -119,7 +106,9 @@ body {
 	box-shadow: 0 0 0 0.1rem rgba(51, 202, 187, 0.15);
 }
 
+
 /* button css */
+
 #btn {
 	width: 50%;
 	padding: 12px;
@@ -166,53 +155,26 @@ body {
 			<div class="row container d-flex justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<form class="card">
-						<h4 class="card-title fw-400">JOIN</h4>
-						<br>
+						<h4 class="card-title fw-400">회원탈퇴</h4>
+						<br><br><br>
 
 						<div class="card-body">
-							<div class="form-group-id">
-								<div class="form-id">아이디</div>
-								<div>
-									<input class="form-control" type="text"
-										placeholder="  아이디는 4~20자 소문자 + 숫자 + _ , -">
-									<button class="btn btn-bold btn-primary btnsm" id="btnchk">중복확인</button>
-									<br>
-								</div>
-
-							</div>
+						
+						<h6>탈퇴안내</h6>
+						<div class="message">사용하고 계신 아이디는 탈퇴할 경우 재사용 및 복구가 불가능합니다.<br>
+							탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</div><br>
 
 							<div class="form-group">
-								<div class="form-pw">비밀번호</div>
-								<input class="form-control" type="password"
-									placeholder="  영문, 숫자, 특수문자를 포함하여 8자리 이상">
-							</div>
-							<div class="form-group">
-								<div class="form-pwck">비밀번호확인</div>
-								<input class="form-control" type="password" placeholder="">
-							</div>
-							<div class="form-group">
-								<div class="form-name">이름</div>
-								<input class="form-control" type="text">
-							</div>
-							<div class="form-group">
-								<div class="form-phone">연락처</div>
-								<input class="form-control" type="text">
-							</div>
-							<div class="form-group">
-								<div class="form-email">이메일</div>
-								<input class="form-control" type="text">
+								<input class="form-control" type="password" placeholder="  비밀번호 입력">
 							</div>
 							<br>
 
 
-							<!-- 회원가입 버튼 -->
+							<!-- 버튼 -->
 
 							<div class=buts>
-								<button class="btn btn-bold btn-primary" id="btn">JOIN</button>
-								<br> <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오 회원가입" style="height: 48px; width: 50%;" />
-							</div>
-							<br>
-							<br>
+								<button class="btn btn-bold btn-primary" id="btn">탈퇴하기</button>
+							</div><br><br>
 						</div>
 					</form>
 				</div>
@@ -220,6 +182,5 @@ body {
 		</div>
 	</div>
 </body>
-</html>
-
 <%@ include file="../layout/footer.jsp"%>
+</html>
