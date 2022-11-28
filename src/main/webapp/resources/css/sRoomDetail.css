@@ -1,5 +1,27 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'paybooc-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'paybooc-Bold';
+    font-weight: 300;
+}
+
+/* h {
+    font-family: 'paybooc-Bold';
+    font-weight: 500;
+} */
+
+
+
+
+
+
 .content { width: 1200px; margin: 0 auto; }
 .detail-wrap { margin: 40px auto; }
 .left { float: left; width: 800px; /* border: 1px solid #e3eff9; */ position: relative;}

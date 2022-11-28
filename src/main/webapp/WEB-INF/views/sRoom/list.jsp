@@ -11,20 +11,6 @@
 <script src="https://kit.fontawesome.com/ca40b4f408.js" crossorigin="anonymous"></script>
 
 <style type="text/css">
-@font-face {
-    @font-face {
-    font-family: 'MICEGothic Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
-
-}
-
-* {
-	font-family: 'MICEGothic Bold';
-}
-
 .content { width: 1000px; margin: 70px auto; }
 .row { margin: 20px 5px auto; } 
 .sel { width: 300px; }
@@ -61,7 +47,7 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .numBtn1 { border: none; background-color: #aacde5; height: 45px; padding: 0; width: 128px; float: left; font-weight: 700;}  								   
 .numBtn2 { border: none; background-color: #6cc4dc; height: 45px; padding: 0; width: 170px; float: left; font-weight: 700; }  								   
 .btnWrap { margin: 20px auto; }
-img { height: 166px; }
+.card img { height: 166px; }
 .sRoom_list_topImage img { width: 1000px; height: 450px; margin-bottom: 50px; }
 .fa-solid { width: 13px; height: 13px; color:#aacde5; }
 .people { font-size: 13px; }
