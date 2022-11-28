@@ -24,7 +24,7 @@
 
 ul>li {
     color:#aacde5;
-/*     display: inline-block; */
+/* 	display: inline-block;  */
 }
 
 .address span, 
@@ -63,7 +63,7 @@ ul>li {
 <footer class="footer">
 	<div class="container" id="footer_inner">
 	    <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12 logo-wrap align-self-center text-center">
+            <div class="col-md-4 col-sm-6 col-xs-12 logo-wrap align-self-center">
             	<img class="logo" src="/resources/img/Logo.png" height="80px"/>
             </div>
             
@@ -81,9 +81,12 @@ ul>li {
                       <li>
                         <a href="#">운영정책</a>
                       </li>
-                           
+
                       <li>
                          <a href="#">고객문의</a>
+                      </li>
+
+                      <li>
                       </li>
                  </ul>
             </div>
@@ -92,26 +95,23 @@ ul>li {
               <ul class="address">
                 <span>Contact</span>       
                 <li>
-                   <a href="#">팀장: 윤지원</a>
+                   팀장: 윤지원
                 </li>
                 <li>
-                   <a href="#">팀원: 김유빈</a>
+                   팀원: 김유빈
                 </li> 
                 <li>
-                   <a href="#">팀원: 박소영</a>
+                   팀원: 박소영
                 </li> 
                 <li>
-                   <a href="#">팀원: 서은영</a>
+                   팀원: 서은영
                 </li> 
                 <li>
-                   <a href="#">팀원: 이민영</a>
+                   팀원: 이민영
                 </li> 
                </ul>
             </div>
         </div> 
-	    
-	    
-	    
 	</div><!-- container end -->
 </footer>
 

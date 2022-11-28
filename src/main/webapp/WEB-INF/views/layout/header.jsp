@@ -18,28 +18,25 @@
 
 /* 전체 폰트 적용 */
 @font-face {
-    font-family: 'MICEGothic Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff1') format('woff1');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'MICEGothic Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
-    font-weight: 700;
+    font-family: 'paybooc-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
 }
 
 * {
 	margin: 0;
 	padding: 0;
-    font-family: 'MICEGothic Bold';
+    font-family: 'paybooc-Bold';
 }
 
 /* 헤더 메뉴 */
 header {
 	padding: 10px 0px;
+}
+
+#logo { /* 로고 이미지 */
+	height: 70px;
 }
 
 .btnLogin{ /* 로그인 버튼 */
@@ -63,11 +60,13 @@ header {
     outline:none;
 }
 
-.menu {
-	padding: 16px;
-
-	font-size: 14px;
+.menu { /* 메뉴바 폰트 */
+	font-size: 16px;
 	font-weight: bold;
+}
+
+#menu-wrap {
+	padding-top: 40px;
 }
 
 .menu:hover {
@@ -102,7 +101,7 @@ header {
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <!-- studyCloud 이미지 -->
-                <img class="navbar-brand name" src="/resources/img/Logo.png" height="70px"/>
+                <img class="navbar-brand name" id="logo" src="/resources/img/Logo.png" />
                 
                 <!-- 토글 -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,7 +109,7 @@ header {
                 </button>
                 
                 <!-- 메뉴바 -->
-                <div class="collapse navbar-collapse" id="navbarMenu">
+                <div class="collapse navbar-collapse" id="menu-wrap">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"> <a class="nav-link menu" href="#">멘토 찾기</a> </li>
                         <li class="nav-item"> <a class="nav-link menu" href="#">멘티 찾기</a> </li>
