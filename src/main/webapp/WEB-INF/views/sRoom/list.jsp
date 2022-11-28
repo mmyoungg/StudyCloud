@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../layout/header.jsp"%>     
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/ca40b4f408.js" crossorigin="anonymous"></script>
 
 <style type="text/css">
-.content { width: 1000px; margin: 0 auto; }
+@font-face {
+    @font-face {
+    font-family: 'MICEGothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+}
+
+* {
+	font-family: 'MICEGothic Bold';
+}
+
+.content { width: 1000px; margin: 70px auto; }
 .row { margin: 20px 5px auto; } 
 .sel { width: 300px; }
 .sels { width: 200px; }
@@ -51,12 +62,12 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .numBtn2 { border: none; background-color: #6cc4dc; height: 45px; padding: 0; width: 170px; float: left; font-weight: 700; }  								   
 .btnWrap { margin: 20px auto; }
 img { height: 166px; }
+.sRoom_list_topImage img { width: 1000px; height: 450px; margin-bottom: 50px; }
 .fa-solid { width: 13px; height: 13px; color:#aacde5; }
 .people { font-size: 13px; }
 .price { font-weight: bold; color: #3f92b7; }
 </style>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
 </script>
 
@@ -64,6 +75,35 @@ img { height: 166px; }
 <body>
 <div class="content">
 
+<div class="sRoom_list_top">
+	<h5 style="color: #6cc4dc;">📖<strong>스터디룸 대여공간</strong></h5>
+</div>
+<div class="sRoom_list_topImage">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://ifh.cc/g/wnfRd0.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://ifh.cc/g/wNLhyw.jpg" class="d-block w-100" alt="...">
+    </div>
+   
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+</div>
 <div class="input-group">
   <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username with two button addons">
   <button class="btn btn-outline-secondary" type="button">검색</button>
@@ -136,7 +176,7 @@ img { height: 166px; }
 </select>
 </div>
 
-<p> 다양한 스터디룸을 확인해보세요!</p>
+<p style="color: #3f92b7;">📖 다양한 스터디룸을 확인해보세요!</p>
 <hr>
 
 

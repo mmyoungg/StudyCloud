@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../layout/header.jsp"%>       
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,27 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 
-<!-- 부트스트랩 5.2.2 CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
 
-.content { width: 1200px; margin: 0 auto; }
+.content { width: 1000px; margin: 40px auto; }
 table { text-align: center; margin: 10px auto;}
 thead { background-color: #AACDE5; }
-#check { margin: 40px 5px auto;}
+#check { margin: 10px 5px auto;}
 #check-in { margin: 0 15px 0 15px; }
 #searchBar { margin: 0 11px 0 500px; width: 250px;}
 .button { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
 		  border-radius: 5px; color: white; }
-.change {
-  accent-color: red;
-}
+.change { accent-color: red; }
+.fBoard_top_logo img { width: 1000px; height: 300px; margin-bottom: 50px; }
+.button-menu { margin: 0 auto; width: 1100px; text-align: center; padding: 30px; }
+.button-op { padding: 40px; color: #6cc4dc; --bs-btn-border-radius: .5rem; }
+.btn { background-color:  #6cc4dc; }
+
 </style>
 
 <script type="text/javascript">
@@ -43,7 +41,25 @@ $(document).ready(function() {
 </head>
 <body>
 <div class="content">
-<h2>자유게시판</h2>
+
+<div class="button-menu">
+		<span class="button-op">
+			<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">자유게시판💭</button>
+		</span>
+		<span class="button-op">
+			<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">번개게시판⚡</button>
+		</span>
+</div>
+
+<div class="sRoom_list_top">
+	<h5 style="color: #6cc4dc;">💭<strong>자유게시판</strong></h5>
+</div>
+
+
+<div class="fBoard_top_logo">
+	<img src="https://ifh.cc/g/sjLaXa.jpg">
+</div>
+
 
 <form class="row gy-2 gx-3 align-items-center" id="check">
 
