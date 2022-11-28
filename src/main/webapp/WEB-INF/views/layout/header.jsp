@@ -18,8 +18,8 @@
 
 /* 전체 폰트 적용 */
 @font-face {
-    font-family: 'paybooc-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
+    font-family: 'paybooc';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -27,19 +27,15 @@
 * {
 	margin: 0;
 	padding: 0;
-    font-family: 'paybooc-Bold';
+    font-family: 'paybooc';
 }
 
 /* 헤더 메뉴 */
-header {
-	padding: 10px 0px;
-}
-
 #logo { /* 로고 이미지 */
 	height: 70px;
 }
 
-.btnLogin{ /* 로그인 버튼 */
+#btnLogin{ /* 로그인 버튼 */
     height: 35px;
     width: 120px;border: none;
     background-color: #6cc4dc;
@@ -51,32 +47,43 @@ header {
     align-items:center;
 }
 
-.btnLogin:hover{
+#btnLogin:hover{
     background-color:#000;
 }
 
-.btnLogin:focus{
+#btnLogin:focus{
     box-shadow:none;
     outline:none;
 }
 
-.menu { /* 메뉴바 폰트 */
+.nav-item {
+	padding: 0 10px;
+}
+
+#menu { /* 메뉴바 폰트 */
 	font-size: 16px;
 	font-weight: bold;
 }
 
 #menu-wrap {
-	padding-top: 40px;
+	padding-top: 40px; /* 로고랑 위치 정렬 */
+	padding-left: 10px;
 }
 
-.menu:hover {
+#menu:hover {
 	color: #6cc4dc;
 }
 
-.buttonitems {
+#btnMenu { /* 로그인/회원가입/마이페이지 */
 	font-size: 14px;
 	color: #6cc4dc;
-	font-weight: 500;
+/* 	font-weight: 500; */
+	padding: 0;
+	margin: 0 auto;
+}
+
+#btnMenu > .nav-item {
+	padding: 0;
 }
 
 /* 드롭다운 메뉴 */
@@ -110,22 +117,28 @@ header {
                 
                 <!-- 메뉴바 -->
                 <div class="collapse navbar-collapse" id="menu-wrap">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"> <a class="nav-link menu" href="#">멘토 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link menu" href="#">멘티 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link menu" href="#">스터디 찾기</a> </li>
+                    <ul class="navbar-nav me-auto mb-lg-0">
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">멘토 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">멘티 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">스터디 찾기</a> </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown menu" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
+                            <a class="nav-link dropdown menu" href="#" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">자유게시판</a></li>
                                 <li><a class="dropdown-item" href="#">번개게시판</a></li>
                             </ul>
                         </li>
-
-                        <li class="nav-item"> <a class="nav-link menu" href="#">스터디 공간 대여</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">스터디 공간 대여</a> </li>
                     </ul>
-                    <div class="btn btnLogin">Login</div>
+                    
+                    <div>
+                    	<ul class="navbar-nav me-auto" id="btnMenu">
+                    		<li class="nav-item"><a class="nav-link" href="./login/login">로그인</a></li>
+                    		<li class="nav-item"><a class="nav-link" href="./join/join">회원가입</a></li>
+                    		<li class="nav-item"><a class="nav-link" href="./mypage/mypageMain">마이페이지</a></li>
+                    	</ul>
+                    </div>
                 </div>
             </div>
         </nav>
