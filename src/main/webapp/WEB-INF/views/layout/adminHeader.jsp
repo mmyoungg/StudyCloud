@@ -29,7 +29,7 @@ header {
 	padding-bottom: 20px;
 }
 
-.navbar-brand {
+#logo {
 	margin: 0;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -80,7 +80,7 @@ header {
 <header>
 	<div class="container">
 		<div class="navbar sticky-top">
-	   		<img class="navbar-brand" href="#" src="/resources/img/Logo.png" />
+	   		<img class="navbar-brand" href="#" src="/resources/img/Logo.png" id="logo"/>
 	       	<div class="navbar-nav">
 	           	<div class="nav-item">
 	               	<a class="nav-link btnLogin" href="#">Login</a>
