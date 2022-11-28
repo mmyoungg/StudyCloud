@@ -36,5 +36,41 @@ public class MypageController {
 		return "mypage/withdrawal";
 	
 	}
+	
+	@GetMapping("/message")
+	public String message() {
+		
+		logger.info("/message [GET]성공");
+		
+		return "mypage/message";
+	
+	}
+	
+	@GetMapping("/wishlist")
+	public String wishlist() {
+		
+		logger.info("/wishlist [GET]성공");
+		
+		return "mypage/wishlist";
+	
+	}
+	
+	@GetMapping("/mystudy")
+	public String mystudy() {
+		
+		logger.info("/mystudy [GET]성공");
+		
+		return "mypage/mystudy";
+		
+	}
+	
+	@GetMapping("/booklist")
+	public String booklist() {
+		
+		logger.info("/booklist [GET]성공");
+		
+		return "mypage/booklist";
+	
+	}
 
 }

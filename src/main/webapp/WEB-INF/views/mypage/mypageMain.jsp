@@ -12,8 +12,6 @@
 
 <style type="text/css" >
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
 * {
 	margin: 0;
 	padding: 0;
@@ -92,7 +90,7 @@ body {
 	}
 
 a { 
-     color: #737373; 
+     color: #323232; 
      padding: 0.375rem 0.5rem; 
      font-weight: 400; 
      text-decoration: none; 
@@ -116,9 +114,9 @@ a:hover {
                 <div class="card-body text-center">
                     <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/dusk/512/circled-user-male-skin-type-3.png" alt=""> </div>
                     <div class="name h5">회원 프로필</div><br>
-                   <a href="" class="testimonial">회원 정보 수정</a><br><br>
-                   <a href="" class="testimonial">내 쪽지함</a><br><br>
-                   <a href="" class="testimonial">회원 탈퇴</a>
+                   <a href="/editinformation" class="testimonial">회원 정보 수정</a><br><br>
+                   <a href="/message" class="testimonial">내 쪽지함</a><br><br>
+                   <a href="/withdrawal" class="testimonial">회원 탈퇴</a>
                     
                 </div>
             </div>
@@ -127,10 +125,10 @@ a:hover {
             <div class="card">
                 <div class="card-body text-center">
                     <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/dusk/512/conference-call.png" alt=""> </div>
-                    <div class="name h5">참여중인 스터디</div><br>
-                    <a href="" class="testimonial">나의 멘토</a><br><br>
-                    <a href="" class="testimonial">나의 스터디</a><br><br>
-                    <a href="" class="testimonial">온라인 스터디</a><br><br>
+                    <div class="name h5"><a href="/mystudy">참여중인 스터디</a></div><br>
+                    <div class="testimonial">나의 멘토</div><br>
+                    <div href="" class="testimonial">나의 스터디</div><br>
+                    <div href="" class="testimonial">온라인 스터디</div><br>
                 </div>
             </div>
         </div>
@@ -138,8 +136,7 @@ a:hover {
             <div class="card">
                 <div class="card-body text-center">
                     <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/external-sbts2018-outline-color-sbts2018/512/external-wishlist-black-friday-5-sbts2018-outline-color-sbts2018.png" /> </div>
-                    <div class="name h5"> 위시리스트</div>
-                    <div class="testimonial">  </div>
+                    <div class="name h5"><a href="/wishlist">위시리스트</a></div>
                 </div>
             </div>
         </div>
@@ -147,8 +144,7 @@ a:hover {
             <div class="card">
                 <div class="card-body text-center">
                     <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/cotton/512/card-in-use.png" /> </div>
-                    <div class="name h5"> 결제 내역 </div>
-                    <div class="testimonial">  </div>
+                    <div class="name h5"><a href="booklist">예약 내역 </a></div>
                 </div>
             </div>
         </div>
