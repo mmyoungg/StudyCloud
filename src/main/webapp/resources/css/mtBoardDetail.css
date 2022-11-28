@@ -1,0 +1,331 @@
+@charset "UTF-8";
+
+
+.mento_intro {
+    background-color: #aacde5;
+    height: 200px;
+}
+
+.mento_intro_content {
+    position: relative;
+    padding: 84px 2rem 38px;
+    text-align: center;
+}
+
+.mt_allwrap {
+    margin: 300px 400px 0px 400px;
+    height: 1800px;
+}
+
+.btn {
+    border: solid 1px #6cc4dc;
+    background-color: #6cc4dc;
+}
+
+.btn:hover {
+    border: solid 1px #6cc4dc;
+    background-color: #6cc4dc;
+}
+
+
+
+#heart, #share, #msg  {
+	font-size: 15px;
+ 	float: right; 
+	margin-left: 5px;
+	border-radius: 9999px;
+}
+
+#link_btn {
+	border-radius: 9999px;
+	font-size: 20px;
+}
+
+#kakao_btn {
+	border: none;
+	background: none;
+}
+
+#kakao_img {
+	margin-left: 60px;
+	width: 49px;
+	height: 48px;
+}
+	
+.mt_id {
+	font-size: 17px;
+	margin-top: 40px;
+}
+
+span.write_date {
+	color: gray;
+	font-size: 14px;
+	float: right;
+}
+
+.info_table {
+	margin-top: 40px;
+	margin-bottom: 25px;
+	color: gray;
+	font-size: 14px;
+}
+
+.info_name {
+	line-height: 28px;
+	padding-right: 10px;
+}
+
+.mt_hit {
+	color: gray;
+	font-size: 14px;
+	float: right;
+	padding-top: 20px;
+}
+
+.mt_time {
+	color: gray;
+	font-size: 14px;
+}
+/* wrap1 css끝 */
+
+
+.mt_wrap2 {
+	margin-bottom: 100px;
+}
+
+.mt_content {
+	margin-top: 50px;
+	color: #494949;
+	padding-bottom: 130px;
+}
+/* 본문 끝 */
+
+.text-bold {
+    font-size: 13px;
+    padding-left: 16px;
+}
+
+#mt_review fieldset {
+    display: inline-block;
+    direction: rtl;
+    border:0;
+    font-size: 9px;
+}
+#mt_review fieldset legend, #mt_review2 fieldset legend {
+    text-align: right;
+}
+#mt_review input[type=radio], #mt_review2 input[type=radio]{
+    display: none;
+}
+#mt_review label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
+}
+#mt_review label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+    cursor: pointer;
+}
+#mt_review label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#mt_review input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#reviewContents {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    border:  1px solid #d3d3d3;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+#btnReview {
+	float: right !important;
+    font-size: 13px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-left: 3px;
+}
+
+
+#mt_review2 label {
+	font-size: 27px;
+	color: #fad103;
+}
+
+.review_list {
+	width: 100%;
+    height: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+#btnList, #btnUpdate, #btnDelete {
+	font-size: 15px;
+	margin-top: 15px;
+}
+
+/* 리뷰 */
+/* 리뷰쓰기 버튼 */
+  .reply_button_wrap{
+  	padding : 10px;
+  	width: 100%;
+  }
+  .reply_button_wrap button{
+	background-color: #6cc4dc;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 5px 12px;
+    cursor: pointer;  
+  }
+  .reply_button_wrap button:hover{
+  	background-color: #6cc4dc;
+  }
+  
+  
+  
+  
+  
+  /* 리뷰 영역 */
+  	.content_bottom{
+  		width: 100%;
+  		margin : auto;
+  	}
+	.reply_content_ul{
+		list-style: none;
+		padding: 0;
+		width: 100%;
+	}
+	.comment_wrap{
+		position: relative;
+    	border-bottom: 1px solid #d3d3d3;
+    	padding: 14px 0 10px 0;	
+    	font-size: 12px;
+    	width: 890.67px;
+    	color: #696969;
+	}
+		/* 리뷰 머리 부분 */
+		.reply_top{
+			padding-bottom: 16px;
+		}
+		.id_span{
+			padding: 0 15px 0 3px;
+			font-size: 15px;
+		    font-weight: bold;		
+		}
+		.date_span{
+			padding: 0 15px 0;
+		}
+		/* 리뷰 컨텐트 부분 */
+		.reply_bottom{
+			padding-bottom: 7px;
+			padding-left: 3px;
+			font-size: 14px;
+		}
+		.rating_span {
+			color: #fad103;
+			font-size: 15px;
+		}
+		.rating_value_span {
+			color: #696969;
+		}
+	
+	/* 리뷰 선 */
+	.reply_line{
+		width: 100%;
+		margin : auto;
+		border-top:1px solid #c6c6cf;  	
+	}
+	
+	/* 리뷰 제목 */
+	.reply_subject h2{
+		padding: 15px 0 5px 5px;
+	}
+	
+	/* pageMaker */
+	.repy_pageInfo_div{
+		text-align: center;
+	    margin-top: 30px;
+	    margin-bottom: 40px;	
+	}
+	.pageMaker{
+	    list-style: none;
+	    display: inline-block;	
+	}
+	.pageMaker_btn{
+		float: left;
+	    width: 25px;
+	    height: 25px;
+	    line-height: 25px;
+	    margin-left: 20px;
+	    font-size: 10px;
+	    cursor: pointer;
+	}
+	.active{
+		border : 2px solid black;
+		font-weight:400;	
+	}
+	.next, .prev {
+	    border: 1px solid #ccc;
+	    padding: 0 10px;
+	}	
+  
+  /* 리뷰 없는 경우 div */
+  .reply_not_div{
+  	text-align: center;
+  }
+  .reply_not_div span{
+	display: block;
+    margin-top: 30px;
+    margin-bottom: 20px; 
+  }
+  
+  /* 리뷰 수정 삭제 버튼 */
+  .update_reply_btn{
+    background-color: #6cc4dc;
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 5px 0 30px;
+    border-radius: 6px;
+    color: white; 
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .delete_reply_btn{
+    background-color: #6cc4dc;
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 6px;
+    color: white; 
+  	cursor: pointer;
+    text-decoration: none;
+  }
+	
+  .update_reply_btn:hover, .delete_reply_btn:hover {
+    background-color: #6cc4dc;
+    color: white; 
+    text-decoration: none;
+}
+
+
+
