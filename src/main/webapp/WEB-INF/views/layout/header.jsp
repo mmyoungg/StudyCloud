@@ -15,16 +15,27 @@
 
 
 <style type="text/css">
-*{
-    margin: 0;padding: 0
+
+/* 전체 폰트 적용 */
+@font-face {
+    font-family: 'MICEGothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
 }
-.body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+
+* {
+	margin: 0;
+	padding: 0;
+    font-family: 'MICEGothic Bold';
 }
-.btnLogin{
+
+/* 헤더 메뉴 */
+header {
+	padding: 10px 0px;
+}
+
+.btnLogin{ /* 로그인 버튼 */
     height: 35px;
     width: 120px;border: none;
     background-color: #6cc4dc;
@@ -35,68 +46,86 @@
     justify-content:center;
     align-items:center;
 }
+
 .btnLogin:hover{
     background-color:#000;
 }
+
 .btnLogin:focus{
     box-shadow:none;
     outline:none;
 }
-/* font */
-.navbar-brand{
-	font-weight: 700;
-	font-size: 22px;
+
+.menu {
+	padding: 16px;
+
+	font-size: 14px;
+	font-weight: bold;
 }
-.cloud{
-	color:  #6cc4dc;
-} 
-.buttonitems{
-	font-size: 12px;
+
+.menu:hover {
+	color: #6cc4dc;
+}
+
+.buttonitems {
+	font-size: 14px;
 	color: #6cc4dc;
 	font-weight: 500;
 }
+
+/* 드롭다운 메뉴 */
+.dropdown:hover .dropdown-menu {
+    display: flex;
+	font-size: 14px;
+}
+
+.dropdown-item:hover {
+	color: #6cc4dc;
+}
+
 </style>
+
 
 </head>
 <body>
 
-<div class="wrap">
 
 <header>
-    <div class="container mt-3">
+    <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <!-- studyCloud 이미지 -->
-                <!-- <img src="https://ifh.cc/g/5poc1s.png" height="50px"/> -->
-                <!-- <img src="https://ifh.cc/g/4Zh25b.png" height="50px"/> -->
-                <a class="navbar-brand name" href="#">Study<span class="cloud">Cloud</span></a>
+                <img class="navbar-brand name" src="/resources/img/Logo.png" height="70px"/>
                 
                 <!-- 토글 -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
                 <!-- 메뉴바 -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <!-- <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#"><span class="home">Home</span></a> </li> -->
-                        <li class="nav-item"> <a class="nav-link" href="#">멘토 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="#">멘티 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="#">스터디 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link menu" href="#">멘토 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link menu" href="#">멘티 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link menu" href="#">스터디 찾기</a> </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
+                            <a class="nav-link dropdown menu" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">자유게시판</a></li>
+                                <li><a class="dropdown-item" href="#">번개게시판</a></li>
                             </ul>
                         </li>
 
-                        <li class="nav-item"> <a class="nav-link" href="#">스터디 공간 대여</a> </li>
+                        <li class="nav-item"> <a class="nav-link menu" href="#">스터디 공간 대여</a> </li>
                     </ul>
-                    <div class="btn btn-dark btnLogin">Login</div>
+                    <div class="btn btnLogin">Login</div>
                 </div>
             </div>
         </nav>
     </div>
 </header><!-- header end -->
+
+
+</body>
+</html>
