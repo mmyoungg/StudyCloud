@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>StudyCloud☁️</title>
 </head>
 <body>
-
-test
 
 </body>
 </html>
