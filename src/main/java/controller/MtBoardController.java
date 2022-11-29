@@ -63,5 +63,16 @@ public class MtBoardController {
 	}
 	
 	
+	@RequestMapping(value="/mtboard/applyMnt", method = RequestMethod.GET)
+	public void applyMnt() {
+		
+		/* logger.info("/mtboard/mentoApply [GET]성공"); */
+	}
+	
+	@RequestMapping(value="/mtboard/pay_info", method = RequestMethod.GET)
+	public void pay_info() {
+		
+		/* logger.info("/mtboard/mentoApply [GET]성공"); */
+	}
 	
 }

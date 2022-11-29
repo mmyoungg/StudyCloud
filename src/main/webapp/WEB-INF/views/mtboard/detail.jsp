@@ -42,6 +42,7 @@
 </div> 
 
 
+
 <!-- content 전체 wrap -->
 <main id="main">
 
@@ -195,26 +196,25 @@
 		</div>
 	</li>
 	</ul>
+	<ul class="reply_content_ul">
+	<li>
+		<div class="comment_wrap">
+		<div class="reply_top">
+			<span class="id_span">아리멍멍</span>
+			<span class="date_span">2022-11-16</span>
+			<span class="rating_span">★<span class="rating_value_span">5.0</span></span>
+				<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
+					</div>
+		<div class="reply_bottom">
+		<div class="reply_bottom_txt">
+		너무 유익하고 도움이 많이 됐습니다 추천해요!!
+			</div>
+			</div>
+		</div>
+	</li>
+	</ul>
 	
-<div class="repy_pageInfo_div">
-	<ul class="pageMaker">
-						<li class="pageMaker_btn prev">
-							<a>이전</a>
-						</li>
-						<li class="pageMaker_btn">
-							<a>1</a>
-						</li>
-						<li class="pageMaker_btn">
-							<a>2</a>
-						</li>
-						<li class="pageMaker_btn active">
-							<a>3</a>
-						</li>													
-						<li class="pageMaker_btn next">
-							<a>다음</a>
-						</li>
-					</ul>
-</div>
+<c:import url="/WEB-INF/views/mtboard/replyPaging.jsp" />
 
 
 

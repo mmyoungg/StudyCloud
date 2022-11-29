@@ -190,7 +190,6 @@ textarea::placeholder {
 	}
 	.comment_wrap{
 		position: relative;
-    	border-bottom: 1px solid #d3d3d3;
     	padding: 14px 0 10px 0;	
     	font-size: 12px;
     	width: 890.67px;

@@ -41,20 +41,32 @@ a {
 
 .rq {
    color: #e5503c;
+   font-size: 4px;
 }
 .form-select {
 	cursor: pointer;
 }
 
-#date_pk {
+/* #startDate_pk, #endDate_pk {
 	cursor: pointer !important;
 	margin-top: 3px;
+	width: 200px;
+} */
+
+#datepicker {
+	padding-top: 30px;
+	
+}
+
+input::placeholder {
+	color:#d3d3d3!important;
+	font-size: 14px
 }
 
 #time_sel {
 	cursor: pointer;
 	margin-top: 5px; 
-	font-size: 14px" 
+	font-size: 14px;
 }
 
 .btn-zip {
@@ -90,20 +102,12 @@ p {
 
 #form-group {
 	padding: 10px;
+	
 }
 
 label {
 	padding-top: 28px;
 }
-
-
-
-
-
-
-
-
-
 
 
 
