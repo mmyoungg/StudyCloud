@@ -1,3 +1,10 @@
+window.onload = function () {
+ 	//$("#date").flatpickr({
+    //dateFormat: "Y년 m월 d일",
+	// minDate: "today",
+	//"locale": "ko",
+	 //mode: "range"
+ //});
  
  // 직무 셀렉트박스
  function selectChange(e) {
@@ -24,5 +31,6 @@
     opt.innerHTML = d[x];
     target.appendChild(opt);
   } 
+ }
 }
-
+ 

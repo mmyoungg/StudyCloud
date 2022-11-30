@@ -43,20 +43,11 @@ a {
    color: #e5503c;
    font-size: 4px;
 }
+
 .form-select {
 	cursor: pointer;
 }
 
-/* #startDate_pk, #endDate_pk {
-	cursor: pointer !important;
-	margin-top: 3px;
-	width: 200px;
-} */
-
-#datepicker {
-	padding-top: 30px;
-	
-}
 
 input::placeholder {
 	color:#d3d3d3!important;

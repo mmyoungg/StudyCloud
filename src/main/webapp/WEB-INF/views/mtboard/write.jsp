@@ -9,9 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:import url="../layout/header.jsp" /> 
 <link rel="stylesheet" href="/resources/css/mtBoardWrite.css">   
-<script src="../resources/js/mtBoardWrite.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
+
+<!-- 플랫피커 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+<script src="../resources/js/mtBoardWrite.js?ver=2"></script>
 
 </head>
 <body>
@@ -122,6 +128,13 @@ function updateContents() {
 <p>&nbsp;(원 / 5000원이상)</p>
 <input class="form-control" type="text" id="price" name="price" placeholder="ex. 10,000원"  style="margin-top: 3px; font-size: 13px"></div>
 
+ <!-- 플랫피커 -->
+<!--<div class="form-group">
+<label for="date">&nbsp;<img src="https://ifh.cc/g/DKHHRY.png" style="width: 20px; margin-left: 5px; margin-bottom: 3px;">
+일정 선택<span class="rq">*</span></label>
+<input type="text" id="date" name="date" class="form-control" placeholder="날짜를 선택하세요"  style="margin-top: 3px; font-size: 13px">
+</div>
+ -->
 
 <br>
 
@@ -152,6 +165,9 @@ function updateContents() {
 
 </div><!-- write_form 끝 -->
 
+
+
+
 <script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
@@ -160,33 +176,6 @@ nhn.husky.EZCreator.createInIFrame({
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 })
-
-$(function() {
-    $('#startDatePicker').datepicker();
-});
-
-$(function() {
-    $('#endDatePicker').datepicker();
-});
-
-$.datepicker.setDefaults({
-    dateFormat: 'yy-mm-dd',	//날짜 포맷이다. 'yy-mm-dd' 를 보편적으로 사용
-    prevText: '이전 달',	// 마우스 오버시 이전달 텍스트
-    nextText: '다음 달',	// 마우스 오버시 다음달 텍스트
-    closeText: '닫기', // 닫기 버튼 텍스트 변경
-    currentText: '오늘', // 오늘 텍스트 변경
-    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],	//한글 캘린더중 월 표시를 위한 부분
-    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],	//한글 캘린더 중 월 표시를 위한 부분
-    dayNames: ['일', '월', '화', '수', '목', '금', '토'],	//한글 캘린더 요일 표시 부분
-    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],	//한글 요일 표시 부분
-    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],	// 한글 요일 표시 부분
-    showMonthAfterYear: true,	// true : 년 월  false : 월 년 순으로 보여줌
-    yearSuffix: '년',	
-    showButtonPanel: true,	// 오늘로 가는 버튼과 달력 닫기 버튼 보기 옵션
-    buttonImageOnly: true,	// input 옆에 조그만한 아이콘으로 캘린더 선택가능하게 하기
-    buttonImage: "images/calendar.gif",	// 조그만한 아이콘 이미지
-    buttonText: "Select date"	// 조그만한 아이콘 툴팁
-});
 
 </script>
 </form>

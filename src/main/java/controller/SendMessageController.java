@@ -21,4 +21,17 @@ public class SendMessageController {
 		
 	}
 
+	@RequestMapping(value = "/mtboard/msg", method = RequestMethod.GET)
+	public void mtMsg() {
+		
+		/* logger.info("/mtboard/msg [GET]성공"); */
+	}
+
+	@RequestMapping(value = "/mntboard/msg", method = RequestMethod.GET)
+	public void mntMsg() {
+		
+		/* logger.info("/mtboard/msg [GET]성공"); */
+	}
+
 }
+
