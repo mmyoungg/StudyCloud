@@ -47,7 +47,7 @@ public class LoginController {
 			logger.info("로그인 성공");
 			
 			session.setAttribute("login", loginResult);
-			session.setAttribute("member_id", member.getMember_id());
+			session.setAttribute("member_id", member.getMemberId());
 			session.setAttribute("member_nick", memberService.getMemberNick(member));
 			
 			return "redirect:/mainpage";

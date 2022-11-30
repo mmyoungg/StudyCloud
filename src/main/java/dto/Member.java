@@ -2,70 +2,69 @@ package dto;
 
 public class Member {
 	
-	private int member_no;
-	private String member_id;
-	private String member_pw;
-	private String member_email;
+	private int memberNo;
+	private String memberId;
+	private String memberPw;
+	private String memberEmail;
 	private int authority;
-	private String member_photo;
-	private String member_name;
-	private String member_nick;
-	private String member_phone;
+	private String memberPhoto;
+	private String memberName;
+	private String memberNick;
+	private String memberPhone;
 	
-	public Member() {}
-
-	public Member(int member_no, String member_id, String member_pw, String member_email, int authority,
-			String member_photo, String member_name, String member_nick, String member_phone) {
-		super();
-		this.member_no = member_no;
-		this.member_id = member_id;
-		this.member_pw = member_pw;
-		this.member_email = member_email;
-		this.authority = authority;
-		this.member_photo = member_photo;
-		this.member_name = member_name;
-		this.member_nick = member_nick;
-		this.member_phone = member_phone;
-	}
+	public Member() {	}
 
 	@Override
 	public String toString() {
-		return "Member [member_no=" + member_no + ", member_id=" + member_id + ", member_pw=" + member_pw
-				+ ", member_email=" + member_email + ", authority=" + authority + ", member_photo=" + member_photo
-				+ ", member_name=" + member_name + ", member_nick=" + member_nick + ", member_phone=" + member_phone
-				+ "]";
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberEmail="
+				+ memberEmail + ", authority=" + authority + ", memberPhoto=" + memberPhoto + ", memberName="
+				+ memberName + ", memberNick=" + memberNick + ", memberPhone=" + memberPhone + "]";
 	}
 
-	public int getMember_no() {
-		return member_no;
+	public Member(int memberNo, String memberId, String memberPw, String memberEmail, int authority, String memberPhoto,
+			String memberName, String memberNick, String memberPhone) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberEmail = memberEmail;
+		this.authority = authority;
+		this.memberPhoto = memberPhoto;
+		this.memberName = memberName;
+		this.memberNick = memberNick;
+		this.memberPhone = memberPhone;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public String getMember_pw() {
-		return member_pw;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public void setMember_pw(String member_pw) {
-		this.member_pw = member_pw;
+	public String getMemberPw() {
+		return memberPw;
 	}
 
-	public String getMember_email() {
-		return member_email;
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
 	}
 
-	public void setMember_email(String member_email) {
-		this.member_email = member_email;
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 
 	public int getAuthority() {
@@ -76,38 +75,41 @@ public class Member {
 		this.authority = authority;
 	}
 
-	public String getMember_photo() {
-		return member_photo;
+	public String getMemberPhoto() {
+		return memberPhoto;
 	}
 
-	public void setMember_photo(String member_photo) {
-		this.member_photo = member_photo;
+	public void setMemberPhoto(String memberPhoto) {
+		this.memberPhoto = memberPhoto;
 	}
 
-	public String getMember_name() {
-		return member_name;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
-	public String getMember_nick() {
-		return member_nick;
+	public String getMemberNick() {
+		return memberNick;
 	}
 
-	public void setMember_nick(String member_nick) {
-		this.member_nick = member_nick;
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
 	}
 
-	public String getMember_phone() {
-		return member_phone;
+	public String getMemberPhone() {
+		return memberPhone;
 	}
 
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
 	}
-
+	
+	
+	
+	
 	
 	
 }
