@@ -5,12 +5,14 @@ import java.util.List;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import dao.face.MboardDao;
 import dto.Mboard;
 import service.face.MboardService;
 import util.Paging;
 
+@Service
 public class MboardServiceImpl implements MboardService{
 	
 	@Autowired MboardDao mboardDao;
