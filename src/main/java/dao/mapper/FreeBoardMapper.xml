@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="dao.face.FreeBoardDao">
+
+	<select id="countBoard" resultType="int">
+		select count(*) from freeboard
+	</select>
+
+	<select id="getListWithPaging" resultType="hashmap" parameterType="util.Paging">
+		select * from (
+			select rownum rnum, B.* from ( 
+				select f.fboard_no, f.category_name, f.fboard_title, m.member_nick, f.fboard_hit, f.fboard_date
+				FROM freeboard f
+                JOIN member m ON ( f.member_no = m.member_no )
+				order by fboard_no desc
+				) B
+			) FreeBoard
+		where rnum BETWEEN #{startNo} AND #{endNo}	 
+	</select>
+	
+	<update id="plusHit" parameterType="int">
+		UPDATE freeboard set fBoard_hit = fBoard_hit+1
+		where fboard_no = #{fBoard_no}
+	</update>
+	
+	<select id="ViewfBoardByfBoardNo" resultType="hashmap" parameterType="int">
+		select m.member_nick, f.fboard_date, f.fboard_hit, f.fboard_title, f.fboard_content 
+		from freeBoard f
+		join member m ON ( f.member_no = m.member_no )
+		where fboard_no = #{fBoard_no}
+	</select> 
+	
+	
+	<insert id="fBoardInsert" parameterType="dto.FreeBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fBoard_no">
+			SELECT freeBoard_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO freeBoard( fboard_no, category_name, fboard_title, fboard_content, member_no, fboard_date )
+		VALUES( #{fBoard_no}, #{category_name}, #{fBoard_title}, #{fBoard_content}, #{member_no}, sysdate )
+	</insert>
+	
+	<insert id="insertFile" parameterType="dto.FileUpload">
+		INSERT INTO fileUpload ( fileUpload_no, fboard_no, fileUpload_ori, fileUpload_stor )
+		VALUES ( fileUpload_seq.nextval, #{fBoard_no}, #{fileUpload_ori}, #{fileUpload_stor} )
+	</insert>
+	
+	<select id="selectFileByfBoardNo" parameterType="int" resultType="dto.FileUpload">
+		SELECT fileUpload_no, fboard_no, fileUpload_ori, fileUpload_stor 
+		FROM fileUpload
+		WHERE fboard_no = #{fBoard_no}
+	</select>
+	
+<!-- 	<select id="selectBoardFileByFileNo" parameterType="web.dto.Board" resultType="web.dto.BoardFile">
+		SELECT file_no, board_no, origin_name, stored_name 
+		FROM boardfile
+		WHERE board_no = #{file_no}
+	</select> -->
+	 
+
+</mapper>

@@ -22,7 +22,7 @@
 .list-member { width: 300px; top: 50px; left: 0; box-sizing: border-box; }
 .list { width: 150px; }
 /* #menu { position: absolute; z-index: 2; width: 300px; transform: translateX(-50%); margin-top: 40px;}  */    
-#menu, #menu2 { position: absolute; /* transform: translateX(-50%); */ z-index: 100;
+#menu1, #menu2 { position: absolute; /* transform: translateX(-50%); */ z-index: 100;
     			margin-top: 50px; width: 300px; border-radius: 6px; border: 1px solid #e0e0e0;
     			background: #fff; }
 .list-member li { height: 40px; padding: 5px 8px; box-sizing: border-box; }         
@@ -98,7 +98,7 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
  
 <div class="flex-center">
 <div class ="btn-select col-4 form-select" id="toggle" >지역선택</div>
-<div id="menu" style="display:none; transform: translateX(-105%);" >
+<div id="menu1" style="display:none; transform: translateX(-105%);" >
 	<ul class="list-group list-group-horizontal list-member">
    		<li class="list-group-item list">서울</li>
     	<li class="list-group-item list">경기</li>
@@ -175,12 +175,12 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
     		
     		if($this.hasClass('btn-select col-4') ) {
     			
-        		var state = $('#menu').css('display'); 
+        		var state = $('#menu1').css('display'); 
            		// state가 none 상태일경우
             	if (state == 'none') {
-            		$('#menu').show();
+            		$('#menu1').show();
             	} else {
-                	$('#menu').hide();
+                	$('#menu1').hide();
            		}
     		} else {
         		var state2 = $('#menu2').css('display'); 

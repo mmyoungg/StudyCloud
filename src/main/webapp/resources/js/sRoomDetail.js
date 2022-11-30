@@ -1,11 +1,11 @@
 $(document).ready(function() {
-	  var menu = $("#menu-wrap").offset().top;
+	  var menu = $("#sRoom-menu-wrap").offset().top;
 	  $(window).scroll(function() {
 	    var window = $(this).scrollTop();
 	    if(menu <= window) {
-	      $("#menu-wrap").addClass("fixed");
+	      $("#sRoom-menu-wrap").addClass("fixed");
 	    } else {
-	      $("#menu-wrap").removeClass("fixed");
+	      $("#sRoom-menu-wrap").removeClass("fixed");
 	    }
 	  })
 	  
