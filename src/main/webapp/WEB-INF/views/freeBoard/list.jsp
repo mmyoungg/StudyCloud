@@ -108,7 +108,7 @@ $(document).ready(function() {
 	<tr>
 		<td>${fBoard.FBOARD_NO }</td>
 		<td>${fBoard.CATEGORY_NAME }</td>
-		<td><a href="./view?fBoard_no=${fBoard.FBOARD_NO }">${fBoard.FBOARD_TITLE }</a></td>
+		<td><a href="./view?fBoardNo=${fBoard.FBOARD_NO }">${fBoard.FBOARD_TITLE }</a></td>
 		<td>${fBoard.MEMBER_NICK }</td>
 		<td>${fBoard.FBOARD_HIT }</td>
 		<td><fmt:formatDate value="${fBoard.FBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>

@@ -38,21 +38,21 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 	
 	@Override
-	public HashMap<String, Object> view(int fBoard_no) {
+	public HashMap<String, Object> view(int fBoardNo) {
 		
 		// 조회수 증가
-		freeBoardDao.plusHit(fBoard_no);
+		freeBoardDao.plusHit(fBoardNo);
 		
-		return freeBoardDao.ViewfBoardByfBoardNo(fBoard_no);
+		return freeBoardDao.ViewfBoardByfBoardNo(fBoardNo);
 	}
 	
 	@Override
-	public void write(FreeBoard freeBoard, MultipartFile fBoard_file) {
+	public void write(FreeBoard freeBoard, MultipartFile fBoardFile) {
 		
 		// 게시글 삽입
 		freeBoardDao.fBoardInsert(freeBoard);
 		
-		if(fBoard_file.getSize() <= 0) { return; }
+		if(fBoardFile.getSize() <= 0) { return; }
 		
 		String storedPath = context.getRealPath("upload");
 		File storedFolder = new File( storedPath );
@@ -61,13 +61,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		}
 		
 		// 파일이 저장될 이름
-		String originName = fBoard_file.getOriginalFilename();
+		String originName = fBoardFile.getOriginalFilename();
 		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
 		
 		// 저장할 파일의 정보 객체
 		File dest = new File( storedFolder, storedName);
 		try {
-			fBoard_file.transferTo(dest);
+			fBoardFile.transferTo(dest);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -76,9 +76,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		// 첨부파일 정보 DB 기록
 		FileUpload fileUpload = new FileUpload();
-		fileUpload.setfBoard_no(freeBoard.getfBoard_no());
-		fileUpload.setFileUpload_ori(originName);
-		fileUpload.setFileUpload_stor(storedName);
+		fileUpload.setfBoardNo(freeBoard.getfBoardNo());
+		fileUpload.setFileUploadOri(originName);
+		fileUpload.setFileUploadStor(storedName);
 			
 		freeBoardDao.insertFile(fileUpload);
 		
@@ -86,8 +86,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 	
 	@Override
-	public FileUpload getAttachFile(int fBoard_no) {
-		return freeBoardDao.selectFileByfBoardNo(fBoard_no);
+	public FileUpload getAttachFile(int fBoardNo) {
+		return freeBoardDao.selectFileByfBoardNo(fBoardNo);
 	}
 
 	

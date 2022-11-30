@@ -64,7 +64,7 @@ table th { text-align: center; background-color: #E3EFF9;  }
 	</table>
 	
 	<div class="fBoard_view_file">
-	<a href="/freeBoard/download?fileUpload_no=${fileUpload.fBoard_no}">${fileUpload.fileUpload_ori }</a>
+	<a href="/freeBoard/download?fileUpload_no=${fileUpload.fBoardNo}">${fileUpload.fileUploadOri }</a>
 	</div>
 	
 	<label for="content">comment 작성하기</label>
