@@ -55,7 +55,7 @@ public class MboardController {
 		logger.debug("{}", detailMboard);
 		
 		//잘못된 게시글 번호 처리
-		if( detailMboard.getMboard_no() < 0 ) {
+		if( detailMboard.getMboardNo() < 0 ) {
 			return "redirect:/mboard/mboarddetail";
 			
 		}
