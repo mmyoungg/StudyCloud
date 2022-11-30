@@ -47,16 +47,16 @@ public class FreeBoardController {
 	}
 	
 	@RequestMapping("/freeBoard/view")
-	public void view(int fBoard_no, Model model) {
-		logger.info("/freeBoard/view [GET], 전달게시글 번호 : {}", fBoard_no);
+	public void view(int fBoardNo, Model model) {
+		logger.info("/freeBoard/view [GET], 전달게시글 번호 : {}", fBoardNo);
 		
-		HashMap<String, Object> freeBoardView = freeBoardService.view(fBoard_no);
+		HashMap<String, Object> freeBoardView = freeBoardService.view(fBoardNo);
 //		FreeBoard freeBoardView = freeBoardService.view(fBoard_no);
 		logger.info("boardView : {}", freeBoardView);
 		
 		model.addAttribute("fBoardView", freeBoardView);
 		
-		FileUpload fileupload = freeBoardService.getAttachFile(fBoard_no);
+		FileUpload fileupload = freeBoardService.getAttachFile(fBoardNo);
 		model.addAttribute("fileUpload", fileupload);
 	}
 	
@@ -64,12 +64,12 @@ public class FreeBoardController {
 	public void write() {}
 	
 	@RequestMapping(value="/freeBoard/write", method=RequestMethod.POST)
-	public String fBoardWriteProc(FreeBoard freeBoard, MultipartFile fBoard_file, HttpSession session) {
+	public String fBoardWriteProc(FreeBoard freeBoard, MultipartFile fBoardFile, HttpSession session) {
 		logger.info("/freeBoard/write [POST], 파라미터 : {}", freeBoard);
 		
-		freeBoard.setMember_no( (int)session.getAttribute("member_no") );
+		freeBoard.setMemberNo( (int)session.getAttribute("member_no") );
 		
-		freeBoardService.write(freeBoard, fBoard_file);
+		freeBoardService.write(freeBoard, fBoardFile);
 		return "redirect:/freeBoard/list";
 	}
 	
