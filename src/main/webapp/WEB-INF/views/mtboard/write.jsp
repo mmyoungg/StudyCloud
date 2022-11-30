@@ -9,15 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:import url="../layout/header.jsp" /> 
 <link rel="stylesheet" href="/resources/css/mtBoardWrite.css">   
-<script src="../resources/js/mtBoardWrite.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
-
-<!-- 데이트피커 -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
+<!-- 플랫피커 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+<script src="../resources/js/mtBoardWrite.js?ver=2"></script>
 
 </head>
 <body>
@@ -48,10 +48,7 @@ function updateContents() {
 <!-- 상단 이미지바 -->
 <div class="mento_intro">
 	<div class="mento_intro_content">
-	
-			
 			<h1>☁️ ☁️ ☁️</h1>
-			
 	</div>
 </div>
 
@@ -131,40 +128,15 @@ function updateContents() {
 <p>&nbsp;(원 / 5000원이상)</p>
 <input class="form-control" type="text" id="price" name="price" placeholder="ex. 10,000원"  style="margin-top: 3px; font-size: 13px"></div>
 
-<!-- 데이트피커 -->
-<div class="form-group">
-<label for="date_pk">
-&nbsp;<i class="fa-solid fa-calendar-days"></i>&nbsp;멘토링 가능 일정<span class="rq">*</span></label>
-<input class="form-control datepicker" id="date_pk" name="date_pk">
+ <!-- 플랫피커 -->
+<!--<div class="form-group">
+<label for="date">&nbsp;<img src="https://ifh.cc/g/DKHHRY.png" style="width: 20px; margin-left: 5px; margin-bottom: 3px;">
+일정 선택<span class="rq">*</span></label>
+<input type="text" id="date" name="date" class="form-control" placeholder="날짜를 선택하세요"  style="margin-top: 3px; font-size: 13px">
 </div>
+ -->
 
-<script>
-  $(function(){
-    $('.datepicker').datepicker();
-  })
-</script>
-
-<div class="form-group">
-<label for="time_sel">&nbsp;시간<span class="rq">*</span></label><p>&nbsp;(1시간단위 / 중복가능)</p>
-<select class="form-select"  id="time_sel" name="time_sel">
-  <option selected value="1">09:00 ~ 10:00</option>
-  <option value="2">10:00 ~ 11:00</option>
-  <option value="3">11:00 ~ 12:00</option>
-  <option value="4">12:00 ~ 13:00</option>
-  <option value="5">13:00 ~ 14:00</option>
-  <option value="6">15:00 ~ 16:00</option>
-  <option value="7">16:00 ~ 17:00</option>
-  <option value="8">17:00 ~ 18:00</option>
-  <option value="9">18:00 ~ 19:00</option>
-  <option value="10">19:00 ~ 20:00</option>
-  <option value="11">20:00 ~ 21:00</option>
-  <option value="12">21:00 ~ 22:00</option>
-  <option value="13">22:00 ~ 23:00</option>
-  <option value="14">23:00 ~ 24:00</option>
-</select>
-</div>
-
-<br><br><br>
+<br>
 
 <div class="form-group">
 <label for="title">&nbsp;제목<span class="rq">*</span></label>
@@ -178,7 +150,7 @@ function updateContents() {
 
 <!-- 서블릿컨텍스트에 멀티파트 설정 해줘야됨 -->
 <div class="form-group">
-	<label for="file">&nbsp;첨부파일</label>
+	<label for="file"></label>
 	<input type="file" id="file" name="file">
 </div>
 <br><br><br>
@@ -193,6 +165,9 @@ function updateContents() {
 
 </div><!-- write_form 끝 -->
 
+
+
+
 <script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
@@ -201,6 +176,7 @@ nhn.husky.EZCreator.createInIFrame({
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 })
+
 </script>
 </form>
 
