@@ -8,16 +8,16 @@
 <mapper namespace="dao.face.MemberDao">
 	<select id="selectCntMember" resultType="int" parameterType="Member">
 		SELECT count(*) FROM member
-		WHERE member_id = #{member_id} AND member_pw = #{member_pw}
+		WHERE memberId = #{memberId} AND memberPw = #{memberPw}
 	</select>
 
 	<select id="selectMemberNick" resultType="string" parameterType="Member">
-		SELECT member_nick FROM member
-		WHERE member_id = #{member_id}
+		SELECT memberNick FROM member
+		WHERE memberId = #{memberId}
 	</select>
 	
 	<select id="selectCntById" resultType="int" parameterType="Member">
 		SELECT count(*) FROM member
-		WHERE member_id = #{member_id}
+		WHERE memberId = #{memberId}
 	</select>
 </mapper>
