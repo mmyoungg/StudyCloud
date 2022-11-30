@@ -14,7 +14,7 @@
 <style type="text/css" >
 
 .padding {
-    padding: 3rem !important
+    padding: 10rem !important
 }
 
 body {
@@ -28,7 +28,8 @@ body {
     border: 0;
     border-radius: 0px;
     margin-bottom: 30px;
-    width: 180%;
+    margin-left: -30%;
+    width: 180%; 
     -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
     box-shadow: 0 2px 3px rgba(0,0,0,0.03);
     -webkit-transition: .5s;
@@ -38,11 +39,11 @@ body {
 .card-title {
     font-family: Roboto,sans-serif;
     font-weight: 300;
-    line-height: 1.8;
+    line-height: 3.2;
     margin-bottom: 0;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(77,82,89,0.07);
-        margin: 0 auto;
+    margin: 0 auto;
     
 }
 

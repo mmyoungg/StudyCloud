@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,26 +26,14 @@
 }
 
 * {
-	margin: 0;
-	padding: 0;
+   margin: 0;
+   padding: 0;
     font-family: 'paybooc';
 }
 
 /* 헤더 메뉴 */
 #logo { /* 로고 이미지 */
-	height: 70px;
-}
-
-#btnLogin{ /* 로그인 버튼 */
-    height: 35px;
-    width: 120px;border: none;
-    background-color: #6cc4dc;
-    font-size: 12px;
-    color: #fff;
-    border-radius: 5px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+   height: 70px;
 }
 
 #btnLogin:hover{
@@ -57,43 +46,52 @@
 }
 
 .nav-item {
-	padding: 0 10px;
+   padding: 0 10px;
 }
 
 #menu { /* 메뉴바 폰트 */
-	font-size: 16px;
-	font-weight: bold;
-}
-
-#menu-wrap {
-	padding-top: 40px; /* 로고랑 위치 정렬 */
-	padding-left: 10px;
+   font-size: 16px;
+   font-weight: bold;
 }
 
 #menu:hover {
-	color: #6cc4dc;
+   color: #6cc4dc;
 }
 
+.community { /* 커뮤니티 폰트 */
+   font-weight: bold;
+}
+
+.community a:hover {
+   color: #6cc4dc;
+}
+
+#menu-wrap {
+   padding-top: 38px; /* 로고랑 위치 정렬 */
+   padding-left: 10px;
+}
+
+
 #btnMenu { /* 로그인/회원가입/마이페이지 */
-	font-size: 14px;
-	color: #6cc4dc;
-/* 	font-weight: 500; */
-	padding: 0;
-	margin: 0 auto;
+   font-size: 14px;
+   color: #6cc4dc;
+/*    font-weight: 500; */
+   padding: 0;
+   margin: 0 auto;
 }
 
 #btnMenu > .nav-item {
-	padding: 0;
+   padding: 0;
 }
 
 /* 드롭다운 메뉴 */
 .dropdown:hover .dropdown-menu {
     display: flex;
-	font-size: 14px;
+   font-size: 14px;
 }
 
 .dropdown-item:hover {
-	color: #6cc4dc;
+   color: #6cc4dc;
 }
 
 </style>
@@ -122,7 +120,7 @@
                         <li class="nav-item"> <a class="nav-link" id="menu" href="#">멘티 찾기</a> </li>
                         <li class="nav-item"> <a class="nav-link" id="menu" href="#">스터디 찾기</a> </li>
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown community">
                             <a class="nav-link dropdown menu" href="#" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">자유게시판</a></li>
@@ -133,18 +131,29 @@
                     </ul>
                     
                     <div>
-                    	<ul class="navbar-nav me-auto" id="btnMenu">
-                    		<li class="nav-item"><a class="nav-link" href="./login/login">로그인</a></li>
-                    		<li class="nav-item"><a class="nav-link" href="./join/join">회원가입</a></li>
-                    		<li class="nav-item"><a class="nav-link" href="./mypage/mypageMain">마이페이지</a></li>
-                    	</ul>
+                       <ul class="navbar-nav me-auto" id="btnMenu">
+                       
+                          <!-- 비로그인 상태 -->
+                          <c:if test="${empty login }">
+                          <li class="nav-item"><a class="nav-link" href="./login/login">로그인</a></li>
+                          <li class="nav-item"><a class="nav-link" href="./join/join">회원가입</a></li>
+                          <li class="nav-item"><a class="nav-link" href="./mypage/mypageMain">마이페이지</a></li>
+                          </c:if>
+                          
+                          <!-- 로그인 상태 -->
+                          <c:if test="${not empty login }">
+                          <li class="nav-item">${member.memberNick }님</li>
+                          <li class="nav-item"><a class="nav-link" href="./mypage/mypageMain">마이페이지</a></li>
+                          <li class="nav-item"><a class="nav-link" href="./login/logout">로그아웃</a></li>
+                          </c:if>
+                          
+                       </ul>
                     </div>
                 </div>
             </div>
         </nav>
     </div>
 </header><!-- header end -->
-
 
 </body>
 </html>
