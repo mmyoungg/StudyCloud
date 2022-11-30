@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../layout/header.jsp"%>       
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>       
+<c:import url="../layout/header.jsp" /> 
 
 <style type="text/css">
 .content { width: 1000px; margin: 70px auto; }
@@ -18,9 +13,6 @@ form { margin: 40px 5px auto;}
 </style>
 <script type="text/javascript"></script>
 
-</head>
-<body>
-
 <div class="content">
 <h2>자유게시판</h2>
 
@@ -29,19 +21,17 @@ form { margin: 40px 5px auto;}
   <div class="mb-3 row">
     <label for="id" class="col-sm-2 col-form-label">닉네임</label>
     <div class="col-sm-8">
-      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="작성자닉네임">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="${member_nick}">
     </div>
   </div>
   
   <div class="mb-3 row">
     <label for="category" class="col-sm-2 col-form-label">카테고리</label>
     <div class="col-sm-10">
-     <!--  <input type="text" class="form-control" id="title"> -->
-     <select class="form-select" aria-label="Default select example">
- 		<option selected>카테고리 선택</option>
-  		<option value="1">잡담</option>
-  		<option value="2">질문</option>
-  		<option value="3">가입인사</option>
+     <select class="form-select" name="category_name">
+  		<option>잡담</option>
+  		<option>질문</option>
+  		<option>공부TIP</option>
 	 </select>
     </div>
   </div>
@@ -49,17 +39,17 @@ form { margin: 40px 5px auto;}
   <div class="mb-3 row">
     <label for="title" class="col-sm-2 col-form-label">제목</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="title">
+      <input type="text" class="form-control" id="title" name="fBoard_title">
     </div>
   </div>
   
   <div class="mb-3">
-  <textarea class="form-control" id="content" rows="10"></textarea>
+  <textarea class="form-control" id="content" rows="10" name="fBoard_content"></textarea>
 </div>
   
 
 <div class="mb-3">
-	<input class="form-control" type="file" id="file" multiple>
+	<input class="form-control" type="file" id="file" name="fBoard_file" multiple>
 </div>
 
 <div class="text-center">

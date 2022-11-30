@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>멘토찾기｜게시글</title>
+<title>멘티찾기｜게시글</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:import url="../layout/header.jsp" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link rel="stylesheet" href="/resources/css/mtBoardDetail.css?ver=2"> 
+<link rel="stylesheet" href="/resources/css/mntBoardDetail.css?ver=2"> 
 <script src="../resources/js/mtBoardDetail.js?ver=1"></script>
 
 </head>
@@ -55,15 +55,15 @@
 
 
 
-<div class="mt_allwrap">
+<div class="mnt_allwrap">
 
 
-<div class="mt_wrap1">
+<div class="mnt_wrap1">
 
-<div class="mt_hit">조회수 3</div>
-<div class="mt_title">
-	<h2 style="font-weight: 600; margin-bottom: 36px;">백엔드 개발자 과외 합니다</h2>
-	<%-- ${detailBoard.mtboardTitle} --%>
+<div class="mnt_hit">조회수 3</div>
+<div class="mnt_title">
+	<h2 style="font-weight: 600; margin-bottom: 36px;">프로젝트 하는데 막히는 부분 도와주세요</h2>
+	<%-- ${detailBoard.mntboardTitle} --%>
 </div>
 
 
@@ -89,36 +89,20 @@
 
 <!-- 아이디 부분 (수업자료보기) -->
 
-<p class="mt_id">아리사랑</p>
 <%-- ${detailBoard.memberId} --%>
-
-<table class="info_table">
-<tr>
-	<td class="info_name" scope="row">직무</td>
-	<td>백엔드</td><%-- <td>${viewBoard.boardNo }</td> --%>
-</tr>
-<tr>
-	<td class="info_name" scope="row">경력</td>
-	<td>미들(4~8년)</td><%-- <td>${viewBoard.writerId }</td> --%>
-</tr>
-<tr>
-	<td class="info_name" scope="row">현직</td>
-	<td>네카라쿠배</td><%-- <td>${viewBoard.writerNick }</td> --%>
-</tr>
-</table>
-
+<br><br>
+<br>
+<span class="mnt_id">아리사랑</span>
 <span class="write_date">2022-11-20 오후 3:30</span>
-
-<div class="mt_time">1시간 / 10,000원</div>
 <hr>
-</div> <!-- mt_wrap1 끝 -->
+</div> <!-- mnt_wrap1 끝 -->
 
 
 
 <!-- 본문 -->
-<div class="mt_wrap2">
+<div class="mnt_wrap2">
 
-<div class="mt_content">
+<div class="mnt_content">
 
 않으며 가고 집중이다, 곳의 대하고 있다. 몸을 재킷과 선의 가지 인간은 두 동전의 찾다 지니는걸. 
 학원이 것 춤을 다른 위력이, 저에서 그 끼어들어서 인생은 하고 필요하다. 거 것 갈긴 있는 인정받고 버린, 자꾸 거듭하다. 
@@ -139,30 +123,16 @@
 득표력도 착용하여서 아깝아 한 먹습니다 그렇고 말의 지나치다.
 </div>
 
-<a class="btn btn-primary" href="/mtboard/applyMnt" type="button" style="float: right; font-size: 15px;">
-신청하기</a>
-</div><!-- mt_wrap2 끝 -->
+</div><!-- mnt_wrap2 끝 -->
 
-<div class="mt_wrap3">
-<h5>후기</h5>
+
+<div class="mnt_wrap3">
+<h5>댓글<span class="reply_cnt"> 3</span></h5>
 <hr>
 
 
 <!-- 댓글작성 -->
-<form class="mb-3" name="mt_review" id="mt_review" method="post">
-	<fieldset>
-		<span class="text-bold">별점을 선택해주세요</span>
-		<input type="radio" name="reviewStar" value="5" id="rate1"><label
-			for="rate1">★</label>
-		<input type="radio" name="reviewStar" value="4" id="rate2"><label
-			for="rate2">★</label>
-		<input type="radio" name="reviewStar" value="3" id="rate3"><label
-			for="rate3">★</label>
-		<input type="radio" name="reviewStar" value="2" id="rate4"><label
-			for="rate4">★</label>
-		<input type="radio" name="reviewStar" value="1" id="rate5"><label
-			for="rate5">★</label>
-	</fieldset>
+<form class="mb-3" name="mnt_review" id="mnt_review" method="post">
 	<div>
 		<textarea class="col-auto form-control" id="reviewContents"
 				  placeholder="후기를 입력해주세요"></textarea>
@@ -185,12 +155,11 @@
 		<div class="reply_top">
 			<span class="id_span">아리멍멍</span>
 			<span class="date_span">2022-11-16</span>
-			<span class="rating_span">★<span class="rating_value_span">5.0</span></span>
 				<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
 					</div>
 		<div class="reply_bottom">
 		<div class="reply_bottom_txt">
-		너무 유익하고 도움이 많이 됐습니다 추천해요!!
+		~~~웅앵웅앵 이렇게 하시면 됩니다
 			</div>
 			</div>
 		</div>
@@ -202,50 +171,37 @@
 		<div class="reply_top">
 			<span class="id_span">아리멍멍</span>
 			<span class="date_span">2022-11-16</span>
-			<span class="rating_span">★<span class="rating_value_span">5.0</span></span>
 				<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
 					</div>
 		<div class="reply_bottom">
 		<div class="reply_bottom_txt">
-		너무 유익하고 도움이 많이 됐습니다 추천해요!!
+		쪽지 보냈어요 확인요
 			</div>
 			</div>
 		</div>
 	</li>
 	</ul>
 	
-<c:import url="/WEB-INF/views/mtboard/replyPaging.jsp" />
+<c:import url="/WEB-INF/views/mntboard/replyPaging.jsp" />
 
 
 
-<div class="text-center" style="margin-top: 241px">
+<div class="btn-wrap">
 	<button id="btnList" class="btn btn-primary">목록</button>
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
 		<button id="btnDelete" class="btn btn-primary">삭제</button>
 </div>
 
-</div><!-- mt_wrap3 끝 -->
+</div><!-- mnt_wrap3 끝 -->
 
 
-</div> <!-- mt_allwrap 끝 -->
+</div> <!-- mnt_allwrap 끝 -->
 </main> <!-- main 끝 -->
 
 <c:import url="../layout/footer.jsp" /> 
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
