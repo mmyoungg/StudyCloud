@@ -12,6 +12,7 @@
 <title>StudyCloud</title>
 
 <style type="text/css">
+
 .padding {
 	padding: 10rem !important
 }
@@ -34,7 +35,7 @@ body {
 .card-title {
 	font-family: Roboto, sans-serif;
 	font-weight: 300;
-	line-height: 1.8;
+	line-height: 3.2;
 	margin-bottom: 0;
 	padding: 15px 20px;
 	border-bottom: 1px solid rgba(77, 82, 89, 0.07);
@@ -173,7 +174,7 @@ body {
 							<div class="form-group-id">
 								<div class="form-id">아이디</div>
 								<div>
-									<input class="form-control" type="text"
+									<input class="form-control" type="text" id="member_id" name="member_id"
 										placeholder="  아이디는 4~20자 소문자 + 숫자 + _ , -">
 									<button class="btn btn-bold btn-primary btnsm" id="btnchk">중복확인</button>
 									<br>
@@ -183,26 +184,30 @@ body {
 
 							<div class="form-group">
 								<div class="form-pw">비밀번호</div>
-								<input class="form-control" type="password"
+								<input class="form-control" type="password" id="member_pw" name="member_pw"
 									placeholder="  영문, 숫자, 특수문자를 포함하여 8자리 이상">
 							</div>
 							<div class="form-group">
 								<div class="form-pwck">비밀번호확인</div>
-								<input class="form-control" type="password" placeholder="">
+								<input class="form-control" type="password" id="member_pwck" name="member_pwck">
 							</div>
 							<div class="form-group">
 								<div class="form-name">이름</div>
-								<input class="form-control" type="text">
+								<input class="form-control" type="text" id="member_name" name="member_name">
 							</div>
 							<div class="form-group">
 								<div class="form-phone">연락처</div>
-								<input class="form-control" type="text">
+								<input class="form-control" type="text" id="member_phone" name="member_phone">
 							</div>
 							<div class="form-group">
 								<div class="form-email">이메일</div>
-								<input class="form-control" type="text">
+								<input class="form-control" type="text" id="member_email" name="member_email">
 							</div>
-							<br>
+							<div class="form-group">
+								<div class="form-email">닉네임</div>
+								<input class="form-control" type="text" id="member_nick" name="member_nick">
+							</div>
+							<br><br>
 
 
 							<!-- 회원가입 버튼 -->

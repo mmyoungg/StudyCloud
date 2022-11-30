@@ -29,7 +29,7 @@ body {
 	border: 0;
 	border-radius: 0px;
  	margin-bottom: 30px; 
- 	height: 650px;
+ 	height: 750px;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
 	-webkit-transition: .5s;
@@ -126,7 +126,7 @@ body {
 	font-size: 12px;
 	vertical-align: middle;
 	background-color: #6CC4DC;
-	border-radius: 15%; cursor : pointer;
+	border-radius: 10%; cursor : pointer;
 	height: 30px;
 	margin-left: 10px;
 	cursor: pointer;
@@ -157,7 +157,7 @@ body {
 						class="text-black-50">john_doe12@bbb.com</span><br>
 					<div class="filebox">
 						<input class="upload-name" value="프로필사진 변경" placeholder="프로필사진 변경">
-						<label for="file">변경</label> <input type="file" id="file">
+						<label for="file">파일찾기</label> <input type="file" id="file">
 					</div>
 				</div>
 			</div>
@@ -166,7 +166,7 @@ body {
 					<div class="row mt-2 input-wrap">
 						<div class="form-name">비밀번호</div>
 						<input class="form-control" type="password"
-							placeholder=" 영문, 숫자, 특수문자를 포함하여 8자리 이상">
+							placeholder="    영문, 숫자, 특수문자를 포함하여 8자리 이상">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">비밀번호확인</div>
@@ -182,6 +182,10 @@ body {
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">이메일</div>
+						<input class="form-control" type="text">
+					</div>
+					<div class="row mt-3 input-wrap">
+						<div class="form-name">닉네임</div>
 						<input class="form-control" type="text">
 					</div>
 				</div>

@@ -29,6 +29,8 @@ body {
     border: 0;
     border-radius: 0px;
     margin-bottom: 30px;
+    margin-left: 10%;
+    width: 100%;
     -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
     box-shadow: 0 2px 3px rgba(0,0,0,0.03);
     -webkit-transition: .5s;
@@ -38,11 +40,11 @@ body {
 .card-title {
     font-family: Roboto,sans-serif;
     font-weight: 300;
-    line-height: 1.8;
+    line-height: 3.2;
     margin-bottom: 0;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(77,82,89,0.07);
-        margin: 0 auto;
+    margin: 0 auto;
     
 }
 
@@ -169,44 +171,46 @@ a {
 <body>
 
 <div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-<div class="col-md-6 col-lg-4">
-            <form class="card">
-              <h4 class="card-title fw-400">Login</h4><br>
+	<form action="/login" method="post">
+		<div class="padding">
+			<div class="row container d-flex justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="card">
+						<h4 class="card-title fw-400">Login</h4>
+						<br>
 
-              <div class="card-body">
-                <div class="form-group">
-                <div class="form-text">
-                아이디
-                </div>
-                  <input class="form-control" type="text">
-                </div>
+						<div class="card-body">
+							<div class="form-group">
+								<div class="form-text">아이디</div>
+								<input class="form-control" type="text" id="member_id" name="member_id">
+							</div>
 
-                <div class="form-group">
-                <div class="form-text">
-                비밀번호
-                </div>
-                  <input class="form-control" type="password" placeholder="">
-                </div>
+							<div class="form-group">
+								<div class="form-text">비밀번호</div>
+								<input class="form-control" type="password" id="member_pw" name="member_pw">
+							</div>
 
-                <div class="wrapper col-12">
-                	<div class="wrapper">
-                		<a href="/login/findid" class="">아이디 찾기</a>
-                	<div class="line"></div>
-                	<a href="/login/findpw" class="">비밀번호 찾기</a>
-                	</div><br><br>
-                </div>
-                
-                <button class="btn btn-bold btn-primary" id="btn">Login</button><br>
-                <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인" style="height: 48px; width: 60%;"/></a>
-                <br><br>
-              </div>
-            </form>
-          </div>
-           </div>
-            </div>
-             </div>
+							<div class="wrapper col-12">
+								<div class="wrapper">
+									<a href="/login/findid" class="">아이디 찾기</a>
+									<div class="line"></div>
+									<a href="/login/findpw" class="">비밀번호 찾기</a>
+								</div>
+								<br>
+								<br>
+							</div>
+
+							<button class="btn btn-bold btn-primary" id="btn">Login</button>
+							<br> <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인"
+								style="height: 48px; width: 60%;" /></a> <br>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>
 </body>
 </html>
 
