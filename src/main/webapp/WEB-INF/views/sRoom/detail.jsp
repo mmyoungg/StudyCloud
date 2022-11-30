@@ -32,7 +32,7 @@
 <!-- 카카오 sdk -->
 
 <link rel="stylesheet" href="../resources/css/sRoomDetail.css?ver=3">
-<script defer src="../resources/js/sRoomDetail.js?ver=2"></script>
+<script defer src="../resources/js/sRoomDetail.js?ver=1"></script>
 
 <script type="text/javascript">
 
@@ -48,8 +48,8 @@
 		<div class="left">
 			<h2>💠 스터디룸 이름.</h2>
 			<img src="https://ifh.cc/g/SG0cCl.jpg" class="img-fluid" alt="...">
-			<div id="menu-wrap">
-				<ul class="menu-ul">
+			<div id="sRoom-menu-wrap">
+				<ul class="sRoom-menu-ul">
 					<li><a href="#sec1" id="move">공간소개</a></li>
 					<li><a href="#sec2" id="move">이용&환불규정</a></li>
 					<li><a href="#sec3" id="move">오시는길</a></li>
@@ -358,11 +358,11 @@
 				</div>
 					
 				</div>
-				<div class="detail-right-info">	
+				<div class="detail-clicked-info-wrap">	
 					<div class="detail-clicked-info-wrap">			
- 					<input type="text" id="clickedDate" value="" class="sRoom-clicked-info" readyonly>
-					<input type="text" id="clickedStartTime" value="" class="sRoom-clicked-info-time" readyonly>
-					<input type="text" id="timeDuration" class="sRoom-timeDuration" value="" style="width: 53px;" readyonly> 
+ 					<input type="text" id="clickedDate" value="" class="sRoom-clicked-info" readonly>
+					<input type="text" id="clickedStartTime" value="" class="sRoom-clicked-info-time" readonly>
+					<input type="text" id="timeDuration" class="sRoom-timeDuration" value="" style="width: 53px;" readonly> 
 					</div>
 				</div>
 				<div class="detail-right-time">

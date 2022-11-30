@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../layout/header.jsp"%>       
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>       
+<c:import url="../layout/header.jsp" />   
 
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style type="text/css">
 
 .content { width: 1000px; margin: 70px auto; }
@@ -39,8 +33,6 @@ table th { text-align: center; background-color: #E3EFF9;  }
 })
 </script>
 
-</head>
-<body>
 <div class="content">
 <h2>자유게시판</h2>
 
@@ -49,27 +41,32 @@ table th { text-align: center; background-color: #E3EFF9;  }
 <table class="table">
    <tbody>
     <tr>
-      <th scope="row">작성자</th>
-      <td colspan="3">Apple</td>
+      <th>작성자</th>
+      <td colspan="3">${fBoardView.MEMBER_NICK }</td>
     </tr>
     <tr>
       <th scope="row">작성일시</th>
-      <td>2022-11-16</td>
+      <td><fmt:formatDate value="${fBoardView.FBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
       <th>조회수</th>
-      <td>1</td>
+      <td>${fBoardView.FBOARD_HIT }</td>
+    </tr>
+    <tr>
+      <th scope="row">제목</th>
+      <td colspan="3">${fBoardView.FBOARD_TITLE }</td>
     </tr>
     <tr>
       <th colspan="4">내용</th>
     </tr>
     <tr>
       
-      <td colspan="4">있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에<br>
-      속잎나고 가지에 싹이 트고 꽃 피고 새 우는 봄날의 천지는 얼마나 기쁘며 얼마나 아름다우냐?<br>
-       이것을 얼음 속에서 불러 내는 것이 따뜻한 봄바람이다</td>
+      <td colspan="4">${fBoardView.FBOARD_CONTENT }</td>
     </tr>
 	</table>
 	
-
+	<div class="fBoard_view_file">
+	<a href="/freeBoard/download?fileUpload_no=${fileUpload.fBoard_no}">${fileUpload.fileUpload_ori }</a>
+	</div>
+	
 	<label for="content">comment 작성하기</label>
     	<div class="input-group">
         	<input type="text" class="form-control" id="content" name="content" placeholder="댓글을 입력하세요.">
