@@ -12,6 +12,7 @@ public class MntBoard {
 	private int mntboardCmcnt;
 	private int mntboardHit;
 	private Date mntboardDate;
+
 	
 	public MntBoard() {}
 

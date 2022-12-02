@@ -14,12 +14,6 @@
 }
 
 
-a {
-    color: white;
-    cursor: pointer;
-}
-
-
 .mentoring_txt {
     line-height: 1.47;
     font-size: 16px;
@@ -95,6 +89,12 @@ thead {
     width: 102%;
     border-radius: 4px;
     text-align: center;
+}
+
+
+#boardno {
+	text-decoration: none;
+	color: black;
 }
 
 .field_tb {
@@ -176,10 +176,14 @@ th {
 
 }
 
-/* #btnWrite {
-	float: right;
+.pagination:hover {
+
+    margin-bottom: 36px;
+    justify-content: center;
+    --bs-pagination-color: #aacde5;
+
 }
- */
+
 .btn-group {
 
     --bs-btn-bgwhite: white;
