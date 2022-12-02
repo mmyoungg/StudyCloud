@@ -28,12 +28,11 @@
 	</update>
 	
 	<select id="ViewfBoardByfBoardNo" resultType="hashmap" parameterType="int">
-		select m.member_nick, f.fboard_date, f.fboard_hit, f.fboard_title, f.fboard_content 
+		select f.fboard_no, f.category_name, m.member_nick, f.fboard_date, f.fboard_hit, f.fboard_title, f.fboard_content 
 		from freeBoard f
 		join member m ON ( f.member_no = m.member_no )
 		where fboard_no = #{fBoardNo}
-	</select> 
-	
+	</select> 	
 	
 	<insert id="fBoardInsert" parameterType="dto.FreeBoard">
 		<selectKey order="BEFORE" resultType="int" keyProperty="fBoardNo">
@@ -55,11 +54,11 @@
 		WHERE fboard_no = #{fBoardNo}
 	</select>
 	
-<!-- 	<select id="selectBoardFileByFileNo" parameterType="web.dto.Board" resultType="web.dto.BoardFile">
-		SELECT file_no, board_no, origin_name, stored_name 
-		FROM boardfile
-		WHERE board_no = #{file_no}
-	</select> -->
+ 	<select id="selectUploadFileByFileNo" parameterType="dto.FileUpload" resultType="dto.FileUpload">
+		SELECT fileupload_no, fboard_no, fileupload_ori, fileupload_stor 
+		FROM fileupload
+		WHERE fileupload_no = #{fileUploadNo}
+	</select> 
 	 
 
 </mapper>

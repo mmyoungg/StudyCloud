@@ -62,7 +62,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		// 파일이 저장될 이름
 		String originName = fBoardFile.getOriginalFilename();
-		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		System.out.println("[파일업로드 서비스] originName : " + originName);
+		String storedName = originName + UUID.randomUUID().toString().split("-")[1];
+		System.out.println("[파일업로드 서비스] storedName : " + storedName);
 		
 		// 저장할 파일의 정보 객체
 		File dest = new File( storedFolder, storedName);
@@ -88,6 +90,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public FileUpload getAttachFile(int fBoardNo) {
 		return freeBoardDao.selectFileByfBoardNo(fBoardNo);
+	}
+	
+	@Override
+	public HashMap<String, Object> updateView(FreeBoard freeBoard) {
+		
+		return freeBoardDao.getDetailViewByfBoardNo(freeBoard);
+	}
+	
+	@Override
+	public FileUpload getFile(FileUpload fileUpload) {
+		
+		return freeBoardDao.selectUploadFileByFileNo(fileUpload);
 	}
 
 	
