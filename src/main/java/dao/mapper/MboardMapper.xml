@@ -7,6 +7,34 @@
     
 <mapper namespace="dao.face.MboardDao">
 
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM mboard
+	</select>
+	
+	<select id="selectList" resultType="Mboard" parameterType="Paging">
+		SELECT * FROM (
+			SELECT rownum rnum, Mboard  FROM (
+				SELECT mboard_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt,
+					member.member_id, member.member_nick 
+				FROM mboard 
+				JOIN member m = ON ( mboard.member_no = member.member_no ) ORDER BY mboard_no DESC
+			) M
+		) MBOARD
+	 	WHERE rnum between #{startNo } AND #{endNo }
+	</select>
+	
+<!-- 	<update id="updateHit" parametertype="Mboard"> -->
+<!-- 		UPDATE mboard -->
+<!-- 		SET mboard_hit = mboard_hit + 1 -->
+<!-- 		WHERE mboard_no = #{mboard_no} -->
+<!-- 	</update> -->
 
+	<select id="selectMboard" resultType="Mboard">
+		SELECT mboard_no, mboard_title, mboard_content
+		FROM mboard
+		WHERE mboard_no = #{mboardNo}
+	</select>
+	
+	
 
 </mapper>

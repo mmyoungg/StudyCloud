@@ -2,15 +2,20 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import dto.FileUpload;
 import dto.Mboard;
 import service.face.MboardService;
 import util.Paging;
@@ -22,7 +27,7 @@ public class MboardController {
 	
 	@Autowired MboardService mboardService;
 	
-	@RequestMapping(value="/mboard/mboardmain")
+	@RequestMapping("/mboard/main")
 	private void mboardmain(
 			
 			@RequestParam(defaultValue = "0") int curPage
@@ -38,13 +43,9 @@ public class MboardController {
 		for( Mboard m : list ) logger.debug("{}", m);
 		model.addAttribute("list", list);
 		
-		logger.info("mboardmain 호출 완");
-		
-		return;
-		
 	}
 	
-	@RequestMapping(value = "/mboard/mboarddetail")
+	@RequestMapping("/mboard/detail")
 	public String mboarddetail(
 		
 			Mboard detailMboard
@@ -67,17 +68,40 @@ public class MboardController {
 		//모델값 전달
 		model.addAttribute("detailMboard", detailMboard);
 		
+		//첨부파일 모델값 전달
+		FileUpload fileUpload = mboardService.getAttachFile(detailMboard);
+		model.addAttribute("fileUpload", fileUpload);
 		
 		return "mboard/mboarddetail";
 	}
 	
-	@RequestMapping(value = "/mboard/mboardwrite", method = RequestMethod.GET)
-	public void mboardwrite() {
+	@GetMapping("/mboard/write")
+	public void mboardwrite() {}
+	
+	@PostMapping("/mboard/write")
+	public String writeProcess(
+			
+			Mboard mboard,
+			MultipartFile file,
+			HttpSession session
+			
+			) {
 		
-		logger.info("mboardwirte 호출 완");
+		logger.debug("{}", mboard);
+		logger.debug("{}", file);
+
+		//작성자 정보
+		mboard.setMemberNo( (int)session. getAttribute("member_no"));
 		
-		return;
+		mboardService.write(mboard, file);
+		
+		//번개게시판 메인으로 리다이렉트
+		return "redirect:/mboard/mboardmain";
+		
 	}
+	
+//	@RequestMapping("/")
+	
 	
 	
 	

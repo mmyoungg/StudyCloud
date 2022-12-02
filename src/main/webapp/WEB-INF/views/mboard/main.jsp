@@ -202,15 +202,15 @@ img {
 			</thead>
 			
 			<tbody>
-<%--  				<c:forEach items="${list }" var="meetingboard">  --%>
+  				<c:forEach items="${list }" var="mboard">  
 					<tr>
-						<td>${meetingboard.mboardNo }</td>
-						<td onclick="location.href='./mboarddetail'">번개스터디 제목</td>
-						<td>${meetingboard.membernick }</td>
-						<td>${meetingboard.mboardhit }</td>
-						<td><fmt:formatDate value="${meetingboard.mboarddate }" pattern="yy-MM-dd HH:mm:ss"/></td>
+						<td>${mboard.board_no }</td>
+						<td><a href="/mboard/mboarddetail?mboardNo=${mboard.mboard_no }">${mboard.mboard_title }</a></td>
+						<td>${mboard.member_nick }</td>
+						<td>${mboard.mboard_hit }</td>
+						<td><fmt:formatDate value="${mboard.mboard_date }" pattern="yy-MM-dd HH:mm:ss"/></td>
 					</tr>
-<%--  				</c:forEach>  --%>
+  				</c:forEach>  
 			</tbody>
 		</table>
 		
