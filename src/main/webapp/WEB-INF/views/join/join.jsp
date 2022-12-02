@@ -89,7 +89,7 @@ body {
 }
 
 .form-group {
-	padding: 12px;
+	padding: 8px;
 }
 
 .form-group-id {
@@ -166,15 +166,15 @@ body {
 		<div class="padding">
 			<div class="row container d-flex justify-content-center">
 				<div class="col-md-6 col-lg-4">
-					<form class="card">
+					<form action="/join" method="post" class="card">
 						<h4 class="card-title fw-400">JOIN</h4>
 						<br>
-
+						
 						<div class="card-body">
 							<div class="form-group-id">
 								<div class="form-id">아이디</div>
 								<div>
-									<input class="form-control" type="text" id="member_id" name="member_id"
+									<input class="form-control" type="text" id="memberId" name="memberId"
 										placeholder="  아이디는 4~20자 소문자 + 숫자 + _ , -">
 									<button class="btn btn-bold btn-primary btnsm" id="btnchk">중복확인</button>
 									<br>
@@ -184,30 +184,30 @@ body {
 
 							<div class="form-group">
 								<div class="form-pw">비밀번호</div>
-								<input class="form-control" type="password" id="member_pw" name="member_pw"
+								<input class="form-control" type="password" id="memberPw" name="memberPw"
 									placeholder="  영문, 숫자, 특수문자를 포함하여 8자리 이상">
 							</div>
 							<div class="form-group">
 								<div class="form-pwck">비밀번호확인</div>
-								<input class="form-control" type="password" id="member_pwck" name="member_pwck">
+								<input class="form-control" type="password" id="memberPwck" name="memberPwck">
 							</div>
 							<div class="form-group">
 								<div class="form-name">이름</div>
-								<input class="form-control" type="text" id="member_name" name="member_name">
+								<input class="form-control" type="text" id="memberName" name="memberName">
 							</div>
 							<div class="form-group">
 								<div class="form-phone">연락처</div>
-								<input class="form-control" type="text" id="member_phone" name="member_phone">
+								<input class="form-control" type="text" id="memberPhone" name="memberPhone">
 							</div>
 							<div class="form-group">
 								<div class="form-email">이메일</div>
-								<input class="form-control" type="text" id="member_email" name="member_email">
+								<input class="form-control" type="text" id="memberEmail" name="memberEmail">
 							</div>
 							<div class="form-group">
 								<div class="form-email">닉네임</div>
-								<input class="form-control" type="text" id="member_nick" name="member_nick">
+								<input class="form-control" type="text" id="memberNick" name="memberNick">
 							</div>
-							<br><br>
+							<br>
 
 
 							<!-- 회원가입 버튼 -->
@@ -216,7 +216,6 @@ body {
 								<button class="btn btn-bold btn-primary" id="btn">JOIN</button>
 								<br> <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오 회원가입" style="height: 48px; width: 50%;" />
 							</div>
-							<br>
 							<br>
 						</div>
 					</form>
