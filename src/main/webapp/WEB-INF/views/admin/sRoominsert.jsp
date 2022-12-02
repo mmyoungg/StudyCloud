@@ -33,6 +33,15 @@ function updateContents() {
 }
 </script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#btnCancel").click(function() {
+		location.href="/admin/studyroom"
+	})
+})
+</script>
+
 
 <style type="text/css">
 .content { width: 1000px; margin: 70px auto; }
@@ -58,42 +67,47 @@ form { margin: 40px 5px auto;}
 <form action="/admin/sRoominsert" method="post" enctype="multipart/form-data"> <!-- 첨부파일 첨부 -->
 
 <div class="mb-3 row form-group">
-	<label for="sroom_name" class="col-sm-2 col-form-label">스터디룸 이름</label>
+	<label for="sRoomName" class="col-sm-2 col-form-label">스터디룸 이름</label>
     <div class="col-sm-10">
-    	<input type="text" class="form-control" id="sroom_name" name="sroom_name">
+    	<input type="text" class="form-control" id="sRoomName" name="sRoomName">
     </div>
 </div>
     
 <div class="mb-3 row form-group">
-	<label for="sroom_addr" class="col-sm-2 col-form-label">주소</label>
+	<label for="sRoomAddr" class="col-sm-2 col-form-label">주소</label>
     <div class="col-sm-10">
-    	<input type="text" class="form-control" id="sroom_addr" name="sroom_addr">
+    	<input type="text" class="form-control" id="sRoomAddr" name="sRoomAddr">
     </div>
 </div>
 
 <div class="mb-3 row input-group">
-	<label for="sroom_price" class="col-sm-2 col-form-label">가격 (원/시간)</label>
+	<label for="sRoomPrice" class="col-sm-2 col-form-label">가격 (원/시간)</label>
     <div class="col-sm-4" style="margin-left: 2px;">
-    	<input type="text" class="form-control" id="sroom_price" name="sroom_price">
+    	<input type="text" class="form-control" id="sRoomPrice" name="sRoomPrice">
     </div>
     
-	<label for="sroom_people" class="col-sm-2 col-form-label">인원</label>
+	<label for="sRoomPeople" class="col-sm-2 col-form-label">인원</label>
     <div class="col-sm-4">
-    	<input type="text" class="form-control" id="sroom_people" name="sroom_people" style="width: 330px;">
+    	<input type="text" class="form-control" id="sRoomPeople" name="sRoomPeople" style="width: 330px;">
     </div>
 </div>
-
 <div class="mb-3 row form-group">
-	<label for="sroom_info" class="col-sm-2 col-form-label">공간소개</label>
+   <label for="sRoomIntro" class="col-sm-2 col-form-label">한줄소개</label>
+    <div class="col-sm-10">
+       <input type="text" class="form-control" id="sRoomIntro" name="sRoomIntro">
+    </div>
+</div>
+<div class="mb-3 row form-group">
+	<label for="sRoomInfo" class="col-sm-2 col-form-label">공간소개</label>
   	<div class="col-sm-10">
-  		<textarea class="form-control" id="sroom_info" name="sroom_info" rows="10"></textarea>
+  		<textarea class="form-control" id="sRoomInfo" name="sRoomInfo" rows="10"></textarea>
   	</div>
 </div>
 
 <div class="mb-3 row form-group">
-	<label for="sroom_role" class="col-sm-2 col-form-label">이용&환불규정</label>
+	<label for="sRoomRole" class="col-sm-2 col-form-label">이용&환불규정</label>
     <div class="col-sm-10">
-  		<textarea class="form-control" id="sroom_role" name="sroom_role" rows="10"></textarea>
+  		<textarea class="form-control" id="sRoomRole" name="sRoomRole" rows="10"></textarea>
   	</div>
 </div>
 

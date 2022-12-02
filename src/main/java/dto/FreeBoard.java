@@ -3,102 +3,100 @@ package dto;
 import java.util.Date;
 
 public class FreeBoard {
-	private int fBoard_no;
-	private String category_name;
-	private int member_no;
-	private String fBoard_title;
-	private String fBoard_content;
-	private int fBoard_hit;
-	private Date fBoard_date;
-	private int fBoard_cmtCount;
+	private int fBoardNo;
+	private String categoryName;
+	private int memberNo;
+	private String fBoardTitle;
+	private String fBoardContent;
+	private int fBoardHit;
+	private Date fBoardDate;
+	private int fBoardCmtCount;
 	
 	public FreeBoard() {}
 
-	public FreeBoard(int fBoard_no, String category_name, int member_no, String fBoard_title, String fBoard_content,
-			int fBoard_hit, Date fBoard_date, int fBoard_cmtCount) {
+	public FreeBoard(int fBoardNo, String categoryName, int memberNo, String fBoardTitle, String fBoardContent,
+			int fBoardHit, Date fBoardDate, int fBoardCmtCount) {
 		super();
-		this.fBoard_no = fBoard_no;
-		this.category_name = category_name;
-		this.member_no = member_no;
-		this.fBoard_title = fBoard_title;
-		this.fBoard_content = fBoard_content;
-		this.fBoard_hit = fBoard_hit;
-		this.fBoard_date = fBoard_date;
-		this.fBoard_cmtCount = fBoard_cmtCount;
+		this.fBoardNo = fBoardNo;
+		this.categoryName = categoryName;
+		this.memberNo = memberNo;
+		this.fBoardTitle = fBoardTitle;
+		this.fBoardContent = fBoardContent;
+		this.fBoardHit = fBoardHit;
+		this.fBoardDate = fBoardDate;
+		this.fBoardCmtCount = fBoardCmtCount;
 	}
 
 	@Override
 	public String toString() {
-		return "FreeBoard [fBoard_no=" + fBoard_no + ", category_name=" + category_name + ", member_no=" + member_no
-				+ ", fBoard_title=" + fBoard_title + ", fBoard_content=" + fBoard_content + ", fBoard_hit=" + fBoard_hit
-				+ ", fBoard_date=" + fBoard_date + ", fBoard_cmtCount=" + fBoard_cmtCount + "]";
+		return "FreeBoard [fBoardNo=" + fBoardNo + ", categoryName=" + categoryName + ", memberNo=" + memberNo
+				+ ", fBoardTitle=" + fBoardTitle + ", fBoardContent=" + fBoardContent + ", fBoardHit=" + fBoardHit
+				+ ", fBoardDate=" + fBoardDate + ", fBoardCmtCount=" + fBoardCmtCount + "]";
 	}
 
-	public int getfBoard_no() {
-		return fBoard_no;
+	public int getfBoardNo() {
+		return fBoardNo;
 	}
 
-	public void setfBoard_no(int fBoard_no) {
-		this.fBoard_no = fBoard_no;
+	public void setfBoardNo(int fBoardNo) {
+		this.fBoardNo = fBoardNo;
 	}
 
-	public String getCategory_name() {
-		return category_name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
-	public int getMember_no() {
-		return member_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public String getfBoard_title() {
-		return fBoard_title;
+	public String getfBoardTitle() {
+		return fBoardTitle;
 	}
 
-	public void setfBoard_title(String fBoard_title) {
-		this.fBoard_title = fBoard_title;
+	public void setfBoardTitle(String fBoardTitle) {
+		this.fBoardTitle = fBoardTitle;
 	}
 
-	public String getfBoard_content() {
-		return fBoard_content;
+	public String getfBoardContent() {
+		return fBoardContent;
 	}
 
-	public void setfBoard_content(String fBoard_content) {
-		this.fBoard_content = fBoard_content;
+	public void setfBoardContent(String fBoardContent) {
+		this.fBoardContent = fBoardContent;
 	}
 
-	public int getfBoard_hit() {
-		return fBoard_hit;
+	public int getfBoardHit() {
+		return fBoardHit;
 	}
 
-	public void setfBoard_hit(int fBoard_hit) {
-		this.fBoard_hit = fBoard_hit;
+	public void setfBoardHit(int fBoardHit) {
+		this.fBoardHit = fBoardHit;
 	}
 
-	public Date getfBoard_date() {
-		return fBoard_date;
+	public Date getfBoardDate() {
+		return fBoardDate;
 	}
 
-	public void setfBoard_date(Date fBoard_date) {
-		this.fBoard_date = fBoard_date;
+	public void setfBoardDate(Date fBoardDate) {
+		this.fBoardDate = fBoardDate;
 	}
 
-	public int getfBoard_cmtCount() {
-		return fBoard_cmtCount;
+	public int getfBoardCmtCount() {
+		return fBoardCmtCount;
 	}
 
-	public void setfBoard_cmtCount(int fBoard_cmtCount) {
-		this.fBoard_cmtCount = fBoard_cmtCount;
+	public void setfBoardCmtCount(int fBoardCmtCount) {
+		this.fBoardCmtCount = fBoardCmtCount;
 	}
-
-	
 
 	
 }

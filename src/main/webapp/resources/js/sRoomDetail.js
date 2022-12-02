@@ -33,7 +33,7 @@ $(document).ready(function() {
  	  $("#eTimepicker").prop('disabled', true);
  
 	  function stimeSelectChange(){
-	  	stTime = $("#sTimepicker").val();
+	  	stTime = $("#sTimepicker").val();   
 	  	console.log(stTime);
 	  	$('#eTimepicker').prop('disabled', false);
 	  	$('#eTimepicker').timepicker('option', 'minTime', stTime+'1:00');

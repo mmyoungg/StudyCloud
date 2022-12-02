@@ -28,7 +28,7 @@ form { margin: 40px 5px auto;}
   <div class="mb-3 row">
     <label for="category" class="col-sm-2 col-form-label">카테고리</label>
     <div class="col-sm-10">
-     <select class="form-select" name="category_name">
+     <select class="form-select" name="categoryName">
   		<option>잡담</option>
   		<option>질문</option>
   		<option>공부TIP</option>
@@ -39,17 +39,17 @@ form { margin: 40px 5px auto;}
   <div class="mb-3 row">
     <label for="title" class="col-sm-2 col-form-label">제목</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="title" name="fBoard_title">
+      <input type="text" class="form-control" id="title" name="fBoardTitle">
     </div>
   </div>
   
   <div class="mb-3">
-  <textarea class="form-control" id="content" rows="10" name="fBoard_content"></textarea>
+  <textarea class="form-control" id="content" rows="10" name="fBoardContent"></textarea>
 </div>
   
 
 <div class="mb-3">
-	<input class="form-control" type="file" id="file" name="fBoard_file" multiple>
+	<input class="form-control" type="file" id="file" name="fBoardFile" multiple>
 </div>
 
 <div class="text-center">

@@ -25,6 +25,12 @@ public interface FreeBoardService {
 
 	public FileUpload getAttachFile(int fBoard_no);
 
+	// 글수정을 위한 view값 
+	public HashMap<String, Object> updateView(FreeBoard freeBoard);
+	
+	// 다운로드할 파일정보 불러오기
+	public FileUpload getFile(FileUpload fileUpload);
+
 
 
 }

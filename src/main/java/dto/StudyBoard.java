@@ -15,11 +15,13 @@ public class StudyBoard {
 	private String studyContent;
 	private String studyNotify;
 	private Date enrollstudyDate;
+	private Member member;
 	
 	public StudyBoard() {}
-	
+
 	public StudyBoard(int studyNo, int memberNo, String studyTitle, int studyPeople, String studyAddress,
-			String studyTag, Date studyDate, String studyTime, String studyContent, String studyNotify, Date enrollstudyDate) {
+			String studyTag, Date studyDate, String studyTime, String studyContent, String studyNotify,
+			Date enrollstudyDate, Member member) {
 		super();
 		this.studyNo = studyNo;
 		this.memberNo = memberNo;
@@ -32,14 +34,15 @@ public class StudyBoard {
 		this.studyContent = studyContent;
 		this.studyNotify = studyNotify;
 		this.enrollstudyDate = enrollstudyDate;
+		this.member = member;
 	}
 
 	@Override
 	public String toString() {
 		return "StudyBoard [studyNo=" + studyNo + ", memberNo=" + memberNo + ", studyTitle=" + studyTitle
 				+ ", studyPeople=" + studyPeople + ", studyAddress=" + studyAddress + ", studyTag=" + studyTag
-				+ ", studyDate=" + studyDate + ", studyTime=" + studyTime + ", studyContent=" + studyContent + ", studyNotify=" + studyNotify
-				+ ", enrollstudyDate=" + enrollstudyDate + "]";
+				+ ", studyDate=" + studyDate + ", studyTime=" + studyTime + ", studyContent=" + studyContent
+				+ ", studyNotify=" + studyNotify + ", enrollstudyDate=" + enrollstudyDate + ", member=" + member + "]";
 	}
 
 	public int getStudyNo() {
@@ -106,17 +109,16 @@ public class StudyBoard {
 		this.studyTime = studyTime;
 	}
 
-	public String getStudyNotify() {
-		return studyNotify;
-	}
-	
-
 	public String getStudyContent() {
 		return studyContent;
 	}
 
 	public void setStudyContent(String studyContent) {
 		this.studyContent = studyContent;
+	}
+
+	public String getStudyNotify() {
+		return studyNotify;
 	}
 
 	public void setStudyNotify(String studyNotify) {
@@ -130,7 +132,13 @@ public class StudyBoard {
 	public void setEnrollstudyDate(Date enrollstudyDate) {
 		this.enrollstudyDate = enrollstudyDate;
 	}
-	
-	
-	
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 }

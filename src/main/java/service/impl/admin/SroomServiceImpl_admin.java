@@ -2,6 +2,7 @@ package service.impl.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -16,6 +17,7 @@ import dao.face.admin.SroomDao_admin;
 import dto.FileUpload;
 import dto.StudyRoom;
 import service.face.admin.SroomService_admin;
+import util.Paging;
 
 @Service
 public class SroomServiceImpl_admin implements SroomService_admin {
@@ -27,10 +29,28 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 	@Autowired ServletContext context; //파일 업로드
 
 	@Override
+	public Paging getPaging(int curPage) {
+		
+		//총 게시글 수 조회;
+		int totalCount = sRoomDao_admin.selectCntAll();
+		
+		//페이징 계산
+		Paging paging = new Paging(totalCount, curPage);
+		
+		return paging;
+	}
+
+	@Override
+	public List<StudyRoom> list(Paging paging) {
+		return sRoomDao_admin.selectList(paging);
+	}
+
+	
+	@Override
 	public void write(StudyRoom studyroom, MultipartFile file) {
 		
 		//게시글 처리
-		
+
 		sRoomDao_admin.insertsRoom(studyroom);
 
 		//--------------
@@ -71,9 +91,9 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 		
 		//첨부파일 정보 DB 기록
 		FileUpload sRoomFile = new FileUpload();
-		sRoomFile.setSroom_no( studyroom.getsRoom_no() );
-		sRoomFile.setFileUpload_ori(originName);
-		sRoomFile.setFileUpload_stor(storedName);
+		sRoomFile.setSroomNo( studyroom.getsRoomNo() );
+		sRoomFile.setFileUploadOri(originName);
+		sRoomFile.setFileUploadStor(storedName);
 		
 		sRoomDao_admin.insertFile(sRoomFile);
 		

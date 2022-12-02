@@ -2,133 +2,134 @@ package dto;
 
 public class FileUpload {
 	
-	private int fileUpload_no;
-	private int fBoard_no;
-	private int mtBoard_no;
-	private int mntBoard_no;
-	private int mBoard_no;
-	private int sroom_no;
-	private int member_no;
-	private String fileUpload_ori;
-	private String fileUpload_stor;
+	private int fileUploadNo;
+	private int fBoardNo;
+	private int mtBoardNo;
+	private int mntBoardNo;
+	private int mBoardNo;
+	private int sroomNo;
+	private int memberNo;
+	private String fileUploadOri;
+	private String fileUploadStor;
 	
 	
 	public FileUpload() {}
 
 
-	public FileUpload(int fileUpload_no, int fBoard_no, int mtBoard_no, int mntBoard_no, int mBoard_no, int sroom_no,
-			int member_no, String fileUpload_ori, String fileUpload_stor) {
+	public FileUpload(int fileUploadNo, int fBoardNo, int mtBoardNo, int mntBoardNo, int mBoardNo, int sroomNo,
+			int memberNo, String fileUploadOri, String fileUploadStor) {
 		super();
-		this.fileUpload_no = fileUpload_no;
-		this.fBoard_no = fBoard_no;
-		this.mtBoard_no = mtBoard_no;
-		this.mntBoard_no = mntBoard_no;
-		this.mBoard_no = mBoard_no;
-		this.sroom_no = sroom_no;
-		this.member_no = member_no;
-		this.fileUpload_ori = fileUpload_ori;
-		this.fileUpload_stor = fileUpload_stor;
+		this.fileUploadNo = fileUploadNo;
+		this.fBoardNo = fBoardNo;
+		this.mtBoardNo = mtBoardNo;
+		this.mntBoardNo = mntBoardNo;
+		this.mBoardNo = mBoardNo;
+		this.sroomNo = sroomNo;
+		this.memberNo = memberNo;
+		this.fileUploadOri = fileUploadOri;
+		this.fileUploadStor = fileUploadStor;
 	}
 
 
 	@Override
 	public String toString() {
-		return "FileUpload [fileUpload_no=" + fileUpload_no + ", fBoard_no=" + fBoard_no + ", mtBoard_no=" + mtBoard_no
-				+ ", mntBoard_no=" + mntBoard_no + ", mBoard_no=" + mBoard_no + ", sroom_no=" + sroom_no
-				+ ", member_no=" + member_no + ", fileUpload_ori=" + fileUpload_ori + ", fileUpload_stor="
-				+ fileUpload_stor + "]";
+		return "FileUpload [fileUploadNo=" + fileUploadNo + ", fBoardNo=" + fBoardNo + ", mtBoardNo=" + mtBoardNo
+				+ ", mntBoardNo=" + mntBoardNo + ", mBoardNo=" + mBoardNo + ", sroomNo=" + sroomNo + ", memberNo="
+				+ memberNo + ", fileUploadOri=" + fileUploadOri + ", fileUploadStor=" + fileUploadStor + "]";
 	}
 
 
-	public int getFileUpload_no() {
-		return fileUpload_no;
+	public int getFileUploadNo() {
+		return fileUploadNo;
 	}
 
 
-	public void setFileUpload_no(int fileUpload_no) {
-		this.fileUpload_no = fileUpload_no;
+	public void setFileUploadNo(int fileUploadNo) {
+		this.fileUploadNo = fileUploadNo;
 	}
 
 
-	public int getfBoard_no() {
-		return fBoard_no;
+	public int getfBoardNo() {
+		return fBoardNo;
 	}
 
 
-	public void setfBoard_no(int fBoard_no) {
-		this.fBoard_no = fBoard_no;
+	public void setfBoardNo(int fBoardNo) {
+		this.fBoardNo = fBoardNo;
 	}
 
 
-	public int getMtBoard_no() {
-		return mtBoard_no;
+	public int getMtBoardNo() {
+		return mtBoardNo;
 	}
 
 
-	public void setMtBoard_no(int mtBoard_no) {
-		this.mtBoard_no = mtBoard_no;
+	public void setMtBoardNo(int mtBoardNo) {
+		this.mtBoardNo = mtBoardNo;
 	}
 
 
-	public int getMntBoard_no() {
-		return mntBoard_no;
+	public int getMntBoardNo() {
+		return mntBoardNo;
 	}
 
 
-	public void setMntBoard_no(int mntBoard_no) {
-		this.mntBoard_no = mntBoard_no;
+	public void setMntBoardNo(int mntBoardNo) {
+		this.mntBoardNo = mntBoardNo;
 	}
 
 
-	public int getmBoard_no() {
-		return mBoard_no;
+	public int getmBoardNo() {
+		return mBoardNo;
 	}
 
 
-	public void setmBoard_no(int mBoard_no) {
-		this.mBoard_no = mBoard_no;
+	public void setmBoardNo(int mBoardNo) {
+		this.mBoardNo = mBoardNo;
 	}
 
 
-	public int getSroom_no() {
-		return sroom_no;
+	public int getSroomNo() {
+		return sroomNo;
 	}
 
 
-	public void setSroom_no(int sroom_no) {
-		this.sroom_no = sroom_no;
+	public void setSroomNo(int sroomNo) {
+		this.sroomNo = sroomNo;
 	}
 
 
-	public int getMember_no() {
-		return member_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 
-	public String getFileUpload_ori() {
-		return fileUpload_ori;
+	public String getFileUploadOri() {
+		return fileUploadOri;
 	}
 
 
-	public void setFileUpload_ori(String fileUpload_ori) {
-		this.fileUpload_ori = fileUpload_ori;
+	public void setFileUploadOri(String fileUploadOri) {
+		this.fileUploadOri = fileUploadOri;
 	}
 
 
-	public String getFileUpload_stor() {
-		return fileUpload_stor;
+	public String getFileUploadStor() {
+		return fileUploadStor;
 	}
 
 
-	public void setFileUpload_stor(String fileUpload_stor) {
-		this.fileUpload_stor = fileUpload_stor;
+	public void setFileUploadStor(String fileUploadStor) {
+		this.fileUploadStor = fileUploadStor;
 	}
 
+	
+	
 	
 	
 }
