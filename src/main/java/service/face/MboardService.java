@@ -2,6 +2,9 @@ package service.face;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import dto.FileUpload;
 import dto.Mboard;
 import util.Paging;
 
@@ -30,6 +33,11 @@ public interface MboardService {
 	 * @return 조회된 상세 게시글 객체
 	 */
 	public Mboard detail(Mboard detailMboard);
+
+	public FileUpload getAttachFile(Mboard detailMboard);
+
+	public void write(Mboard mboard, MultipartFile file);
+
 
 
 }

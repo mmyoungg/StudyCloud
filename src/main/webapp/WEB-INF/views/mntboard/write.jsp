@@ -35,7 +35,7 @@ $(document).ready(function() {
 
 function updateContents() {
 	// 작성된 내용을 #content에 반영
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
+	oEditors.getById["mntboardContent"].exec("UPDATE_CONTENTS_FIELD", [])
 }
 </script>
 
@@ -59,12 +59,16 @@ function updateContents() {
 
 
 <div class="form-group">
+ <label for="title">&nbsp;닉네임<span class="rq">*</span></label>
+<input class="form-control" type="text" id="memberNick" name="memberNick" value="${member_nick}" style="margin-top: 5px; font-size: 13px" readonly="readonly"></div>
+
+<div class="form-group">
 <label for="title">&nbsp;제목<span class="rq">*</span></label>
-<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해주세요"  style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" id="mntboardTitle" name="mntboardTitle" placeholder="제목을 입력해주세요"  style="margin-top: 5px; font-size: 13px"></div>
 
 <div class="form-group">
 <label for="field">&nbsp;분야<span class="rq">*</span></label>
-<select class="form-select"  id="apply_fd" name="apply_fd" style="margin-top: 3px; font-size: 13px">
+<select class="form-select"  id="field" name="field" style="margin-top: 3px; font-size: 13px">
   <option selected value="1">개발 · 프로그래밍</option>
   <option value="2">어학 · 외국어</option>
   <option value="3">직무 · 마케팅</option>
@@ -78,11 +82,10 @@ function updateContents() {
 
 <div class="form-group">
 <label for="content">본문<span class="rq">*</span></label>
-<textarea id="content" name="content" rows="11"></textarea>
+<textarea id="mntboardContent" name="mntboardContent" rows="11" style="width: 100%"></textarea>
 </div>
 
 
-<!-- 서블릿컨텍스트에 멀티파트 설정 해줘야됨 -->
 <div class="form-group">
 	<label for="file"></label>
 	<input type="file" id="file" name="file">
@@ -102,7 +105,7 @@ function updateContents() {
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
-	elPlaceHolder: "content",
+	elPlaceHolder: "mntboardContent",
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 })

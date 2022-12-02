@@ -1,0 +1,87 @@
+package service.face;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import dto.FileUpload;
+import dto.MntBoard;
+import util.Paging;
+
+public interface MntBoardService {
+
+	/**
+	 * 
+	 * 게시글 목록을 위한 페이징 객체 생성
+	 * 
+	 * @param curPage - 요청 페이지 번호
+	 * @return 계산이 완료된 Paging 객체
+	 */
+	public Paging getPaging(int curPage);
+
+	/**
+	 * 페이징 적용된 게시글 목록 조회
+	 * 
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return 페이징이 적용된 게시글목록
+	 */
+	public List<HashMap<String, Object>> list(Paging paging);
+	
+	
+	/**
+	 * 게시글 상세
+	 * 
+	 * @param viewBoard - 상세 조회할 게시글 번호 객체
+	 * @return 조회된 상세 게시글 객체
+	 */
+	public HashMap<String, Object> view(MntBoard viewBoard);
+	
+
+	/**
+	 * 게시글 정보, 첨부파일 함께 처리
+	 * 
+	 * @param mntBoard 게시글정보
+	 * @param file 첨부파일정보
+	 */
+	public void write(MntBoard mntBoard, MultipartFile file);
+
+	
+	/**
+	 * 게시글 정보 / 첨부파일 처리
+	 * 
+	 * @param viewBoard 게시글 정보
+	 * @return file 첨부파일 정보
+	 */
+	public FileUpload getAttachFile(MntBoard viewBoard);
+	
+	
+	/**
+	 * 
+	 * @param fileUpload 조회할 파일 번호 
+	 * @return 첨부 파일 정보
+	 */
+	public FileUpload getFile(FileUpload fileUpload);
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

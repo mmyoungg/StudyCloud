@@ -1,11 +1,3 @@
-window.onload = function () {
- 	//$("#date").flatpickr({
-    //dateFormat: "Y년 m월 d일",
-	// minDate: "today",
-	//"locale": "ko",
-	 //mode: "range"
- //});
- 
  // 직무 셀렉트박스
  function selectChange(e) {
   var jobduty_1 = ["백엔드/서버개발자", "프론트엔드/웹퍼블리셔", 
@@ -32,5 +24,5 @@ window.onload = function () {
     target.appendChild(opt);
   } 
  }
-}
+
  
