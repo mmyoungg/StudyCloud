@@ -8,16 +8,27 @@
 <mapper namespace="dao.face.MemberDao">
 	<select id="selectCntMember" resultType="int" parameterType="Member">
 		SELECT count(*) FROM member
-		WHERE member_id = #{member_id} AND member_pw = #{member_pw}
+		WHERE member_id = #{memberId} AND member_pw = #{memberPw}
 	</select>
 
 	<select id="selectMemberNick" resultType="string" parameterType="Member">
 		SELECT member_nick FROM member
-		WHERE member_id = #{member_id}
+		WHERE member_id = #{memberId}
 	</select>
 	
 	<select id="selectCntById" resultType="int" parameterType="Member">
 		SELECT count(*) FROM member
-		WHERE member_id = #{member_id}
+		WHERE member_id = #{memberId}
 	</select>
+	
+	<insert id="insert" parameterType="Member">
+		<selectKey order="BEFORE" resultType="int" keyProperty="memberNo">
+			SELECT member_seq.nextval FROM dual
+		</selectKey>
+			INSERT INTO member ( member_no, member_id, member_pw, member_email, member_name, member_nick, member_phone )
+			VALUES ( member_seq.nextval, #{memberId}, #{memberPw}, #{memberEmail}, #{memberName}, #{memberNick}, #{memberPhone} )
+	</insert>
+	
+
+	
 </mapper>

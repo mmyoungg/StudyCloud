@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:import url="../layout/header.jsp" />       
 
 <style type="text/css">
@@ -33,10 +33,32 @@ table a:hover { color: #3f92b7 }
 
 <script type="text/javascript">
 $(document).ready(function() {
+	var pageNo = ${paging.curPage};
+	console.log(pageNo); // 현재페이지 확인
+	pagingAjax(pageNo);	
+	
 	$("#writeBtn").click(function() {
 		location.href="/freeBoard/write"
-	})	
-})
+	})
+})		
+
+function pagingAjax(pageNo) {
+	var page_no = pageNo;
+	console.log(page_no);
+	
+	$.ajax({
+		type:"GET",
+		url: "/freeBoard/listAjax",
+		dataType: "html", 
+		data : {curPage: page_no},
+		success : function(r){
+		console.log('성공..?');
+			$("#fBoard_content").html(r);
+		} 
+	})
+}
+	
+
 
 </script>
 
@@ -85,39 +107,11 @@ $(document).ready(function() {
   </div>
 </div>
 
-	<button class="col-auto button" type="button">검색</button>
-
-
+<button class="col-auto button" type="button">검색</button>
 
 </form>
-
-<table class="table">
-	<thead>
-	<tr>
-		<th scope="col">No.</th>
-		<th scope="col">카테고리</th>
-		<th scope="col">제목</th>
-		<th scope="col">작성자</th>
-		<th scope="col">조회수</th>
-		<th scope="col">등록일</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-    <c:forEach items="${fBoardList }" var="fBoard">
-	<tr>
-		<td>${fBoard.FBOARD_NO }</td>
-		<td>${fBoard.CATEGORY_NAME }</td>
-		<td><a href="./view?fBoard_no=${fBoard.FBOARD_NO }">${fBoard.FBOARD_TITLE }</a></td>
-		<td>${fBoard.MEMBER_NICK }</td>
-		<td>${fBoard.FBOARD_HIT }</td>
-		<td><fmt:formatDate value="${fBoard.FBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
-	</tr>
-</c:forEach>
-  </tbody>
-</table>
-
-<c:import url="/WEB-INF/views/freeBoard/paging.jsp" />
+<div id="fBoard_content"></div>
+<%-- <c:import url="/WEB-INF/views/freeBoard/listAjax.jsp" /> --%>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <button class="me-md-2 fBoard-write-button" type="button" id="writeBtn">글쓰기</button>

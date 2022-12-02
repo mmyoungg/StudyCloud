@@ -2,12 +2,11 @@ package service.face.admin;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import dto.StudyRoom;
+import dto.ApplyMt;
+import dto.Member;
 import util.Paging;
 
-public interface SroomService_admin {
+public interface ApplyMtService_admin {
 
 	/**
 	 * 게시글 목록을 위한 페이징 객체를 생성한다
@@ -20,24 +19,28 @@ public interface SroomService_admin {
 	 * @return 계산이 완료된 Paging 객체
 	 */
 	public Paging getPaging(int curPage);
-
+	
 	/**
 	 * 페이징이 적용된 게시글 목록 조회
 	 * 
 	 * @param paging - 페이징 정보 객체
 	 * @return 페이징이 적용된 게시글 목록
 	 */
-	public List<StudyRoom> list(Paging paging);
+	public List<ApplyMt> list(Paging paging);
 	
 	/**
-	 * 게시글 정보와 첨부파일을 함께 처리한다
+	 * 회원 권한을 변경한다
+	 * @return 
 	 * 
-	 * @param studyroom - 게시글 정보 객체
-	 * @param file - 첨부파일 정보 객체
 	 */
-	public void write(StudyRoom studyroom, MultipartFile file);
+	public Member updateMember(Member member);
 
-
-
+	/**
+	 * 신청서 상세보기
+	 * 
+	 * @param applyMt - 상세 조회할 게시글 번호 객체
+	 * @return 조회된 상세 게시글 객체
+	 */
+	public ApplyMt view(ApplyMt applyMt);
 
 }

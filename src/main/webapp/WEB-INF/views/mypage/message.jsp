@@ -93,7 +93,7 @@
         <div class="col-md-12 d-flex justify-content-center right-bck">
             <div class="registration-right"><br><br>
             
-                <h2>보낸 쪽지함</h2>
+                <h2>받은 쪽지함</h2>
                 <div class="event-list">
                     <div class="card flex-row"><img class="card-img-left img-fluid" src="https://img.icons8.com/color/512/test-account.png" />
                         <div class="card-body">
@@ -118,7 +118,7 @@
         </div><br><br>
         <div class="col-md-12 d-flex justify-content-center right-bck">
             <div class="registration-right">
-                <h2>받은 쪽지함</h2>
+                <h2>보낸 쪽지함</h2>
                 <div class="event-list">
                     <div class="card flex-row"><img class="card-img-left img-fluid" src="https://img.icons8.com/color/512/test-account.png" />
                         <div class="card-body">

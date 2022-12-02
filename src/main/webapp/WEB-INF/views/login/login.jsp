@@ -182,12 +182,12 @@ a {
 						<div class="card-body">
 							<div class="form-group">
 								<div class="form-text">아이디</div>
-								<input class="form-control" type="text" id="member_id" name="member_id">
+								<input class="form-control" type="text" id="memberId" name="memberId">
 							</div>
 
 							<div class="form-group">
 								<div class="form-text">비밀번호</div>
-								<input class="form-control" type="password" id="member_pw" name="member_pw">
+								<input class="form-control" type="password" id="memberPw" name="memberPw">
 							</div>
 
 							<div class="wrapper col-12">

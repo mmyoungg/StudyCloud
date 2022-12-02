@@ -30,7 +30,7 @@ public class JoinController {
 	
 	}
 	
-	@PostMapping("/member/join")
+	@PostMapping("/join")
 	public String joinProcess(Member member, HttpSession session) {
 		logger.info("{}", member);
 		
@@ -39,12 +39,12 @@ public class JoinController {
 		if( joinResult ) {
 			
 			logger.info("회원가입 성공");
-			return "redirect:/";
+			return "redirect:/login";
 			
 		} else {
 			
 			logger.info("회원가입 실패");
-			return "redirect:/member/join";
+			return "redirect:/join";
 		}
 	}
 

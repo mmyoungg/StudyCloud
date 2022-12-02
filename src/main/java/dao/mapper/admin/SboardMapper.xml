@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="dao.face.admin.SboardDao_admin">
+
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM studyboard
+	</select>
+
+	
+	<resultMap type="dto.StudyBoard" id="StudyBoardMap">
+		<id column="study_no" property="studyNo" />
+		<result column="study_title" property="studyTitle"/>
+		<result column="study_people" property="studyPeople"/>
+		<result column="study_address" property="studyAddress"/>
+		<result column="study_tag" property="studyTag"/>
+		<result column="study_date" property="studyDate"/>
+		<result column="study_time" property="studyTime"/>
+		<result column="study_content" property="studyContent"/>
+		<result column="study_Notify" property="studyNotify"/>
+		<result column="enrollstudy_date" property="enrollstudyDate"/>
+		<result column="member_no" property="memberNo"/>
+			
+		<association property="member" javaType="dto.Member">
+			<id column="member_no" property="memberNo"/>
+			<result column="member_id" property="memberId"/>
+			<result column="member_email" property="memberEmail"/>
+			<result column="authority" property="authority"/>
+			<result column="member_name" property="memberName"/>
+			<result column="member_nick" property="memberNick"/>
+			<result column="member_phone" property="memberPhone"/>
+		</association>
+	</resultMap>
+		
+	<select id="selectStudyList" resultMap="StudyBoardMap" parameterType="util.Paging">
+		SELECT B.*, M.*
+		FROM studyboard B, member M
+		WHERE B.member_no = M.member_no
+		ORDER BY study_no DESC
+	</select>
+
+<!-- 	<select id="selectStudyList" resultType="dto.StudyBoard" parameterType="util.Paging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, S.* FROM ( -->
+<!-- 				SELECT B.study_title, B.study_people, B.study_address, B.study_tag, B.study_date -->
+<!-- 						, B.study_time, B.study_content, B.study_Notify, B.enrollstudy_date -->
+<!-- 						, M.member_id, M.member_email, M.authority, M.member_name, M.member_nick, M.member_phone -->
+<!-- 				FROM studyboard B, member M -->
+<!-- 				WHERE B.member_no = M.member_no -->
+<!-- 				ORDER BY study_no DESC -->
+<!-- 			) S -->
+<!-- 		) STUDYBOARD -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
+
+</mapper>

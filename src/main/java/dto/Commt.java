@@ -4,100 +4,101 @@ import java.util.Date;
 
 public class Commt {
 
-	private int commt_no;
-	private int fBoard_no;
-	private int mntBoard_no;
-	private int mBoard_no;
-	private int sBoard_no;
-	private int member_no;
-	private String commt_content;
-	private Date commt_date;
+	private int commtNo;
+	private int fBoardNo;
+	private int mntBoardNo;
+	private int mBoardNo;
+	private int studyNo;
+	private int memberNo;
+	private String commtContent;
+	private Date commtDate;
 	
 	public Commt() {}
 
-	public Commt(int commt_no, int fBoard_no, int mntBoard_no, int mBoard_no, int sBoard_no, int member_no,
-			String commt_content, Date commt_date) {
+	public Commt(int commtNo, int fBoardNo, int mntBoardNo, int mBoardNo, int studyNo, int memberNo,
+			String commtContent, Date commtDate) {
 		super();
-		this.commt_no = commt_no;
-		this.fBoard_no = fBoard_no;
-		this.mntBoard_no = mntBoard_no;
-		this.mBoard_no = mBoard_no;
-		this.sBoard_no = sBoard_no;
-		this.member_no = member_no;
-		this.commt_content = commt_content;
-		this.commt_date = commt_date;
+		this.commtNo = commtNo;
+		this.fBoardNo = fBoardNo;
+		this.mntBoardNo = mntBoardNo;
+		this.mBoardNo = mBoardNo;
+		this.studyNo = studyNo;
+		this.memberNo = memberNo;
+		this.commtContent = commtContent;
+		this.commtDate = commtDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Commt [commt_no=" + commt_no + ", fBoard_no=" + fBoard_no + ", mntBoard_no=" + mntBoard_no
-				+ ", mBoard_no=" + mBoard_no + ", sBoard_no=" + sBoard_no + ", member_no=" + member_no
-				+ ", commt_content=" + commt_content + ", commt_date=" + commt_date + "]";
+		return "Commt [commtNo=" + commtNo + ", fBoardNo=" + fBoardNo + ", mntBoardNo=" + mntBoardNo + ", mBoardNo="
+				+ mBoardNo + ", studyNo=" + studyNo + ", memberNo=" + memberNo + ", commtContent=" + commtContent
+				+ ", commtDate=" + commtDate + "]";
 	}
 
-	public int getCommt_no() {
-		return commt_no;
+	public int getCommtNo() {
+		return commtNo;
 	}
 
-	public void setCommt_no(int commt_no) {
-		this.commt_no = commt_no;
+	public void setCommtNo(int commtNo) {
+		this.commtNo = commtNo;
 	}
 
-	public int getfBoard_no() {
-		return fBoard_no;
+	public int getfBoardNo() {
+		return fBoardNo;
 	}
 
-	public void setfBoard_no(int fBoard_no) {
-		this.fBoard_no = fBoard_no;
+	public void setfBoardNo(int fBoardNo) {
+		this.fBoardNo = fBoardNo;
 	}
 
-	public int getMntBoard_no() {
-		return mntBoard_no;
+	public int getMntBoardNo() {
+		return mntBoardNo;
 	}
 
-	public void setMntBoard_no(int mntBoard_no) {
-		this.mntBoard_no = mntBoard_no;
+	public void setMntBoardNo(int mntBoardNo) {
+		this.mntBoardNo = mntBoardNo;
 	}
 
-	public int getmBoard_no() {
-		return mBoard_no;
+	public int getmBoardNo() {
+		return mBoardNo;
 	}
 
-	public void setmBoard_no(int mBoard_no) {
-		this.mBoard_no = mBoard_no;
+	public void setmBoardNo(int mBoardNo) {
+		this.mBoardNo = mBoardNo;
 	}
 
-	public int getsBoard_no() {
-		return sBoard_no;
+	public int getStudyNo() {
+		return studyNo;
 	}
 
-	public void setsBoard_no(int sBoard_no) {
-		this.sBoard_no = sBoard_no;
+	public void setStudyNo(int studyNo) {
+		this.studyNo = studyNo;
 	}
 
-	public int getMember_no() {
-		return member_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public String getCommt_content() {
-		return commt_content;
+	public String getCommtContent() {
+		return commtContent;
 	}
 
-	public void setCommt_content(String commt_content) {
-		this.commt_content = commt_content;
+	public void setCommtContent(String commtContent) {
+		this.commtContent = commtContent;
 	}
 
-	public Date getCommt_date() {
-		return commt_date;
+	public Date getCommtDate() {
+		return commtDate;
 	}
 
-	public void setCommt_date(Date commt_date) {
-		this.commt_date = commt_date;
+	public void setCommtDate(Date commtDate) {
+		this.commtDate = commtDate;
 	}
+
 	
 	
 }

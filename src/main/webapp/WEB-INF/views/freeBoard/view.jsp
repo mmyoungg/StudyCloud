@@ -14,7 +14,12 @@ table th { text-align: center; background-color: #E3EFF9;  }
 .button { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
 		  border-radius: 5px; color: white; }
 .row { margin: 40px 5px auto; }
+.fBoard_content { height: 170px; }
 #comment { width: 900px; }
+.fBoard_view_file p { margin-bottom: 6px; font-size: 15px; color: #3f92b7; }
+.fBoard_cmt { margin: 20px 0 10px; 0 }
+.empty_fBoard_file { font-size: 11px; }
+
 </style>
 
 <script type="text/javascript">
@@ -22,14 +27,14 @@ table th { text-align: center; background-color: #E3EFF9;  }
 		$("#listBtn").click(function() {
 			location.href="/freeBoard/list"
 		})
-		/* 
-		$("#btnUpdate").click(function() {
-			location.href="/board/update?boardNo=${view.board_no}"
+		
+ 		$("#fBoardUpdateBtn").click(function() {
+			location.href="/freeBoard/update?fBoardNo=${fBoardView.FBOARD_NO }"
 		})
 		
-		$("#btnDelete").click(function() {
+		/* $("#btnDelete").click(function() {
 			location.href="/board/delete?boardNo=${view.board_no}"
-		}) */
+		})  */
 })
 </script>
 
@@ -42,7 +47,9 @@ table th { text-align: center; background-color: #E3EFF9;  }
    <tbody>
     <tr>
       <th>작성자</th>
-      <td colspan="3">${fBoardView.MEMBER_NICK }</td>
+      <td>${fBoardView.MEMBER_NICK }</td>
+      <th>카테고리</th>
+      <td>${fBoardView.CATEGORY_NAME }</td>
     </tr>
     <tr>
       <th scope="row">작성일시</th>
@@ -58,16 +65,26 @@ table th { text-align: center; background-color: #E3EFF9;  }
       <th colspan="4">내용</th>
     </tr>
     <tr>
+      <td colspan="4" class="fBoard_content">${fBoardView.FBOARD_CONTENT }
+     <%--  <img src="/upload/${fileUpload.fileUploadOri }"> --%>
       
-      <td colspan="4">${fBoardView.FBOARD_CONTENT }</td>
+      </td>
     </tr>
 	</table>
 	
 	<div class="fBoard_view_file">
-	<a href="/freeBoard/download?fileUpload_no=${fileUpload.fBoard_no}">${fileUpload.fileUpload_ori }</a>
+	<p>첨부파일</p>
+	<c:choose>
+	<c:when test="${not empty fileUpload.fileUploadOri }">
+		<a href="/freeBoard/download?fileUploadNo=${fileUpload.fileUploadNo}">${fileUpload.fileUploadOri }</a>
+	</c:when>
+	<c:otherwise>
+		<p style="font-size: 12px;">첨부된 파일이 없습니다.</p>
+	</c:otherwise>
+	</c:choose>
 	</div>
 	
-	<label for="content">comment 작성하기</label>
+	<label for="content" class="fBoard_cmt">comment 작성하기</label>
     	<div class="input-group">
         	<input type="text" class="form-control" id="content" name="content" placeholder="댓글을 입력하세요.">
             <span class="input-group-btn">
@@ -101,7 +118,7 @@ table th { text-align: center; background-color: #E3EFF9;  }
 <div class="row"></div>
 	<div class="col text-center">
   		<button class="button mx-auto" type="button" id="listBtn">목록</button>
-  		<button class="button mx-auto" type="button">수정</button>
+  		<button class="button mx-auto" type="button" id="fBoardUpdateBtn">수정</button>
   		<button class="button mx-auto" type="button">삭제</button>
 	</div>
 </div>

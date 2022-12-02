@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="dao.face.admin.ApplyMtDao_admin">
+
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM applymt
+	</select>
+	
+	<resultMap type="dto.ApplyMt" id="ApplyMtMap">
+		<id column="applymt_no" property="applymtNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="field" property="field"/>
+		<result column="applymt_content" property="applymtContent"/>
+		<result column="applymt_date" property="applymtDate"/>
+		
+		<association property="member" javaType="dto.Member">
+			<id column="member_no" property="memberNo"/>
+			<result column="member_id" property="memberId"/>
+			<result column="member_email" property="memberEmail"/>
+			<result column="authority" property="authority"/>
+			<result column="member_name" property="memberName"/>
+			<result column="member_nick" property="memberNick"/>
+			<result column="member_phone" property="memberPhone"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectApplyList" resultMap="ApplyMtMap" parameterType="util.Paging">
+		SELECT A.*, M.*
+		FROM applymt A, member M
+		WHERE A.member_no = M.member_no
+		ORDER BY applymt_no DESC
+	</select>
+	
+<!-- 	<select id="selectApplyList" resultMap="ApplyMtMap" parameterType="util.Paging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, S.* FROM ( -->
+<!-- 				SELECT A.applymt_no, A.field, A.applymt_content, A.applymt_date -->
+<!-- 						, M.member_id, M.member_email, M.authority, M.member_nick, M.member_name, M.member_phone -->
+<!-- 				FROM applymt A, member M -->
+<!-- 				WHERE A.member_no = M.member_no -->
+<!-- 				ORDER BY applymt_no DESC -->
+<!-- 			) S -->
+<!-- 		) APPLYMT -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo }  -->
+<!-- 	</select> -->
+
+<!-- 	<select id="updateMember" resultMap="ApplyMtMap"> -->
+<!-- 		UPDATE member -->
+<!-- 		SET authority = 1 -->
+<!-- 		WHERE authority != 1 -->
+<!-- 	</select> -->
+
+	<select id="selectApplyMt" resultType="dto.ApplyMt" parameterType="dto.ApplyMt">
+		SELECT
+			applymt_no, field, applymt_content, applymt_date
+		FROM applymt
+		WHERE applymt_no = #{applymtNo }
+	</select>
+
+
+
+	
+</mapper>

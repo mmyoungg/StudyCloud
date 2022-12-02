@@ -29,7 +29,7 @@ ul>li {
 
 .address span, 
 .menu span {
-   color: #ccc; 
+   color: #b9b9b9; 
    font-weight: bold; 
    border-bottom: 1px solid #c7c7c7; 
    padding: 10px 0px;
@@ -39,12 +39,12 @@ ul>li {
    letter-spacing: 3px;
 }
  
-.address li a, 
+.address li, 
 .menu li a {
-    color: #ccc;
+    color: #b9b9b9;
     letter-spacing: 3px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .address li, 
