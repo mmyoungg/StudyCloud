@@ -112,6 +112,7 @@ public class FreeBoardController {
 		
 		fileUpload = freeBoardService.getFile(fileUpload);
 		logger.info("fileUpload : {}", fileUpload);
+				
 		model.addAttribute("downFile", fileUpload);
 		
 		return "down";
