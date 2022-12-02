@@ -70,6 +70,24 @@ public class MypageController {
 		logger.info("/booklist [GET]성공");
 		
 		return "mypage/booklist";
+		
+	}
+	
+	@GetMapping("/likelist")
+	public String likelist() {
+		
+		logger.info("/likelist [GET]성공");
+		
+		return "mypage/likelist";
+		
+	}
+	
+	@GetMapping("/mtbooklist")
+	public String mtbooklist() {
+		
+		logger.info("/mtbooklist [GET]성공");
+		
+		return "mypage/mtbooklist";
 	
 	}
 

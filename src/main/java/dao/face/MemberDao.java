@@ -14,11 +14,27 @@ public interface MemberDao {
 	public int selectCntMember(Member member);
 	
 	/**
-	 * id를 이용하여 name을 조회한다
+	 * id를 이용하여 nick을 조회한다
 	 * 
 	 * @param member - 조회하려는 회원의 id를 가진 객체
-	 * @return 조회된 name
+	 * @return 조회된 nick
 	 */
 	public String selectMemberNick(Member member);
+	
+	/**
+	 * 신규 회원 정보를 삽입한다
+	 * 
+	 * @param member - 신규 회원 정보
+	 */
+	public void insert(Member member);
+	
+	/**
+	 * 회원 id가 존재하는 값인지 확인한다
+	 * 	-> 중복된 id인지 확인
+	 * 
+	 * @param member - 조회하려는 회원의 id를 가진 객체
+	 * @return 존재 여부 (0-없음, 1-있음)
+	 */
+	public int selectCntById(Member member);
 	
 }

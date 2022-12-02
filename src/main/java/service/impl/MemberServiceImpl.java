@@ -16,6 +16,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired MemberDao memberDao;
 	
+	//로그인
+	
 	@Override
 	public boolean login(Member member) {
 		int loginChk = memberDao.selectCntMember(member);
@@ -29,10 +31,25 @@ public class MemberServiceImpl implements MemberService {
 	public String getMemberNick(Member member) {
 		return memberDao.selectMemberNick(member);
 	}
+	
+	//회원가입
 
 	@Override
 	public boolean join(Member member) {
-		// TODO Auto-generated method stub
+		
+		//중복된 id인지 확인
+		if( memberDao.selectCntById(member) > 0 ) {
+			return false;
+		}
+		
+		//회원 가입 - DB 삽입
+		memberDao.insert(member);
+		
+		//회원가입 결과 확인
+		if( memberDao.selectCntById(member) > 0 ) {
+			return true;
+		}
 		return false;
+		
 	}
 }

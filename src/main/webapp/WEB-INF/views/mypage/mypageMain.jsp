@@ -136,7 +136,10 @@ a:hover {
             <div class="card">
                 <div class="card-body text-center">
                     <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/external-sbts2018-outline-color-sbts2018/512/external-wishlist-black-friday-5-sbts2018-outline-color-sbts2018.png" /> </div>
-                    <div class="name h5"><a href="/wishlist">위시리스트</a></div>
+                    <div class="name h5">찜 목록</div><br>
+                 	<a href="/wishlist" class="testimonial">위시리스트</a><br><br>
+                 	<a href="/likelist" class="testimonial">좋아요</a><br><br>
+                    
                 </div>
             </div>
         </div>

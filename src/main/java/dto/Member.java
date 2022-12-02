@@ -7,7 +7,6 @@ public class Member {
 	private String memberPw;
 	private String memberEmail;
 	private int authority;
-	private String memberPhoto;
 	private String memberName;
 	private String memberNick;
 	private String memberPhone;
@@ -17,19 +16,18 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberEmail="
-				+ memberEmail + ", authority=" + authority + ", memberPhoto=" + memberPhoto + ", memberName="
-				+ memberName + ", memberNick=" + memberNick + ", memberPhone=" + memberPhone + "]";
+				+ memberEmail + ", authority=" + authority + ", memberName=" + memberName + ", memberNick=" + memberNick
+				+ ", memberPhone=" + memberPhone + "]";
 	}
 
-	public Member(int memberNo, String memberId, String memberPw, String memberEmail, int authority, String memberPhoto,
-			String memberName, String memberNick, String memberPhone) {
+	public Member(int memberNo, String memberId, String memberPw, String memberEmail, int authority, String memberName,
+			String memberNick, String memberPhone) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberEmail = memberEmail;
 		this.authority = authority;
-		this.memberPhoto = memberPhoto;
 		this.memberName = memberName;
 		this.memberNick = memberNick;
 		this.memberPhone = memberPhone;
@@ -75,14 +73,6 @@ public class Member {
 		this.authority = authority;
 	}
 
-	public String getMemberPhoto() {
-		return memberPhoto;
-	}
-
-	public void setMemberPhoto(String memberPhoto) {
-		this.memberPhoto = memberPhoto;
-	}
-
 	public String getMemberName() {
 		return memberName;
 	}
@@ -106,11 +96,7 @@ public class Member {
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
-	
-	
-	
-	
-	
+
 	
 }
 
