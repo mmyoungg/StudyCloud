@@ -23,6 +23,10 @@ public interface FreeBoardDao {
 
 	public FileUpload selectFileByfBoardNo(int fBoard_no);
 
+	public HashMap<String, Object> getDetailViewByfBoardNo(FreeBoard freeBoard);
+
+	public FileUpload selectUploadFileByFileNo(FileUpload fileUpload);
+
 
 
 
