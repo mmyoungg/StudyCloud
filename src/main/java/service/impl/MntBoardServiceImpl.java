@@ -102,9 +102,9 @@ public class MntBoardServiceImpl implements MntBoardService {
 				
 				//첨부파일 정보 DB 기록
 				FileUpload fileUpload = new FileUpload();
-				fileUpload.setMntBoard_no(mntBoard.getMntboardNo());
-				fileUpload.setFileUpload_ori(originName);
-				fileUpload.setFileUpload_stor(storedName);
+				fileUpload.setMntBoardNo(mntBoard.getMntboardNo());
+				fileUpload.setFileUploadOri(originName);
+				fileUpload.setFileUploadStor(storedName);
 				
 				mntBoardDao.insertFile(fileUpload);
 		
