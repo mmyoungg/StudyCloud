@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:import url="../layout/header.jsp" /> 
 <link rel="stylesheet" href="/resources/css/mtBoardWrite.css">   
+<script src="../resources/js/mtBoardWrite.js?ver=3"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
@@ -17,7 +18,6 @@
 <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
-<script src="../resources/js/mtBoardWrite.js?ver=2"></script>
 
 </head>
 <body>

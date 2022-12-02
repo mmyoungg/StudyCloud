@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="dao.face.MntBoardDao">
+
+
+	<select id="CntBoard" resultType="int">
+		SELECT count(*) FROM mntboard
+	</select>
+	
+	 <select id="MntBoardList" resultType="hashmap" parameterType="util.Paging">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+			SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
+			, n.mntboard_content ,n.mntboard_cmcnt ,n.mntboard_hit ,n.mntboard_date
+			FROM mntboard n 
+			JOIN member m
+			ON ( n.member_no = m.member_no )
+			ORDER BY mntboard_no DESC )  B
+			) MntBoard
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+
+	<update id="mntBoardHit" parameterType="dto.MntBoard">
+		UPDATE mntboard
+		SET mntboard_hit = mntboard_hit + 1
+		WHERE mntboard_no = #{mntboardNo}
+	</update>
+	
+	<select id="selectMntBoard" resultType="hashmap" parameterType="dto.MntBoard">
+		SELECT m.member_nick, n.field, n.mntboard_title
+			, n.mntboard_content ,n.mntboard_cmcnt ,n.mntboard_hit ,n.mntboard_date
+			FROM mntboard n 
+			JOIN member m
+			ON (n.member_no = m.member_no)
+		WHERE mntboard_no = #{mntboardNo}
+	</select>
+	
+	
+	 <insert id="insertBoard" parameterType="dto.MntBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="mntboardNo">
+			SELECT mntboard_seq.nextval FROM dual		
+		</selectKey>
+		
+		INSERT INTO mntboard (
+			 mntboard_no, member_no, field, mntboard_title
+			, mntboard_content , mntboard_hit , mntboard_date )
+	
+		VALUES ( #{mntboardNo }, #{memberNo }, #{field }, #{mntboardTitle }
+				, #{mntboardContent },  #{mntboardHit } , sysdate)
+	</insert>
+	
+	
+	<!-- pull 받고 dto 컬럼명 수정해야됨 -->
+	<insert id="insertFile" parameterType="dto.FileUpload">
+		INSERT INTO FileUpload (
+			fileupload_no, mntboard_no, fileupload_ori, fileupload_stor )
+		
+		VALUES ( fileupload_seq.nextval, #{mntBoard_no }
+				, #{fileuploadOri }, #{fileuploadStor }
+		)
+	</insert>
+	
+	
+	<select id="selectMntBoardFileByBoardNo" resultType="FileUpload" parameterType="dto.MntBoard">
+		SELECT fileupload_no, mntboard_no, fileupload_ori, fileupload_stor
+		FROM   fileupload
+		WHERE  mntboard_no = #{mntboardNo }
+	</select>
+	
+	
+	<select id="selectBoardFileByFileNo" resultType="FileUpload" parameterType="dto.FileUpload">
+		SELECT fileupload_no, mntboard_no, fileupload_ori, fileupload_stor
+		FROM   fileupload
+		WHERE  fileupload_no = #{fileuploadNo }
+	</select>
+	
+	<!-- 파일업로드 DTO랑 카멜 다른거 주의 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

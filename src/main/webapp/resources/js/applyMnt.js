@@ -14,10 +14,31 @@ window.onload = function () {
     startTime: '09:00am',
     dynamic: false,
     dropdown: true,
-    scrollbar: true
+    scrollbar: true,
+    change: stTimeSelectChange
 });	    		
+   
+   var stTime = "";
+   
+   
+   	   function stTimeSelectChange(){
+        stTime = $("#stTimepicker").val();   
+        console.log(stTime);
+       // $('#edTimepicker').prop('disabled', false);
+        $('#edTimepicker').timepicker('option', 'minTime', stTime+'1:00');
+           
+       //document.getElementById("clickedStartTime").value = stTime;
+     }                   
         
-        
-
-
+	$('#edTimepicker').timepicker({
+    	 timeFormat: 'H:00',
+    	 interval: 60,
+    	 dynamic: false,
+    	 dropdown: true,
+    	 scrollbar: true
+    	 
+    });
+	  
+	 console.log(stTime);  
+	  
 }

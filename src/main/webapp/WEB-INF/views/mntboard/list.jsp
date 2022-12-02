@@ -13,6 +13,7 @@
 <!-- css연결 -->
 <link rel="stylesheet" href="/resources/css/mntBoardList.css"> 
 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -144,21 +145,23 @@ $(document).ready(function() {
 </thead>
 
 <tbody>
+<c:forEach items="${mntBoardlist }" var="mntboard">
   <tr>
-      <th scope="row" class="no">1</th>
+      <td scope="row" class="no">${mntboard.MNTBOARD_NO }</td>
       <td>
-      프로젝트 하는데 막히는 부분 도와주세요
-      <c:if test="${mtboarddto.reply_count ne 0}">
-		<small><b>[&nbsp;<c:out value="${mtboarddto.reply_count}"/>&nbsp;]</b></small>
+      <a id="boardno" href="/mntboard/view?mntboardNo=${mntboard.MNTBOARD_NO }">${mntboard.MNTBOARD_TITLE }</a>
+      <c:if test="${mntboard.MNTBOARD_CMCNT  ne 0}">
+		<small><b>[&nbsp;<c:out value="${mntboard.MNTBOARD_CMCNT}"/>&nbsp;]</b></small>
 	 </c:if>
       </td>
-      <td>컨씨컨브달인</td>
-      <td>3</td>
-      <td>1</td>
-      <td>2022-11-20</td>
+      <td>${mntboard.MEMBER_NICK  }</td>
+      <td>${mntboard.MNTBOARD_HIT }</td>
+      <td>42</td>
+      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mntboard.MNTBOARD_DATE }"/>
  </tr>
+</c:forEach>
  
- <tr>
+ <%-- <tr>
       <th scope="row" class="no">2</th>
       <td>
       면접 조언 부탁드려요
@@ -185,7 +188,7 @@ $(document).ready(function() {
       <td>7</td>
       <td>6</td>
       <td>2022-11-22</td>
-  </tr>
+  </tr> --%>
     
 </tbody>
 </table>
@@ -197,10 +200,10 @@ $(document).ready(function() {
 
 <br><br><br><br><br><br><br><br><br>
 
-<c:import url="/WEB-INF/views/mtboard/paging.jsp" />
 </div><!-- .글목록container -->
 </div> <!-- right -->
 
+<c:import url="/WEB-INF/views/mntboard/paging.jsp" />
 
 	<!-- <!-- 검색바 -->
   <div class="container-fluid">
@@ -217,7 +220,6 @@ $(document).ready(function() {
 
 </main>
 </main>
-
 <c:import url="../layout/footer.jsp" />  
 </body>
 </html>

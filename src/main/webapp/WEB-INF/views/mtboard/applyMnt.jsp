@@ -24,7 +24,7 @@
 <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
-<script src="../resources/js/applyMnt.js?ver2"></script>
+<script src="../resources/js/applyMnt.js?ver4"></script>
 
 
 <script type="text/javascript">
@@ -111,7 +111,7 @@ $(document).ready(function() {
 <input id="stTimepicker" class="form-control" type="text"  style="width: 300px">
 </div>
 
-  <div class="col">
+<div class="col">
 <img src="https://ifh.cc/g/Snad3z.png" style="width: 20px; margin-left: 40px; margin-bottom: 3px;">
 &nbsp;종료<span class="rq">*</span>
 <input id="edTimepicker" class="form-control" type="text" style="width: 300px; float: right;">
