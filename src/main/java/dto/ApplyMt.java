@@ -9,22 +9,24 @@ public class ApplyMt {
 	private String field;
 	private String applymtContent;
 	private Date applymtDate;
+	private Member member;
 	
 	public ApplyMt() {}
 
-	public ApplyMt(int applymtNo, int memberNo, String field, String applymtContent, Date applymtDate) {
+	public ApplyMt(int applymtNo, int memberNo, String field, String applymtContent, Date applymtDate, Member member) {
 		super();
 		this.applymtNo = applymtNo;
 		this.memberNo = memberNo;
 		this.field = field;
 		this.applymtContent = applymtContent;
 		this.applymtDate = applymtDate;
+		this.member = member;
 	}
 
 	@Override
 	public String toString() {
 		return "ApplyMt [applymtNo=" + applymtNo + ", memberNo=" + memberNo + ", field=" + field + ", applymtContent="
-				+ applymtContent + ", applymtDate=" + applymtDate + "]";
+				+ applymtContent + ", applymtDate=" + applymtDate + ", member=" + member + "]";
 	}
 
 	public int getApplymtNo() {
@@ -66,6 +68,13 @@ public class ApplyMt {
 	public void setApplymtDate(Date applymtDate) {
 		this.applymtDate = applymtDate;
 	}
-	
-	
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 }

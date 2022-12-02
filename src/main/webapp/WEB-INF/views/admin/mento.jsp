@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -75,6 +74,13 @@ myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
 
+
+$(document).ready(function() {
+	$("#btnUpdate").click(function() {
+		location.href = "/admin/memto/view"
+	})
+})
+
 </script>
 
 
@@ -135,6 +141,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 
 		<!-- 멘토 등록 -->
 		<main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
+		<form action="/admin/mento" method="post" >
 			<div class="wrap">
 			    <div class="justify-content-between flex-wrap flex-md-nowrap">
 	 		        <p class="menuName">멘토 신청 관리</p>
@@ -150,156 +157,66 @@ myModal.addEventListener('shown.bs.modal', () => {
 	                            <th style="width: 20%">이름</th>
 	                            <th style="width: 20%">회원등급</th>
 	                            <th style="width: 10%">신청서</th>
-	                            <th class="text-center" style="width: 5%"></th>
+	                            <th style="width: 5%">관리</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
+							
+							<c:forEach items="${list }" var="applymt">
 	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid1</span></td>
-	                            <td><span class="bg-blight">닉네임1</span></td>
-	                            <td><span class="bg-bdark">이름1</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn btnView" data-bs-toggle="modal" data-bs-target="#exampleModal">신청서</button></td>
+	                            <td><span class="bg-blight">${applymt.applymtNo }</span></td>
+	                            <td><span class="bg-bdark">${applymt.member.memberId }</span></td>
+	                            <td><span class="bg-blight">${applymt.member.memberNick }</span></td>
+	                            <td><span class="bg-bdark">${applymt.member.memberName }</span></td>
+	                            <td><span class="bg-bdark">${applymt.member.authority }</span></td>
+	                            <td><button type="button" class="btn btnView" data-bs-toggle="modal" data-bs-target="#applyModal${applymt.applymtNo }">신청서</button></td>
+	                            <td><button type="button" class="btn btnUpdate">변경</button></td>
 	                            
 									<!-- 모달 -->
-									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal fade" id="applyModal${applymt.applymtNo }" tabindex="-1" aria-labelledby="applyModal" aria-hidden="true">
 									  <div class="modal-dialog modal-dialog modal-dialog-scrollable"> <!-- 모달창 스크롤 -->
 									    <div class="modal-content">
 									      <div class="modal-header">
-									        <h5 class="modal-title" id="exampleModalLabel">OOO 님의 멘토 신청서</h5>
+									        <h5 class="modal-title" id="applyModalLabel">${applymt.member.memberNick } 님의 멘토 신청서</h5>
 									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      </div>
 									      <!-- 모달 내용 -->
 									      <div class="modal-body">
 									        	<p>Study Cloud 아이디</p>
-									        	<p>ABC</p><hr>
+									        	<p>${applymt.member.memberId }</p><hr>
 									        	
 									        	<p>이메일</p>
-									        	<p>ABC@email.com</p><hr>
+									        	<p>${applymt.member.memberEmail }</p><hr>
 									        	
 									        	<p>이름</p>
-									        	<p>OOO</p><hr>
+									        	<p>${applymt.member.memberName }</p><hr>
 	
 									        	<p>연락처</p>
-									        	<p>010-0000-0000</p><hr>
+									        	<p>${applymt.member.memberPhone }</p><hr>
 	
 									        	<p>희망분야</p>
-									        	<p>개발</p><hr>
+									        	<p>${applymt.field }</p><hr>
 	
 									        	<p>소개글</p>
-									        	<p>소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개
-									        		소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개소개
+									        	<p>${applymt.applymtContent }
 								        		</p>
 									      </div>
 									      <div class="modal-footer">
-									        <button type="button" class="btn btn-primary">승인</button>
-									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									        <button type="button" class="btn btn-primary" id="btnOk">승인</button>
+									        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">취소</button>
 									      </div>
 									    </div>
 									  </div>
 									</div>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
 	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid2</span></td>
-	                            <td><span class="bg-blight">닉네임2</span></td>
-	                            <td><span class="bg-bdark">이름2</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid3</span></td>
-	                            <td><span class="bg-blight">닉네임3</span></td>
-	                            <td><span class="bg-bdark">이름3</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid4</span></td>
-	                            <td><span class="bg-blight">닉네임4</span></td>
-	                            <td><span class="bg-bdark">이름4</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid5</span></td>
-	                            <td><span class="bg-blight">닉네임5</span></td>
-	                            <td><span class="bg-bdark">이름5</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid6</span></td>
-	                            <td><span class="bg-blight">닉네임6</span></td>
-	                            <td><span class="bg-bdark">이름6</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid7</span></td>
-	                            <td><span class="bg-blight">닉네임7</span></td>
-	                            <td><span class="bg-bdark">이름7</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid8</span></td>
-	                            <td><span class="bg-blight">닉네임8</span></td>
-	                            <td><span class="bg-bdark">이름8</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid9</span></td>
-	                            <td><span class="bg-blight">닉네임9</span></td>
-	                            <td><span class="bg-bdark">이름9</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid10</span></td>
-	                            <td><span class="bg-blight">닉네임10</span></td>
-	                            <td><span class="bg-bdark">이름10</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn btnView" data-toggle="modal" data-target="#exampleModal">신청서</button></td>
-	                            <td class="text-center"><span class="fas fa-check"></span></td>
-	                        </tr>
+							</c:forEach>
+							        
 	                    </tbody>
 	                </table>
 	            </div>
-	            
-	            <!-- 페이지 -->
-	            <div class="d-flex align-items-center justify-content-between px-3 mt-3">
-	                <div class="bg-bdark fs13">
-	                	<span>Page</span>
-	                	<input class="input-10 text-center" type="text" value="1">
-	                	<span><span class="px-1">of</span>1</span>
-	               	</div>
-	                <div class="d-flex justify-content-end bg-bdark fs13">
-	                	<span class="pe-1">Show</span>
-	                	<input class="input-10" type="number" value="25">
-	                	<span class="ps-2"><span class="pe-2">/</span>Page</span>
-	               	</div>
-	            </div>
+	          <span class="pull-right">total : ${paging.totalCount }</span>
 			</div><!-- wrap end -->
+		</form>
         </main>
     </div>
 </div><!-- container -->

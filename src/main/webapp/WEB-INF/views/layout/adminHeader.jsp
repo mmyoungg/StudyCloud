@@ -16,6 +16,20 @@
 
 <style type="text/css">
 
+/* 전체 폰트 적용 */
+@font-face {
+    font-family: 'paybooc';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+    font-family: 'paybooc';
+}
+
 * {
 	margin: 0;
 }
