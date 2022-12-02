@@ -109,7 +109,7 @@ public class FreeBoardController {
 		logger.info("/freeBoard/download [GET], fileUpload : {}", fileUpload);
 		
 		fileUpload = freeBoardService.getFile(fileUpload);
-		logger.info("fileUpload : {}", fileUpload);
+		logger.info("fileUpload : {} ", fileUpload);
 				
 		model.addAttribute("downFile", fileUpload);
 		
