@@ -11,7 +11,7 @@
 <c:import url="../layout/header.jsp" /> 
 
 <!-- css연결 -->
-<link rel="stylesheet" href="/resources/css/mntBoardList.css"> 
+<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=3"> 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
@@ -20,22 +20,26 @@
 <body>
 
 <script type="text/javascript">
-
 $(document).ready(function() {
-	$("#btnWrite").click(function() {
-		location.href = "/mntboard/write"
-	})
-	
-	/* $("#btnUpdate").click(function() {
-		location.href = "/mtboard/update?boardNo=${viewBoard.boardNo }"
-	})
-	
-	$("#btnDelete").click(function() {
-		location.href = "/mtboard/delete?boardNo=${viewBoard.boardNo }"
-	}) */
+	var curPage = 1;    	
+	console.log(curPage);
 })
 
 
+function pageMove(page_no) {
+	$.ajax({
+		type: "Get"
+	   , url: "/mntboard/listPaging"
+	   , data: {
+		   curPage:page_no
+	   }
+	   , dataType: "html"
+	   , success: function( p ) {
+		   $("#listPaging").html(p)
+	   }
+		
+	})
+}
 </script>
 
 
@@ -46,9 +50,10 @@ $(document).ready(function() {
 <!-- 상단 멘토지원 이미지바 -->
 <div class="mento_intro">
 	<div class="mento_intro_content">
-			<p class="mentoring_txt">
-				☁️ 무료 지식 공유에 참여해보세요 ☁️
+			<p class="mentee_txt">
+				☁️ 멘티 찾기 ☁️
 			</p>
+			<span>다양한 지식을 서로 공유 해보아요!</span>
 	</div>
 </div>
 
@@ -67,35 +72,35 @@ $(document).ready(function() {
      
     <tr> 
   	<td>
-  	<input type="checkbox" id="field_01" value="1">
+  	<input type="checkbox" id="field_01" value="개발 · 프로그래밍">
   	<label>개발 · 프로그래밍</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_02" value="2">
+  	<input type="checkbox" id="field_02" value="어학 · 외국어">
   	<label>어학 · 외국어</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_03" value="3">
+  	<input type="checkbox" id="field_03" value="직무 · 마케팅">
   	<label>직무 · 마케팅</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_04" value="4">
+  	<input type="checkbox" id="field_04" value="커리어">
   	<label>커리어</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_05" value="5">
+  	<input type="checkbox" id="field_05" value="기타">
   	<label>기타</label>
 	</td>
 	</tr>
@@ -130,80 +135,19 @@ $(document).ready(function() {
 </div>
 </div>
 
-  
 
-<table class="table">
-<thead>
-	<tr>
-		<th scope="col" style="width: 7%;">No.</th>
-		<th scope="col" style="width: 40%;">제목</th>
-		<th scope="col" style="width: 15%;">작성자</th>
-		<th scope="col" style="width: 10%;">조회수</th>
-		<th scope="col" style="width: 10%;">🤍</th>
-		<th scope="col" style="width: 15%;">작성일</th>
-	</tr>
-</thead>
 
-<tbody>
-<c:forEach items="${mntBoardlist }" var="mntboard">
-  <tr>
-      <td scope="row" class="no">${mntboard.MNTBOARD_NO }</td>
-      <td>
-      <a id="boardno" href="/mntboard/view?mntboardNo=${mntboard.MNTBOARD_NO }">${mntboard.MNTBOARD_TITLE }</a>
-      <c:if test="${mntboard.MNTBOARD_CMCNT  ne 0}">
-		<small><b>[&nbsp;<c:out value="${mntboard.MNTBOARD_CMCNT}"/>&nbsp;]</b></small>
-	 </c:if>
-      </td>
-      <td>${mntboard.MEMBER_NICK  }</td>
-      <td>${mntboard.MNTBOARD_HIT }</td>
-      <td>42</td>
-      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mntboard.MNTBOARD_DATE }"/>
- </tr>
-</c:forEach>
- 
- <%-- <tr>
-      <th scope="row" class="no">2</th>
-      <td>
-      면접 조언 부탁드려요
-      <c:if test="${mtboarddto.reply_count ne 0}">
-		<small><b>[&nbsp;<c:out value="${mtboarddto.reply_count}"/>&nbsp;]</b></small>
-	 </c:if>
-      </td>
-      <td>백수</td>
-      <td>10</td>
-      <td>8</td>
-      <td>2022-11-21</td>
-    </tr>
-	
-    
-  <tr>
-      <th scope="row" class="no">3</th>
-      <td>
-      직무에 대해서 설명해주실분
-      <c:if test="${mtboarddto.reply_count ne 0}">
-		<small><b>[&nbsp;<c:out value="${mtboarddto.reply_count}"/>&nbsp;]</b></small>
-	 </c:if>
-	 </td>
-      <td>언어달인</td>
-      <td>7</td>
-      <td>6</td>
-      <td>2022-11-22</td>
-  </tr> --%>
-    
-</tbody>
-</table>
+<div id="listPaging">
+<c:import url="/WEB-INF/views/mntboard/listPaging.jsp?ver=2" />
+</div>  
 
-<!-- 회원만 보이게 -->
-<div><button id="btnWrite" class="btn btn-primary pull-right">글쓰기</button></div>
-<!-- <button id="btnUpdate" class="btn btn-primary pull-right">수정</button>
-<button id="btnDelete" class="btn btn-primary pull-right">삭제</button> -->
-
-<br><br><br><br><br><br><br><br><br>
 
 </div><!-- .글목록container -->
+
+
 </div> <!-- right -->
 
-<c:import url="/WEB-INF/views/mntboard/paging.jsp" />
+
 
 	<!-- <!-- 검색바 -->
   <div class="container-fluid">
