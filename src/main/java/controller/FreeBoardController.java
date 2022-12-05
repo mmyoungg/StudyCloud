@@ -73,7 +73,8 @@ public class FreeBoardController {
 		
 		model.addAttribute("fBoardView", freeBoardView);
 		
-		FileUpload fileupload = freeBoardService.getAttachFile(fBoardNo);
+		List<HashMap<String, Object>> fileupload = freeBoardService.getAttachFile(fBoardNo);
+		logger.info("/freeBoard/view, 파일첨부 정보 : {}", fileupload);
 		model.addAttribute("fileUpload", fileupload);
 	}
 	
@@ -81,7 +82,7 @@ public class FreeBoardController {
 	public void write() {}
 	
 	@RequestMapping(value="/freeBoard/write", method=RequestMethod.POST)
-	public String fBoardWriteProc(FreeBoard freeBoard, MultipartFile fBoardFile, HttpSession session) {
+	public String fBoardWriteProc(FreeBoard freeBoard, List<MultipartFile> fBoardFile, HttpSession session) {
 		logger.info("/freeBoard/write [POST], 파라미터 : {}", freeBoard);
 		
 		freeBoard.setMemberNo( (int)session.getAttribute("member_no") );
@@ -99,9 +100,19 @@ public class FreeBoardController {
 		
 		model.addAttribute("updateView", freeBoardView);
 		
-		FileUpload fileupload = freeBoardService.getAttachFile(fBoardNo);
+		List<HashMap<String, Object>> fileupload = freeBoardService.getAttachFile(fBoardNo);
 		model.addAttribute("fileUpload", fileupload);
 	}
+	
+	@RequestMapping(value="/freeBoard/update", method=RequestMethod.POST)
+	public String updateProc(FreeBoard freeBoard, List<MultipartFile> fBoardFile) {
+		
+		logger.info("/freeBoard/update [POST] freeBoard : {}", freeBoard);
+		freeBoardService.update(freeBoard, fBoardFile);
+		
+		return "redirect:/freeBoard/list";
+	}
+	
 	
 	@RequestMapping("/freeBoard/download")
 	public String download(FileUpload fileUpload, Model model) {
@@ -115,5 +126,19 @@ public class FreeBoardController {
 		
 		return "down";
 	}
+	
+	@RequestMapping("/freeBoard/delete")
+	public String delete(FreeBoard freeBoard) {
+		
+		logger.info("/freeBoard/delete, freeBoard : {}", freeBoard);
+		freeBoardService.delete(freeBoard);
+		
+		
+		
+		return "redirect:/freeBoard/list";
+	}
+	
+	@RequestMapping("/freeBoard/test")
+	public void test() {}
 	
 }

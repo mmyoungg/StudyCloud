@@ -9,9 +9,66 @@ label{ text-align: center; }
 form { margin: 40px 5px auto;}
 .button { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
 		  border-radius: 5px; color: white; }
+.preview img { width: 200px; height: 150px; margin: 35px 5px 5px 5px;}
+.fileBox p { margin-bottom: 5px; position: absolute; left: 5px;}
+.fileBox { position: relative; width: 220px; height: 240px; margin-left: 5px;}
+.fileBox a { position: absolute; right: 15px; }
+.preview { display: flex; }
 
 </style>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+	var fBoard_files = [];
+$(document).ready(function() {
+	
+	$("#file").on("change", handleFileSelect);
+
+})
+
+function handleFileSelect(e) {
+	
+	fBoard_files = [];
+	$(".preview").empty();
+	
+	var files=e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+	
+	var index=0;
+	filesArr.forEach(function(f) {
+		
+		fBoard_files.push(f);
+		
+		if(f.type.match('image.*')) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var html = "<div class='fileBox'>"
+				html += "<p>" + f.name + "</p>"				
+			    html += "<a href=\"javascript:void(0);\" id=\"img_id_"+index+"\"><img src=\""+e.target.result+"\" data-file='"+f.name+"' class='selProductFile'></a>";
+				html += "</div>"
+			$(".preview").append(html);
+			index++;
+		}
+		reader.readAsDataURL(f);
+		} else {
+			var html = "<div class='fileBox'>"
+				html += "<p>" + f.name + "</p>"
+			    html += "<a><img src=\"https://ifh.cc/g/vGMnsc.png\" data-file='"+f.name+"' class='selProductFile'></a>";
+				html += "</div>"
+				$(".preview").append(html);
+				index++;
+		}
+	})
+	
+}
+
+function deleteImageAction(index) {
+	fBoard_files.splice(index, 1);
+	
+	var img_id="#img_id_"+index;
+	$(img_id).remove();
+}
+
+
+</script>
 
 <div class="content">
 <h2>자유게시판</h2>
@@ -51,6 +108,8 @@ form { margin: 40px 5px auto;}
 <div class="mb-3">
 	<input class="form-control" type="file" id="file" name="fBoardFile" multiple>
 </div>
+
+<div class="preview" class="fBoardContent"></div>
 
 <div class="text-center">
 	<button id="writeBtn" class="button">글쓰기</button>

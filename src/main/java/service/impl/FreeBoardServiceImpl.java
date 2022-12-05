@@ -2,8 +2,10 @@ package service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -47,48 +49,60 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 	
 	@Override
-	public void write(FreeBoard freeBoard, MultipartFile fBoardFile) {
+	public void write(FreeBoard freeBoard, List<MultipartFile> fBoardFile) {
 		
 		// 게시글 삽입
 		freeBoardDao.fBoardInsert(freeBoard);
 		
-		if(fBoardFile.getSize() <= 0) { return; }
+		if(fBoardFile.size() <= 0) { return; }
 		
 		String storedPath = context.getRealPath("upload");
 		File storedFolder = new File( storedPath );
 		if( !storedFolder.exists() ) {
 			storedFolder.mkdir();
 		}
-		
+		System.out.println("[파일 RealPath : " + storedPath);
 		// 파일이 저장될 이름
-		String originName = fBoardFile.getOriginalFilename();
-		System.out.println("[파일업로드 서비스] originName : " + originName);
-		String storedName = originName + UUID.randomUUID().toString().split("-")[1];
-		System.out.println("[파일업로드 서비스] storedName : " + storedName);
+		List<Map<String, String>> fileList = new ArrayList<>();	
+		
+		for(int i=0; i<fBoardFile.size(); i++) {
+			String originName = fBoardFile.get(i).getOriginalFilename();
+			System.out.println("[파일업로드 수정 서비스] originName : " + originName);
+			String storedName = originName + UUID.randomUUID().toString().split("-")[1];
+			System.out.println("[파일업로드 수정 서비스] storedName : " + storedName);
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("originName", originName);
+			map.put("storedName", storedName);
+			
+			fileList.add(map);
+			
+		}
 		
 		// 저장할 파일의 정보 객체
-		File dest = new File( storedFolder, storedName);
+		for(int i=0; i<fBoardFile.size(); i++) {
+		File dest = new File( storedFolder, fileList.get(i).get("storedName"));
 		try {
-			fBoardFile.transferTo(dest);
+			fBoardFile.get(i).transferTo(dest);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		// 첨부파일 정보 DB 기록
 		FileUpload fileUpload = new FileUpload();
 		fileUpload.setfBoardNo(freeBoard.getfBoardNo());
-		fileUpload.setFileUploadOri(originName);
-		fileUpload.setFileUploadStor(storedName);
+		fileUpload.setFileUploadOri(fileList.get(i).get("originName"));
+		fileUpload.setFileUploadStor(fileList.get(i).get("storedName"));
 			
 		freeBoardDao.insertFile(fileUpload);
+		}
 		
 		
 	}
 	
 	@Override
-	public FileUpload getAttachFile(int fBoardNo) {
+	public List<HashMap<String, Object>> getAttachFile(int fBoardNo) {
 		return freeBoardDao.selectFileByfBoardNo(fBoardNo);
 	}
 	
@@ -102,6 +116,72 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public FileUpload getFile(FileUpload fileUpload) {
 		
 		return freeBoardDao.selectUploadFileByFileNo(fileUpload);
+	}
+	
+	@Override
+	public void update(FreeBoard freeBoard, List<MultipartFile> fBoardFile) {
+		freeBoardDao.updateFreeBoard(freeBoard);
+		
+		// 첨부파일 수정
+		
+		if( fBoardFile.size() <= 0 ) {
+			return;
+		}
+	
+		freeBoardDao.deleteFile(freeBoard);
+				
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+		File storedFolder = new File( storedPath );
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		List<Map<String, String>> fileList = new ArrayList<>();	
+		
+		//파일이 저장될 이름
+		for(int i=0; i<fBoardFile.size(); i++) {
+			String originName = fBoardFile.get(i).getOriginalFilename();
+			System.out.println("[파일업로드 서비스] originName : " + originName);
+			String storedName = originName + UUID.randomUUID().toString().split("-")[1];
+			System.out.println("[파일업로드 서비스] storedName : " + storedName);
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("originName", originName);
+			map.put("storedName", storedName);
+			
+			fileList.add(map);
+			
+		}
+		//저장할 파일의 정보 객체
+		for(int i=0; i<fBoardFile.size(); i++) {
+		File dest = new File( storedFolder, fileList.get(i).get("storedName"));
+		
+		try {
+			fBoardFile.get(i).transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//--------------------------------------------
+		
+		//첨부파일 정보 DB 기록
+		FileUpload fileUpload = new FileUpload();
+		fileUpload.setfBoardNo( freeBoard.getfBoardNo() );
+		fileUpload.setFileUploadOri(fileList.get(i).get("originName"));
+		fileUpload.setFileUploadStor(fileList.get(i).get("storedName"));
+		
+		//기존에 게시글에 연결된 첨부파일을 삭제한다
+				
+		freeBoardDao.insertFile(fileUpload);		
+		}
+	}
+	
+	@Override
+	public void delete(FreeBoard freeBoard) {
+		freeBoardDao.deleteByfBoardNo(freeBoard);
 	}
 
 	
