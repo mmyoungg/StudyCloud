@@ -18,10 +18,25 @@
 
 <script type="text/javascript">
 
-document.querySelectorAll('.btn').forEach(buttonElement => {
-	  const button = bootstrap.Button.getOrCreateInstance(buttonElement)
-	  button.toggle()
+// document.querySelectorAll('.btn').forEach(buttonElement => {
+// 	  const button = bootstrap.Button.getOrCreateInstance(buttonElement)
+// 	  button.toggle()
+// 	})
+
+$(document).ready(function() {
+	$("#btnWrite").click(function() {
+		location.href = "/mboard/write"
 	})
+})
+
+$(document).ready(function() {
+	$("#btnUpdate").click(function() {
+		location.href = "/mboard/update"
+	})
+})
+
+	
+	
 </script>
 
 <style type="text/css">
@@ -142,6 +157,10 @@ img {
 	height: 10%;
 }
 
+td {
+	text-align: center;
+}
+
 
 </style>
 
@@ -165,7 +184,7 @@ img {
 		</span>
 	</div>
 	
-	<br><br><br><br>
+	<br><br>
 	<div class="container">
 		<div class="nav-m">
 			<div class="form-check">
@@ -193,22 +212,22 @@ img {
 		<table class="table">
 			<thead class="table-head">
 				<tr>
-					<th scope="col">글번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
+					<th scope="col" style="width: 15%;">글번호</th>
+					<th scope="col" style="width: 45%;">제목</th>
+					<th scope="col" style="width: 20%;">작성자</th>
+					<th scope="col" style="width: 10%;">조회수</th>
+					<th scope="col" style="width: 15%;">작성일</th>
 				</tr>
 			</thead>
 			
 			<tbody>
-  				<c:forEach items="${list }" var="mboard">  
+  				<c:forEach items="${mlist }" var="mboard">  
 					<tr>
-						<td>${mboard.board_no }</td>
-						<td><a href="/mboard/mboarddetail?mboardNo=${mboard.mboard_no }">${mboard.mboard_title }</a></td>
-						<td>${mboard.member_nick }</td>
-						<td>${mboard.mboard_hit }</td>
-						<td><fmt:formatDate value="${mboard.mboard_date }" pattern="yy-MM-dd HH:mm:ss"/></td>
+						<td>${mboard.MBOARD_NO}</td>
+						<td style="decoration:none;"><a href="/mboard/detail?mboard_no=${mboard.MBOARD_NO}">${mboard.MBOARD_TITLE}</a></td>
+						<td>${member.MEMBER_ID }</td>
+						<td>${mboard.MBOARD_HIT }</td>
+						<td><fmt:formatDate value="${mboard.MBOARD_DATE }" pattern="yy-MM-dd"/></td>
 					</tr>
   				</c:forEach>  
 			</tbody>
@@ -217,15 +236,15 @@ img {
 		<br><br><br><br><br><br>
 		
 		<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-  			<button type="button" class="btn btn-primary" onclick="location.href='./mboardwrite'"
+  			<button type="button" class="btn btn-primary" id="btnWrite"
         			style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; ">
   			등록하기
 			</button>
-  			<button type="button" class="btn btn-primary"
+  			<button type="button" class="btn btn-primary" id="btnUpdate"
         			style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
   			수정하기
 			</button>
-  			<button type="button" class="btn btn-primary"
+  			<button type="button" class="btn btn-primary" id="btnDelete"
         			style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
   			삭제하기
 			</button>

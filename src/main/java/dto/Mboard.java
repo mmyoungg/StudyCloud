@@ -11,11 +11,13 @@ public class Mboard {
 	private Date mboardDate; //게시글 작성 날짜
 	private int mboardHit; //게시글 조회수
 	private int mboardCmtcnt; //게시글 댓글 수
+	private int mboardLikecnt; //게시글 좋아요 수
+	private Member member;
 	
 	public Mboard() {}
 	
 	public Mboard(int mboardNo, int memberNo, String mboardTitle, String mboardContent, Date mboardDate,
-			int mboardHit, int mboardCmtcnt) {
+			int mboardHit, int mboardCmtcnt, int mboardLikecnt, Member member) {
 		super();
 		this.mboardNo = mboardNo;
 		this.memberNo = memberNo;
@@ -24,6 +26,8 @@ public class Mboard {
 		this.mboardDate = mboardDate;
 		this.mboardHit = mboardHit;
 		this.mboardCmtcnt = mboardCmtcnt;
+		this.mboardLikecnt = mboardLikecnt;
+		this.member = member;
 	}
 	
 
@@ -31,7 +35,7 @@ public class Mboard {
 	public String toString() {
 		return "Mboard [mboardNo=" + mboardNo + ", memberNo=" + memberNo + ", mboardTitle=" + mboardTitle
 				+ ", mboardContent=" + mboardContent + ", mboardDate=" + mboardDate + ", mboardHit=" + mboardHit
-				+ ", mboardCmtcnt=" + mboardCmtcnt + "]";
+				+ ", mboardCmtcnt=" + mboardCmtcnt + ", mboardLikecnt=" + mboardLikecnt + ", member=" + member + "]";
 	}
 
 	public int getMboardNo() {
@@ -89,6 +93,24 @@ public class Mboard {
 	public void setMboardCmtcnt(int mboardCmtcnt) {
 		this.mboardCmtcnt = mboardCmtcnt;
 	}
+	
+	public int getMboardLikecnt() {
+		return mboardLikecnt;
+	}
+
+	public void setMboardLikecnt(int mboardLikecnt) {
+		this.mboardLikecnt = mboardLikecnt;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+	
+	
 	
 	
 	
