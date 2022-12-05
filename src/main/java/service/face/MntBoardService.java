@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
 import util.Paging;
@@ -63,6 +64,48 @@ public interface MntBoardService {
 	 * @return 첨부 파일 정보
 	 */
 	public FileUpload getFile(FileUpload fileUpload);
+
+	
+	/**
+	 * 
+	 * @param mntBoard
+	 * @return 
+	 */
+	public HashMap<String, Object> updateBoard(MntBoard mntBoard);
+
+	
+	/**
+	 * 
+	 * @param mntBoard 
+	 * @param file 수정된 파일정보
+	 */
+	public void update(MntBoard mntBoard, MultipartFile file);
+
+	
+	
+	/**
+	 * 게시글 삭제
+	 * @param mntBoard
+	 */
+	public void delete(MntBoard mntBoard);
+
+	
+	// --------------- 댓글 ---------------
+	
+	public List<HashMap<String, Object>> commtList(MntBoard viewBoard);
+
+	
+	public void writeCommt(Commt commt);
+	
+
+	/*
+	 * // 댓글수정 public List<HashMap<String, Object>> commtList(Commt commt);
+	 */
+	
+	
+	
+	
+	
 	
 	
 }
