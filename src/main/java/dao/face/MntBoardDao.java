@@ -3,6 +3,7 @@ package dao.face;
 import java.util.HashMap;
 import java.util.List;
 
+import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
 import util.Paging;
@@ -74,6 +75,42 @@ public interface MntBoardDao {
 	 * @return 조회된 첨부파일 
 	 */
 	public FileUpload selectBoardFileByFileNo(FileUpload fileUpload);
+
+
+	public HashMap<String, Object> mntBoardView(MntBoard mntBoard);
+
+	/**
+	 * 
+	 * @param mntBoard 수정 할 게시글 정보
+	 */
+	public void updateMntBoard(MntBoard mntBoard);
+
+	/**
+	 * 
+	 * @param mntBoard 첨부파일 삭제 게시글 번호
+	 */
+	public void deleteFile(MntBoard mntBoard);
+
+	
+	/**
+	 * 게시글 삭제
+	 * @param mntBoard
+	 */
+	public void deleteMntBoard(MntBoard mntBoard);
+
+	
+	// 댓글
+	
+	public List<HashMap<String, Object>> mntCommtList(MntBoard viewBoard);
+
+	
+	public void insertCommt(Commt commt);
+
+
+	
+	
+
+
 
 
 	

@@ -87,6 +87,12 @@ span.write_date {
 	margin-bottom: 100px;
 }
 
+
+.filedown {
+	float: right!important;
+}
+
+
 .mnt_content {
 	margin-top: 50px;
 	color: #696969;
@@ -206,7 +212,7 @@ textarea::placeholder {
   }
   
   /* 리뷰 수정 삭제 버튼 */
-  .update_reply_btn{
+  .updateCmbtn{
     background-color: #6cc4dc;
     display: inline-block;
     width: 40px;
@@ -214,25 +220,25 @@ textarea::placeholder {
     height: 20px;
     line-height: 20px;
     margin: 0 5px 0 30px;
-    border-radius: 6px;
+    border-radius: 4px;
     color: white; 
     cursor: pointer;
     text-decoration: none;
   }
-  .delete_reply_btn{
+  .deleteCmbtn{
     background-color: #6cc4dc;
     display: inline-block;
     width: 40px;
     text-align: center;
     height: 20px;
     line-height: 20px;
-    border-radius: 6px;
+    border-radius: 4px;
     color: white; 
   	cursor: pointer;
     text-decoration: none;
   }
 	
-  .update_reply_btn:hover, .delete_reply_btn:hover {
+  .updateCmbtn:hover, .deleteCmbtn:hover {
     background-color: #6cc4dc;
     color: white; 
     text-decoration: none;

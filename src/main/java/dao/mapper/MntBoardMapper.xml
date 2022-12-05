@@ -15,7 +15,8 @@
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 			SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
-			, n.mntboard_content ,n.mntboard_cmcnt ,n.mntboard_hit ,n.mntboard_date
+			, n.mntboard_content , n.mntboard_cmcnt , n.mntboard_hit 
+			, n.mntboard_date, n.like_cnt
 			FROM mntboard n 
 			JOIN member m
 			ON ( n.member_no = m.member_no )
@@ -31,8 +32,8 @@
 	</update>
 	
 	<select id="selectMntBoard" resultType="hashmap" parameterType="dto.MntBoard">
-		SELECT m.member_nick, n.field, n.mntboard_title
-			, n.mntboard_content ,n.mntboard_cmcnt ,n.mntboard_hit ,n.mntboard_date
+		SELECT	 n.mntboard_no,  m.member_nick, n.field, n.mntboard_title, n.mntboard_content 
+				, n.mntboard_cmcnt , n.mntboard_hit , n.mntboard_date, n.like_cnt
 			FROM mntboard n 
 			JOIN member m
 			ON (n.member_no = m.member_no)
@@ -50,17 +51,17 @@
 			, mntboard_content , mntboard_hit , mntboard_date )
 	
 		VALUES ( #{mntboardNo }, #{memberNo }, #{field }, #{mntboardTitle }
-				, #{mntboardContent },  #{mntboardHit } , sysdate)
+				, #{mntboardContent },  #{mntboardHit } , sysdate )
 	</insert>
 	
 	
-	<!-- pull 받고 dto 컬럼명 수정해야됨 -->
+	<!-- 파일업로드 dto -->
 	<insert id="insertFile" parameterType="dto.FileUpload">
-		INSERT INTO FileUpload (
-			fileupload_no, mntboard_no, fileupload_ori, fileupload_stor )
+		INSERT INTO fileUpload (
+			fileUpload_no, mntboard_no, fileUpload_ori, fileUpload_stor )
 		
-		VALUES ( fileupload_seq.nextval, #{mntBoard_no }
-				, #{fileuploadOri }, #{fileuploadStor }
+		VALUES ( fileUpload_seq.nextval, #{mntBoardNo }
+				, #{fileUploadOri }, #{fileUploadStor }
 		)
 	</insert>
 	
@@ -72,30 +73,79 @@
 	</select>
 	
 	
+	<!-- 파일업로드 dto -->
 	<select id="selectBoardFileByFileNo" resultType="FileUpload" parameterType="dto.FileUpload">
 		SELECT fileupload_no, mntboard_no, fileupload_ori, fileupload_stor
 		FROM   fileupload
-		WHERE  fileupload_no = #{fileuploadNo }
+		WHERE  fileupload_no = #{fileUploadNo }
 	</select>
 	
-	<!-- 파일업로드 DTO랑 카멜 다른거 주의 -->
+	
+	<!-- 게시글 수정 -->
+	 <update id="updateMntBoard"  parameterType="dto.MntBoard">
+		UPDATE mntboard
+		SET	   mntboard_title = #{mntboardTitle}
+			 , mntboard_content = #{mntboardContent}
+		WHERE mntboard_no = #{mntboardNo}
+	</update>
+	
+	
+	<delete id="deleteFile" parameterType="dto.MntBoard">
+		DELETE fileupload
+		WHERE mntboard_no = #{mntboardNo}
+	</delete>
+	
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteMntBoard" parameterType="dto.MntBoard">
+		DELETE mntboard
+		WHERE mntboard_no = #{mntboardNo}
+	</delete>
 	
 	
 	
 	
 	
+	<!-- 댓글 -->
 	
-	
-	
-	
-	
-	
-	
+	<select id="count" parameterType="dto.Commt" resultType="int">
+        SELECT count(*) FROM commt
+        WHERE  mntboard_no = #{mntboardNo}
+    </select>
+    
+    <select id="mntCommtList" parameterType="dto.Commt" resultType="hashmap">
+        SELECT * FROM (
+			SELECT rownum rnum, C.* FROM (
+			SELECT c.commt_no, c.mntboard_no, m.member_nick, c.commt_content, c.commt_date
+			FROM commt c 
+			JOIN member m
+			ON ( c.member_no = m.member_no ) 
+			WHERE mntboard_no = #{mntboardNo}
+			ORDER BY commt_no DESC )  C
+			) commt
+    </select>
+    
+    
+    <insert id="insertCommt" parameterType="dto.Commt">
+        INSERT INTO commt(
+			commt_no, mntboard_no, member_no, commt_content )
+		
+		VALUES ( commt_seq.nextval, #{mntBoardNo },  #{memberNo }
+				, #{commtContent }
+		)
+    </insert>
+
+    
+    <update id="updateCommt" parameterType="dto.Commt">
+        UPDATE commt
+        SET commt_content = #{commtContent}
+          , commt_date = #{commtDate}
+        WHERE commt_no = #{commtNo} and member_no = #{memberNo}
+    </update> 
 	
 	
 	
 </mapper>
-
 
 
 
