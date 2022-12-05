@@ -28,19 +28,33 @@ public interface ApplyMtService_admin {
 	 */
 	public List<ApplyMt> list(Paging paging);
 	
-	/**
-	 * 회원 권한을 변경한다
-	 * @return 
-	 * 
-	 */
-	public Member updateMember(Member member);
 
 	/**
-	 * 신청서 상세보기
+	 * 선택된 회원의 정보 업데이트
 	 * 
-	 * @param applyMt - 상세 조회할 게시글 번호 객체
-	 * @return 조회된 상세 게시글 객체
+	 * @param member - 회원 정보
 	 */
-	public ApplyMt view(ApplyMt applyMt);
+	public Member updateMember(Member member);
+	
+	/**
+	 * 멘토 신청 목록
+	 * 
+	 * @param applyMt
+	 * @return
+	 */
+	public int todayApply(ApplyMt applyMt);
+
+	
+	
+	
+	
+//	/**
+//	 * 게시글 상세보기
+//	 * 
+//	 * @param member - 상세 조회할 게시글 번호 객체
+//	 * @return 조회된 상세 게시글 객체
+//	 */
+//	public Member view(Member member);
+
 
 }

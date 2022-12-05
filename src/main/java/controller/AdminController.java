@@ -34,8 +34,17 @@ public class AdminController {
 	@Autowired SboardService_admin sBoardService_admin;
 	
 	@GetMapping("/admin/main")
-	public void admin() {
+	public void admin(ApplyMt applyMt, StudyBoard studyBoard, Model model) {
 		logger.info("/admin/mento [GET]");
+		
+		//투데이 어플라이
+		int todayMentoApply = applyMtService_admin.todayApply(applyMt);
+		logger.debug("{}", todayMentoApply);
+		model.addAttribute("todayMentoApply", todayMentoApply);
+		
+		int todayStudyApply = sBoardService_admin.todayApply(studyBoard);
+		logger.debug("{}", todayStudyApply);
+		model.addAttribute("todayStudyApply", todayStudyApply);
 		
 	}
 	
@@ -52,7 +61,7 @@ public class AdminController {
 		model.addAttribute("paging", paging);
 		
 		List<ApplyMt> list = applyMtService_admin.list(paging);
-		for( ApplyMt a : list ) logger.debug("{}", a);
+		for( ApplyMt a : list ) logger.info("{}", a);
 		model.addAttribute("list", list);
 		
 	}
@@ -61,27 +70,27 @@ public class AdminController {
 	public String mento (Member member) {
 		logger.info("/admin/mento [POST]");
 		
-		//회원권한 변경
+		//회원 등급 변경
 		applyMtService_admin.updateMember(member);
+		logger.debug("member : {}", member);
 		
 		return "redirect:/admin/mento";
 	}
 	
-	//view
-	@GetMapping("/admin/mento/view")
-	public String mentoView(ApplyMt applyMt, Model model) {
-		logger.info("/admin/mento/view [GET]");
-		logger.debug("{}", applyMt);
-		
-		//신청서 조회
-		applyMt = applyMtService_admin.view(applyMt);
-		logger.debug("조회된 신청서 {}", applyMt);
-		
-		//모델값 전달
-		model.addAttribute("applyMt", applyMt);
-		
-		return "redirect: /admin/mento/view";
-	}
+//	//view
+//	@GetMapping("/admin/mento/view")
+//	public String mentoView(Member member, Model model) {
+//		logger.info("/admin/mento/view [GET]");
+//		logger.info("{}", member);
+//		
+//		//신청서 조회
+//		member = applyMtService_admin.view(member);
+//		logger.info("조회된 신청서 {}", member);
+//		
+//		model.addAttribute("viewApplyMt", member);
+//		
+//		return "redirect: /admin/mento/view";
+//	}
 	
 	//스터디 등록
 	@GetMapping("/admin/study")
@@ -100,6 +109,18 @@ public class AdminController {
 		model.addAttribute("list", list);
 		
 	}
+	
+	@PostMapping("/admin/study")
+	public String study(Member member) {
+		logger.info("/admin/study [POST]");
+		
+		//회원 등급 변경
+		sBoardService_admin.updateMember(member);
+		logger.debug("member : {}", member);
+		
+		return "redirect: /admin/study";
+	}
+	
 
 	//스터디룸 등록
 	@GetMapping("/admin/studyroom")
@@ -110,11 +131,11 @@ public class AdminController {
 		logger.info("/admin/studyroom [GET]");
 
 		Paging paging = sRoomService_admin.getPaging(curPage);
-		logger.debug("{}", paging);
+		logger.info("{}", paging);
 		model.addAttribute("paging", paging);
 		
 		List<StudyRoom> list = sRoomService_admin.list(paging);
-		for( StudyRoom s : list ) logger.debug("{}", s);
+		for( StudyRoom s : list ) logger.info("{}", s);
 		model.addAttribute("list", list);
 		
 	}
