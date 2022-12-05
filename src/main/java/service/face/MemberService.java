@@ -28,6 +28,21 @@ public interface MemberService {
 	 */
 	public boolean join(Member member);
 
-
-
+	/**
+	 * 아이디 찾기
+	 * 
+	 * @param memberEmail
+	 * @return
+	 */
+	public String findid(String memberEmail);
+	
+	
+	
+	
 }
+	
+	
+
+
+
+

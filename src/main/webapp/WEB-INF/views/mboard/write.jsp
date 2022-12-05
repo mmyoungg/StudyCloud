@@ -111,7 +111,7 @@
         번개스터디 글 등록이 완료되었습니다.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" style="background-color: #6cc4dc;" onclick="location.href='./mboardmain'">확인</button>
+        <button type="button" class="btn btn-primary" style="background-color: #6cc4dc;" onclick="location.href='./main'">확인</button>
       </div>
     </div>
   </div>

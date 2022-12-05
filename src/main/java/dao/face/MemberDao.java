@@ -36,5 +36,11 @@ public interface MemberDao {
 	 * @return 존재 여부 (0-없음, 1-있음)
 	 */
 	public int selectCntById(Member member);
+
+	
+	public static String findid(String memberEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
