@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>       
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>   
 <c:import url="../layout/header.jsp" />   
 
 <style type="text/css">
@@ -20,6 +21,7 @@ table th { text-align: center; background-color: #E3EFF9;  }
 .fBoard_cmt { margin: 20px 0 10px; 0 }
 .empty_fBoard_file { font-size: 11px; }
 
+
 </style>
 
 <script type="text/javascript">
@@ -32,9 +34,9 @@ table th { text-align: center; background-color: #E3EFF9;  }
 			location.href="/freeBoard/update?fBoardNo=${fBoardView.FBOARD_NO }"
 		})
 		
-		/* $("#btnDelete").click(function() {
-			location.href="/board/delete?boardNo=${view.board_no}"
-		})  */
+		 $("#fBoardDeleteBtn").click(function() {
+			location.href="/freeBoard/delete?fBoardNo=${fBoardView.FBOARD_NO}"
+		})  
 })
 </script>
 
@@ -66,7 +68,9 @@ table th { text-align: center; background-color: #E3EFF9;  }
     </tr>
     <tr>
       <td colspan="4" class="fBoard_content">${fBoardView.FBOARD_CONTENT }
-     <%--  <img src="/upload/${fileUpload.fileUploadOri }"> --%>
+  <%--     <c:forEach items="${fileUpload }" var="fBoardFileList">
+        <img src="">
+	  </c:forEach> --%>
       
       </td>
     </tr>
@@ -75,14 +79,17 @@ table th { text-align: center; background-color: #E3EFF9;  }
 	<div class="fBoard_view_file">
 	<p>첨부파일</p>
 	<c:choose>
-	<c:when test="${not empty fileUpload.fileUploadOri }">
-		<a href="/freeBoard/download?fileUploadNo=${fileUpload.fileUploadNo}">${fileUpload.fileUploadOri }</a>
+	<c:when test="${fn:length(fileUpload) > 0}">
+		<c:forEach items="${fileUpload }" var="fBoardFileList">
+		<a href="/freeBoard/download?fileUploadNo=${fBoardFileList.fileUploadNo}">${fBoardFileList.fileUploadOri }</a>
+		</c:forEach>
 	</c:when>
 	<c:otherwise>
 		<p style="font-size: 12px;">첨부된 파일이 없습니다.</p>
 	</c:otherwise>
 	</c:choose>
 	</div>
+	<div class="preview" class="fBoardContent"></div>
 	
 	<label for="content" class="fBoard_cmt">comment 작성하기</label>
     	<div class="input-group">
@@ -119,7 +126,7 @@ table th { text-align: center; background-color: #E3EFF9;  }
 	<div class="col text-center">
   		<button class="button mx-auto" type="button" id="listBtn">목록</button>
   		<button class="button mx-auto" type="button" id="fBoardUpdateBtn">수정</button>
-  		<button class="button mx-auto" type="button">삭제</button>
+  		<button class="button mx-auto" type="button" id="fBoardDeleteBtn">삭제</button>
 	</div>
 </div>
 

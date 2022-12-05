@@ -21,15 +21,21 @@ public interface FreeBoardService {
 	public HashMap<String, Object> view(int fBoard_no);
 	
 	// 게시글 작성
-	public void write(FreeBoard freeBoard, MultipartFile fBoard_file);
+	public void write(FreeBoard freeBoard, List<MultipartFile> fBoardFile);
 
-	public FileUpload getAttachFile(int fBoard_no);
+	public List<HashMap<String, Object>> getAttachFile(int fBoard_no);
 
 	// 글수정을 위한 view값 
 	public HashMap<String, Object> updateView(FreeBoard freeBoard);
 	
 	// 다운로드할 파일정보 불러오기
 	public FileUpload getFile(FileUpload fileUpload);
+
+	// 게시글 수정
+	public void update(FreeBoard freeBoard, List<MultipartFile> fBoardFile);
+	
+	// 게시글 삭제
+	public void delete(FreeBoard freeBoard);
 
 
 

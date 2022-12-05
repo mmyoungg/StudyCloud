@@ -60,5 +60,26 @@
 		WHERE fileupload_no = #{fileUploadNo}
 	</select> 
 	 
+ 	<update id="updateFreeBoard" parameterType="dto.FreeBoard">
+		UPDATE freeBoard SET fBoard_title = #{fBoardTitle}
+			, fBoard_content = #{fBoardContent}
+			, category_name = #{categoryName}
+		WHERE fboard_no = #{fBoardNo}
+	</update> 
+	
+	<delete id="deleteFile" parameterType="dto.FreeBoard">
+		DELETE fileUpload WHERE fBoard_no = #{fBoardNo }
+	</delete>
+	
+	<delete id="deleteByfBoardNo" parameterType="dto.FreeBoard">
+		DELETE freeBoard WHERE fBoard_no = #{fBoardNo }
+	</delete>
+	
+	<select id="detailFile" parameterType="dto.FreeBoard" resultType="dto.FileUpload">
+		SELECT fileupload_no, fboard_no, fileupload_ori, fileupload_stor 
+		FROM fileupload
+		WHERE fileupload_no = #{fBoardNo}
+	</select>
+	 
 
 </mapper>

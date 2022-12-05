@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>       
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <c:import url="../layout/header.jsp" /> 
 
 <style type="text/css">
@@ -9,15 +10,56 @@ label{ text-align: center; }
 form { margin: 40px 5px auto;}
 .button { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
 		  border-radius: 5px; color: white; }
+#newFile { display: none; }
+.through { text-decoration: line-through; }
+#deleteFile { font-weight: bold; color: red; cursor: pointer; }		  
 
 </style>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+/* 	$("#fBoardUpdateBtn").click(function() {
+		
+		//스마트에디터에 작성된 내용을 #content에 반영
+		$("form").submit();
+	}) */
+	
+ 	if( ${empty fileUpload} ) {
+		$("#newFile").show()
+	} else {
+		$("#originFile").show()
+	} 
+	
+/*   	$("#deleteFile").on("click", function() {
+		 $("#newFile").toggle() 
+		
+// 		$("#originFile").toggle()
+		$("#originFile").toggleClass("through")
+	})   */
+	
+
+	$("#fileAddBtn").on("click", function(){
+		$("#newFile").show()
+	});
+
+	 $("a[name='file-del']").on("click", function(e) {
+         e.preventDefault();
+         deleteFile($(this));
+     });
+	
+	 function deleteFile(obj) {
+	        obj.parent().remove();
+	    }
+})
+
+
+</script>
 
 <div class="content">
 <h2>자유게시판</h2>
 
 <form name="form" action="./update" method="post" enctype="multipart/form-data">
-
+<input type="hidden" name="fBoardNo" value="${updateView.FBOARD_NO}">
   <div class="mb-3 row">
     <label for="id" class="col-sm-2 col-form-label">닉네임</label>
     <div class="col-sm-8">
@@ -39,7 +81,7 @@ form { margin: 40px 5px auto;}
   <div class="mb-3 row">
     <label for="title" class="col-sm-2 col-form-label">제목</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="title" name="fBoardTitle" readonly="readonly" value="${updateView.FBOARD_TITLE }">
+      <input type="text" class="form-control" id="title" name="fBoardTitle" value="${updateView.FBOARD_TITLE }">
     </div>
   </div>
   
@@ -49,17 +91,29 @@ form { margin: 40px 5px auto;}
   
 
 <div class="mb-3">
-<%-- 	<div id="fBoard_fileBox">
-		<div id="originFile">
-			<a href="/board/download?fileNo=${boardFile.fileNo }">${boardFile.originName }</a>
-			<span id="deleteFile">X</span>
+ 	<div id="fBoard_fileBox">
+		<c:choose>
+			<c:when test="${fn:length(fileUpload) > 0}">
+				<div id="originFile">
+				<c:forEach items="${fileUpload }" var="fBoardFileList">
+					<input type="hidden" name="file_no_${fBoardFileList.fileUploadNo }" value="true">
+					<a href="/freeBoard/download?fileUploadNo=${fBoardFileList.fileUploadNo }">${fBoardFileList.fileUploadOri }</a>
+					<a href="#this" name="file-del">X</a>
+				</c:forEach>
+				</div>
+			</c:when>
+		</c:choose>
+		<button type="button" id="fileAddBtn">파일추가</button>
+		<div id="newFile">
+			<label for="file">새로운 첨부파일</label>
+			<input class="form-control" type="file" id="file" name="fBoardFile" multiple>
 		</div>
-	</div> --%>
-	<input class="form-control" type="file" id="file" name="fBoardFile" multiple>
+		
+	</div> 
 </div>
 
 <div class="text-center">
-	<button id="writeBtn" class="button">글쓰기</button>
+	<button class="button">수정</button>
 	<button id="cancel" class="button">취소</button>
 </div>
 
