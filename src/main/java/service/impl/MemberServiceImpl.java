@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import service.face.MemberService;
-import dto.Member;
 import dao.face.MemberDao;
+import dto.Member;
+import service.face.MemberService;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -15,6 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired MemberDao memberDao;
+//	@Autowired private FindidMapper mapper;
 	
 	//로그인
 	
@@ -51,5 +52,24 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return false;
 		
+	}
+		
+	// 아이디 찾기
+	
+	@Override
+	public String findid(String memberEmail) {
+		
+			
+		String result = "";
+		
+		try {
+		 result= MemberDao.findid(memberEmail);
+		 
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return result ;
 	}
 }
