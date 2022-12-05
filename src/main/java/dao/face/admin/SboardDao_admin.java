@@ -3,10 +3,19 @@ package dao.face.admin;
 import java.util.List;
 import java.util.Map;
 
+import dto.Member;
 import dto.StudyBoard;
 import util.Paging;
 
 public interface SboardDao_admin {
+
+	/**
+	 * 작성일을 이용해 오늘 작성된 신청서를 조회한다
+	 * 
+	 * @param studyBoard - 신청서 작성일
+	 * @return 작성된 신청서 갯수
+	 */
+	public int todayCntStudy(StudyBoard studyBoard);
 
 	/**
 	 * 전체 게시글 수를 조회한다
@@ -22,5 +31,14 @@ public interface SboardDao_admin {
 	 * @return 페이징이 적용된 게시글 목록
 	 */
 	public List<StudyBoard> selectStudyList(Paging paging);
+	
+	/**
+	 * 회원 번호를 이용해 회원 정보를 변경한다
+	 * 
+	 * @param member - 변경할 회원 정보
+	 * @return 변경된 회원 정보
+	 */
+	public Member updateStudyMember(Member member);
+
 
 }

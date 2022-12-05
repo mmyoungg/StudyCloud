@@ -17,12 +17,13 @@ public class MtBoard {
 	private Date mtboardDate;
 	private String coName;
 	private int mtPrice;
+	private int mark_cnt;
 	
 	public MtBoard() {}
 
 	public MtBoard(int mtboardNo, int memberNo, String field, String jobDuty, String jobGroup, String career,
 			String mtboardTitle, String mtbordContent, int mtboardCmcnt, int mtboardHit, Date mtboardDate,
-			String coName, int mtPrice) {
+			String coName, int mtPrice, int mark_cnt) {
 		super();
 		this.mtboardNo = mtboardNo;
 		this.memberNo = memberNo;
@@ -37,6 +38,7 @@ public class MtBoard {
 		this.mtboardDate = mtboardDate;
 		this.coName = coName;
 		this.mtPrice = mtPrice;
+		this.mark_cnt = mark_cnt;
 	}
 
 	@Override
@@ -44,7 +46,8 @@ public class MtBoard {
 		return "MtBoard [mtboardNo=" + mtboardNo + ", memberNo=" + memberNo + ", field=" + field + ", jobDuty="
 				+ jobDuty + ", jobGroup=" + jobGroup + ", career=" + career + ", mtboardTitle=" + mtboardTitle
 				+ ", mtbordContent=" + mtbordContent + ", mtboardCmcnt=" + mtboardCmcnt + ", mtboardHit=" + mtboardHit
-				+ ", mtboardDate=" + mtboardDate + ", coName=" + coName + ", mtPrice=" + mtPrice + "]";
+				+ ", mtboardDate=" + mtboardDate + ", coName=" + coName + ", mtPrice=" + mtPrice + ", mark_cnt="
+				+ mark_cnt + "]";
 	}
 
 	public int getMtboardNo() {
@@ -150,6 +153,13 @@ public class MtBoard {
 	public void setMtPrice(int mtPrice) {
 		this.mtPrice = mtPrice;
 	}
-	
+
+	public int getMark_cnt() {
+		return mark_cnt;
+	}
+
+	public void setMark_cnt(int mark_cnt) {
+		this.mark_cnt = mark_cnt;
+	}
 	
 }

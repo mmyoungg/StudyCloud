@@ -7,6 +7,12 @@
     
 <mapper namespace="dao.face.admin.ApplyMtDao_admin">
 
+	<select id="todayCntApplyMt" resultType="int">
+		SELECT count (*)
+		FROM applymt
+		WHERE trunc (applymt_date) = trunc (sysdate)
+	</select>
+
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM applymt
 	</select>
@@ -36,6 +42,24 @@
 		ORDER BY applymt_no DESC
 	</select>
 	
+	<select id="updateApplyMember" parameterType="Member">
+		UPDATE member
+		SET authority = 3
+		WHERE authority != 3
+		AND member_no = #{memberNo }
+	</select>
+	
+	
+	
+<!-- 	<select id="selectApplyMt" resultMap="ApplyMtMap"> -->
+<!--      	SELECT -->
+<!-- 			A.applymt_no, A.field, A.applymt_content, A.applymt_date -->
+<!-- 			, M.member_id, M.authority, M.member_name -->
+<!-- 		FROM applymt A, member M -->
+<!-- 		WHERE A.member_no = M.member_no -->
+<!-- 		AND member_no = #{memberNo } -->
+<!-- 	</select> -->
+	
 <!-- 	<select id="selectApplyList" resultMap="ApplyMtMap" parameterType="util.Paging"> -->
 <!-- 		SELECT * FROM ( -->
 <!-- 			SELECT rownum rnum, S.* FROM ( -->
@@ -51,16 +75,26 @@
 
 <!-- 	<select id="updateMember" resultMap="ApplyMtMap"> -->
 <!-- 		UPDATE member -->
-<!-- 		SET authority = 1 -->
-<!-- 		WHERE authority != 1 -->
+<!-- 		SET authority = 2 -->
+<!-- 		WHERE authority != 2 -->
+<!-- 		AND member_no = member_no -->
 <!-- 	</select> -->
 
-	<select id="selectApplyMt" resultType="dto.ApplyMt" parameterType="dto.ApplyMt">
-		SELECT
-			applymt_no, field, applymt_content, applymt_date
-		FROM applymt
-		WHERE applymt_no = #{applymtNo }
-	</select>
+<!-- 	<select id="updateMember" resultMap="ApplyMtMap"> -->
+<!-- 		UPDATE member -->
+<!-- 		SET authority = 1 -->
+<!-- 		FROM applymt A, member M -->
+<!-- 		WHERE authority != 1 -->
+<!-- 		AND  -->
+<!-- 		A.member_no = M.member_no -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectApplyMt" resultType="dto.ApplyMt" parameterType="dto.ApplyMt"> -->
+<!-- 		SELECT -->
+<!-- 			applymt_no, field, applymt_content, applymt_date -->
+<!-- 		FROM applymt -->
+<!-- 		WHERE applymt_no = #{applymtNo } -->
+<!-- 	</select> -->
 
 
 

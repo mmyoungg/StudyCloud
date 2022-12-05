@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <%@ include file="../layout/adminHeader.jsp"%>     
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,8 +44,7 @@ $(document).ready(function() {
 
 
 <style type="text/css">
-.content { width: 1000px; margin: 70px auto; }
-label{ text-align: center; }
+/* label{ text-align: center; } */
 form { margin: 40px 5px auto;}
 
 .sRoom_insert_btn { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
@@ -58,70 +57,89 @@ form { margin: 40px 5px auto;}
 </head>
 <body>
 
-<div class="container">
-
-<div class="content">
-<div class="sRoom_insert_wrap">
-<h5>스터디룸 등록</h5>
-
 <form action="/admin/sRoominsert" method="post" enctype="multipart/form-data"> <!-- 첨부파일 첨부 -->
 
-<div class="mb-3 row form-group">
-	<label for="sRoomName" class="col-sm-2 col-form-label">스터디룸 이름</label>
-    <div class="col-sm-10">
-    	<input type="text" class="form-control" id="sRoomName" name="sRoomName">
-    </div>
-</div>
-    
-<div class="mb-3 row form-group">
-	<label for="sRoomAddr" class="col-sm-2 col-form-label">주소</label>
-    <div class="col-sm-10">
-    	<input type="text" class="form-control" id="sRoomAddr" name="sRoomAddr">
-    </div>
-</div>
 
-<div class="mb-3 row input-group">
-	<label for="sRoomPrice" class="col-sm-2 col-form-label">가격 (원/시간)</label>
-    <div class="col-sm-4" style="margin-left: 2px;">
-    	<input type="text" class="form-control" id="sRoomPrice" name="sRoomPrice">
-    </div>
-    
-	<label for="sRoomPeople" class="col-sm-2 col-form-label">인원</label>
-    <div class="col-sm-4">
-    	<input type="text" class="form-control" id="sRoomPeople" name="sRoomPeople" style="width: 330px;">
-    </div>
-</div>
-<div class="mb-3 row form-group">
-   <label for="sRoomIntro" class="col-sm-2 col-form-label">한줄소개</label>
-    <div class="col-sm-10">
-       <input type="text" class="form-control" id="sRoomIntro" name="sRoomIntro">
-    </div>
-</div>
-<div class="mb-3 row form-group">
-	<label for="sRoomInfo" class="col-sm-2 col-form-label">공간소개</label>
-  	<div class="col-sm-10">
-  		<textarea class="form-control" id="sRoomInfo" name="sRoomInfo" rows="10"></textarea>
-  	</div>
-</div>
+<main id="main" class="main">
+  
+<div class="container">
+  
+	<div class="pagetitle">
+		<h1>스터디룸 등록</h1>
+	</div>
+	
+	<section class="dashboard">
+	  	<div class="row">
+	
+	 	<!-- 테이블 -->
+		<div class="col-lg-12">
+        	
+		<div class="mb-3 row form-group">
+			<label for="sRoomName" class="col-sm-2 col-form-label">스터디룸 이름</label>
+		    <div class="col-sm-10">
+		    	<input type="text" class="form-control" id="sRoomName" name="sRoomName">
+		    </div>
+		</div>
+		    
+		<div class="mb-3 row form-group">
+			<label for="sRoomAddr" class="col-sm-2 col-form-label">주소</label>
+		    <div class="col-sm-10">
+		    	<input type="text" class="form-control" id="sRoomAddr" name="sRoomAddr">
+		    </div>
+		</div>
+		
+		<div class="mb-3 row input-group">
+			<label for="sRoomPrice" class="col-sm-2 col-form-label">가격 (원/시간)</label>
+		    <div class="col-sm-4" style="margin-left: 2px;">
+		    	<input type="text" class="form-control" id="sRoomPrice" name="sRoomPrice">
+		    </div>
+		    
+			<label for="sRoomPeople" class="col-sm-2 col-form-label">인원</label>
+		    <div class="col-sm-4">
+		    	<input type="text" class="form-control" id="sRoomPeople" name="sRoomPeople" style="width: 330px;">
+		    </div>
+		</div>
+				
+		<div class="mb-3 row form-group">
+		   <label for="sRoomIntro" class="col-sm-2 col-form-label">한줄소개</label>
+		    <div class="col-sm-10">
+		       <input type="text" class="form-control" id="sRoomIntro" name="sRoomIntro">
+		    </div>
+		</div>
+		
+		<div class="mb-3 row form-group">
+			<label for="sRoomInfo" class="col-sm-2 col-form-label">공간소개</label>
+		  	<div class="col-sm-10" >
+		  		<textarea class="form-control" id="sRoomInfo" name="sRoomInfo" rows="10"></textarea>
+		  	</div>
+		</div>
 
-<div class="mb-3 row form-group">
-	<label for="sRoomRole" class="col-sm-2 col-form-label">이용&환불규정</label>
-    <div class="col-sm-10">
-  		<textarea class="form-control" id="sRoomRole" name="sRoomRole" rows="10"></textarea>
-  	</div>
-</div>
+		<div class="mb-3 row form-group" id="content2">
+			<label for="sRoomRole" class="col-sm-2 col-form-label">이용&환불규정</label>
+		    <div class="col-sm-10">
+		  		<textarea class="form-control" id="sRoomRole" name="sRoomRole" rows="10"></textarea>
+		  	</div>
+		</div>
 
-<div class="mb-3 row form-group">
-	<label for="file" class="col-sm-2 col-form-label">파일첨부</label>
-	<div class="col-sm-10">
-		<input class="form-control" type="file" id="file" name="file" style="width: 280px;">
-	</div>	
-</div>	
+		<div class="mb-3 row form-group">
+			<label for="file" class="col-sm-2 col-form-label">파일첨부</label>
+			<div class="col-sm-10">
+				<input class="form-control" type="file" id="file" name="file" style="width: 280px;">
+			</div>	
+		</div>	
 
-<div class="text-center" style="margin-top: 70px;">
-	<button id="btnWrite" class="sRoom_insert_btn">등록</button>
-	<button id="btnCancel" class="sRoom_insert_btn_cancel">취소</button>
-</div>
+		<div class="text-center" style="margin-top: 70px;">
+			<button id="btnWrite" class="sRoom_insert_btn">등록</button>
+			<button id="btnCancel" class="sRoom_insert_btn_cancel">취소</button>
+		</div>
+
+      	</div>
+		</div><!-- main row end -->
+
+	</section>
+
+</div><!-- main container end -->
+</main><!-- main end -->
 
 </form>
 

@@ -11,6 +11,32 @@
 <meta charset="UTF-8">
 <title>StudyCloud</title>
 
+<script type="text/javascript">
+
+$(function(){
+	$("#btn").click(function(){
+	 memberId = $("#memberId").val();
+	 var memberPw =$("#memberPw").val();
+	 
+	 if(memberId == ""){
+	  alert("아이디를 입력하세요");
+	  $("#memberId").focus(); //입력포커스 이동
+
+	  return; //함수 종료
+	}
+	 
+	if(memberPw == ""){
+	 alert("비밀번호를 입력하세요"); 
+	 $("#memberPw").focus();
+	  return;
+	}
+	 
+	})
+})
+
+
+</script>
+
 <style type="text/css" >
 
 
@@ -171,7 +197,7 @@ a {
 <body>
 
 <div class="page-content page-container" id="page-content">
-	<form action="/login" method="post">
+	<form action="/login" method="post" name="form1">
 		<div class="padding">
 			<div class="row container d-flex justify-content-center">
 				<div class="col-md-6 col-lg-4">
@@ -188,7 +214,11 @@ a {
 							<div class="form-group">
 								<div class="form-text">비밀번호</div>
 								<input class="form-control" type="password" id="memberPw" name="memberPw">
-							</div>
+							</div><br>
+							
+<%-- 							<c:if test="${message == 'error'}"> --%>
+<!--  							<div style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다.</div> -->
+<%--  							</c:if><br> --%>
 
 							<div class="wrapper col-12">
 								<div class="wrapper">
@@ -202,8 +232,8 @@ a {
 
 							<button class="btn btn-bold btn-primary" id="btn">Login</button>
 							<br> <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인"
-								style="height: 48px; width: 60%;" /></a> <br>
-						<br>
+								style="height: 48px; width: 60%;" /></a> <br><br>
+								
 					</div>
 				</div>
 			</div>

@@ -7,10 +7,16 @@
     
 <mapper namespace="dao.face.admin.SboardDao_admin">
 
+	<select id="todayCntStudy" resultType="int">
+		SELECT count (*)
+		FROM studyboard
+		WHERE trunc (enrollstudy_date) = trunc (sysdate)
+<!-- 		WHERE enrollstudy_date = ( SELECT sysdate FROM dual ) -->
+	</select>
+
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM studyboard
 	</select>
-
 	
 	<resultMap type="dto.StudyBoard" id="StudyBoardMap">
 		<id column="study_no" property="studyNo" />
@@ -42,6 +48,15 @@
 		WHERE B.member_no = M.member_no
 		ORDER BY study_no DESC
 	</select>
+	
+	<select id="updateStudyMember" parameterType="Member">
+		UPDATE member
+		SET authority = 2
+		WHERE authority = 1
+		AND member_no = #{memberNo }
+	</select>
+	
+	
 
 <!-- 	<select id="selectStudyList" resultType="dto.StudyBoard" parameterType="util.Paging"> -->
 <!-- 		SELECT * FROM ( -->

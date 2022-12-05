@@ -116,18 +116,18 @@
                 <!-- 메뉴바 -->
                 <div class="collapse navbar-collapse" id="menu-wrap">
                     <ul class="navbar-nav me-auto mb-lg-0">
-                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">멘토 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">멘티 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">스터디 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="/mtboard/list">멘토 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="/mntboard/list">멘티 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="/sboard/sboardmain">스터디 찾기</a> </li>
 
                         <li class="nav-item dropdown community">
                             <a class="nav-link dropdown menu" href="#" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">자유게시판</a></li>
+                                <li><a class="dropdown-item" href="/freeBoard/list">자유게시판</a></li>
                                 <li><a class="dropdown-item" href="#">번개게시판</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"> <a class="nav-link" id="menu" href="#">스터디 공간 대여</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="/sRoom/list">스터디 공간 대여</a> </li>
                     </ul>
                     
                     <div>
@@ -135,9 +135,9 @@
                        
                           <!-- 비로그인 상태 -->
                           <c:if test="${empty login }">
-                          <li class="nav-item"><a class="nav-link" href="./login/login">로그인</a></li>
-                          <li class="nav-item"><a class="nav-link" href="./join/join">회원가입</a></li>
-                          <li class="nav-item"><a class="nav-link" href="./mypage/mypageMain">마이페이지</a></li>
+                          <li class="nav-item"><a class="nav-link" href="./login">로그인</a></li>
+                          <li class="nav-item"><a class="nav-link" href="./join">회원가입</a></li>
+                          <li class="nav-item"><a class="nav-link" href="./mypage">마이페이지</a></li>
                           </c:if>
                           
                           <!-- 로그인 상태 -->
