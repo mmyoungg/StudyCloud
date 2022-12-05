@@ -20,6 +20,12 @@ public class ApplyMtServiceImpl_admin implements ApplyMtService_admin {
 
 	@Autowired ApplyMtDao_admin applyMtDao_admin;
 	
+	//투데이 어플라이
+	@Override
+	public int todayApply(ApplyMt applyMt) {
+		return applyMtDao_admin.todayCntApplyMt(applyMt);
+	}
+
 	@Override
 	public Paging getPaging(int curPage) {
 		
@@ -32,22 +38,26 @@ public class ApplyMtServiceImpl_admin implements ApplyMtService_admin {
 		return paging;
 	}
 
+	//멘토 등록 조회
 	@Override
 	public List<ApplyMt> list(Paging paging) {
 		return applyMtDao_admin.selectApplyList(paging);
 	}
 
+	//회원 등급 변경
 	@Override
 	public Member updateMember(Member member) {
-		return applyMtDao_admin.updateMember(member);
-		
+		return applyMtDao_admin.updateApplyMember(member);
 	}
 
-	@Override
-	public ApplyMt view(ApplyMt applyMt) {
-		
-		//상세보기 조회 결과 리턴
-		return applyMtDao_admin.selectApplyMt(applyMt);
-	}
+
+	//	@Override
+//	public Member view(Member member) {
+//		
+//		//상세보기 조회 결과 리턴
+//		return applyMtDao_admin.selectApplyMt(member);
+//	}
+
+
 
 }
