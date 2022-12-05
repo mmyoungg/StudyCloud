@@ -11,29 +11,82 @@
 		SELECT count(*) FROM mboard
 	</select>
 	
-	<select id="selectList" resultType="Mboard" parameterType="Paging">
+	<select id="selectMboardHash" resultType="hashMap" parameterType="util.Paging">
 		SELECT * FROM (
-			SELECT rownum rnum, Mboard  FROM (
-				SELECT mboard_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt,
-					member.member_id, member.member_nick 
-				FROM mboard 
-				JOIN member m = ON ( mboard.member_no = member.member_no ) ORDER BY mboard_no DESC
-			) M
+			SELECT rownum rnum, B.*  FROM (
+				SELECT b.mboard_no, b.member_no, b.mboard_title, b.mboard_content, b.mboard_date, b.mboard_hit, b.mboard_cmtcnt,
+					m.member_id, m.member_nick 
+				FROM mboard b
+				JOIN member m ON ( b.member_no = m.member_no ) ORDER BY mboard_no DESC
+			) B
 		) MBOARD
 	 	WHERE rnum between #{startNo } AND #{endNo }
 	</select>
-	
-<!-- 	<update id="updateHit" parametertype="Mboard"> -->
-<!-- 		UPDATE mboard -->
-<!-- 		SET mboard_hit = mboard_hit + 1 -->
-<!-- 		WHERE mboard_no = #{mboard_no} -->
-<!-- 	</update> -->
 
-	<select id="selectMboard" resultType="Mboard">
-		SELECT mboard_no, mboard_title, mboard_content
-		FROM mboard
+	<update id="updateHit" parameterType="Mboard">
+		UPDATE mboard
+		SET mboard_hit = mboard_hit + 1
+		WHERE mboard_no = #{mboardNo }
+	</update>	
+	
+	<select id="selectMboard" resultType="Mboard" parameterType="Mboard">
+		SELECT b.mboard_no, b.mboard_title, b.mboard_content, b.mboard_date, b.mboard_hit, b.mboard_cmtcnt, m.member_id, m.member_nick
+		FROM mboard b
+		JOIN member m ON ( b.member_no = m.member_no )
+		WHERE mboard_no = #{mboardNo }
+	</select>
+	
+	
+	<select id=" selectMboardByMboardNo" resultType="hashMap" parameterType="Mboard">
+		SELECT b.mboard_no, b.member_no, b.mboard_title, b.mboard_content, b.mboard_data, b.mboard_hit, b.mboard_cmtcnt
+			m.member_id, m.member_nick FROM mboard b
+		JOIN member m ON (b.member_no = m.member_no)
 		WHERE mboard_no = #{mboardNo}
 	</select>
+	
+	<insert id="insertMboard" parameterType="Mboard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="mboardNo">
+			SELECT mboard_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO mboard ( mboard_no, member_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt )
+		VALUES( #{mboardNo }, #{memberNo}, #{mboardTitle}, #{mboardContent}, #{mboardDate}, #{mboardHit}, #{mboardCmtcnt})
+	</insert>
+	
+	<insert id="insertFile" parameterType="Mboard">
+		INSERT INTO FileUpload ( fileUpload_no, mBoard_no, fileUpload_ori, fileUpload_stor)
+		VALUES ( mboardfile_seq.nextval, #{mboardNo }, #{fileUploadOri }, #{fileUploadStor })
+	</insert>	
+	
+	<select id="selectMboardFileByMboardNo" resultType="FileUpload" parameterType="Mboard"> 
+		SELECT fileUpload_no, mboard_no, fileUpload_ori, fileUpload_stor
+		FROM FileUpload
+		WHERE mboard_no = #{mboardNo }
+	</select>
+	
+	<select id="selectMboardFileByFileUploadNo" resultType="FileUpload" parameterType="FileUpload">
+		SELECT fileUpload_no, mboard_no, fileUpload_ori, fileUpload_stor
+		FROM FileUpload
+		WHERE fileUpload_no = #{fileUploadNo }
+	</select>
+	
+	<update id="updateMboard" parameterType="Mboard">
+		UPDATE mboard
+		SET mboard_title = #{mboardTitle },
+			mboard_content = #{mboardContent }
+		WHERE mboard_no = #{mboardNo }
+	</update>
+	
+	<delete id="deleteFile" parameterType="Mboard">
+		DELETE FileUpload
+		WHERE mboard_no = #{mboardNo }
+	</delete>
+	
+	<delete id="deleteMboard" parameterType="Mboard">
+		DELETE mboard
+		WHERE mboard_no = #{mboardNo }
+	</delete>
+	
+	
 	
 	
 
