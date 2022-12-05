@@ -9,14 +9,14 @@
 
 .mento_intro_content {
     position: relative;
-    padding: 84px 2rem 38px;
+    padding: 65px 2rem 38px;
     text-align: center;
 }
 
 
-.mentoring_txt {
+.mentee_txt {
     line-height: 1.47;
-    font-size: 16px;
+    font-size: 25px;
     color: black;
 }
 
@@ -167,21 +167,20 @@ th {
     font-size: 12px;
 }
 
-
-.pagination {
+ .pagination, .pagination:hover {
 
     margin-bottom: 36px;
     justify-content: center;
     --bs-pagination-color: #aacde5;
+    padding-top: 80px;
 
 }
 
-.pagination:hover {
-
-    margin-bottom: 36px;
-    justify-content: center;
-    --bs-pagination-color: #aacde5;
-
+.active>.page-link, .page-link.active {
+    
+     --bs-pagination-active-color: #fff; 
+     --bs-pagination-active-bg: #aacde5; 
+     --bs-pagination-active-border-color: #dee2e6; 
 }
 
 .btn-group {

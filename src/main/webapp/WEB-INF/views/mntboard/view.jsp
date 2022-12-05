@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link rel="stylesheet" href="/resources/css/mntBoardView.css?ver=2"> 
+<link rel="stylesheet" href="/resources/css/mntBoardView.css?ver=4"> 
 <script src="../resources/js/mtBoardDetail.js?ver=1"></script>
 
 </head>
@@ -20,18 +20,37 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#btnList").click(function() {
+	$("#MntbtnList").click(function() {
 		location.href = "/mntboard/list"
 	})
 	
-	/* $("#btnUpdate").click(function() {
-		location.href = "/board/update?boardNo=${viewBoard.boardNo }"
+	 $("#MntbtnUpdate").click(function() {
+			location.href = "/mntboard/update?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
+	 })
+	
+	
+	$("#MntbtnDelete").click(function() {
+		location.href = "/mntboard/delete?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
+	}) 
+	
+	$("#btnReview").click(function() {
+		
+		 var commtForm = $("form[name='insertCommt']");
+		 commtForm.attr("action", "/mntboard/view");
+		 commtForm.submit();
 	})
 	
-	$("#btnDelete").click(function() {
-		location.href = "/board/delete?boardNo=${viewBoard.boardNo }"
-	}) */
-})
+	
+	/* $("#commtUpdatebtn").click(function() {
+			location.href = "/mntboard/view?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
+	 })
+	 */
+	/*
+	$("#MntbtnDelete").click(function() {
+		location.href = "/mntboard/delete?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
+	}) 	 */
+		
+}) 
 </script>
 
 
@@ -80,6 +99,8 @@ $(document).ready(function() {
 	<h2 style="font-weight: 600; margin-bottom: 36px;">${mntViewBoard.MNTBOARD_TITLE }</h2>
 </div>
 
+<!-- 분야 -->
+<div class="select_field">${mntViewBoard.FIELD }</div>
 
 <!-- 로그인시에만 눌리게 / 비로그인시 로그인해주세요 창 띄움-->
 <!-- 찜하기 아작스로 구현 / 찜하기가 완료/취소되었습니다 멘트-->
@@ -104,38 +125,42 @@ $(document).ready(function() {
 <br><br>
 <br>
 <span class="mnt_id">${mntViewBoard.MEMBER_NICK }</span>
-<span class="write_date"><fmt:formatDate value="${mntViewBoard.MNTBOARD_DATE }" pattern="yyyy-MM-dd HH:mm"/></span>
+<span class="write_date"><fmt:formatDate value="${mntViewBoard.MNTBOARD_DATE }" pattern="yyyy-MM-dd"/></span>
 <hr>
 </div> <!-- mnt_wrap1 끝 -->
 
 
-
+<div><a class="filedown" href="/mntboard/download?fileUploadNo=${fileUpload.fileUploadNo}">${fileUpload.fileUploadOri }</a></div>
 <!-- 본문 -->
 <div class="mnt_wrap2">
+
 
 <div class="mnt_content">
 ${mntViewBoard.MNTBOARD_CONTENT }
 </div>
-
 </div><!-- mnt_wrap2 끝 -->
 
 
 <div class="mnt_wrap3">
 <h5>댓글<span class="reply_cnt"> 3</span></h5>
 <hr>
-
+<br>
 
 <!-- 댓글작성 -->
-<form class="mb-3" name="mnt_review" id="mnt_review" method="post">
-	<div>
-		<textarea class="col-auto form-control" id="reviewContents"
-				  placeholder="후기를 입력해주세요"></textarea>
-	</div>
+<form class="mb-3" name="insertCommt" id="insertCommt" method="post">
+<input type="hidden" name="mntBoardNo" value="${param.mntboardNo }">
 	
+	
+	<label for="memberNick" id="memberNick" >&nbsp;${mntViewBoard.MEMBER_NICK }</label>
+	<div>
+		<textarea class="col-auto form-control" id="reviewContents" name="commtContent"
+				  placeholder="댓글을 입력해주세요"></textarea>
+	</div>
  <!-- Post 구현해야됨 -->
 	 <button class="btn btn-primary" id="btnReview">등록</button>
 	
 </form>						
+<!-- 댓글 끝 -->
 
 
 
@@ -143,47 +168,37 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 <div class="reply_not_div">
 					
 </div>
+<br>
+<c:forEach items="${commtList }" var="commtList">
 	<ul class="reply_content_ul">
+	<!-- 첫번째 댓글 -->
 	<li>
 		<div class="comment_wrap">
 		<div class="reply_top">
-			<span class="id_span">아리멍멍</span>
-			<span class="date_span">2022-11-16</span>
-				<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
+			<span class="id_span">☁️ ${commtList.MEMBER_NICK  } ☁️</span>
+			<span class="date_span"><fmt:formatDate pattern="yyyy-MM-ddㅤHH:mm" value="${commtList.COMMT_DATE }"/></span>
+				<a class="updateCmbtn">수정</a><a class="deleteCmbtn">삭제</a>
 					</div>
 		<div class="reply_bottom">
 		<div class="reply_bottom_txt">
-		~~~웅앵웅앵 이렇게 하시면 됩니다
+		${commtList.COMMT_CONTENT  }
 			</div>
 			</div>
 		</div>
 	</li>
 	</ul>
-	<ul class="reply_content_ul">
-	<li>
-		<div class="comment_wrap">
-		<div class="reply_top">
-			<span class="id_span">아리멍멍</span>
-			<span class="date_span">2022-11-16</span>
-				<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
-					</div>
-		<div class="reply_bottom">
-		<div class="reply_bottom_txt">
-		쪽지 보냈어요 확인요
-			</div>
-			</div>
-		</div>
-	</li>
-	</ul>
+</c:forEach>	
+	
 	
 <c:import url="/WEB-INF/views/mntboard/replyPaging.jsp" />
 
 
 
+
 <div class="btn-wrap">
-	<button id="btnList" class="btn btn-primary">목록</button>
-		<button id="btnUpdate" class="btn btn-primary">수정</button>
-		<button id="btnDelete" class="btn btn-primary">삭제</button>
+	<button id="MntbtnList" class="btn btn-primary">목록</button>
+		<button id="MntbtnUpdate" class="btn btn-primary">수정</button>
+		<button id="MntbtnDelete" class="btn btn-primary">삭제</button>
 </div>
 
 </div><!-- mnt_wrap3 끝 -->
