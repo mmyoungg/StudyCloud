@@ -51,32 +51,14 @@
    margin-bottom: 0; 
  } 
 
-/* @media (max-width: 1199px) {  */
-/*   .header .search-bar { */
-/*     position: fixed; */
-/*     top: 50px; */
-/*     left: 0; */
-/*     right: 0; */
-/*     padding: 20px; */
-/*     box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1); */
-/*     background: white; */
-/* /*     z-index: 9999; */ */
-/*     transition: 0.3s; */
-/*     visibility: hidden; */
-/*     opacity: 0; */
-/*   } */
-
-/* /*   .header .search-bar-show { */ */
-/* /*     top: 60px; */ */
-/* /*     visibility: visible; */ */
-/* /*     opacity: 1; */ */
-/* /*   } */ */
-/* } */
-
 /* 헤더 */
 .header {
 	display: flex;
 	align-items: center;
+}
+
+.container-fluid {
+	padding-left: 0;
 }
 
 .logo {
@@ -89,22 +71,17 @@
   margin-right: 6px;
 }
 
+#logo {
+  max-height: 60px;
+  margin-right: 6px;
+}
+
 .header { /* 헤더 지우면안댐 */
-/*   transition: all 0.5s; */
-/*   z-index: 997; */
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
   background-color: #fff; /* 헤더 색상 */
-  padding-left: 50px;
   padding-top: 5px;
 }
-
-/* .header .toggle-sidebar-btn { /* 지우면안댐 */ */
-/*   font-size: 32px; */
-/*   padding-left: 10px; */
-/*   cursor: pointer; */
-/*   color: #012970; */
-/* } */
 
 @media (max-width: 1199px) { /* 지우면 안댐 */
   .header .search-bar {
@@ -115,10 +92,6 @@
     padding: 20px;
     box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
     background: white;
-/*     z-index: 9999; */
-/*     transition: 0.3s; */
-/*     visibility: hidden; */
-/*     opacity: 0; */
   }
 
 }
@@ -134,6 +107,17 @@
   background: none;
 }
 
+/* 버튼 */
+#btnLogout {
+	background-color: #6cc4dc;
+	border-radius: 10px;
+	color: white;
+	padding: 5px;
+	margin-top: 20px;
+	border: none;
+}
+
+
 /* 사이드바 */
 .sidebar {
   position: fixed;
@@ -141,10 +125,8 @@
   left: 0;
   bottom: 0;
   width: 300px;
-/*   z-index: 996; */
   transition: all 0.3s;
   padding: 20px;
-/*   overflow-y: auto; */
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
   box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
@@ -201,6 +183,7 @@
   margin: 0;
   margin: 10px;
   list-style: none;
+  cursor: pointer;
 }
 
 #sidebarMenu > a {
@@ -228,52 +211,18 @@
   list-style: none;
 }
 
-/* /* 캘린더 */ */
-/* .today { */
-/*   width: 100%; */
-/*   -webkit-box-shadow: 0px 15px 30px -16px rgba(0, 0, 0, 0.3); */
-/*   -moz-box-shadow: 0px 15px 30px -16px rgba(0, 0, 0, 0.3); */
-/*   box-shadow: 0px 15px 30px -16px rgba(0, 0, 0, 0.3); } */
+#memberNick {
+	margin: 0 auto;
+	padding-top: 20px;
+}
 
-/* .today-piece { */
-/*   border-radius: 0.25rem; */
-/*   padding: 1.6rem; */
-/*   font-size: 1.25em; */
-/*   text-align: center; */
-/*   background: white; } */
+#menu-wrap {
+   padding-left: 10px;
+}
 
-/* .top { */
-/*   border-bottom-right-radius: 0; */
-/*   border-bottom-left-radius: 0; } */
-
-/* .middle { */
-/*   border-radius: 0; } */
-
-/* .bottom { */
-/*   border-top-right-radius: 0; */
-/*   border-top-left-radius: 0; } */
-
-/* .day, */
-/* .year { */
-/*   font-size: 0.65em; */
-/*   font-weight: 500; */
-/*   letter-spacing: 0.35em; */
-/*   text-transform: uppercase; */
-/*   color: white; */
-/*   background: #52de97; } */
-
-/* .month { */
-/*   padding-top: 1.75rem; */
-/*   padding-bottom: 0; */
-/*   font-size: 1.5em; */
-/*   font-weight: 200; } */
-
-/* .date { */
-/*   padding-top: 0; */
-/*   padding-bottom: 1.75rem; */
-/*   font-size: 3em; */
-/*   font-weight: 100; */
-/*   color: #000; } */
+#welcome {
+	padding-left: 100px;
+}
 
 </style>
 
@@ -321,23 +270,42 @@ $(document).ready(function() {
 	})
 })
 
+$(document).ready(function() {
+	$("#btnLogout").click(function() {
+		location.href = "/admin/logout"
+	})
+})
+
 </script>
 
 </head>
 <body>
 
+<header class="header fixed-top" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <!-- studyCloud 이미지 -->
+                <img class="navbar-brand name" id="logo" src="/resources/img/Logo.png" />
 
-<!-- 헤더 -->
-<header id="header" class="header fixed-top">
-
-	<div class="d-flex align-items-center justify-content-between">
-		<a href="./main" class="logo">
-			<img src="/resources/img/Logo.png" alt="studycloud">
-		</a>
-	</div><!-- End Logo -->
-
-</header>
-
+                <!-- 메뉴바 -->
+                <div class="collapse navbar-collapse" id="menu-wrap">
+                    <ul class="navbar-nav me-auto mb-lg-0">
+                        <li class="nav-item" id="welcome">
+                        	${info.memberNick } 님 안녕하세요
+                        </li>
+                    </ul>
+                    
+                    <div>
+                       <ul class="navbar-nav me-auto" id="btnMenu">
+                          <li class="nav-item"><a class="nav-link" href="/admin/login">로그아웃</a></li>
+                       </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header><!-- header end -->
 <!-- 사이드바 -->
 <section id="sidebar" class="sidebar">
 
@@ -392,7 +360,6 @@ $(document).ready(function() {
 				  <span>정보 수정</span>
 				</a>
 			</li>
-		
 		</ul>
   
 	</div><!-- container end -->

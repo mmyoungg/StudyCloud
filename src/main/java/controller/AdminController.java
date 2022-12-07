@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.face.admin.ReserveDao_admin;
 import dto.ApplyMt;
 import dto.Member;
+import dto.Reservation;
 import dto.StudyBoard;
 import dto.StudyRoom;
 import service.face.admin.ApplyMtService_admin;
+import service.face.admin.MemberService_admin;
+import service.face.admin.ReserveService_admin;
 import service.face.admin.SboardService_admin;
 import service.face.admin.SroomService_admin;
 import util.Paging;
@@ -32,10 +37,63 @@ public class AdminController {
 	@Autowired SroomService_admin sRoomService_admin;
 	@Autowired ApplyMtService_admin applyMtService_admin;
 	@Autowired SboardService_admin sBoardService_admin;
+	@Autowired MemberService_admin memberService_admin;
+	@Autowired ReserveService_admin reserveService_admin;
+	@Autowired ReserveDao_admin reserveDao_admin;
 	
+	//로그인
+	@GetMapping("/admin/login")
+	public void adminLogin() {
+	
+	}
+	
+	@PostMapping("/admin/login")
+	public String loginPorc(Member member, HttpSession session) {
+		logger.info("{}", member);
+		
+		boolean loginResult = memberService_admin.login(member);
+		logger.info("loginResult: {}", loginResult);
+		
+		if( loginResult ) {
+			logger.info("로그인 성공");
+			
+			session.setAttribute("login", loginResult);
+			session.setAttribute("loginid", member.getMemberId());
+			
+			//로그인 성공시 관리자 메인페이지로 이동
+			return "redirect:/admin/main";
+
+		} else {
+			logger.info("로그인 실패");
+			
+			//세션 삭제
+			session.invalidate();
+			
+			return "redirect:/admin/login";
+		}
+		
+	}
+	
+	@GetMapping("/admin/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/admin/login";
+	}
+	
+	//메인
 	@GetMapping("/admin/main")
-	public void admin(ApplyMt applyMt, StudyBoard studyBoard, Model model) {
-		logger.info("/admin/mento [GET]");
+	public void admin(ApplyMt applyMt, StudyBoard studyBoard, HttpSession session, Model model) {
+		logger.info("/admin/main [GET]");
+		
+		//로그인 정보
+		String loginid = (String) session.getAttribute("loginid");
+		logger.info("/admin/main loginid : {}", loginid);
+		
+		Member info = memberService_admin.info(loginid);
+		logger.info("info : {}", info);
+		
+		model.addAttribute("info", info);
 		
 		//투데이 어플라이
 		int todayMentoApply = applyMtService_admin.todayApply(applyMt);
@@ -45,6 +103,12 @@ public class AdminController {
 		int todayStudyApply = sBoardService_admin.todayApply(studyBoard);
 		logger.debug("{}", todayStudyApply);
 		model.addAttribute("todayStudyApply", todayStudyApply);
+		
+		//예약 미리보기
+		List<HashMap<String, Object>> preReserve = reserveDao_admin.previewReserve();
+		System.out.println( preReserve );
+		
+		model.addAttribute("preReserve", preReserve);
 		
 	}
 	
@@ -76,21 +140,6 @@ public class AdminController {
 		
 		return "redirect:/admin/mento";
 	}
-	
-//	//view
-//	@GetMapping("/admin/mento/view")
-//	public String mentoView(Member member, Model model) {
-//		logger.info("/admin/mento/view [GET]");
-//		logger.info("{}", member);
-//		
-//		//신청서 조회
-//		member = applyMtService_admin.view(member);
-//		logger.info("조회된 신청서 {}", member);
-//		
-//		model.addAttribute("viewApplyMt", member);
-//		
-//		return "redirect: /admin/mento/view";
-//	}
 	
 	//스터디 등록
 	@GetMapping("/admin/study")
@@ -167,18 +216,53 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping("/admin/reserve")
-	public void reserve() {
+	//예약 관리
+	@GetMapping("/admin/reserve")
+	public void reserve(
+			@RequestParam(defaultValue = "0" ) int curPage
+			, Model model) {
 		
+		logger.info("/admin/reserve [GET]");
+		
+		Paging paging = reserveService_admin.getPaging(curPage);
+		logger.debug("{}", paging);
+		model.addAttribute("paging", paging);
+		
+		List<HashMap<String, Object>> list = reserveDao_admin.selectHash(paging);
+		System.out.println( list );
+		
+		model.addAttribute("list", list);
+
 	}
 	
-	@RequestMapping("admin/reserveView")
-	public void view() {
+	@RequestMapping("admin/reserve/view")
+	public String view(Reservation res, Model model) {
 		
+		logger.info("/admin/reserve/view [GET]");
+		
+		List<HashMap<String, Object>> view = reserveService_admin.viewReserve(res);
+		logger.debug("view", view);
+		
+		model.addAttribute("view", view);
+		
+		return "admin/reserveView";
 	}
 	
-	@RequestMapping("admin/member")
-	public void memberList() {
+	//회원 정보
+	@GetMapping("admin/member")
+	public void memberList(
+			@RequestParam(defaultValue = "0" ) int curPage
+			, Model model) {
+		
+		logger.info("/admin/member [GET]");
+		
+		Paging paging = memberService_admin.getPaging(curPage);
+		logger.debug("{}", paging);
+		model.addAttribute("paging", paging);
+		
+		List<Member> list = memberService_admin.list(paging);
+		for( Member m : list ) logger.info("{}", m);
+		model.addAttribute("list", list);
 		
 	}
 	
