@@ -6,6 +6,7 @@ import java.util.List;
 import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
+import util.CommtPaging;
 import util.Paging;
 
 public interface MntBoardDao {
@@ -100,11 +101,16 @@ public interface MntBoardDao {
 
 	
 	// 댓글
+//	public int CntCommt();
+	public int CntCommt(Commt mntBoard);
 	
-	public List<HashMap<String, Object>> mntCommtList(MntBoard viewBoard);
+//	public List<HashMap<String, Object>> CommtList(CommtPaging commtPaging);
+	public List<HashMap<String, Object>> CommtList(HashMap<String, Object> map);
 
 	
 	public void insertCommt(Commt commt);
+
+
 
 
 	
