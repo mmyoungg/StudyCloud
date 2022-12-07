@@ -13,52 +13,87 @@
 
 <script type="text/javascript">
 
-/* 아이디 찾기 */ 
 //아이디 & 스토어 값 저장하기 위한 변수
 	// 아이디 값 받고 출력하는 ajax
-	function findId_click(){
-		var memberEmail=$('#memberEmail').val()
+	
+$(document).ready(function() {
 		
-		$.ajax({
-			url:"/login/findid",
-			type:"POST",
-			data:{"memberEmail":memberEmail} ,
-			success:function(data){
-				if(data == 0){
-					$('#memberId').text("회원 정보를 확인해주세요!");
-					$('#memberEmail').val('');
-				} else {
-					$('#memberId').text(data);
-					$('#memberEmail').val('');
-					
-				}
-			},
-			 error:function(){
-	                alert("에러입니다");
-	            }
-		});
-	};
+		const modal = document.getElementById("modal")
+		
+		function findId_click(e){
+			e.preventDefault()
+			//modal.style.display = "flex"
+			var memberEmail=$('#memberEmail').val()
+			
+			$.ajax({
+				url:"/login/findid",
+				type:"POST",
+				data:{"memberEmail":memberEmail} ,
+				success:function(data){
+					if(data == 0){
+						$('#memberId').text("회원 정보를 확인해주세요!");
+						$('#memberEmail').val('');
+					} else {
+						$('#memberId').text(data);
+						$('#memberEmail').val('');
+						
+					}
+				},
+				 error:function(){
+		                alert("에러입니다");
+		            }
+			});
+		};
 
-const modal = document.getElementById("modal")
-const btnModal = document.getElementById("findid")
 
-btnModal.addEventListener("click", e => {
-    modal.style.display = "flex"
-})
+	const btnModal = document.getElementById("findid")
 
-    
-const closeBtn = modal.querySelector(".close-area")
-closeBtn.addEventListener("click", e => {
-    modal.style.display = "none"
-})
+	btnModal.addEventListener("click", e => {
+	    modal.style.display = "flex"
+	    findId_click(e)
+	}) 
 
-modal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("modal-overlay")) {
-        modal.style.display = "none"
-    }
-})
+	const closeBtn = modal.querySelector(".close-area")
+	closeBtn.addEventListener("click", e => {
+	    modal.style.display = "none"
+	})
 
+	modal.addEventListener("click", e => {
+	    const evTarget = e.target
+	    if(evTarget.classList.contains("modal-overlay")) {
+	        modal.style.display = "none"
+	    }
+	})
+
+	})
+	
+	
+
+//   <!-- 모달창 -->
+
+// // Modal을 가져온다
+// var modals = document.getElementsByClassName("modal");
+// // Modal을 띄우는 클래스 이름을 가져온다.
+// var btns = document.getElementsByClassName("btntt");
+// // Modal을 닫는 close 클래스를 가져온다.
+// var spanes = document.getElementsByClassName("close");
+// var funcs = [];
+
+// // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+// function Modal(num) {
+// 	return function(){
+// 		// 해당 클래스의 내용을 클릭하면 Modal을 띄운다.
+// 		btns[num].onclick = function(){
+// 			modals[num].style.display = "block";
+// 			console.log(num);
+// 		};
+		
+// 		// 닫기 버튼 클릭하면 Modal이 닫힌다.
+// 		spanes[num].onclick = function() {
+// 			modals[num].style.display = "none";
+// 		};
+// 	};
+// }
 
 </script>
 
@@ -169,38 +204,40 @@ body {
  #modal.modal-overlay {
             width: 100%;
             height: 100%;
-            position: absolute;
+            position: static;
             left: 0;
             top: 0;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            background: #f9f9fa;
             backdrop-filter: blur(1.5px);
             -webkit-backdrop-filter: blur(1.5px);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
+        
         #modal .modal-window {
-            background: rgba( 0, 0, 0, 0.70 ); // 69, 139, 197
+            background: #AACDE5;
             box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
             backdrop-filter: blur( 13.5px );
             -webkit-backdrop-filter: blur( 13.5px );
             border-radius: 10px;
             border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 400px;
+            width: 600px;
             height: 300px;
-            position: relative;
-            top: -100px;
+            position: absolute;
+            top: -400px;
             padding: 10px;
+            text-align: center;
+            
         }
         #modal .title {
             padding-left: 10px;
             display: inline;
             text-shadow: 1px 1px 2px gray;
-            color: white;
+            color: #fff;
             
         }
         #modal .title h2 {
@@ -212,24 +249,29 @@ body {
             padding-right: 10px;
             cursor: pointer;
             text-shadow: 1px 1px 2px gray;
-            color: white;
+            color: #656565;
         }
         
         #modal .content {
-            margin-top: 20px;
+            margin-top: 50px;
             padding: 0px 10px;
             text-shadow: 1px 1px 2px gray;
-            color: white;
+            color: #fff;
         }
 
+		.modal-text {
+			margin-top: 55px;		
+		}
+		
+		.content {
+			font-size: 15pt;
+		}
 
 </style>
 </head>
 
 <body>
 
-  <!--파일 불러오기-->
-<%@ include file="../login/findidModal.jsp" %>
 
 <div class="page-content page-container" id="page-content">
     <div class="padding">
@@ -246,8 +288,20 @@ body {
                
                 이메일&nbsp; <input class="form-control" type="text" id="memberEmail" name="memberEmail"><br><br><br>
 
-			<button class="btn btn-bold btn-primary" id='findid' onclick="findId_click()">아이디 찾기</button><br><br>
+			<button type="button" class="btn btn-bold btn-primary" id="findid">아이디 찾기</button><br><br>
 			</div>	
+<div id="modal" class="modal-overlay">
+        <div class="modal-window">
+        	<div class="modal-text">
+	            <div class="title">
+	                <h2>아이디 조회 결과</h2>
+	                <p>${memberId }</p>
+	            </div>
+        	</div>
+           <div class="close-area" onclick="closeModal()">X</div>
+           <div class="content" id="memberId"></div>
+        </div>
+    </div>
             </form>
           </div>
            </div>

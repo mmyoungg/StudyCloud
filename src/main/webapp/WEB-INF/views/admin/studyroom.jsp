@@ -11,13 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- 게시판 테이블 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel ="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-<!-- 테이블 css -->
-<link rel="stylesheet" href="${path}/resources/css/admin/mento.css" />
-
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
@@ -26,64 +19,90 @@ $(document).ready(function() {
 })
 </script>
 
+<style type="text/css">
+
+/* 테이블 */
+.table {
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 20px;
+}
+
+.table thead {
+    background-color: #3f92b7;
+}
+
+.table thead th {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.table tbody td {
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+}
+
+</style>
+
 </head>
 <body>
 
-
 <main id="main" class="main">
   
-	<div class="container">
+<div class="container">
   
     <div class="pagetitle">
     	<h1>스터디룸 등록</h1>
     </div>
 
-    <section class="dashboard">
-      	<div class="row">
+    <section class="adminStudyroom">
+   	<div class="row">
 
      	<!-- 테이블 -->
        	<div class="col-lg-12">
-        	<div class="row">
-				
-			    <!-- 테이블 -->
-			    <div class="table-responsive px-2">
-				<table class="table table-borderless">
-	                
-<!-- 				<table class="table table-striped table-hover table-condensed"> -->
-				<thead>
-					<tr>
-						<th style="width: 10%;">글번호</th>
-						<th style="width: 40%;">스터디룸 명</th>
-						<th style="width: 40%;">한줄 소개</th>
-						<th style="width: 10%;">가격</th>
-					</tr>
-				</thead>
-				<tbody>
-				<c:forEach items="${list }" var="studyroom">
-					<tr>
-						<td>${studyroom.sRoomNo }</td>
-				<%-- 		<td><a href="/studyroom/view?sRoomNo=${studyroom.sRoomNo }">${studyroom.title }</a></td> --%>
-						<td>${studyroom.sRoomName }</a></td>
-						<td>${studyroom.sRoomIntro }</td>
-						<td>${studyroom.sRoomPrice }</td>
-					</tr>
-				</c:forEach>
-				</tbody>
-				</table>
-				
-				<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
-				<span class="pull-right">total : ${paging.totalCount }</span>
-				<div class="clearfix"></div>
-				
-				      		</div><!-- 테이블 row end -->
-				       	</div>
-					</div><!-- main row end -->
-					
-					</section>
-				
-					</div><!-- main container end -->
-				</main><!-- main end -->
+			
+		    <div class="table-responsive">
+			<table class="table">
+                
+			<thead>
+				<tr>
+					<th>글번호</th>
+					<th>스터디룸 명</th>
+					<th>한줄 소개</th>
+					<th>가격</th>
+				</tr>
+			</thead>
+			<tbody>
+			
+			<c:forEach items="${list }" var="studyroom">
+				<tr>
+					<td>${studyroom.sRoomNo }</td>
+					<td>${studyroom.sRoomName }</a></td>
+					<td>${studyroom.sRoomIntro }</td>
+					<td>${studyroom.sRoomPrice } /시간</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+			
+			</table>
+			
+			<button id="btnWrite" class="btn pull-left">글쓰기</button>
+			<span class="pull-right">total : ${paging.totalCount }</span>
+			<div class="clearfix"></div>
+			
+			<c:import url="/WEB-INF/views/admin/paging.jsp" />
 
+   			</div><!-- 테이블 row end -->
+      	</div>
+		</div><!-- main row end -->
+
+	</section>
+	</div><!-- main container end -->
+	
+</main><!-- main end -->
 
 </body>
 </html>

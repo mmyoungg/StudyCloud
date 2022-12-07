@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.face.admin.ReserveDao_admin">
+
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM reservation
+	</select>
+	
+	<select id="selectHash" resultType="hashmap" parameterType="util.Paging">
+		SELECT R.*, M.*, S.*
+		FROM reservation R, member M, studyroom S
+		WHERE R.member_no = M.member_no
+		AND R.sroom_no = S.sroom_no
+		ORDER BY reserve_no DESC
+	</select>
+	
+	<select id="selectReserve" resultType="hashmap" parameterType="dto.Reservation">
+		SELECT R.*, M.*, S.*
+		FROM reservation R, member M, studyroom S
+		WHERE R.reserve_no = #{reserveNo }
+		AND R.member_no = M.member_no
+		AND R.sroom_no = S.sroom_no
+	</select>
+	
+	<select id="previewReserve" resultType="hashmap" >
+		SELECT R.*, M.*, S.*
+		FROM reservation R, member M, studyroom S
+		WHERE R.member_no = M.member_no
+		AND R.sroom_no = S.sroom_no
+		<![CDATA[AND rownum <= 5]]> 
+		ORDER BY reserve_no DESC
+	</select>
+	
+</mapper>

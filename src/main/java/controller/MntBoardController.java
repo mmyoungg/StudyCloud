@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.HashMap;
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,11 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
 import service.face.MntBoardService;
+import util.CommtPaging;
 import util.Paging;
 
 @Controller
@@ -69,12 +70,14 @@ public class MntBoardController {
 //	조인으로 불러올 애들만 hash로 구현
 	
 	@RequestMapping("/view")
-	public void view (MntBoard viewBoard, Model model){
-		logger.info("/mntboard/view - {} ", viewBoard);
+	public void view (
+		 @RequestParam(defaultValue = "0") int curPage, HttpSession session 
+		 								, MntBoard viewBoard, Model model) {
+		/* logger.info("/mntboard/view - {} ", viewBoard); */
 		
 		// 글조회
 		HashMap<String, Object> mntViewBoard = mntBoardService.view(viewBoard);
-		logger.info("조회된 게시글 {}", mntViewBoard);
+		/* logger.info("조회된 게시글 {}", mntViewBoard); */
 		
 		model.addAttribute("mntViewBoard", mntViewBoard);
 		
@@ -83,15 +86,41 @@ public class MntBoardController {
 		FileUpload fileUpload = mntBoardService.getAttachFile(viewBoard);
 		model.addAttribute("fileUpload", fileUpload);
 		
-		
+	// -------------------------------------------------------------------------------	
+
 		// 댓글
-		List<HashMap<String,Object>> commtList = mntBoardService.commtList(viewBoard);
-		for( HashMap<String, Object> c : commtList )	logger.debug(" c : {}", c);
-		logger.info("조회된 댓글 {}", commtList);
-		model.addAttribute("commtList", commtList);
+//		session.setAttribute("login", true); 
+//		session.setAttribute("member_no", 1); 
+//		session.setAttribute("member_nick", "nick"); 
+//		
+//		 CommtPaging commtPaging = mntBoardService.getCommtPaging(curPage);
+//		 model.addAttribute("commtPaging", commtPaging);
+//		logger.debug("{}", commtPaging);
+//		
+//		
+//		List<HashMap<String,Object>> commtList = mntBoardService.commtList(commtPaging);
+//		for( HashMap<String, Object> c : commtList )	logger.debug(" c : {}", c);
+//		logger.info("조회된 댓글 {}", commtList);
+//		model.addAttribute("commtList", commtList);
 		
 	}
 	
+	
+	@RequestMapping("/commtPaging")
+	public void commtListPaging(Commt viewBoard, int curPage, Model model) {
+		logger.info("댓글  게시글 {}", viewBoard.getMntBoardNo());
+		logger.info("curpage - {} ", curPage);
+
+		CommtPaging commtPaging = mntBoardService.getCommtPaging(curPage, viewBoard);
+		model.addAttribute("commtPaging", commtPaging);
+
+		List<HashMap<String,Object>> commtList = mntBoardService.commtList(commtPaging, viewBoard);
+		for( HashMap<String, Object> c : commtList )	logger.debug(" c : {}", c);
+		logger.info("조회된 댓글 {}", commtList);
+		model.addAttribute("commtList", commtList);
+	}
+
+
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -163,6 +192,7 @@ public class MntBoardController {
 		return "redirect:/mntboard/list";
 		 
 	 }
+	 
 	 
 	 
 	 
