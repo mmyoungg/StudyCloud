@@ -37,9 +37,58 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function() {
+	$("#btnList").click(function() {
+		location.href = "/board/list"
+	})
+	
+	$("#btnUpdate").click(function() {
+		location.href = "/board/update?boardNo=${viewBoard.boardNo }"
+	})
+	
+	$("#btnDelete").click(function() {
+		location.href = "/board/delete?boardNo=${viewBoard.boardNo }"
+	})
+})
 
 </script>
 
+<!-- 좋아요 기능 js -->
+<script type="text/javascript">
+
+// var member_no = ${MEMBER_NO};
+// var mboard_likecnt = document.getElementBymemberNo("btn_like");
+// 	btn_like.onclick = function() { changeThumb(); }
+	
+// /* 좋아요 버튼 눌렀을 때 */
+// function changeThumb() {
+// 	$.ajax({
+// 		type: "POST"
+// 		url: "/clickThumb"
+// 		dataType: "json",
+// 		data: "member_no" + memberNo
+// 		success: function ( res ) {
+// 			if( res.resultCode == -1) {
+// 				Rnd.alert("좋아요 실패", "error", "확인", function(){});
+// 			} else {
+// 				if ( res.likechk == 1) {
+// 					${"btn_like"}.attr("src", "/resources/se2/img/thumbs-up-solid.svg");
+// 					${"#likecnt"}.empty();
+// 					${"#likecnt"}.append(res.likecnt);
+// 				} else if ( res.likechk == 0) {
+// 					$("#btn_like").attr("src", "/resources/se2/img/thumbs-up-regular.svg");
+// 					$("#likecnt").empty();
+// 					$("#likecnt").append(res.likecnt);
+// 				}
+// 			}
+// 		}
+		
+// 	});
+// }
+
+
+
+</script>
 
 <style type="text/css">
 
@@ -170,10 +219,8 @@ textarea:focus {
 <section class="whole1">
 	
 		<div class="title">
-<!-- 			<h2>번개스터디 제목</h2> -->
-			<h1>${detailMboard.mboardTitle }</h1>
-			
-			<div class="button-ms">
+			<h1>${detailMboard.MBOARD_TITLE }</h1>
+			<div class="button-ms" style="margin-top: 13px;">
 				<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sendmessageModal" data-bs-whatever="yubin kim">✉️쪽지 보내기</button>
 <!-- 				<button type="button" class="btn btn-primary btn-sm" style="background-color: #6cc4dc; border: none;">✉️쪽지 보내기</button> -->
 			</div>
@@ -207,16 +254,29 @@ textarea:focus {
 			
 		</div>
 		
+		
 		<div class="nav-detail">
-			<div class="nav-info-detail" style="padding-left: 0px; font-weight: bolder;">${member.memberNick }</div>
-			<div class="nav-info-detail"><fmt:formatDate value="${detailMboard.mboardDate }" pattern="yy-MM-dd HH:mm"/></div>
-			<div class="nav-info-detail">${detailMboard.mboardHit }</div>
-			<div class="nav-info-detail" style="border-right: none;">like ${detailMboard.mboardLikecnt }</div>
+			<div class="nav-info-detail" style="padding-left: 0px; font-weight: bolder;">${detailMboard.MEMBER_NICK }</div>
+			<div class="nav-info-detail"><fmt:formatDate value="${detailMboard.MBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss"/></div>
+			<div class="nav-info-detail">${detailMboard.MBOARD_HIT }</div>
+			<div class="nav-info-detail" style="border-right: none;">like ${detailMboard.MBOARD_LIKECNT }</div>
 			
+<%-- 			<c:choose> --%>
+			<div class="thumbs_icon">
+				<!-- likechk가 0이면 빈 하트 -->
+<%-- 				<c:when test="${likechk eq '0' or empty likechk}"> --%>
+					<img src="/resources/se2/img/thumbs-up-regular.svg" id="btn_like" style="width: 25px; height: 25px; filter: invert(46%) sepia(93%) saturate(308%) hue-rotate(153deg) brightness(94%) contrast(87%); float: right; margin-right: 12px;">
+<%-- 				</c:when> --%>
+				<!-- likechk가 1일 때 -->
+<%-- 				<c:otherwise> --%>
+<!-- 					<img src="/resources/se2/img/thumbs-up-solid.svg" id="btn_like" style="width: 25px; height: 25px; filter: invert(46%) sepia(93%) saturate(308%) hue-rotate(153deg) brightness(94%) contrast(87%); float: right; margin-right: 12px;"> -->
+<%-- 				</c:otherwise> --%>
+			</div>
+<%-- 			</c:choose> --%>
 		</div>
 		
 		<div class="content">
-			${detailMboard.mboardContent }
+			${detailMboard.MBOARD_CONTENT }
 		</div>
 		
 		

@@ -2,6 +2,7 @@ package service.face;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,38 +29,24 @@ public interface MboardService {
 	public List<HashMap<String, Object>> selectMboardHash(Paging paging);
 	
 	/**
-	 * 번개게시글 번호로 상세페이지 조회
-	 * @param detailMboard - 게시글 번호
-	 * @return 조회된 상세 게시글 객체
+	 * 게시글 상세 조회
+	 * @param mboardNo - 게시글 번호로 상세 조회
+	 * @return
 	 */
-	public HashMap<String, Object> detail(Mboard detailMboard);
+	public HashMap<String, Object> detail(int mboardNo);
+	
+	/**
+	 * 게시글 번호로 파일 첨부하기
+	 * @param mboardNo
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getAttachFile(int mboardNo);
 
-//	/**
-//	 * 첨부파일
-//	 * @param mboard
-//	 * @return
-//	 */
-//	public FileUpload getAttachFile(HashMap<String, Object> detailmboard);
-	
 	/**
-	 * 파일 번호 이용하여 업로드된 파일 정보 조회
-	 * @param fileUpload
-	 * @return
-	 */
-	public FileUpload getFile(FileUpload fileUpload);
-	
-	/**
-	 * 게시글 번호 이용하여 업로드 된 파일 정보 조회
-	 * @param mboard
-	 * @return
-	 */
-	public FileUpload getAttachFile(Mboard mboard);
-	
-	/**
-	 * 게시글 작성, 첨부파일도 함께 처리
+	 * 게시글 작성
 	 * @param mboard
 	 * @param file
-	 * @return
+	 * @return 
 	 */
 	public void write(Mboard mboard, MultipartFile file);
 
@@ -67,27 +54,34 @@ public interface MboardService {
 	 * 게시글 수정
 	 * @param mboard
 	 * @param file
-	 * @return
 	 */
 	public void update(Mboard mboard, MultipartFile file);
 	
-//	/**
-//	 * 게시글 삭제
-//	 * @param mboard_no
-//	 * @return
-//	 */
-//	public HashMap<String, Object> delete(Mboard mboard);
+	/**
+	 * 첨부파일 불러오기
+	 * @param fileUpload
+	 * @return
+	 */
+	public FileUpload getFile(FileUpload fileUpload);
 
-
+	/**
+	 * 게시글 삭제
+	 * @param mboard
+	 */
 	public void delete(Mboard mboard);
 
-	//------------------------------------------------------------------------
-	
 	/**
-	 * 좋아요 기능
+	 * 좋아요
 	 * @param mboardLike
 	 */
 	public void setMboardLike(MboardLike mboardLike);
+	
+	
+	
+
+
+	
+	
 
 	
 	

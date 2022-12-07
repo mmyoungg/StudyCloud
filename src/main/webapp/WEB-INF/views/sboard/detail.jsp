@@ -256,42 +256,41 @@ textarea:focus {
 <section class="whole1">
 	
 	<div class="container">
-			<h2>Spring 스터디 모집</h2>
+			<h2>${detailSboard.STUDY_TITLE }</h2>
 			<br>
 			<div class="content">
 				<div class="con-detail">
 					<div class="title">
 					<img src="/resources/se2/img/users-solid.svg">
-					<span class="con-detail-1" id="title" name="title">총 9명 ${sboard.people }</span>
+					<span class="con-detail-1" id="title" name="title">${detailSboard.STUDY_PEOPLE }</span>
 					</div>
 				</div>
 				
 				<div class="con-detail">
 					<div class="location">
 					<img src="/resources/se2/img/location-dot-solid.svg">
-					<span class="con-detail-1" id="location" name="location">서울시 강남구 테헤란로 14길 6 5층 ${sboard.place }</span>
+					<span class="con-detail-1" id="location" name="location">${detailSboard.STUDY_ADDRESS }</span>
 					</div>
 				</div>
 				
 				<div class="con-detail">
 					<div class="day">
 					<img src="/resources/se2/img/calendar-days-solid.svg">
-					<span class="con-detail-1" id="day" name="day">주 3회 - 월/수/금 ${sboard.date }</span>
+					<span class="con-detail-1" id="day" name="day">${detailSboard.STUDY_DATE }</span>
 					</div>
 				</div>
 				
 				<div class="con-detail">
 					<div class="time">
 					<img src="/resources/se2/img/clock-regular.svg">
-					<span class="con-detail-1" id="time" name="time">13:00 - 17:00 ${sboard.time }</span>
+					<span class="con-detail-1" id="time" name="time">${detailSboard.STUDY_TIME }</span>
 					</div>				
 				</div>
 				
 				<div class="box1">개설자의 말💁‍♂️</div>
 				<hr>
 				<div class="publisher-comment">
-					framework는 spring이고 코드리뷰 이외에 모르는 것들 서로 모르는 것들 알려주면서 함께 성장하면 좋겠습니다.
-					<br>간단한 신청서 작성하여 신청해주시면 확인 후 쪽지 보내드리겠습니다.
+					${detailSboard.STUDY_NOTIFY }
 				</div>
 				
 				<div class="button-bar">

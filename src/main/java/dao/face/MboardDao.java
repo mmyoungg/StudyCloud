@@ -23,68 +23,63 @@ public interface MboardDao {
 //	List<Mboard> selectList(Paging paging);
 
 	public List<HashMap<String, Object>> selectMboardHash(Paging paging);
-	
+
 	/**
-	 * mboardno로 게시글 상세 조회
+	 * 조회수 +1 증가
+	 * @param mboardNo
+	 */
+	public void updateHit(int mboardNo);
+
+	/**
+	 * 게시판 번호로 상세페이지 조회
 	 * @param mboardNo
 	 * @return
 	 */
-	public HashMap<String, Object> selectMboardByMboardNo(int mboardNo);
-	
+	public HashMap<String, Object> detailPageByMboardNo(int mboardNo);
+
 	/**
-	 * 조회수 +1 증가
-	 * @param detailMboard
+	 * 게시글 삽입
+	 * @param mboard
 	 */
-	public void updateHit(Mboard detailMboard);
-	
+	public void insert(Mboard mboard);
+
 	/**
-	 * 
-	 * @param detailMboard
-	 * @return
-	 */
-	public HashMap<String, Object> selectMboard(Mboard detailMboard);
-	/**
-	 * 게시글 등록(삽입)
-	 * @param mboard - 삽입할 게시글 정보
-	 */
-	public void insertMboard(Mboard mboard);
-	
-	/**
-	 * 첨부파일 정보 삽입
+	 * 파일 삽입
 	 * @param fileUpload
 	 */
 	public void insertFile(FileUpload fileUpload);
 
 	/**
-	 * 게시글 번호 이용하여 첨부파일 정보 조회
-	 * @param detailMboard
+	 * 첨부파일 삭제
+	 * @param mboardNo - 게시글 번호로 조회
 	 * @return
 	 */
-	public FileUpload selectMboardFileByMboardNo(Mboard detailMboard);
-	
+	public List<HashMap<String, Object>> selectMboardFileByMboardNo(int mboardNo);
+
 	/**
-	 * 파일번호 이용하여 첨부파일 정보 조회
+	 * 
 	 * @param fileUpload
 	 * @return
 	 */
 	public FileUpload selectMboardFileByFileUploadNo(FileUpload fileUpload);
-	
+
 	/**
 	 * 게시글 수정
 	 * @param mboard
 	 */
-	public void updateMboard(Mboard mboard);
-	
+	public void update(Mboard mboard);
+
 	/**
-	 * 첨부파일 삭제
+	 * 기존 게시글 첨부 파일 삭제
 	 * @param mboard
 	 */
 	public void deleteFile(Mboard mboard);
-	
+
 	/**
-	 * 게시글 삭제
+	 * 기존 게시글 삭제
 	 * @param mboard
 	 */
-	public void deleteMboard(Mboard mboard);
-
+	public void delete(Mboard mboard);
+	
+	
 }

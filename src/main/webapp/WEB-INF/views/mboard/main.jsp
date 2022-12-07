@@ -46,15 +46,15 @@ $(document).ready(function() {
 /* 	width: 1100px; */
 }
  .header-box { 
-/* 	color: white; */
-/* 	height: 200%; */
-/* 	background-color: #aacde5; */
-/* 	text-align: center; */
-/* 	padding: 60px; */
-/* /* 	margin: 20%; */ */
-	margin: 0 auto;
-	text-align:center;
-	background-color: #e3eff9;
+ 	color: white; 
+ 	height: 200%; 
+ 	background-color: #aacde5; 
+ 	text-align: center; 
+ 	padding: 60px; 
+ 	margin: 20%;  
+/* 	margin: 0 auto; */
+/* 	text-align:center; */
+/* 	background-color: #e3eff9; */
  } 
 
 .container{
@@ -151,11 +151,11 @@ hr {
 	float: right;
 }
 
-img {
-	object-fit: contain;
-	margin: 0 auto;
-	height: 10%;
-}
+/* img { */
+/* 	object-fit: contain; */
+/* 	margin: 0 auto; */
+/* 	height: 10%; */
+/* } */
 
 td {
 	text-align: center;
@@ -170,9 +170,9 @@ td {
 <div class="whole">
 
 	<div class="header-box">
-		<img src="/resources/se2/img/mboard_sign.jpg">
-<!-- 		실시간 번개 스터디에 참여해보세요!⚡<br> -->
-<!-- 		Join the Flash-Gathering! -->
+<!-- 		<img src="/resources/se2/img/mboard_sign.jpg"> -->
+		실시간 번개 스터디에 참여해보세요!⚡<br>
+		Join the Flash-Gathering!
 	</div>
 	
 	<div class="button-menu">
@@ -224,8 +224,8 @@ td {
   				<c:forEach items="${mlist }" var="mboard">  
 					<tr>
 						<td>${mboard.MBOARD_NO}</td>
-						<td style="decoration:none;"><a href="/mboard/detail?mboard_no=${mboard.MBOARD_NO}">${mboard.MBOARD_TITLE}</a></td>
-						<td>${member.MEMBER_ID }</td>
+						<td style="decoration:none;"><a href="/mboard/detail?mboardNo=${mboard.MBOARD_NO}">${mboard.MBOARD_TITLE}</a></td>
+						<td>${mboard.MEMBER_ID }</td>
 						<td>${mboard.MBOARD_HIT }</td>
 						<td><fmt:formatDate value="${mboard.MBOARD_DATE }" pattern="yy-MM-dd"/></td>
 					</tr>
