@@ -13,7 +13,8 @@
 
 <script type="text/javascript">
 
-$(function(){
+$(function(e){
+	e.preventDefault()
 	$("#btn").click(function(){
 	 memberId = $("#memberId").val();
 	 var memberPw =$("#memberPw").val();
@@ -216,7 +217,7 @@ a {
 								<input class="form-control" type="password" id="memberPw" name="memberPw">
 							</div><br>
 							
-<%-- 							<c:if test="${message == 'error'}"> --%>
+<%-- 							<c:if test="${message == error}"> --%>
 <!--  							<div style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다.</div> -->
 <%--  							</c:if><br> --%>
 
