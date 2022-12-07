@@ -71,9 +71,9 @@ $(document).ready(function() {
 	</c:choose>
 	
 	<%-- 이전 페이지로 가기 --%>
-	<%-- <c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a class="page-link" href="/mntboard/list?curPage=${paging.curPage - 1 }">&lt;</a></li>
-	</c:if> --%>
+	 <c:if test="${paging.curPage > 1 }">
+		<li class="page-item"><a class="page-link" onclick="pageMove(${paging.curPage - 1 })">&lt;</a></li>
+	</c:if> 
 	
 	
 	

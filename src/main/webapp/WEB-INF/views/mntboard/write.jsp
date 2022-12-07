@@ -96,7 +96,6 @@ function updateContents() {
 
 <div class="btn-zip">
  <input type="reset" id="btnCancle" class="btn btn-primary" value="취소">
- <!-- 글전송 구현해야됨 -->
  <button class="btn btn-primary" id="btnWrite">등록</button>
 </div>
 

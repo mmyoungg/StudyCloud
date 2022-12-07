@@ -2,6 +2,7 @@ package dao.face;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dto.FileUpload;
 import dto.FreeBoard;
@@ -21,11 +22,21 @@ public interface FreeBoardDao {
 
 	public void insertFile(FileUpload fileUpload);
 
-	public FileUpload selectFileByfBoardNo(int fBoard_no);
+	public List<HashMap<String, Object>> selectFileByfBoardNo(int fBoard_no);
 
 	public HashMap<String, Object> getDetailViewByfBoardNo(FreeBoard freeBoard);
 
 	public FileUpload selectUploadFileByFileNo(FileUpload fileUpload);
+
+	public void updateFreeBoard(FreeBoard freeBoard);
+
+	public void deleteFile(FreeBoard freeBoard);
+
+	public void deleteByfBoardNo(FreeBoard freeBoard);
+
+	
+	
+	public List<Map<String, Object>> detailFile(FreeBoard freeBoard);
 
 
 

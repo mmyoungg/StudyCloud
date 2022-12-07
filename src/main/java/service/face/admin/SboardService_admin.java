@@ -3,6 +3,7 @@ package service.face.admin;
 import java.util.List;
 import java.util.Map;
 
+import dto.Member;
 import dto.StudyBoard;
 import util.Paging;
 
@@ -27,5 +28,21 @@ public interface SboardService_admin {
 	 * @return 페이징이 적용된 게시글 목록
 	 */
 	public List<StudyBoard> list(Paging paging);
+
+	/**
+	 * 선택한 회원의 정보 업데이트
+	 * 
+	 * @param member - 회원 정보
+	 * @return 등급 변경할 회원
+	 */
+	public Member updateMember(Member member);
+
+	/**
+	 * 스터디 신청 목록
+	 * 
+	 * @param studyBoard
+	 * @return 
+	 */
+	public int todayApply(StudyBoard studyBoard);
 
 }
