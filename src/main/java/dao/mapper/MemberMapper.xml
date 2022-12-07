@@ -20,19 +20,27 @@
 		SELECT count(*) FROM member
 		WHERE member_id = #{memberId}
 	</select>
-		
-	<select id="findid" parameterType="String" resultType="Member">
-	      select * from member where member_email = #{memberEmail}
-	</select>
-	
+
 	<insert id="insert" parameterType="Member">
 		<selectKey order="BEFORE" resultType="int" keyProperty="memberNo">
 			SELECT member_seq.nextval FROM dual
 		</selectKey>
-			INSERT INTO member ( member_no, member_id, member_pw, member_email, member_name, member_nick, member_phone )
-			VALUES ( member_seq.nextval, #{memberId}, #{memberPw}, #{memberEmail}, #{memberName}, #{memberNick}, #{memberPhone} )
+	INSERT INTO member ( member_no, member_id, member_pw, member_email,
+	member_name, member_nick, member_phone )
+	VALUES ( member_seq.nextval, #{memberId}, #{memberPw}, #{memberEmail},
+	#{memberName}, #{memberNick}, #{memberPhone} )
 	</insert>
-	
 
+
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw">
+		UPDATE member SET member_pw = #{memberPw}
+		WHERE member_email = #{memberEmail}
+	</update>
+
+	<select id="readMember" parameterType="Member" resultType="int">
+		SELECT count(*) FROM member
+		WHERE member_email = #{memberEmail}
+	</select>
 	
 </mapper>
