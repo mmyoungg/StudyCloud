@@ -80,6 +80,90 @@
 		FROM fileupload
 		WHERE fileupload_no = #{fBoardNo}
 	</select>
+	
+	<select id="countBoardCmt" parameterType="int" resultType="int">
+		select count(*) from commt where fBoard_no=#{fBoardNo}
+	</select>
+	
+	<select id="getfBoardCmtList" parameterType="Map" resultType="hashmap">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM ( 
+				SELECT c.commt_no, c.fboard_no, c.member_no, m.member_nick, c.commt_content, c.commt_date
+				FROM commt c
+                JOIN member m ON ( c.member_no = m.member_no )
+                WHERE fBoard_no=#{fBoardNo}
+				ORDER BY commt_no desc
+				) B
+			) commt
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
 	 
+	<insert id="insertCmtfBoard" parameterType="dto.Commt">
+		INSERT INTO commt( commt_no, fboard_no, member_no, commt_content, commt_date )
+		VALUES( commt_seq.nextval, #{fBoardNo}, #{memberNo}, #{commtContent}, sysdate)
+		
+ 		<selectKey order="AFTER" resultType="int" keyProperty="commtNo">
+			SELECT commt_seq.CURRVAL FROM dual
+		</selectKey> 
+	</insert> 
+	
+	<select id="selectCmtByCmtNo" parameterType="int" resultType="dto.Commt">
+		SELECT commt_no, fBoard_no, member_no, commt_content, commt_date
+		FROM commt WHERE commt_no = #{commtNo}
+	</select>
+	
+	<update id="updateCmtfBoard" parameterType="dto.Commt">
+		UPDATE commt SET commt_content = #{commtContent}
+			, commt_date = sysdate			
+		WHERE commt_no = #{commtNo}
+	</update>
+	
+	<delete id="deleteCmtfBoard" parameterType="int">
+		DELETE commt WHERE commt_no = #{commtNo }
+	</delete>
+	
+	<select id="getfBoardSearchList" parameterType="hashMap" resultType="hashmap">
+		SELECT * from (
+			SELECT rownum rnum, B.* from (
+				SELECT f.fboard_no, f.category_name, f.fboard_title, m.member_nick, f.fboard_hit, f.fboard_date
+				FROM freeboard f
+				JOIN member m ON ( f.member_no = m.member_no )
+			WHERE
+			<foreach collection="list" item="list" separator=",">
+				<choose>
+					<when test="list == 'fBoardTitle'.toString()">
+						f.fBoard_title like '%'||#{keyword}||'%'
+					</when>
+					<when test="list == 'fBoardContent'.toString()">
+						f.fBoard_content like '%'||#{keyword}||'%'
+					</when>
+					<when test="list == memberNo">
+						m.member_name like '%'||#{keyword}||'%'
+					</when>
+				</choose>
+			</foreach>
+			ORDER BY fboard_no desc ) B
+		) FreeBoard
+	WHERE rnum BETWEEN #{startNo} AND #{endNo}	
+	</select>
+	
+	<select id="countSearchList" resultType="int">
+		SELECT count(*) from freeboard
+		WHERE
+		<foreach collection="list" item="list" separator=",">
+			<choose>
+				<when test="list == 'fBoardTitle'.toString()">
+					fBoard_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="list == 'fBoardContent'.toString()">
+					fBoard_content like '%'||#{keyword}||'%'
+				</when>
+				<when test="list == memberNo">
+					member_name like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</foreach>
+		
+	</select>
 
 </mapper>

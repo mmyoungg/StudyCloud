@@ -12,30 +12,23 @@ form { margin: 40px 5px auto;}
 		  border-radius: 5px; color: white; }
 #newFile { display: none; }
 .through { text-decoration: line-through; }
-#deleteFile { font-weight: bold; color: red; cursor: pointer; }		  
+#deleteFile { font-weight: bold; color: red; cursor: pointer; }
+.preview img { width: 200px; height: 150px; margin: 35px 5px 5px 5px;}
+.fileBox p { margin-bottom: 5px; position: absolute; left: 5px;}
+.fileBox { position: relative; width: 220px; height: 240px; margin-left: 5px;}
+.fileBox a { position: absolute; right: 15px; }
+.preview { display: flex; }		  
 
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-	
-/* 	$("#fBoardUpdateBtn").click(function() {
-		
-		//스마트에디터에 작성된 내용을 #content에 반영
-		$("form").submit();
-	}) */
-	
+	$("#file").on("change", handleFileSelect);
+
  	if( ${empty fileUpload} ) {
 		$("#newFile").show()
 	} else {
 		$("#originFile").show()
 	} 
-	
-/*   	$("#deleteFile").on("click", function() {
-		 $("#newFile").toggle() 
-		
-// 		$("#originFile").toggle()
-		$("#originFile").toggleClass("through")
-	})   */
 	
 
 	$("#fileAddBtn").on("click", function(){
@@ -49,8 +42,44 @@ $(document).ready(function() {
 	
 	 function deleteFile(obj) {
 	        obj.parent().remove();
-	    }
+	 }
 })
+
+function handleFileSelect(e) {
+	
+	fBoard_files = [];
+	$(".preview").empty();
+	
+	var files=e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+	
+	var index=0;
+	filesArr.forEach(function(f) {
+		
+		fBoard_files.push(f);
+		
+		if(f.type.match('image.*')) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var html = "<div class='fileBox'>"
+				html += "<p>" + f.name + "</p>"				
+			    html += "<a href=\"javascript:void(0);\" id=\"img_id_"+index+"\"><img src=\""+e.target.result+"\" data-file='"+f.name+"' class='selProductFile'></a>";
+				html += "</div>"
+			$(".preview").append(html);
+			index++;
+		}
+		reader.readAsDataURL(f);
+		} else {
+			var html = "<div class='fileBox'>"
+				html += "<p>" + f.name + "</p>"
+			    html += "<a><img src=\"https://ifh.cc/g/vGMnsc.png\" data-file='"+f.name+"' class='selProductFile'></a>";
+				html += "</div>"
+				$(".preview").append(html);
+				index++;
+		}
+	})
+	
+}
 
 
 </script>
@@ -105,10 +134,10 @@ $(document).ready(function() {
 		</c:choose>
 		<button type="button" id="fileAddBtn">파일추가</button>
 		<div id="newFile">
-			<label for="file">새로운 첨부파일</label>
 			<input class="form-control" type="file" id="file" name="fBoardFile" multiple>
 		</div>
 		
+		<div class="preview" class="fBoardContent"></div>
 	</div> 
 </div>
 
