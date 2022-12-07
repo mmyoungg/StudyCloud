@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.face.admin.MemberDao_admin">
+
+	<!-- 로그인 -->
+	<select id="selectCntMember" resultType="int" parameterType="dto.Member">
+		SELECT count(*) FROM member
+		WHERE member_id = #{memberId }
+		AND  member_pw = #{memberPw }
+		AND authority = 4
+	</select>
+	
+	<select id="selectLoginById" resultType="dto.Member" parameterType="String">
+		SELECT * FROM member
+		WHERE member_id = #{memberId }
+	</select>
+	
+	<select id="selectAdminNick" resultType="Member" parameterType="String">
+		SELECT * FROM member
+		WHERE member_id = #{memberId }
+	</select>
+
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM member
+	</select>
+
+	<!-- 회원관리 -->
+	<select id="selectList" resultType="Member" parameterType="util.Paging">
+		SELECT * FROM member
+		WHERE authority != 4 <!-- 관리자 출력 제외 -->
+		ORDER BY member_no DESC
+<!-- 		WHERE rownum BETWEEN #{startNo } AND #{endNo } -->
+	</select>
+	
+	
+
+</mapper>

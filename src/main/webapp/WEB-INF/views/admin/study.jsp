@@ -11,13 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- 게시판 테이블 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel ="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-<!-- 테이블 css -->
-<link rel="stylesheet" href="${path}/resources/css/admin/mento.css" />
-
 <style type="text/css">
 
 /* 메인 */
@@ -26,6 +19,30 @@
     font-size: 12px;
     color: #fff;
     border-radius: 5px;
+}
+
+/* 테이블 */
+.table {
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 20px;
+}
+
+.table thead {
+    background-color: #3f92b7;
+}
+
+.table thead th {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.table tbody td {
+    padding: 5px;
+    margin: 0;
+    font-size: 14px;
 }
 
 </style>
@@ -55,35 +72,49 @@ myModal.addEventListener('shown.bs.modal', () => {
     	<h1>스터디 신청 관리</h1>
     </div>
 
-    <section class="dashboard">
+    <section class="adminStudy">
       	<div class="row">
 
      	<!-- 테이블 -->
        	<div class="col-lg-12">
 				
-		    <div class="table-responsive px-2">
-				<table class="table table-borderless">
+		    <div class="table-responsive">
+				<table class="table">
 					<thead>
                         <tr>
-                            <th style="width: 5%">No</th>
-                            <th style="width: 20%">아이디</th>
-                            <th style="width: 10%">닉네임</th>
-                            <th style="width: 20%">이름</th>
-                            <th style="width: 20%">회원등급</th>
-                            <th style="width: 10%">관리</th>
-                            <th style="width: 10%">신청서</th>
+                            <th>No</th>
+                            <th>아이디</th>
+                            <th>닉네임</th>
+                            <th>이름</th>
+                            <th>회원등급</th>
+                            <th>관리</th>
+                            <th>신청서</th>
                         </tr>
                     </thead>
                     
                     <tbody>
                    	<c:forEach items="${list }" var="studyboard">
                        <tr>
-                           	<td><span class="bg-blight">${studyboard.studyNo }</span></td>
-							<td><span class="bg-bdark">${studyboard.member.memberId }</span></td>
-							<td><span class="bg-blight">${studyboard.member.memberNick }</span></td>
-							<td><span class="bg-bdark">${studyboard.member.memberName }</span></td>
-							<td><span class="bg-bdark">${studyboard.member.authority }</span></td>
-							<td><button type="submit" name="memberNo" value="${studyboard.member.memberNo }">확인</button></td>
+                           	<td>${studyboard.studyNo }</td>
+							<td>${studyboard.member.memberId }</td>
+							<td>${studyboard.member.memberNick }</td>
+							<td>${studyboard.member.memberName }</td>
+							<td>
+								<c:choose>
+								<c:when test="${studyboard.member.authority  eq 1}">
+									일반
+								</c:when>
+								
+								<c:when test="${studyboard.member.authority  eq 2}">
+									스터디장
+								</c:when>
+								
+								<c:when test="${studyboard.member.authority  eq 3}">
+									멘토
+								</c:when>
+								</c:choose>
+							</td>
+							<td><button type="submit" name="memberNo" value="${studyboard.member.memberNo }">승인</button></td>
 </form>
                             <td><button type="button" class="btn" id="btnView" data-bs-toggle="modal" data-bs-target="#applyModal${studyboard.studyNo }">신청서</button></td>
 							
@@ -130,6 +161,7 @@ myModal.addEventListener('shown.bs.modal', () => {
                 </table>
    			</div><!-- 테이블 row end -->
 			<span class="pull-right">total : ${paging.totalCount }</span>
+			<c:import url="/WEB-INF/views/admin/paging.jsp" />
        	</div>
 		</div><!-- main row end -->
 	</section>
