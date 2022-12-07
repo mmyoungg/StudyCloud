@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.face.FreeBoardDao;
+import dto.Commt;
 import dto.FileUpload;
 import dto.FreeBoard;
 import service.face.FreeBoardService;
+import util.CmtPaging;
 import util.Paging;
 
 @Service
@@ -27,14 +29,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Autowired ServletContext context;
 	
 	@Override
-	public Paging getPaging(int curPage) {
+	public CmtPaging getPaging(int curPage) {
 		int totalCount = freeBoardDao.countBoard();
-		Paging paging = new Paging(totalCount, curPage);
+		CmtPaging paging = new CmtPaging(totalCount, curPage);
 		return paging;
 	}
 	
 	@Override
-	public List<HashMap<String, Object>> getList(Paging paging) {
+	public List<HashMap<String, Object>> getList(CmtPaging paging) {
 		
 		return freeBoardDao.getListWithPaging(paging);
 	}
@@ -183,8 +185,57 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public void delete(FreeBoard freeBoard) {
 		freeBoardDao.deleteByfBoardNo(freeBoard);
 	}
-
 	
+	@Override
+	public List<HashMap<String, Object>> getCmtList(Map<String, Object> map) {
+		return freeBoardDao.getfBoardCmtList(map);
+	}
 	
+	@Override
+	public CmtPaging getCmtPaging(Integer curPage, Integer fBoardNo) {
+		int totalCount = freeBoardDao.countBoardCmt(fBoardNo);
+		System.out.println("[페이징계산..] curPage : " + curPage + "totalCount : " + totalCount);
+		CmtPaging paging = new CmtPaging(totalCount, curPage);
+		return paging;
+	}
 	
+	@Override
+	public int getCmtCount(Integer fBoardNo) {
+		int totalCount = freeBoardDao.countBoardCmt(fBoardNo);
+		return totalCount;
+	}
+	
+	@Override
+	public Commt insertCmt(Commt commt) {
+		freeBoardDao.insertCmtfBoard(commt);
+		
+		int commtNo = commt.getCommtNo();
+		System.out.println("[COMMTNO] : " + commtNo);
+		Commt comInsertRes = freeBoardDao.selectCmtByCmtNo(commtNo);
+		return comInsertRes;
+	}
+	
+	@Override
+	public void updateCmt(Commt commt) {
+		freeBoardDao.updateCmtfBoard(commt);
+	}
+	
+	@Override
+	public void deleteCmt(int commtNo) {
+		freeBoardDao.deleteCmtfBoard(commtNo);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map) {
+		return freeBoardDao.getfBoardSearchList(map);
+	}
+	
+	@Override
+	public CmtPaging getSearchPaging(HashMap<String, Object> map) {
+		int totalCount = freeBoardDao.countSearchList(map);
+		int curPage = (int) map.get("curPagee");
+		CmtPaging paging = new CmtPaging(totalCount, curPage);
+		return paging;
+		
+	}
 }

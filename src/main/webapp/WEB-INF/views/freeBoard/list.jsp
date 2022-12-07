@@ -21,8 +21,10 @@ table a:hover { color: #3f92b7 }
 .button-menu { margin: 0 auto; width: 1100px; text-align: center; padding: 30px; }
 .button-op { padding: 40px; color: #6cc4dc; --bs-btn-border-radius: .5rem; }
 .btn { background-color:  #6cc4dc; }
-.fBoard-write-button { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
+.fBoard-write-button, .searchBtn { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 2px; 
 		  				border-radius: 5px; color: white; }
+.searchWrap { position: absolute; right:0; }	
+.checkBoxWrap { position:relative; }
 		  				
 /* 페이징 CSS */		  				
 .page-link { color: #282828; }
@@ -52,11 +54,37 @@ function pagingAjax(pageNo) {
 		dataType: "html", 
 		data : {curPage: page_no},
 		success : function(r){
-		console.log('성공..?');
+		console.log('[게시글 리스트] AJAX 요청 성공');
 			$("#fBoard_content").html(r);
 		} 
 	})
 }
+
+function search() {
+	var pageNo = ${paging.curPage};
+	var checkArr = [];
+	var keyword = $("#fBoardSKword").val();
+	$("input[name='fBoardSearch']:checked").each(function(i) {
+		checkArr.push($(this).val());
+	})
+	if( checkArr == "" || keyword == "") { 
+		alert("검색조건과 검색 키워드를 모두 입력해주세요.");  
+		return false;
+	}
+	
+	$.ajax({
+		url: "/freeBoard/search",
+		type: "POST",
+		data: { "searchArr" : checkArr, "searchKeyword" : keyword },
+		success : function(r){
+			console.log('[게시글 검색] AJAX 요청 성공');
+			$("#fBoard_content").html(r);
+		} 
+		
+	})
+	
+	
+} 
 	
 
 
@@ -86,28 +114,27 @@ function pagingAjax(pageNo) {
 </div>
 
 
-<form class="row gy-2 gx-3 align-items-center" id="fBoard-check">
+<form class="row gy-2 gx-3 align-items-center checkBoxWrap" id="fBoard-check">
 
 <div class="form-check col-auto" id="fBoard-check-in">
-  <input class="form-check-input change" type="checkbox" value="" id="titlecheck">
+  <input class="form-check-input change" type="checkbox" value="fBoardTitle" name="fBoardSearch">
   <label class="form-check-label" for="titlecheck">제목</label>
 </div>
 <div class="form-check col-auto" id="fBoard-check-in">
-  <input class="form-check-input" type="checkbox" value="" id="titleContentcheck">
+  <input class="form-check-input" type="checkbox" value="fBoardContent" name="fBoardSearch">
   <label class="form-check-label" for="titleContentcheck">제목+내용</label>
 </div>
 <div class="form-check col-auto" id="fBoard-check-in">
-  <input class="form-check-input" type="checkbox" value="" id="writercheck">
+  <input class="form-check-input" type="checkbox" value="memberNo" name="fBoardSearch">
   <label class="form-check-label" for="writercheck">작성자</label>
 </div>
 
 <div class="align-items-center" id="fBoard-searchBar">
   <div class="col-auto">
-    <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="검색어를 입력하세요">
+    <input type="text" name="fBoardSKword" id="fBoardSKword" class="form-control" aria-describedby="passwordHelpInline" placeholder="검색어를 입력하세요">
   </div>
 </div>
-
-<button class="col-auto button" type="button">검색</button>
+<button class="col-auto button" type="button" onclick="search()">검색</button>
 
 </form>
 <div id="fBoard_content"></div>

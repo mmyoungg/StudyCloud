@@ -2,20 +2,23 @@ package service.face;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import dto.Commt;
 import dto.FileUpload;
 import dto.FreeBoard;
+import util.CmtPaging;
 import util.Paging;
 
 public interface FreeBoardService {
 	
 	// 페이징 처리
-	public Paging getPaging(int curPage);
+	public CmtPaging getPaging(int curPage);
 
 	// 글목록 리스트
-	public List<HashMap<String, Object>> getList(Paging paging);
+	public List<HashMap<String, Object>> getList(CmtPaging paging);
 	
 	// 게시글 조회
 	public HashMap<String, Object> view(int fBoard_no);
@@ -36,7 +39,30 @@ public interface FreeBoardService {
 	
 	// 게시글 삭제
 	public void delete(FreeBoard freeBoard);
+	
+	// 댓글 페이징 처리
+	public List<HashMap<String, Object>> getCmtList(Map<String, Object> map);
+	
+	// 댓글 페이징 Ajax처리
+	public CmtPaging getCmtPaging(Integer curPage, Integer fBoardNo);
+	
+	// 댓글 개수구하기
+	public int getCmtCount(Integer fBoardNo);
+	
+	// 댓글 삽입
+	public Commt insertCmt(Commt commt);
+	
+	// 댓글 수정
+	public void updateCmt(Commt commt);
 
-
+	// 댓글 삭제
+	public void deleteCmt(int commtNo);
+	
+	// 검색결과 조회 리스트
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map);
+	
+	// 검색결과 리스트 페이징
+	public CmtPaging getSearchPaging(HashMap<String, Object> map);
+	
 
 }
