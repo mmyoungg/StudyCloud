@@ -15,13 +15,14 @@ public class StudyBoard {
 	private String studyContent;
 	private String studyNotify;
 	private Date enrollstudyDate;
+	private int sboardMarkcnt;
 	private Member member;
 	
 	public StudyBoard() {}
 
 	public StudyBoard(int studyNo, int memberNo, String studyTitle, int studyPeople, String studyAddress,
 			String studyTag, Date studyDate, String studyTime, String studyContent, String studyNotify,
-			Date enrollstudyDate, Member member) {
+			Date enrollstudyDate, int sboardMarkcnt, Member member) {
 		super();
 		this.studyNo = studyNo;
 		this.memberNo = memberNo;
@@ -34,6 +35,7 @@ public class StudyBoard {
 		this.studyContent = studyContent;
 		this.studyNotify = studyNotify;
 		this.enrollstudyDate = enrollstudyDate;
+		this.sboardMarkcnt = sboardMarkcnt;
 		this.member = member;
 	}
 
@@ -42,7 +44,7 @@ public class StudyBoard {
 		return "StudyBoard [studyNo=" + studyNo + ", memberNo=" + memberNo + ", studyTitle=" + studyTitle
 				+ ", studyPeople=" + studyPeople + ", studyAddress=" + studyAddress + ", studyTag=" + studyTag
 				+ ", studyDate=" + studyDate + ", studyTime=" + studyTime + ", studyContent=" + studyContent
-				+ ", studyNotify=" + studyNotify + ", enrollstudyDate=" + enrollstudyDate + ", member=" + member + "]";
+				+ ", studyNotify=" + studyNotify + ", enrollstudyDate=" + enrollstudyDate + ", sboardMarkcnt=" + sboardMarkcnt + ", member=" + member + "]";
 	}
 
 	public int getStudyNo() {
@@ -131,6 +133,14 @@ public class StudyBoard {
 
 	public void setEnrollstudyDate(Date enrollstudyDate) {
 		this.enrollstudyDate = enrollstudyDate;
+	}
+
+	public int getSboardMarkcnt() {
+		return sboardMarkcnt;
+	}
+
+	public void setSboardMarkcnt(int sboardMarkcnt) {
+		this.sboardMarkcnt = sboardMarkcnt;
 	}
 
 	public Member getMember() {

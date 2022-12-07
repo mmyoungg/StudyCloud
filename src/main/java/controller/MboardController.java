@@ -2,7 +2,10 @@ package controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -55,34 +58,28 @@ public class MboardController {
 	}
 	
 	@RequestMapping("/mboard/detail")
-	public String mboarddetail(
-		
-			Mboard detailMboard,
-//			int mboardNo
-			 Model model
+	public void mboarddetail(
+			
+			int mboardNo
+			,Model model
 			
 			) {
 		
-		logger.debug("{}", detailMboard);
-		
-		//잘못된 게시글 번호 처리
-		if( detailMboard.getMboardNo() < 0 ) {
-			return "redirect:/mboard/detail";
-			
-		}
+		logger.debug("{}", mboardNo);
 		
 		//게시글 조회
-		HashMap<String, Object > detailmboard = mboardService.detail(detailMboard);
-		logger.debug("조회된 게시글 {}", detailMboard);
+		HashMap<String, Object > Mboarddetail= mboardService.detail(mboardNo);
+		logger.debug("조회된 게시글 {}", Mboarddetail);
 		
 		//모델값 전달
-		model.addAttribute("detailMboard", detailMboard);
+		model.addAttribute("detailMboard", Mboarddetail);
 		
 		//첨부파일 모델값 전달
-		FileUpload fileUpload = mboardService.getAttachFile(detailMboard);
+		List<HashMap<String, Object>> fileUpload = mboardService.getAttachFile(mboardNo);
 		model.addAttribute("fileUpload", fileUpload);
 		
-		return "mboard/detail";
+		return;
+		
 	}
 	
 	@GetMapping("/mboard/write")
@@ -92,7 +89,6 @@ public class MboardController {
 	public String writeProcess(
 			
 			Mboard mboard,
-			int memberNo,
 			MultipartFile file,
 			HttpSession session
 			
@@ -101,9 +97,9 @@ public class MboardController {
 		logger.debug("{}", mboard);
 		logger.debug("{}", file);
 
-		//작성자 정보
-		mboard.setMemberNo( (int)session. getAttribute("memberNo"));
-		logger.debug("{}", mboard);
+//		작성자 정보
+		mboard.setMemberNo( (int)session. getAttribute("member_no"));
+//		logger.debug("{}", mboard);
 		
 		mboardService.write(mboard, file);
 		
@@ -112,46 +108,29 @@ public class MboardController {
 		
 	}
 	
-	@RequestMapping("/mboard/download")
-	public String download(
-			FileUpload fileUpload
-			, Model model
-			) {
-		
-		//첨부파일 정보 객체
-		fileUpload = mboardService.getFile(fileUpload);
-		logger.debug("{}", fileUpload);
-		
-		//모델값 전달
-		model.addAttribute("downFile", fileUpload);
-		
-		return "down";
-		
-	}
 	
 	@GetMapping("/mboard/update")
-	public String update(
+	public void update(
 			
-			Mboard mboard
+			int mboardNo
 			,Model model
 			
 			) {
 		
+		logger.info("{}" , mboardNo);
 		//게시글 조회
-		HashMap<String, Object> detailMboard = mboardService.detail(mboard);
-		logger.debug("조회된 게시글 {}", mboard);
+		HashMap<String, Object> Mboarddetail = mboardService.detail(mboardNo);
+		logger.debug("조회된 게시글 {}", Mboarddetail);
 		
 		//모델값 전달
-		model.addAttribute("updateMboard", mboard);
+		model.addAttribute("updateMboard", Mboarddetail);
 		
 		//첨부파일 모델값 전달
-		FileUpload fileupload = mboardService.getAttachFile(mboard);
+		List<HashMap<String, Object>> fileupload = mboardService.getAttachFile(mboardNo);
 		model.addAttribute("fileupload", fileupload);
 		
-		return "/mboard/update?boardNo=" + mboard.getMboardNo();
 		
 	}
-	
 	
 	@PostMapping("/mboard/update")
 	public String updateProcess(
@@ -169,8 +148,27 @@ public class MboardController {
 		
 		mboardService.update(mboard, file);
 		
-		return "/mboard/update?boardNo=" + mboard.getMboardNo();
+		return "redirect:/mboard/detail";
 		
+		
+	}
+	@RequestMapping("/mboard/download")
+	public String download(
+			
+			FileUpload fileUpload
+			, Model model
+			
+			) {
+		logger.info("{}", fileUpload);
+		
+		//첨부파일 정보 객체
+		fileUpload = mboardService.getFile(fileUpload);
+		logger.debug("{}", fileUpload);
+		
+		//모델값 전달
+		model.addAttribute("downFile", fileUpload);
+		
+		return "down";
 		
 	}
 	
@@ -182,13 +180,13 @@ public class MboardController {
 			) {
 		logger.debug("{}", mboard);
 		
-		
 		mboardService.delete(mboard);
 		
 		return "redirect:/mboard/main";
 		
 	}
 	
+	//------------------------------------------------------------------------
 	
 	//좋아요 기능 시작
 	@Transactional(rollbackFor = Exception.class)

@@ -14,78 +14,85 @@
 	<select id="selectMboardHash" resultType="hashMap" parameterType="util.Paging">
 		SELECT * FROM (
 			SELECT rownum rnum, B.*  FROM (
-				SELECT b.mboard_no, b.member_no, b.mboard_title, b.mboard_content, b.mboard_date, b.mboard_hit, b.mboard_cmtcnt,
-					m.member_id, m.member_nick 
+				SELECT b.mboard_no, b.member_no, b.mboard_title, b.mboard_content, b.mboard_date, b.mboard_hit, b.mboard_cmtcnt, b.mboard_likecnt
+					,m.member_id, m.member_nick 
 				FROM mboard b
-				JOIN member m ON ( b.member_no = m.member_no ) ORDER BY mboard_no DESC
+				JOIN member m ON ( b.member_no = m.member_no ) ORDER BY b.mboard_no DESC
 			) B
 		) MBOARD
 	 	WHERE rnum between #{startNo } AND #{endNo }
 	</select>
 
-	<update id="updateHit" parameterType="Mboard">
+	<update id="updateHit" parameterType="int">
 		UPDATE mboard
 		SET mboard_hit = mboard_hit + 1
 		WHERE mboard_no = #{mboardNo }
 	</update>	
 	
-	<select id="selectMboard" resultType="Mboard" parameterType="Mboard">
-		SELECT b.mboard_no, b.mboard_title, b.mboard_content, b.mboard_date, b.mboard_hit, b.mboard_cmtcnt, m.member_id, m.member_nick
+	<select id="detailPageByMboardNo" resultType="hashMap" parameterType="int">
+		SELECT b.mboard_no, b.mboard_title, b.mboard_content, b.mboard_date, b.mboard_hit, b.mboard_cmtcnt, b.mboard_likecnt, m.member_id, m.member_nick
 		FROM mboard b
 		JOIN member m ON ( b.member_no = m.member_no )
 		WHERE mboard_no = #{mboardNo }
 	</select>
 	
 	
-	<select id=" selectMboardByMboardNo" resultType="hashMap" parameterType="Mboard">
-		SELECT b.mboard_no, b.member_no, b.mboard_title, b.mboard_content, b.mboard_data, b.mboard_hit, b.mboard_cmtcnt
+	<select id=" selectMboardByMboardNo" resultType="hashMap" parameterType="dto.Mboard">
+		SELECT b.mboard_no, b.member_no, b.mboard_title, b.mboard_content, b.mboard_data, b.mboard_hit, b.mboard_cmtcnt, b.mboard_likecnt,
 			m.member_id, m.member_nick FROM mboard b
 		JOIN member m ON (b.member_no = m.member_no)
 		WHERE mboard_no = #{mboardNo}
 	</select>
 	
-	<insert id="insertMboard" parameterType="Mboard">
+	<!-- 게시글 삽입 -->
+	<insert id="insert" parameterType="dto.Mboard">
 		<selectKey order="BEFORE" resultType="int" keyProperty="mboardNo">
 			SELECT mboard_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO mboard ( mboard_no, member_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt )
-		VALUES( #{mboardNo }, #{memberNo}, #{mboardTitle}, #{mboardContent}, #{mboardDate}, #{mboardHit}, #{mboardCmtcnt})
+		INSERT INTO mboard ( mboard_no, member_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt, mboard_likecnt, member_id, member_nick)
+		VALUES( #{mboardNo }, #{memberNo }, #{mboardTitle }, #{mboardContent }, #{mboardDate }, #{mboardHit }, #{mboardCmtcnt }, #{mboardLikecnt }, #{memberId }, #{memberNick } )
 	</insert>
 	
-	<insert id="insertFile" parameterType="Mboard">
+	<!-- 파일 삽입 -->
+	<insert id="insertFile" parameterType="dto.FileUpload">
 		INSERT INTO FileUpload ( fileUpload_no, mBoard_no, fileUpload_ori, fileUpload_stor)
 		VALUES ( mboardfile_seq.nextval, #{mboardNo }, #{fileUploadOri }, #{fileUploadStor })
 	</insert>	
 	
-	<select id="selectMboardFileByMboardNo" resultType="FileUpload" parameterType="Mboard"> 
+	<select id="selectMboardFileByMboardNo" resultType="int" parameterType="dto.FileUpload"> 
 		SELECT fileUpload_no, mboard_no, fileUpload_ori, fileUpload_stor
 		FROM FileUpload
 		WHERE mboard_no = #{mboardNo }
 	</select>
 	
-	<select id="selectMboardFileByFileUploadNo" resultType="FileUpload" parameterType="FileUpload">
+	<select id="selectMboardFileByFileUploadNo" resultType="dto.FileUpload" parameterType="dto.FileUpload">
 		SELECT fileUpload_no, mboard_no, fileUpload_ori, fileUpload_stor
 		FROM FileUpload
 		WHERE fileUpload_no = #{fileUploadNo }
 	</select>
 	
-	<update id="updateMboard" parameterType="Mboard">
+	<update id="update" parameterType="dto.Mboard">
 		UPDATE mboard
 		SET mboard_title = #{mboardTitle },
 			mboard_content = #{mboardContent }
 		WHERE mboard_no = #{mboardNo }
 	</update>
 	
-	<delete id="deleteFile" parameterType="Mboard">
-		DELETE FileUpload
+	<!-- 기존 첨부파일 삭제 -->
+	<delete id="deleteFile" parameterType="dto.Mboard">
+		DELETE fileUpload
 		WHERE mboard_no = #{mboardNo }
 	</delete>
 	
-	<delete id="deleteMboard" parameterType="Mboard">
+	<!-- 기존 게시글 삭제 -->
+	<delete id="delete" parameterType="dto.Mboard">
 		DELETE mboard
 		WHERE mboard_no = #{mboardNo }
 	</delete>
 	
+	
+	
+
 	
 	
 	

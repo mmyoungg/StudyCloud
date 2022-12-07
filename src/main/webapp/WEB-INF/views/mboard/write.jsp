@@ -17,6 +17,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btnWrite").click(function() {
+		//보내고
+		$("#form").submit();
+		//메인으로 이동
+		location.href = "/mboard/main";
+	})
+	
+	$("#btnCancle").click(function () {
+		location.href = "/mboard/main"
+	})
+})
+
+
+
+
+
+</script>
 <style type="text/css">
 .header-box {
 	color: white;
@@ -70,16 +89,16 @@
 		Publish the Flash-Gathering!
 	</div>
 
-<form action="">
+<form action="/mboard/write" id="form" method="post" enctype="multipart/form-data">
 	<div class="container">
 		<div class="mb-3">
-  			<label for="exampleFormControlInput1" class="form-label"></label>
-  			<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요">
+  			<label for="title" class="form-label"></label>
+  			<input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
 		</div>
 		
 		<div class="mb-3">
-  			<label for="exampleFormControlTextarea1" class="form-label"></label>
-  			<textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="내용을 입력하세요"></textarea>
+  			<label for="content" class="form-label"></label>
+  			<textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요"></textarea>
 		</div>
 		
 		<div class="mb-3">
@@ -93,11 +112,11 @@
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   			등록하기
 			</button>
-			<input type="reset" id="cancel" class="btn btn-secondary" value="취소하기" style="margin-left: 5px;">
+			<input type="reset" id="btnCancel" class="btn btn-secondary" value="취소하기" style="margin-left: 5px;">
 		</div>
 		
 	</div>
-</form>
+<!-- </form> -->
 
 <!-- 번개 게시글 등록 완료 모달 -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -111,13 +130,14 @@
         번개스터디 글 등록이 완료되었습니다.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" style="background-color: #6cc4dc;" onclick="location.href='./main'">확인</button>
+        <button type="button" id="btnWrite" class="btn btn-primary" style="background-color: #6cc4dc;">확인</button>
       </div>
     </div>
   </div>
 </div>
 
-</div>
+</form>
+</div><!-- whole 끝 -->
 
 <br><br><br><br><br>
 

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -51,13 +52,13 @@ public class MboardServiceImpl implements MboardService{
 	}
 
 	@Override
-	public HashMap<String, Object> detail(Mboard detailMboard) {
+	public HashMap<String, Object> detail(int mboardNo) {
 		
 		//조회수 증가
-		mboardDao.updateHit(detailMboard);
+		mboardDao.updateHit(mboardNo);
 		
 		//상세보기 조회 결과 리턴
-		return mboardDao.selectMboard(detailMboard);
+		return mboardDao.detailPageByMboardNo(mboardNo);
 	}
 
 
@@ -69,7 +70,7 @@ public class MboardServiceImpl implements MboardService{
 			mboard.setMboardTitle("(제목없음)");
 		}
 		
-		mboardDao.insertMboard(mboard);
+		mboardDao.insert(mboard);
 		
 		//빈 파일인 경우
 		if( file.getSize() <= 0 ) {
@@ -109,8 +110,8 @@ public class MboardServiceImpl implements MboardService{
 	}
 
 	@Override
-	public FileUpload getAttachFile(Mboard detailMboard) {
-		return mboardDao.selectMboardFileByMboardNo(detailMboard);
+	public List<HashMap<String, Object>> getAttachFile(int mboardNo) {
+		return mboardDao.selectMboardFileByMboardNo(mboardNo);
 	}
 	
 	@Override
@@ -121,12 +122,13 @@ public class MboardServiceImpl implements MboardService{
 
 	@Override
 	public void update(Mboard mboard, MultipartFile file) {
+		
 		//게시글 처리
 		if("".equals( mboard.getMboardTitle())) {
 			mboard.setMboardTitle("(제목없음)");
 		}
 				
-		mboardDao.insertMboard(mboard);
+		mboardDao.update(mboard);
 				
 		//빈 파일인 경우
 		if( file.getSize() <= 0 ) {
@@ -174,13 +176,14 @@ public class MboardServiceImpl implements MboardService{
 		mboardDao.deleteFile(mboard);
 		
 		//게시글 삭제
-		mboardDao.deleteFile(mboard);
+		mboardDao.delete(mboard);
 	}
 
 	@Override
 	public void setMboardLike(MboardLike mboardLike) {
 		
 	}
+
 
 
 

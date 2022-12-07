@@ -1,47 +1,167 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dto.Member;
+import dto.StudyBoard;
+import service.face.SboardService;
+import util.Paging;
 
 @Controller
 public class SboardController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@RequestMapping(value = "/sboard/sboardmain", method = RequestMethod.GET)
-	public void main() {
+	@Autowired SboardService sboardService;
+	
+	@RequestMapping("/sboard/main")
+	public void sboardmain(
+			
+			@RequestParam(defaultValue = "0") int curPage
+//			,Member authority
+//			,Member member
+			,Model model
+			
+			) {
+		Paging paging = sboardService.getPaging(curPage);
+		logger.debug("{}", paging);
+		model.addAttribute("paging", paging);
 		
-		System.out.println("sboardmain 호출 완");
+		ArrayList<HashMap<String, Object>> slist = sboardService.selectSboardHash(paging);
+		
+		//로그인 연결 후 구현
+		//권한이 2이거나 3일때만 리스트에 보이도록 구현
+//		if ( member.getAuthority() == 2 || member.getAuthority() == 3) {
+			for( HashMap<String, Object> s : slist )
+				logger.debug("{}", s);
+		
+			model.addAttribute("slist", slist);
+			
+//			return "/sboard/main";
+			
+//		} else {
+//			return "redirect:/sboard/main";
+//		}
+		
+	}
+	
+	@RequestMapping("sboard/detail")
+	public void sboarddetail(
+			
+			int studyNo
+			, Model model
+			
+			) {
+		
+		logger.debug("{}", studyNo);
+		
+		//게시글 조회
+		HashMap<String, Object> Sboarddetail = sboardService.detail(studyNo);
+		logger.debug("조회된 게시글 {}", Sboarddetail);
+		
+		//모델값 전달
+		model.addAttribute("detailSboard", Sboarddetail);
 		
 		return;
 	}
 	
-	@RequestMapping(value = "/sboard/sboarddetail", method = RequestMethod.GET)
-	public void detail() {
+	@GetMapping("/sboard/enroll")
+	public void enroll() {}
+
+	@RequestMapping("/sboard/enroll")
+	public String enrollproc(
+			
+			StudyBoard sboard
+			,HttpSession session
+			
+			) {
 		
-		logger.info("detail 호출");
+		logger.debug("{}", sboard);
 		
-		return;
+		sboardService.enroll(sboard);
+		
+		//스터디 게시판 메인으로 리다이렉트
+		return "redirect:/sboard/main";
 	}
 	
-	@RequestMapping(value = "/sboard/applystudy", method = RequestMethod.GET)
-	public void apply() {
+	@GetMapping("/sboard/upate")
+	public void update(
+			
+			int studyNo
+			,Model model
+			
+			) {
+		logger.info("{}", studyNo);
 		
-		logger.info("apply 호출");
+		//게시글 조회
+		HashMap<String, Object> Sboarddetail = sboardService.detail(studyNo);
+		logger.debug("조회된 게시글 {}", Sboarddetail);
 		
-		return;
+		//모델값 전달
+		model.addAttribute("updateSboard", Sboarddetail);
+		
 	}
 	
-	@RequestMapping(value = "/sboard/enrollstudy", method = RequestMethod.GET)
-	public void enroll() {
+	@PostMapping("/sboard/update")
+	public String updateproc(
+			
+			StudyBoard sboard
+			,HttpSession session
+			
+			) {
+		logger.debug("{}", sboard);
+
+		sboardService.update(sboard);
 		
-		logger.info("enroll 호출");
+		return "redirect:/sboard/detail";
 		
-		return;
 	}
+	
+	@RequestMapping("/sboard/delete")
+	public String delete(
+			
+			StudyBoard sboard
+			
+			) {
+		logger.debug("{}", sboard);
+		
+		sboardService.delete(sboard);
+		
+		return "redirect:/mboard/main";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
