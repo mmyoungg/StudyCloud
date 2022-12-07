@@ -108,24 +108,25 @@
 	
 	<!-- 댓글 -->
 	
-	<select id="count" parameterType="dto.Commt" resultType="int">
+	<select id="CntCommt" parameterType="dto.Commt" resultType="int">
         SELECT count(*) FROM commt
-        WHERE  mntboard_no = #{mntboardNo}
+                    WHERE mntboard_no = #{mntBoardNo} AND commt_no > 0  
+        
     </select>
     
-    <select id="mntCommtList" parameterType="dto.Commt" resultType="hashmap">
-        SELECT * FROM (
-			SELECT rownum rnum, C.* FROM (
-			SELECT c.commt_no, c.mntboard_no, m.member_nick, c.commt_content, c.commt_date
-			FROM commt c 
-			JOIN member m
-			ON ( c.member_no = m.member_no ) 
-			WHERE mntboard_no = #{mntboardNo}
-			ORDER BY commt_no DESC )  C
-			) commt
+<!--     <select id="CommtList" parameterType="util.CommtPaging" resultType="hashmap"> -->
+    <select id="CommtList" parameterType="hashmap" resultType="hashmap">
+        	SELECT * FROM (
+            SELECT rownum rnum, C.* FROM(
+        	SELECT c.commt_no, c.mntboard_no, c.member_no, c.commt_content, c.commt_date
+            FROM commt c
+            WHERE mntboard_no = #{mntBoardNo} AND commt_no > 0  
+            ORDER BY commt_no DESC )C 
+            ) Commt
+			 WHERE rnum BETWEEN #{startNo } AND #{endNo }
     </select>
-    
-    
+   
+	
     <insert id="insertCommt" parameterType="dto.Commt">
         INSERT INTO commt(
 			commt_no, mntboard_no, member_no, commt_content )

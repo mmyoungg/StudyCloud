@@ -11,9 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- <!-- 폰트 --> -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
 <style type="text/css">
 
 /* 메인 바디 색상 */
@@ -130,7 +127,7 @@ body {
   text-transform: uppercase;
   color: white;
 /*   background: #52de97; */
-  background:  #e3eff9;; } /* 캘린더 색상 */
+  background:  #3f92b7; } /* 캘린더 색상 */
 
 .month {
   padding-top: 1.75rem;
@@ -170,13 +167,13 @@ body {
 	            <div class="col-xxl-6 col-md-6">
 	              	<div class="card">
 	                	<div class="card-body" style="height: 337px;">
-	                  		<h5 class="card-title">멘토신청 <span>| Today</span></h5>
+	                  		<h5 class="card-title">멘토신청<span>| Today</span></h5>
 	
 		                  	<div class="d-flex align-items-center">
-<!-- 		                    	<div class="ps-3"> -->
-		                      	<span><h6>${todayMentoApply }</h6></span>
+		                    	<div class="ps-3">
+		                      	<h1>${todayMentoApply }</h1>
 		                      	<span class="text-success small pt-1 fw-bold">&nbsp개의 신청 목록</span>
-<!-- 		                    	</div> -->
+		                    	</div>
 		                  	</div>
 	                	</div>
 	              	</div>
@@ -186,11 +183,11 @@ body {
 	            <div class="col-xxl-6 col-md-6">
 					<div class="card">
 	                	<div class="card-body" style="height: 337px;">
-		                	<h5 class="card-title">스터디 신청 <span>| This Month</span></h5>
+		                	<h5 class="card-title">스터디 신청 <span>| Today</span></h5>
 		
 		                  	<div class="d-flex align-items-center">
 		                    	<div class="ps-3">
-		                      	<h6>${todayStudyApply }</h6>
+		                      	<h1>${todayStudyApply }</h1>
 		                      	<span class="text-success small pt-1 fw-bold">&nbsp개의 신청 목록</span>
 		                    	</div>
 		                  	</div>
@@ -230,7 +227,7 @@ body {
 	            	<div class="card recent-sales overflow-auto">
 	
 	            	    <div class="card-body">
-	                  	<h5 class="card-title">QnA 관리 <span>| Today</span></h5>
+	                  	<h5 class="card-title">QnA 관리</h5>
 	
 	                  		 <table class="table table-borderless datatable">
 						        <thead>
@@ -277,7 +274,7 @@ body {
 	            	<div class="card top-selling overflow-auto">
 	
 		                <div class="card-body">
-		                	<h5 class="card-title">예약 리스트 <span>| Today</span></h5>
+		                	<h5 class="card-title">예약 리스트</h5>
 		
 		                   <table class="table table-borderless datatable">
 					        <thead>
@@ -288,31 +285,13 @@ body {
 					   			 </tr>
 							</thead>
 							<tbody class="table-group-divider">
+							<c:forEach items="${preReserve }" var="hashmap">
 							    <tr>
-							        <th scope="row">1</th>
-							        <td>제목1</td>
-							        <td>작성자1</td>
+							        <th scope="row">${hashmap.RESERVE_NO }</th>
+							        <td>${hashmap.SROOM_NAME }</td>
+							        <td>${hashmap.MEMBER_NAME }</td>
 								</tr>
-								<tr>
-								    <th scope="row">2</th>
-								    <td>제목2</td>
-								    <td>작성자2</td>
-								</tr>
-								<tr>
-								    <th scope="row">3</th>
-								    <td>제목3</td>
-								    <td>작성자3</td>
-					            </tr>
-								<tr>
-								    <th scope="row">4</th>
-								    <td>제목4</td>
-								    <td>작성자4</td>
-					            </tr>
-								<tr>
-								    <th scope="row">5</th>
-								    <td>제목5</td>
-								    <td>작성자5</td>
-					            </tr>
+					        </c:forEach>
 					        </tbody>
 					    </table>
 		                </div>

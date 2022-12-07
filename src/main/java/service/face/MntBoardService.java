@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
+import util.CommtPaging;
 import util.Paging;
 
 public interface MntBoardService {
@@ -92,10 +93,14 @@ public interface MntBoardService {
 	
 	// --------------- 댓글 ---------------
 	
-	public List<HashMap<String, Object>> commtList(MntBoard viewBoard);
-
+	
+	public CommtPaging getCommtPaging(int curPage, Commt viewBoard);
+	
+	public List<HashMap<String, Object>> commtList(CommtPaging commtPaging, Commt viewBoard);
 	
 	public void writeCommt(Commt commt);
+
+
 	
 
 	/*

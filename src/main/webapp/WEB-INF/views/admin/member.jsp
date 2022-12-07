@@ -27,8 +27,24 @@
     border-radius: 5px;
 }
 
-</style>
+ #main { 
+ 	margin-top: 60px; 
+   	padding: 20px 30px; 
+   	transition: all 0.3s; 
+} 
 
+ /* 메인 타이틀 */
+ .pagetitle { */
+   margin-bottom: 10px; 
+ } 
+
+ .pagetitle h1 { 
+   font-size: 24px; 
+   margin-bottom: 0;
+   font-weight: bold; 
+ } 
+
+</style>
 
 <script type="text/javascript">
 
@@ -68,95 +84,39 @@ $(document).ready(function() {
 	                            <th scope="col">아이디</th>
 	                            <th scope="col">닉네임</th>
 	                            <th scope="col">이름</th>
+	                            <th scope="col">이메일</th>
+	                            <th scope="col">연락처</th>
 	                            <th scope="col">회원등급</th>
-	                            <th scope="col">관리</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
+	                    <c:forEach items="${list }" var="member">
 	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid1</span></td>
-	                            <td><span class="bg-blight">닉네임1</span></td>
-	                            <td><span class="bg-bdark">이름1</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
+	                            <td><span class="bg-blight">${member.memberNo }</span></td>
+	                            <td><span class="bg-bdark">${member.memberId }</span></td>
+	                            <td><span class="bg-bdark">${member.memberNick }</span></td>
+	                            <td><span class="bg-bdark">${member.memberName }</span></td>
+	                            <td><span class="bg-bdark">${member.memberEmail }</span></td>
+	                            <td><span class="bg-bdark">${member.memberPhone }</span></td>
+	                            <td><span class="bg-bdark">${member.authority }</span></td>
+	                            <td>
+	                            	<select name="authority">
+	                            		<option value="user">일반회원</option>
+	                            		<option value="studyleader">스터디장</option>
+	                            		<option value="mento">멘토</option>
+	                            	</select>
+	                            </td>
 	                            
+	                            
+	                            
+<!-- 	                            <td><button type="button" class="btn" id="btnView">수정</button></td> -->
 	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid2</span></td>
-	                            <td><span class="bg-blight">닉네임2</span></td>
-	                            <td><span class="bg-bdark">이름2</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid3</span></td>
-	                            <td><span class="bg-blight">닉네임3</span></td>
-	                            <td><span class="bg-bdark">이름3</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid4</span></td>
-	                            <td><span class="bg-blight">닉네임4</span></td>
-	                            <td><span class="bg-bdark">이름4</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid5</span></td>
-	                            <td><span class="bg-blight">닉네임5</span></td>
-	                            <td><span class="bg-bdark">이름5</span></td>
-	                            <td><span class="bg-bdark">일반</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid6</span></td>
-	                            <td><span class="bg-blight">닉네임6</span></td>
-	                            <td><span class="bg-bdark">이름6</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid7</span></td>
-	                            <td><span class="bg-blight">닉네임7</span></td>
-	                            <td><span class="bg-bdark">이름7</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid8</span></td>
-	                            <td><span class="bg-blight">닉네임8</span></td>
-	                            <td><span class="bg-bdark">이름8</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid9</span></td>
-	                            <td><span class="bg-blight">닉네임9</span></td>
-	                            <td><span class="bg-bdark">이름9</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
-	                        <tr>
-	                            <td><span class="bg-blight">1128</span></td>
-	                            <td><span class="bg-bdark">userid10</span></td>
-	                            <td><span class="bg-blight">닉네임10</span></td>
-	                            <td><span class="bg-bdark">이름10</span></td>
-	                            <td><span class="bg-bdark">멘토</span></td>
-	                            <td><button type="button" class="btn" id="btnView">수정</button></td>
-	                        </tr>
+	                    </c:forEach>
 	                    </tbody>
 	                </table>
       		</div><!-- 테이블 row end -->
+      		<!-- 페이징 -->
+      		<c:import url="/WEB-INF/views/admin/paging.jsp" />
        	</div>
 	</div><!-- main row end -->
 	
