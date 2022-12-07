@@ -11,6 +11,24 @@
 <meta charset="UTF-8">
 <title>StudyCloud</title>
 
+<script type="text/javascript">
+	$(function(){
+		$("#btn").click(function(){
+			$.ajax({
+				url : "/login/findpw",
+				type : "POST",
+				data : {
+					memberEmail : $("#memberEmail").val()
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
+</script>
+
+
 <style type="text/css" >
 
 
@@ -132,7 +150,7 @@ body {
                <p>가입한 이메일 주소를 입력해주세요.</p>
                <br>
                
-                이메일&nbsp; <input class="form-control" type="text"><br><br>
+                이메일&nbsp; <input class="form-control" type="text" name="memberEmail" id="memberEmail"><br><br>
 
 				<div class= "text-1">
 				가입하신 이메일 주소를 입력하시면
@@ -141,7 +159,7 @@ body {
 				 새로운 비밀번호를 보내드립니다.
 				</div>
 				<br>
-			<button class="btn btn-bold btn-primary" id="btn">비밀번호 찾기</button><br><br>
+			<button type="button" class="btn btn-bold btn-primary" id="btn">비밀번호 찾기</button><br><br>
 			</div>	
             </form>
           </div>

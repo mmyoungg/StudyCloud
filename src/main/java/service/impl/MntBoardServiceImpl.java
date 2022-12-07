@@ -20,6 +20,7 @@ import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
 import service.face.MntBoardService;
+import util.CommtPaging;
 import util.Paging;
 
 @Service
@@ -27,10 +28,7 @@ public class MntBoardServiceImpl implements MntBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	MntBoardDao mntBoardDao;
-	
-	// @Autowired MntCommtDao mntCommtDao;
+	  @Autowired MntBoardDao mntBoardDao;
 	  @Autowired ServletContext context;
 
 	  // 페이징
@@ -199,27 +197,41 @@ public class MntBoardServiceImpl implements MntBoardService {
 	// --------- 댓글 ---------
 	
 
-	
 
 	@Override
-	public List<HashMap<String, Object>> commtList(MntBoard viewBoard) {
-		return mntBoardDao.mntCommtList(viewBoard);
+	public CommtPaging getCommtPaging(int curPage, Commt viewBoard) {
+
+//		int totalCount = mntBoardDao.CntCommt();
+		int totalCount = mntBoardDao.CntCommt(viewBoard);
+		CommtPaging commtPaging = new CommtPaging(totalCount, curPage);
+		return commtPaging; 
 	}
+
+	@Override
+	public List<HashMap<String, Object>> commtList(CommtPaging commtPaging, Commt viewBoard) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("paging", commtPaging);
+		map.put("viewBoard", viewBoard);
+		
+		
+//		return mntBoardDao.CommtList(commtPaging);
+		return mntBoardDao.CommtList(map);
+	}
+
 
 	@Override
 	public void writeCommt(Commt commt) {
 		mntBoardDao.insertCommt(commt);
 	}
 
+
 	/*
 	* @Override public List<HashMap<String, Object>> commtList(Commt commt) {
 	* return mntCommtDao.updateCommt(commt); }
 	*/
+	
 
-	
-	
-	
-	
 	
 	 
 	

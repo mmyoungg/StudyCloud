@@ -1,5 +1,7 @@
 package service.face;
 
+import javax.servlet.http.HttpServletResponse;
+
 import dto.Member;
 
 public interface MemberService {
@@ -36,6 +38,29 @@ public interface MemberService {
 	 */
 	public String findid(String memberEmail);
 	
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 */
+	public String selectid(Member member);
+	
+	/**
+	 * 메일 발송
+	 * 
+	 * @param member
+	 * @param div
+	 * @throws Exception
+	 */
+	public void sendEmail(Member member, String div);
+
+	/**
+	 * 비밀번호 찾기
+	 * 
+	 * @param member
+	 * @throws Exception
+	 */
+	public String findPw(Member member);
 	
 	
 	

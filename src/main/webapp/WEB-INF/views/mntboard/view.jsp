@@ -49,8 +49,31 @@ $(document).ready(function() {
 	$("#MntbtnDelete").click(function() {
 		location.href = "/mntboard/delete?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
 	}) 	 */
+	
+	$(document).ready(function() {
+		var curPage = 1;    	
+		console.log(curPage);
 		
+		cntMove(1)
+	})
+
 }) 
+	function cntMove(page_no) {
+		$.ajax({
+			type: "Get"
+		   , url: "/mntboard/commtPaging"
+		   , data: {
+			   curPage:page_no
+			   , mntboardNo: ${param.mntboardNo}
+		   }
+		   , dataType: "html"
+		   , success: function( c ) {
+			   $("#commtPaging").html(c)
+		   }
+			
+		})
+	}
+	
 </script>
 
 
@@ -141,26 +164,7 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 </div><!-- mnt_wrap2 끝 -->
 
 
-<div class="mnt_wrap3">
-<h5>댓글<span class="reply_cnt"> 3</span></h5>
-<hr>
-<br>
 
-<!-- 댓글작성 -->
-<form class="mb-3" name="insertCommt" id="insertCommt" method="post">
-<input type="hidden" name="mntBoardNo" value="${param.mntboardNo }">
-	
-	
-	<label for="memberNick" id="memberNick" >&nbsp;${mntViewBoard.MEMBER_NICK }</label>
-	<div>
-		<textarea class="col-auto form-control" id="reviewContents" name="commtContent"
-				  placeholder="댓글을 입력해주세요"></textarea>
-	</div>
- <!-- Post 구현해야됨 -->
-	 <button class="btn btn-primary" id="btnReview">등록</button>
-	
-</form>						
-<!-- 댓글 끝 -->
 
 
 
@@ -169,28 +173,11 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 					
 </div>
 <br>
-<c:forEach items="${commtList }" var="commtList">
-	<ul class="reply_content_ul">
-	<!-- 첫번째 댓글 -->
-	<li>
-		<div class="comment_wrap">
-		<div class="reply_top">
-			<span class="id_span">☁️ ${commtList.MEMBER_NICK  } ☁️</span>
-			<span class="date_span"><fmt:formatDate pattern="yyyy-MM-ddㅤHH:mm" value="${commtList.COMMT_DATE }"/></span>
-				<a class="updateCmbtn">수정</a><a class="deleteCmbtn">삭제</a>
-					</div>
-		<div class="reply_bottom">
-		<div class="reply_bottom_txt">
-		${commtList.COMMT_CONTENT  }
-			</div>
-			</div>
-		</div>
-	</li>
-	</ul>
-</c:forEach>	
-	
-	
-<c:import url="/WEB-INF/views/mntboard/replyPaging.jsp" />
+
+<div id="commtPaging">
+<c:import url="/WEB-INF/views/mntboard/commtPaging.jsp?ver=2" />
+</div> 	
+
 
 
 
@@ -201,7 +188,7 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 		<button id="MntbtnDelete" class="btn btn-primary">삭제</button>
 </div>
 
-</div><!-- mnt_wrap3 끝 -->
+<!-- </div>mnt_wrap3 끝 -->
 
 
 </div> <!-- mnt_allwrap 끝 -->

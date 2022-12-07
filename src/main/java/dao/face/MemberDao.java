@@ -5,6 +5,15 @@ import dto.Member;
 public interface MemberDao {
 
 	/**
+	 * 
+	 * 테스트
+	 * @param member
+	 * @return
+	 */
+	public String selectFindId(Member member);
+
+
+	/**
 	 * id/pw 가 일치하는 사용자 수를 반환한다
 	 * 	-> 로그인 인증에 활용한다
 	 * 
@@ -37,10 +46,26 @@ public interface MemberDao {
 	 */
 	public int selectCntById(Member member);
 
-	
+	/**
+	 * 아이디찾기
+	 * 
+	 * @param memberEmail
+	 * @return
+	 */
 	public static String findid(String memberEmail) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
+	
+	// 비밀번호 변경
+	public int updatePw(Member member);
+
+
+	public int readMember(String memberEmail);
+
+
+
+
+
 	
 }
