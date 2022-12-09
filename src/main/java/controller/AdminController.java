@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dao.face.admin.ReserveDao_admin;
 import dto.ApplyMt;
+import dto.FileUpload;
 import dto.Member;
 import dto.Reservation;
 import dto.StudyBoard;
@@ -42,22 +43,22 @@ public class AdminController {
 	@Autowired ReserveDao_admin reserveDao_admin;
 	
 	//로그인
-	@GetMapping("/admin/login")
+	@GetMapping("/login/admin")
 	public void adminLogin() {
 	
 	}
 	
-	@PostMapping("/admin/login")
+	@PostMapping("/login/admin")
 	public String loginPorc(Member member, HttpSession session) {
 		logger.info("{}", member);
 		
-		boolean loginResult = memberService_admin.login(member);
-		logger.info("loginResult: {}", loginResult);
+		boolean isLogin = memberService_admin.login(member);
+		logger.info("loginResult: {}", isLogin);
 		
-		if( loginResult ) {
+		if( isLogin ) {
 			logger.info("로그인 성공");
 			
-			session.setAttribute("login", loginResult);
+			session.setAttribute("login", isLogin);
 			session.setAttribute("loginid", member.getMemberId());
 			
 			//로그인 성공시 관리자 메인페이지로 이동
@@ -69,16 +70,19 @@ public class AdminController {
 			//세션 삭제
 			session.invalidate();
 			
-			return "redirect:/admin/login";
+			return "redirect:/login/admin";
 		}
 		
 	}
 	
-	@GetMapping("/admin/logout")
+	//로그아웃
+	@RequestMapping("/admin/logout")
 	public String logout(HttpSession session) {
+		logger.info("/admin/logout");
+		
 		session.invalidate();
 		
-		return "redirect:/admin/login";
+		return "redirect:/login/admin";
 	}
 	
 	//메인
@@ -210,6 +214,71 @@ public class AdminController {
 		//목록으로 리다이렉트
 		return "redirect:/admin/studyroom";
 	}
+	
+	@GetMapping("/admin/studyroom/view")
+	public String view(StudyRoom studyroom, Model model) {
+		logger.debug("{}", studyroom);
+		
+		//잘못된 게시글 번호 처리
+		if( studyroom.getsRoomNo() < 0) {
+			return "redirect:/admin/studyroom";
+		}
+		
+		//게시글 조회
+		studyroom = sRoomService_admin.view(studyroom);
+		logger.debug("조회된 게시글 {}", studyroom);
+		
+		//모델값 전달
+		model.addAttribute("studyroom", studyroom);
+		
+		//첨부파일 모델값 전달
+		FileUpload sRoomFile = sRoomService_admin.getAttachFile(studyroom);
+		model.addAttribute("sRoomFile", sRoomFile);
+		
+		return "/admin/sRoomView";
+	}
+	
+	@GetMapping("/admin/studyroom/update")
+	public String update(StudyRoom studyroom, Model model) {
+		logger.debug("{}", studyroom);
+		
+		//잘못된 게시글 번호 처리
+		if( studyroom.getsRoomNo() < 0 ) {
+			return "redirect:/admin/studyroom";
+		}
+		
+		//게시글 조회
+		studyroom = sRoomService_admin.view(studyroom);
+		logger.debug("조회된 게시글 {}", studyroom);
+		
+		//모델값 전달
+		model.addAttribute("updateStudyroom", studyroom);
+		
+		//첨부파일 모델값 전달
+		FileUpload sRoomFile = sRoomService_admin.getAttachFile(studyroom);
+		model.addAttribute("sRoomFile", sRoomFile);
+		
+		return "/admin/sRoomUpdate";
+	}
+	
+	@PostMapping("/admin/studyroom/update")
+	public String updatePorc(StudyRoom studyroom, MultipartFile file) {
+		logger.debug("{}", studyroom);
+		
+		sRoomService_admin.update(studyroom, file);
+		
+		//게시글 수정한 페이지로 이동
+		return "redirect:/admin/studyroom/view?sRoomNo="+studyroom.getsRoomNo();
+	}
+	
+	@RequestMapping("/admin/studyroom/delete")
+	public String delete(StudyRoom studyroom) {
+		
+		sRoomService_admin.delete(studyroom);
+		
+		return "redirect:/admin/studyroom";
+	}
+	
 	
 	@RequestMapping("/admin/qna")
 	public void qna() {

@@ -3,6 +3,7 @@ package service.impl.admin;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -47,9 +48,19 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 
 	
 	@Override
+	public StudyRoom view(StudyRoom studyroom) {
+		
+		//상세보기 조회 결과 리턴
+		return sRoomDao_admin.selectStudyroom(studyroom);
+	}
+	
+	@Override
 	public void write(StudyRoom studyroom, MultipartFile file) {
 		
 		//게시글 처리
+		if( "".equals(studyroom.getsRoomName() ) ) {
+			studyroom.setsRoomName("(제목없음)");
+		}
 
 		sRoomDao_admin.insertsRoom(studyroom);
 
@@ -99,5 +110,89 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 		
 	}
 
+	@Override
+	public FileUpload getAttachFile(StudyRoom studyroom) {
+		return sRoomDao_admin.selectFileBySroomNo(studyroom);
+	}
 
+	@Override
+	public void update(StudyRoom studyroom, MultipartFile file) {
+		
+		//게시글 처리
+		
+		//제목이 비어있을 경우
+		if( "".equals( studyroom.getsRoomName() ) ) {
+			studyroom.setsRoomName("(제목없음)");
+		}
+		
+		sRoomDao_admin.updateStudyroom(studyroom);
+		
+		//--------------------------------------------
+		
+		//첨부파일 처리
+		
+		//빈 파일일 경우
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+		File storedFolder = new File( storedPath );
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		//파일이 저장될 이름
+		String originName = file.getOriginalFilename();
+		String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		
+		//저장할 파일의 정보 객체
+		File dest = new File( storedFolder, storedName );
+		
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//--------------------------------------------
+		
+		//첨부파일 정보 DB 기록
+		FileUpload sRoomFile = new FileUpload();
+		sRoomFile.setSroomNo( studyroom.getsRoomNo() );
+		sRoomFile.setFileUploadOri(originName);
+		sRoomFile.setFileUploadStor(storedName);
+		
+		//기존에 게시글에 연결된 첨부파일을 삭제한다
+		sRoomDao_admin.deleteFile(studyroom);
+		
+		sRoomDao_admin.insertFile(sRoomFile);		
+		
+	}
+
+	@Override
+	public void delete(StudyRoom studyroom) {
+		
+		//첨부파일 삭제
+		sRoomDao_admin.deleteFile(studyroom);
+		
+		//게시글 삭제
+		sRoomDao_admin.delete(studyroom);
+		
+	}
+
+	
+	@Override
+	public List<Map<String, Object>> srListWithFile(StudyRoom studyroom) {
+		
+//		HashMap<String, Object> map = new HashMap<>();
+//		
+//		map.put("StudyRoom", sRoomDao_admin.selectStudyroom(studyroom));
+//		map.put("FileUpload", sRoomDao_admin.selectFileBySroomNo(studyroom));
+		
+		return sRoomDao_admin.selectMap();
+	}
 }
