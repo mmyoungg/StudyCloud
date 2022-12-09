@@ -78,8 +78,6 @@ table th { text-align: center; background-color: #E3EFF9;  }
 				data : {fBoardNo: BoardNo, commtContent: cmtContent},
 				success : function(){
 					console.log('[댓글 등록] AJAX 전송 성공!');
-					//window.location.reload(); // 새로고침됨 ㅠ
-					//$("#fBoardCmtList").html(r);
 					pagingAjax(pageNo, BoardNo);
 					$("#fBoardCmt").val('');
 				} 

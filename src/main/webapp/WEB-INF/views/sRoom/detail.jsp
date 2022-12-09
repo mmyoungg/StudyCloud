@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
 <%@ include file="../layout/header.jsp"%> 
 
     
@@ -31,23 +33,65 @@
 
 <!-- 카카오 sdk -->
 
-<link rel="stylesheet" href="../resources/css/sRoomDetail.css?ver=3">
-<script defer src="../resources/js/sRoomDetail.js?ver=1"></script>
+<link rel="stylesheet" href="../resources/css/sRoomDetail.css?ver=1">
+<script defer src="../resources/js/sRoomDetail.js?ver=2"></script>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	// 비밀글 체크박스 이벤트
+	$("input[name=sRoomQnaSecret]").change(function() {
+		if( $(this).is(":checked") ) {
+			$(this).val(1);
+			console.log($(this).val())
+		} else {
+			$(this).val(0);
+			console.log($(this).val())
+		}
+	})
+			
+	// QnA 등록
+	$("#qnaWriteBtn").on("click", function() {
+		var title = $("#sRoomQnATitle").val();
+		var content = $("#sRoomQnAContent").val();
+		if( !($("input[name=sRoomQnaSecret]").is(":checked")) ) {
+			$("input[name=sRoomQnaSecret]").val(0);
+		}
+		var secret = $("input[name=sRoomQnaSecret]").val();
+		var sRoom_No = ${sRoomView.SROOM_NO};
+		console.log(title);
+		console.log(content);
+		console.log(secret);
+		
+		$.ajax({
+			url: "/sRoom/qnaInsert",
+			type: "POST",
+			data: { "sRoomQnATitle" : title, "sRoomQnAContent" : content, "sRoomQnaSecret" : secret, sRoomNo : sRoom_No },
+			success : function(r){
+				console.log('[QnA 등록] AJAX 요청 성공');
+				$("#sRoomQnATitle").val('');
+				$("#sRoomQnAContent").val('');
+				$(".modal-custom").css("display", "none");
+				$("#sRoomQnaArea").html(r);
+				
+			} 
+		})
+	}) // QNA
+	
+}) // end
 
 </script>
 </head>
 
 
 <body>
-
+<input type="hidden" id="sAddr" value="${sRoomView.SROOM_ADDR}">
+<input type="hidden" id="sName" value="${sRoomView.SROOM_NAME}">
 
 <div class="content">
 	<div class="detail-wrap">
 		<div class="left">
-			<h2>💠 스터디룸 이름.</h2>
-			<img src="https://ifh.cc/g/SG0cCl.jpg" class="img-fluid" alt="...">
+			<h2>💠 ${sRoomView.SROOM_NAME}</h2>
+			<img src="/upload/${sRoomView.FILEUPLOAD_STOR }" class="img-fluid" alt="...">
 			<div id="sRoom-menu-wrap">
 				<ul class="sRoom-menu-ul">
 					<li><a href="#sec1" id="move">공간소개</a></li>
@@ -61,52 +105,14 @@
 			<div class="sec-1 scroll" id="sec1">
 				<h3>💠 스터디룸 소개</h3>
 				<div class="infoBox">
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
-				<p>스터디룸 소개</p>
+					${sRoomView.SROOM_INFO }
 				</div>
 			</div>
 			
 			<div class="sec-2 scroll" id="sec2">
 				<h3>❕ 이용&환불규정</h3>
 				<div class="infoBox">
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
-				<div>이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정이용&환불규정</div>
+					${sRoomView.SROOM_ROLE }
 				</div>
 			</div>
 			
@@ -117,8 +123,8 @@
 				<div class="infoBox">
 					<div id="map" style="width:100%; height:400px; margin-top: 30px;"></div>
 					<div class="mapInfoDiv">
-								<h4>스터디룸 이름</h4>
-								<p class="s-addr" id="s-addr">스터디룸 주소</p>
+								<h4>${sRoomView.SROOM_NAME}</h4>
+								<p class="s-addr" id="s-addr">${sRoomView.SROOM_ADDR}</p>
 								<button class="map-btn" id="map-btn">길찾기</button>
 					</div>
 				</div>
@@ -144,51 +150,29 @@
            					<form>
           						<div class="mb-3">
             						<div class="popup-text">제목</div>
-            						<input type="text" class="form-control" id="recipient-name">
+            						<input type="text" class="form-control" id="sRoomQnATitle">
           						</div>
           						<div class="mb-3">
             						<div class="popup-text">문의내용</div>
-            						<textarea class="form-control" id="message-text"></textarea>
+            						<textarea class="form-control" id="sRoomQnAContent"></textarea>
+          						</div>
+          						<div class="mb-3">
+            						<label class="form-check-label">비밀글 설정</label>            						
+            						<input type="checkbox" class="form-check-input" name="sRoomQnaSecret">
           						</div>
         					</form>	
         				</div>
         
          				<div class="modal-footer">
         					<button type="button" class="close-modal" id="close">취소</button>
-           					<button type="button" class="button">작성하기</button>
+           					<button type="button" class="button" id="qnaWriteBtn">작성하기</button>
         				</div>
     				</div>
 				</div>
 				
 				
-					
-				<div class="infoBox">
-					<ul class="Qna_list">
-						<li class="qna_hr">
-							<div class="qna_box">
-								<span><img src='https://ifh.cc/g/oDFOOq.jpg' class="pimg"></span>
-								<p class="write_name">오쪼쪼</p>
-								<p class="qna_cont">빔 프로젝터 대여 가능한가요?</p>
-								<p class="write_date">2022-11-06</p>
-								<button class="miniBtn">수정</button><button class="miniBtn">삭제</button>
-							</div>
-							<div class="qna_box">
-								<p class="write_name">관리자 답글</p>
-								<p class="qna_cont">네! 빔프로젝트 무료로 대여 가능합니다.</p>
-								<p class="write_date">2022-11-07</p>
-							</div>
-						</li>
-						<li class="qna_hr">
-							<div class="qna_box">
-								<span><img src='https://ifh.cc/g/ocJk39.jpg' class="pimg"></span>
-								<strong class="write_name">우쭈쭈</strong>
-								<p class="qna_cont">안녕하세요, 독서모임 겸 북토크를 여기서 소규모로 진행하려고 하는데요. 혹시 마이크가 구비되어 있을까요? 그리고 프로젝터 대여비는 얼마 정도일까요?</p>
-								<p class="write_date">2022-11-06</p>
-								<button class="miniBtn">수정</button><button class="miniBtn">삭제</button>
-							</div>
-						</li>
-					</ul>				
-				</div>
+			<div id="sRoomQnaArea"><c:import url="/WEB-INF/views/sRoom/sRoomQnaList.jsp" /></div>
+		
 			</div>
 			
 			<div class="sec-5 scroll" id="sec5">
@@ -328,12 +312,12 @@
 			
 			<div class="detail-resrve-info">
 				<div class="detail-right-info">
-					<h5>스터디룸 이름</h5>
-					<p class="s-addr" id="s-addr">스터디룸 주소</p>
+					<h5>${sRoomView.SROOM_NAME}</h5>
+					<p class="s-addr" id="s-addr">${sRoomView.SROOM_ADDR}</p>
 				</div>
 				<div class="detail-right-info">
-					<h5>1,500 원/시간</h5>
-					<p class="s-addr" id="s-addr">최소인원 : 3명</p>
+					<h5>${sRoomView.SROOM_PRICE} 원/시간</h5>
+					<p class="s-addr" id="s-addr">최소인원 : ${sRoomView.SROOM_PEOPLE}명</p>
 				</div>
 				<div class="detail-right-info">
 					<h5>이용날짜 📅</h5>

@@ -129,7 +129,7 @@
 				FROM freeboard f
 				JOIN member m ON ( f.member_no = m.member_no )
 			WHERE
-			<foreach collection="list" item="list" separator=",">
+			<foreach collection="list" item="list" separator="AND">
 				<choose>
 					<when test="list == 'fBoardTitle'.toString()">
 						f.fBoard_title like '%'||#{keyword}||'%'
@@ -137,8 +137,12 @@
 					<when test="list == 'fBoardContent'.toString()">
 						f.fBoard_content like '%'||#{keyword}||'%'
 					</when>
-					<when test="list == memberNo">
-						m.member_name like '%'||#{keyword}||'%'
+<!-- 					<when test="list == 'fBoardTitle'.toString() and list == 'fBoardContent'.toString()">
+					f.fBoard_title like '%'||#{keyword}||'%'
+					AND f.fBoard_content like '%'||#{keyword}||'%'
+					</when> -->
+					<when test="list == 'memberNo'.toString()">
+						m.member_nick like '%'||#{keyword}||'%'
 					</when>
 				</choose>
 			</foreach>
@@ -148,22 +152,31 @@
 	</select>
 	
 	<select id="countSearchList" resultType="int">
-		SELECT count(*) from freeboard
+		SELECT count(*) 
+		FROM freeboard f
+		JOIN  member m ON (f.member_no = m.member_no)
 		WHERE
-		<foreach collection="list" item="list" separator=",">
+		<foreach collection="list" item="list" separator="AND">
 			<choose>
 				<when test="list == 'fBoardTitle'.toString()">
-					fBoard_title like '%'||#{keyword}||'%'
+					f.fBoard_title like '%'||#{sRoomLoc}||'%'
 				</when>
 				<when test="list == 'fBoardContent'.toString()">
-					fBoard_content like '%'||#{keyword}||'%'
+					f.fBoard_content like '%'||#{keyword}||'%'
 				</when>
-				<when test="list == memberNo">
-					member_name like '%'||#{keyword}||'%'
+		<!-- 		<when test="list == 'fBoardTitle'.toString() and list == 'fBoardContent'.toString()">
+					f.fBoard_title AND f.Board_content like '%'||#{keyword}||'%'
+					AND f.fBoard_content like '%'||#{keyword}||'%'
+				</when> -->
+				
+				<when test="list == 'memberNo'.toString()">
+					m.member_nick like '%'||#{keyword}||'%'
 				</when>
 			</choose>
 		</foreach>
 		
 	</select>
+	
+	
 
 </mapper>

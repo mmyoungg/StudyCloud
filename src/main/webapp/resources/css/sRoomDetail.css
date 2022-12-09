@@ -123,3 +123,4 @@ span.flatpickr-weekday { background: transparent; }
 .shareSpace-copied-msg img { width: 13px; height: 13px; }
 .shareSpace-copied-msg { font-size: 13px; color: #3f92b7; margin-left: 30px; display: none;}
 .detail-right-time { margin-top: 20px; }
+.qna_box_empty { text-align: center; height: 350px; line-height: 350px; font-weight: bold; background-color: #e3eff9; font-weight: bold; font-size: 20px; }
