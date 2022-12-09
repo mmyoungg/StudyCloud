@@ -11,7 +11,25 @@
 <meta charset="UTF-8">
 <title>StudyCloud</title>
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
+
+/*
+$(document).ready(function() {
+
+	var msg = "${message}"
+
+	var msg_wrapper =  document.getElementById('msg_wrapper')
+
+	if(msg === 'error'){
+		console.log("err")
+		msg_wrapper.style.display == 'block'
+	
+		}else {
+		console.log("succ")
+		msg_wrapper.style.display == 'none'
+} */
+
 
 $(function(e){
 	e.preventDefault()
@@ -34,6 +52,46 @@ $(function(e){
 	 
 	})
 })
+
+<!-- 카카오 스크립트 -->
+
+
+// 카카오 로그인
+
+Kakao.init('ebc8fc53624cdd3b21b34f099837f10c');
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+
+function kakaoLogin() {
+
+    $.ajax({
+        url: '/login/getKakaoAuthUrl',
+        type: 'get',
+        async: false,
+        dataType: 'text',
+        success: function (res) {
+            location.href = res;
+        }
+    });
+
+  }
+
+  $(document).ready(function() {
+
+      var kakaoInfo = '${kakaoInfo}';
+
+      if(kakaoInfo != ""){
+          var data = JSON.parse(kakaoInfo);
+
+          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+          alert(
+          "user : \n" + "email : "
+          + data['email']  
+          + "\n nickname : " 
+          + data['nickname']);
+      }
+  });  
+
+});
 
 
 </script>
@@ -211,15 +269,20 @@ a {
 								<div class="form-text">아이디</div>
 								<input class="form-control" type="text" id="memberId" name="memberId">
 							</div>
-
 							<div class="form-group">
 								<div class="form-text">비밀번호</div>
 								<input class="form-control" type="password" id="memberPw" name="memberPw">
 							</div><br>
 							
-<%-- 							<c:if test="${message == error}"> --%>
-<!--  							<div style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다.</div> -->
-<%--  							</c:if><br> --%>
+  							<div id="msg_wrapper" style="display:none"> 아이디 또는 비밀번호가 일치하지 않습니다.</div> 
+								
+								<c:if test="${message eq 'error'}">
+								  <script type="text/javascript">
+								    var e = document.getElementById("msg_wrapper");
+								    e.style.display = 'block';
+								    e.style.color = 'red';
+								  </script>
+								</c:if>
 
 							<div class="wrapper col-12">
 								<div class="wrapper">
@@ -231,9 +294,13 @@ a {
 								<br>
 							</div>
 
+							<div class="col-lg-12 text-center mt-3">
 							<button class="btn btn-bold btn-primary" id="btn">Login</button>
-							<br> <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인"
-								style="height: 48px; width: 60%;" /></a> <br><br>
+							<img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인" onclick="kakaoLogin();"
+								style="height: 46px; width: 62%; padding-left: 14px;"> <a href="javascript:void(0)"></a> <br>
+
+								<a href="/login/kakaologout">로그아웃</a>
+						</div>
 								
 					</div>
 				</div>
