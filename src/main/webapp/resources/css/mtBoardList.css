@@ -97,6 +97,11 @@ thead {
     text-align: center;
 }
 
+#boardno {
+	text-decoration: none;
+	color: black;
+}
+
 .field_tb {
     background-color: #aacde5;
     width: 183px;

@@ -25,11 +25,14 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 
+	
 	<update id="mntBoardHit" parameterType="dto.MntBoard">
 		UPDATE mntboard
 		SET mntboard_hit = mntboard_hit + 1
 		WHERE mntboard_no = #{mntboardNo}
 	</update>
+	
+	
 	
 	<select id="selectMntBoard" resultType="hashmap" parameterType="dto.MntBoard">
 		SELECT	 n.mntboard_no,  m.member_nick, n.field, n.mntboard_title, n.mntboard_content 
@@ -103,30 +106,47 @@
 	</delete>
 	
 	
+	<!-- 게시판 리스트 제목에 댓글 수  -->
+	<update id="mntBoardCmt" parameterType="dto.MntBoard">
+		UPDATE mntboard m
+		SET m.mntboard_cmcnt = 
+		(SELECT COUNT(commt_no) FROM commt WHERE mntboard_no = #{mntboardNo})
+		WHERE m.mntboard_no = #{mntboardNo}
+	</update>
 	
+
+	<!-- 좋아요 -->
+	<!-- <select id="mntBoardLike" resultType="int">
+		SELECT COUNT(*) FROM mntboardlike 
+		WHERE mntboard_bo = #{mntboardNo} 
+		AND member_no = #{memberNo}
+	</select> -->
+	
+
+	<!--  <insert id="" ></insert> -->
 	
 	
 	<!-- 댓글 -->
 	
 	<select id="CntCommt" parameterType="dto.Commt" resultType="int">
-        SELECT count(*) FROM commt
-                    WHERE mntboard_no = #{mntBoardNo} AND commt_no > 0  
-        
+        SELECT count(*) 
+        FROM commt
+        WHERE mntboard_no = #{mntboardNo}
     </select>
     
-<!--     <select id="CommtList" parameterType="util.CommtPaging" resultType="hashmap"> -->
     <select id="CommtList" parameterType="hashmap" resultType="hashmap">
         	SELECT * FROM (
             SELECT rownum rnum, C.* FROM(
-        	SELECT c.commt_no, c.mntboard_no, c.member_no, c.commt_content, c.commt_date
+        	SELECT c.commt_no, c.mntboard_no, m.member_no, m.member_nick, c.commt_content, c.commt_date
             FROM commt c
-            WHERE mntboard_no = #{mntBoardNo} AND commt_no > 0  
-            ORDER BY commt_no DESC )C 
+            JOIN member m
+            ON (c.member_no = m.member_no)
+            WHERE mntboard_no = #{mntboardNo} AND commt_no > 0  
+            ORDER BY commt_no DESC ) C
             ) Commt
-			 WHERE rnum BETWEEN #{startNo } AND #{endNo }
+			 WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
     </select>
    
-	
     <insert id="insertCommt" parameterType="dto.Commt">
         INSERT INTO commt(
 			commt_no, mntboard_no, member_no, commt_content )
@@ -137,12 +157,19 @@
     </insert>
 
     
-    <update id="updateCommt" parameterType="dto.Commt">
+    <update id="updateMntCommt" parameterType="dto.Commt">
         UPDATE commt
         SET commt_content = #{commtContent}
-          , commt_date = #{commtDate}
+          , commt_date = sysdate
         WHERE commt_no = #{commtNo} and member_no = #{memberNo}
     </update> 
+	
+	
+	<delete id="deleteMntCommt" parameterType="dto.Commt">
+		DELETE commt 
+		WHERE commt_no = #{commtNo}
+	</delete>
+	
 	
 	
 	

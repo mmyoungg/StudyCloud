@@ -19,6 +19,7 @@ import dao.face.MntBoardDao;
 import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
+import dto.MntBoardLike;
 import service.face.MntBoardService;
 import util.CommtPaging;
 import util.Paging;
@@ -199,38 +200,54 @@ public class MntBoardServiceImpl implements MntBoardService {
 
 
 	@Override
-	public CommtPaging getCommtPaging(int curPage, Commt viewBoard) {
+	public CommtPaging getCommtPaging(int curPage, int mntboardNo) {
 
-//		int totalCount = mntBoardDao.CntCommt();
-		int totalCount = mntBoardDao.CntCommt(viewBoard);
+		int totalCount = mntBoardDao.CntCommt(mntboardNo);
 		CommtPaging commtPaging = new CommtPaging(totalCount, curPage);
 		return commtPaging; 
 	}
+	
 
 	@Override
-	public List<HashMap<String, Object>> commtList(CommtPaging commtPaging, Commt viewBoard) {
+	public List<HashMap<String, Object>> commtList(CommtPaging commtPaging, int mntboardNo) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("paging", commtPaging);
-		map.put("viewBoard", viewBoard);
+		map.put("mntboardNo", mntboardNo);
 		
-		
-//		return mntBoardDao.CommtList(commtPaging);
 		return mntBoardDao.CommtList(map);
 	}
 
+
+
+	@Override
+	public int getCntCommt(int mntboardNo) {
+		int totalCount = mntBoardDao.CntCommt(mntboardNo);
+		return totalCount;
+	}
 
 	@Override
 	public void writeCommt(Commt commt) {
 		mntBoardDao.insertCommt(commt);
 	}
 
+	@Override
+	public void mntBoardCmt(int mntboardNo) {
+		mntBoardDao.mntBoardCmt(mntboardNo);
+	}
 
-	/*
-	* @Override public List<HashMap<String, Object>> commtList(Commt commt) {
-	* return mntCommtDao.updateCommt(commt); }
-	*/
-	
+	@Override
+	public void updateCommt(Commt commt) {
+		mntBoardDao.updateMntCommt(commt);
+	}
+
+	@Override
+	public void deleteCommt(int commtNo) {
+		mntBoardDao.deleteMntCommt(commtNo);
+	}
+
+
+
 
 	
 	 

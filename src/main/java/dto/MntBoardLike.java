@@ -5,20 +5,22 @@ public class MntBoardLike {
 	private int mntboardlikeNo;
 	private int mntboardNo;
 	private int memberNo;
+	private int mlike;
 	
 	public MntBoardLike() {}
 
-	public MntBoardLike(int mntboardlikeNo, int mntboardNo, int memberNo) {
+	public MntBoardLike(int mntboardlikeNo, int mntboardNo, int memberNo, int mlike) {
 		super();
 		this.mntboardlikeNo = mntboardlikeNo;
 		this.mntboardNo = mntboardNo;
 		this.memberNo = memberNo;
+		this.mlike = mlike;
 	}
 
 	@Override
 	public String toString() {
 		return "MntBoardLike [mntboardlikeNo=" + mntboardlikeNo + ", mntboardNo=" + mntboardNo + ", memberNo="
-				+ memberNo + "]";
+				+ memberNo + ", mlike=" + mlike + "]";
 	}
 
 	public int getMntboardlikeNo() {
@@ -44,6 +46,16 @@ public class MntBoardLike {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+
+	public int getMlike() {
+		return mlike;
+	}
+
+	public void setMlike(int mlike) {
+		this.mlike = mlike;
+	}
+	
+	
 	
 	
 }
