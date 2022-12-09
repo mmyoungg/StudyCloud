@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -14,6 +13,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- 파비콘 적용 -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/img/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
 
 <style type="text/css">
 
@@ -118,7 +120,7 @@
                     <ul class="navbar-nav me-auto mb-lg-0">
                         <li class="nav-item"> <a class="nav-link" id="menu" href="/mtboard/list">멘토 찾기</a> </li>
                         <li class="nav-item"> <a class="nav-link" id="menu" href="/mntboard/list">멘티 찾기</a> </li>
-                        <li class="nav-item"> <a class="nav-link" id="menu" href="/sboard/sboardmain">스터디 찾기</a> </li>
+                        <li class="nav-item"> <a class="nav-link" id="menu" href="/sboard/main">스터디 찾기</a> </li>
 
                         <li class="nav-item dropdown community">
                             <a class="nav-link dropdown menu" href="#" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>

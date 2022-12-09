@@ -7,10 +7,12 @@
     
 <mapper namespace="dao.face.admin.SroomDao_admin">
 
+	<!-- 페이징 -->
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM studyroom
 	</select>
 	
+	<!-- 게시글 리스트 -->
 	<select id="selectList" resultType="StudyRoom" parameterType="util.Paging">
 		SELECT * FROM (
 			SELECT rownum rnum, S.* FROM (
@@ -24,6 +26,7 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo } 
 	</select>
     
+    <!-- 게시글 등록 -->
     <insert id="insertsRoom" parameterType="StudyRoom">
     	<selectKey order="BEFORE" resultType="int" keyProperty="sRoomNo">
     		SELECT studyroom_seq.nextval FROM dual
@@ -33,9 +36,70 @@
     	VALUES ( #{sRoomNo }, #{sRoomName }, #{sRoomAddr }, #{sRoomPrice }, #{sRoomPeople }, #{sRoomIntro }, #{sRoomInfo }, #{sRoomRole }  )
     </insert>
     
+    <!-- 게시글 상세보기 -->
+    <select id="selectStudyroom" resultType="StudyRoom" parameterType="StudyRoom">
+		SELECT *
+		FROM studyroom
+		WHERE sroom_no = #{sRoomNo }
+	</select>
+	
+	<!-- 첨부파일 불러오기 -->
+	<select id="selectFileBySroomNo" resultType="FileUpload" parameterType="StudyRoom">
+		SELECT *
+		FROM fileupload
+		WHERE sroom_no = #{sRoomNo }
+	</select>
+    
+    <!-- 첨부파일 삽입 -->
     <insert id="insertFile" parameterType="FileUpload">
     	INSERT INTO fileupload ( fileupload_no, sroom_no, fileupload_ori, fileupload_stor )
     	VALUES ( fileupload_seq.nextval, #{sroomNo }, #{fileUploadOri }, #{fileUploadStor } )
     </insert>
     
+    <!-- 게시글 수정 -->
+    <update id="updateStudyroom" parameterType="StudyRoom">
+    	UPDATE studyroom
+    	SET sroom_name = #{sRoomName }
+    		, sroom_addr = #{sRoomAddr }
+    		, sroom_price = #{sRoomPrice }
+    		, sroom_people = #{sRoomPeople }
+    		, sroom_intro = #{sRoomIntro }
+    		, sroom_info = #{sRoomInfo }
+    		, sroom_role = #{sRoomRole }
+    	WHERE sroom_no = #{sRoomNo }
+    </update>
+    
+    <!-- 첨부파일 삭제 -->
+    <delete id="deleteFile" parameterType="StudyRoom">
+		DELETE fileupload
+		WHERE sroom_no = #{sRoomNo }	
+	</delete>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="StudyRoom">
+		DELETE studyroom
+		WHERE sroom_no = #{sRoomNo }
+	</delete>
+	
+	
+	<!-- ========== 메인페이지 ========== -->
+	
+	<!-- 스터디룸 목록 -->
+	<select id="srlist" resultType="StudyRoom" parameterType="StudyRoom">
+		SELECT *
+		FROM studyroom
+	</select>
+	
+	<!-- 게시글 + 첨부파일 조회 -->
+	<select id="selectMap" resultType="hashmap">
+		SELECT S.sroom_name, F.fileupload_stor
+		FROM studyroom S
+		JOIN fileupload F
+		ON S.sroom_no = F.sroom_no
+		<![CDATA[WHERE rownum <= 3]]>
+		ORDER BY S.sroom_no DESC
+	</select>
+	
+	
+	
 </mapper>
