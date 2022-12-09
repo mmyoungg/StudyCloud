@@ -20,6 +20,7 @@ import dao.face.MboardDao;
 import dto.FileUpload;
 import dto.Mboard;
 import dto.MboardLike;
+import dto.Member;
 import service.face.MboardService;
 import util.Paging;
 
@@ -182,6 +183,12 @@ public class MboardServiceImpl implements MboardService{
 	@Override
 	public void setMboardLike(MboardLike mboardLike) {
 		
+	}
+
+	@Override
+	public Object getmboardlike(Member member) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
