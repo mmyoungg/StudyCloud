@@ -9,16 +9,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<!-- 게시판 테이블 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel ="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-<!-- 테이블 css -->
-<link rel="stylesheet" href="${path}/resources/css/admin/mento.css" />
+<title>admin memberList</title>
 
 <style type="text/css">
+
+/* 테이블 */
+.table {
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 20px;
+}
+
+.table thead {
+    background-color: #3f92b7;
+}
+
+.table thead th {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.table tbody td {
+    padding: 5px;
+    margin: 0;
+    font-size: 14px;
+}
 
 #btnView {
     background-color: #6cc4dc;
@@ -68,48 +85,48 @@ $(document).ready(function() {
     	<h1>회원관리</h1>
     </div>
 
-    <section class="dashboard">
-      	<div class="row">
+    <section class="memberList">
 
      	<!-- 테이블 -->
        	<div class="col-lg-12">
         	<div class="row">
-				
-			<!-- 테이블 -->
-			    <div class="table-responsive px-2">
-	                <table class="table table-borderless">
+			    <div class="table-responsive">
+	                <table class="table">
 	                    <thead>
 	                        <tr>
-	                            <th scope="col">No</th>
-	                            <th scope="col">아이디</th>
-	                            <th scope="col">닉네임</th>
-	                            <th scope="col">이름</th>
-	                            <th scope="col">이메일</th>
-	                            <th scope="col">연락처</th>
-	                            <th scope="col">회원등급</th>
+	                            <th>No</th>
+	                            <th>아이디</th>
+	                            <th>닉네임</th>
+	                            <th>이름</th>
+	                            <th>이메일</th>
+	                            <th>연락처</th>
+	                            <th>회원등급</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
 	                    <c:forEach items="${list }" var="member">
 	                        <tr>
-	                            <td><span class="bg-blight">${member.memberNo }</span></td>
-	                            <td><span class="bg-bdark">${member.memberId }</span></td>
-	                            <td><span class="bg-bdark">${member.memberNick }</span></td>
-	                            <td><span class="bg-bdark">${member.memberName }</span></td>
-	                            <td><span class="bg-bdark">${member.memberEmail }</span></td>
-	                            <td><span class="bg-bdark">${member.memberPhone }</span></td>
-	                            <td><span class="bg-bdark">${member.authority }</span></td>
+	                            <td>${member.memberNo }</td>
+	                            <td>${member.memberId }</td>
+	                            <td>${member.memberNick }</td>
+	                            <td>${member.memberName }</td>
+	                            <td>${member.memberEmail }</td>
+	                            <td>${member.memberPhone }</td>
 	                            <td>
-	                            	<select name="authority">
-	                            		<option value="user">일반회원</option>
-	                            		<option value="studyleader">스터디장</option>
-	                            		<option value="mento">멘토</option>
-	                            	</select>
+	                            	<c:choose>
+									<c:when test="${member.authority eq 1}">
+										일반
+									</c:when>
+									
+									<c:when test="${member.authority eq 2}">
+										스터디장
+									</c:when>
+									
+									<c:when test="${member.authority eq 3}">
+										멘토
+									</c:when>
+									</c:choose>
 	                            </td>
-	                            
-	                            
-	                            
-<!-- 	                            <td><button type="button" class="btn" id="btnView">수정</button></td> -->
 	                        </tr>
 	                    </c:forEach>
 	                    </tbody>
@@ -117,8 +134,8 @@ $(document).ready(function() {
       		</div><!-- 테이블 row end -->
       		<!-- 페이징 -->
       		<c:import url="/WEB-INF/views/admin/paging.jsp" />
-       	</div>
-	</div><!-- main row end -->
+       	</div><!-- main row end -->
+	</div><!--  table end -->
 	
 	</section>
 

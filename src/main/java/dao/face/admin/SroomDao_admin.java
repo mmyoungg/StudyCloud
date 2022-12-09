@@ -1,6 +1,7 @@
 package dao.face.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.FileUpload;
 import dto.StudyRoom;
@@ -36,6 +37,61 @@ public interface SroomDao_admin {
 	 * @param fileUpload
 	 */
 	public void insertFile(FileUpload fileUpload);
+
+	/**
+	 * 게시글 번호를 이용하여 게시글을 조회한다
+	 * 
+	 * @param studyroom - 조회하려는 게시글 번호
+	 * @return 조회된 게시글 정보
+	 */
+	public StudyRoom selectStudyroom(StudyRoom studyroom);
+
+	/**
+	 * 게시글 번호를 이용하여 첨부파일 정보를 조회한다
+	 * 
+	 * @param studyroom - 조회할 게시글 번호
+	 * @return 조회된 첨부파일 정보
+	 */
+	public FileUpload selectFileBySroomNo(StudyRoom studyroom);
+
+	/**
+	 * 게시글 정보를 수정한다
+	 * 
+	 * @param studyroom - 수정할 게시글 정보
+	 */
+	public void updateStudyroom(StudyRoom studyroom);
+
+	/**
+	 * 게시글을 참조하고 있는 모든 첨부파일 삭제
+	 * 
+	 * @param studyroom - 첨부파일을 삭제할 게시글 번호
+	 */
+	public void deleteFile(StudyRoom studyroom);
+
+	/**
+	 * 게시글 삭제
+	 * 
+	 * @param studyroom - 삭제할 게시글 번호
+	 */
+	public void delete(StudyRoom studyroom);
+	
+	//메인
+
+	/**
+	 * 스터디룸 게시글 목록 조회
+	 * 
+	 * @param studyroom 
+	 * @return 
+	 */
+	public List<StudyRoom> srlist(StudyRoom studyroom);
+
+	/**
+	 * 게시글 번호를 이용하여 첨부파일을 함께 조회한다
+	 * 
+	 * @return 조회된 게시글 + 첨부파일
+	 */
+	public List<Map<String, Object>> selectMap();
+
 
 
 	

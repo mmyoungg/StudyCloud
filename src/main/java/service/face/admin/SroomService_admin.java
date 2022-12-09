@@ -1,9 +1,12 @@
 package service.face.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import dto.FileUpload;
 import dto.StudyRoom;
 import util.Paging;
 
@@ -36,6 +39,40 @@ public interface SroomService_admin {
 	 * @param file - 첨부파일 정보 객체
 	 */
 	public void write(StudyRoom studyroom, MultipartFile file);
+	
+	/**
+	 * 게시글 상세보기
+	 * 
+	 * @param studyroom - 상세 조회할 게시글 번호 객체
+	 * @return 조회된 상세 게시글 객체
+	 */
+	public StudyRoom view(StudyRoom studyroom);
+
+	/**
+	 * 게시글 번호를 이용하여 업로드된 파일 정보를 조회한다
+	 * 
+	 * @param studyroom - 조회할 게시글 번호 객체
+	 * @return 첨부 파일 정보
+	 */
+	public FileUpload getAttachFile(StudyRoom studyroom);
+	
+	/**
+	 * 게시글 정보, 첨부파일을 함께 처리한다
+	 * 
+	 * @param studyroom - 게시글 정보
+	 * @param file - 첨부파일 정보
+	 */
+	public void update(StudyRoom studyroom, MultipartFile file);
+
+	/**
+	 * 게시글 삭제 + 첨부파일 삭제
+	 * 
+	 * @param studyroom
+	 */
+	public void delete(StudyRoom studyroom);
+
+	public List<Map<String, Object>> srListWithFile(StudyRoom studyroom);
+
 
 
 

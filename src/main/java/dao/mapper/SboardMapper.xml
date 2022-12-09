@@ -29,6 +29,27 @@
 		FROM studyboard s
 		JOIN member m ON (s.member_no = m.member_no )
 		WHERE study_no = #{studyNo }
-		
 	</select>
- </mapper>
+	
+<!-- 	<select id="enroll" parameterType="dto.StudyBoard"> -->
+<!-- 		<selectKey order="BEFORE" resultType="int" keyProperty="studyNo"> -->
+<!-- 			SELECT studyboard_seq.nextval FROM dual -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT INTO studyboard ( study_no, member_no, study_title, study_people, study_address, study_tag, study_date, study_time, study_content, study_notify, enrollstudy_date, sboard_markcnt) -->
+<!-- 		VALUES( ${studyNo }, #{memberNo }, #{studyTitle }, #{studyPeople }, #{studyAddress }, #{studyTag }, #{studyDate }, #{studyTime }, #{studyContent }, #{studyNotify }, #{enrollstudyDate }, #{sboardMarkcnt }) -->
+<!-- 	</select> -->
+	
+	<update id="update" parameterType="dto.StudyBoard">
+		UPDATE studyboard
+		SET study_title = #{studyTitle }
+			study_content = #{studyContent }
+		WHERE study_no = #{studyNo }
+	</update>
+	
+	
+	<delete id="delete" parameterType="dto.StudyBoard">
+		DELETE studyboard
+		WHERE study_no = #{studyNo }
+	</delete>
+	
+	</mapper>
