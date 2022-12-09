@@ -123,7 +123,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 // 스터디룸 주소
-var sradr = '서울특별시 강남구 테헤란로 14길 6';
+var sradr = document.getElementById("sAddr").value;
 
 // 
 // 주소-좌표 변환 객체를 생성합니다
@@ -143,7 +143,7 @@ geocoder.addressSearch(sradr, function(result, status) {
 						
 		var mapbtn = document.getElementById('map-btn');
 		mapbtn.addEventListener("click", function() {
-			window.location = "https://map.kakao.com/link/to/"+'스터디룸 이름'+","+lat+","+lng;
+			window.location = "https://map.kakao.com/link/to/"+document.getElementById("sName").value+","+lat+","+lng;
 		})
 						
         // 결과값으로 받은 위치를 마커로 표시합니다
@@ -154,7 +154,7 @@ geocoder.addressSearch(sradr, function(result, status) {
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div class="map-text">스터디룸 이름</div>'
+            content: '<div class="map-text">' + document.getElementById("sName").value + '</div>'
         });
         infowindow.open(map, marker);
 

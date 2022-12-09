@@ -2,7 +2,26 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<script type="text/javascript"> 
 
+/* function pagingAjax(pageNo, checked, keyword) {
+	var page_no = pageNo;
+	console.log(page_no);
+	
+	$.ajax({
+		type:"GET",
+		url: "/freeBoard/cmtListAjax",
+		dataType: "html", 
+		data : {curPage: page_no, fBoardNo: BoardNo},
+		success : function(r){
+		console.log('[댓글 페이징] AJAX 요청 완료');
+			$("#fBoardCmtList").html(r);
+		} 
+	})
+}
+ */
+
+</script>
 <table id="contentlist" class="table">
 	<thead>
 	<tr>
@@ -38,13 +57,13 @@
 
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a class="page-link" onclick="pagingAjax(1)">처음으로</a></li>	
+		<li class="page-item"><a class="page-link" onclick="pagingSearchAjax(1, '${checked}', '${keyword }')">처음으로</a></li>	
 	</c:if>
 	
 	<%-- 이전 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.startPage ne 1 }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.startPage - paging.pageCount })">&laquo;</a></li>
+		<li><a class="page-link" onclick="pagingSearchAjax(${paging.startPage - paging.pageCount }, '${checked}', '${keyword }')">&laquo;</a></li>
 	</c:when>
 <%-- 	<c:when test="${paging.startPage eq 1 }">
 		<li class="disabled"><a class="page-link">&laquo;</a></li>
@@ -53,7 +72,7 @@
 	
 	<%-- 이전 페이지로 가기 --%>
 	<c:if test="${paging.curPage > 1 }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.curPage - 1 })">&lt;</a></li>
+		<li><a class="page-link" onclick="pagingSearchAjax(${paging.curPage - 1 }, '${checked}', '${keyword }')">&lt;</a></li>
 	</c:if>
 	
 	
@@ -61,10 +80,10 @@
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
-		<li class="active page-item"><a class="page-link" onclick="pagingAjax(${i })">${i }</a></li>
+		<li class="active page-item"><a class="page-link" onclick="pagingSearchAjax(${i }, '${checked}', '${keyword }')">${i }</a></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
-		<li><a class="page-link" onclick="pagingAjax(${i })">${i }</a></li>
+		<li><a class="page-link" onclick="pagingSearchAjax(${i }, '${checked}', '${keyword }')">${i }</a></li>
 	</c:if>
 	</c:forEach>
 
@@ -72,13 +91,13 @@
 	
 	<%-- 다음 페이지로 가기 --%>
 	<c:if test="${paging.curPage < paging.totalPage }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.curPage + 1 })">&gt;</a></li>
+		<li><a class="page-link" onclick="pagingSearchAjax(${paging.curPage + 1 }, '${checked}', '${keyword }')">&gt;</a></li>
 	</c:if>
 	
 	<%-- 다음 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.startPage + paging.pageCount })">&raquo;</a></li>
+		<li><a class="page-link" onclick="pagingSearchAjax(${paging.startPage + paging.pageCount }, '${checked}', '${keyword }')">&raquo;</a></li>
 	</c:when>
 <%-- 	<c:when test="${paging.endPage eq paging.totalPage }">
 		<li class="disabled"><a class="page-link">&raquo;</a></li>
@@ -87,7 +106,7 @@
 
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a class="page-link" onclick="pagingAjax(${paging.totalPage })">끝으로</a></li>	
+		<li class="page-item"><a class="page-link" onclick="pagingSearchAjax(${paging.totalPage }, '${checked}', '${keyword }')">끝으로</a></li>	
 	</c:if>
 	
 	</ul>
