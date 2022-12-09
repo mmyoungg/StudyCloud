@@ -50,6 +50,13 @@ public class SboardServiceImpl implements SboardService{
 	@Override
 	public void enroll(StudyBoard sboard) {
 		
+		//게시글 처리
+		if("".equals( sboard.getStudyTitle())) {
+			sboard.setStudyTitle("(제목없음)");
+		}
+				
+		sboardDao.insert(sboard);
+				
 	}
 
 	@Override
@@ -65,7 +72,9 @@ public class SboardServiceImpl implements SboardService{
 
 	@Override
 	public void delete(StudyBoard sboard) {
-		// TODO Auto-generated method stub
+		
+		//게시글 삭제
+		sboardDao.delete(sboard);
 		
 	}
 

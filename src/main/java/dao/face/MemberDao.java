@@ -30,6 +30,15 @@ public interface MemberDao {
 	 */
 	public String selectMemberNick(Member member);
 	
+	
+	/**
+	 * id를 이용하여 member num을 조회한다
+	 * 
+	 * @param member - 조회하려는 회원의 id를 가진 객체
+	 * @return 조회된 num
+	 */
+	public String selectMemberNo(Member member);
+	
 	/**
 	 * 신규 회원 정보를 삽입한다
 	 * 
@@ -45,6 +54,8 @@ public interface MemberDao {
 	 * @return 존재 여부 (0-없음, 1-있음)
 	 */
 	public int selectCntById(Member member);
+	
+	public Member getMemberById(String id);
 
 	/**
 	 * 아이디찾기
@@ -52,16 +63,18 @@ public interface MemberDao {
 	 * @param memberEmail
 	 * @return
 	 */
-	public static String findid(String memberEmail) {
-
-		return null;
-	}
+	//public static String findid(String memberEmail); 
+	
+	
 	
 	// 비밀번호 변경
+	
 	public int updatePw(Member member);
 
 
 	public int readMember(String memberEmail);
+
+
 
 
 

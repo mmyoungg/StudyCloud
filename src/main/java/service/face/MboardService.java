@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import dto.FileUpload;
 import dto.Mboard;
 import dto.MboardLike;
+import dto.Member;
 import util.Paging;
 
 public interface MboardService {
@@ -76,7 +77,12 @@ public interface MboardService {
 	 */
 	public void setMboardLike(MboardLike mboardLike);
 	
-	
+	/**
+	 * 찜 여부 확인
+	 * @param member
+	 * @return
+	 */
+	public Object getmboardlike(Member member);
 	
 
 

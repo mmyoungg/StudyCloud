@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>StudyCloud</title>
 
 <link rel="stylesheet" href="${path}/resources/css/mainpage.css" />
 
@@ -19,7 +19,6 @@
 <!-- ajax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
-
 
 <style type="text/css">
 
@@ -54,8 +53,9 @@
 
 </style>
 
-
 <script>
+
+/* 슬라이드 */
 $(document).ready(function() {
 
 	  $("#owl-one, #owl-two").each(function() {
@@ -72,14 +72,15 @@ $(document).ready(function() {
 	  $(".owl-next").click(function(){$(this).closest('.col-12').find('.owl-carousel').trigger('owl.next');})
 	  $(".owl-prev").click(function(){$(this).closest('.col-12').find('.owl-carousel').trigger('owl.prev');})
 	});
+	
 </script>
-
 
 </head>
 <body>
 
 <!-- 배너 -->
 <section class="banner">
+<div class="container">
 	<div id="banner" class="carousel slide" data-bs-ride="carousel">
 
 		<!-- 하단 인디케이터 -->
@@ -92,13 +93,13 @@ $(document).ready(function() {
 		<!-- 슬라이드 -->
 		<div class="carousel-inner">
 		    <div class="carousel-item active">
-		        <img src="https://images.unsplash.com/photo-1614850715649-1d0106293bd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="d-block w-100">
+		        <img src="/resources/img/banner(1).jpg" class="d-block w-100">
 		    </div>
 		    <div class="carousel-item">
-		        <img src="https://images.unsplash.com/photo-1614851099175-e5b30eb6f696?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="d-block w-100">
+		        <img src="/resources/img/banner(2).jpg" class="d-block w-100">
 		    </div>
 		    <div class="carousel-item">
-		        <img src="https://images.unsplash.com/photo-1614853035846-77b0a40a6b5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="d-block w-100">
+		        <img src="/resources/img/banner(1).jpg" class="d-block w-100">
 		    </div>
 		</div>
 
@@ -111,8 +112,9 @@ $(document).ready(function() {
 		        <span class="carousel-control-next-icon"></span>
 		    </button>
 	    </div>
+	    </div>
 	</div>
- 	</section>
+</section>
 
 
 <!-- 검색창 -->
@@ -129,113 +131,31 @@ $(document).ready(function() {
 	</div>
 </section><!-- searchBox end -->
 
-
 <!-- 지금 뜨고있는 멘토 -->
 <section class="mentoRank">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <p class="mentoRank-title">지금 뜨고있는 멘토! 🎢</p>
+                <p class="mentoRank-title">지금 뜨고있는 멘토 ✨</p>
                 <div id="owl-one" class="mento-list owl-carousel owl-loaded owl-drag">
                     <div class="owl-stage-outer">
                         <div class="owl-stage">
-                            <!-- 1 -->
+						
+						<!-- 멘토 리스트 -->
+						<c:forEach items="${mtList }" var="hashmap">
                             <div class="owl-item active">
                                 <div class="mento-item">
-                                    <a href="#" class="mento-title">초보자도 쉽게 배우는 프론트앤드</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <img class="mento-profile-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
-                                        </li>
-                                    </ul>
+                               		<img src="" alt="게시글 첨부파일"><!-- 게시글 첨부파일 -->
+                                   	<p class="mento-title">${hashmap.MTBOARD_TITLE }</p>
+                                   	<p class="mento-name">${hashmap.MEMBER_NICK } 멘토</p>
+                                   	<p class="mento-price">₩ ${hashmap.MT_PRICE }</p>
+                                   	<button class="mento-field">${hashmap.FIELD }</button>
                                 </div>
                             </div>
-                    
-                            <!-- 2 -->
-                            <div class="owl-item">
-                                <div class="mento-item color">
-                                    <a href="#" class="mento-title">비전공자도 가능한 웹사이트 만들기</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <img class="mento-profile-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                    
-                            <!-- 3 -->
-                            <div class="owl-item">
-                                <div class="mento-item">
-                                    
-                                    <a href="#" class="mento-title">Spring MVC를 이용해 웹사이트 만들기1</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <img class="mento-profile-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- 4 -->
-                            <div class="owl-item">
-                                <div class="mento-item">
-                                    <a href="#" class="mento-title">Spring MVC를 이용해 웹사이트 만들기2</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <img class="mento-profile-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- 5 -->
-                            <div class="owl-item">
-                                <div class="mento-item">
-                                    <a href="#" class="mento-title">5</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <span class="mento-profile-inital text-success">CD</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- 6 -->
-                            <div class="owl-item">
-                                <div class="mento-item">
-                                    <a href="#" class="mento-title">6</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <img class="mento-profile-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- 7 -->
-                            <div class="owl-item">
-                                <div class="mento-item featured">
-                                    <a href="#" class="mento-title">7</a>
-                                    <p class="mento-name">OOO 멘토</p>
-                                    <ul class="mento-participants">
-                                        <li class="mento-profile">
-                                            <img class="mento-profile-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
+						</c:forEach>
                         </div>
-                    </div>
+                    </div><!-- 멘토 end -->
             
-                    <div class="owl-nav">
                     <div class="owl-nav">
                         <button type="button" role="presentation" class="owl-prev">
                             <div class="owl-nav-wrapper">
@@ -278,6 +198,7 @@ $(document).ready(function() {
                 </div>
             </div>
         </div>
+        </div>
     </div><!-- container end -->
 </section><!-- mentoRank end -->
 
@@ -287,70 +208,23 @@ $(document).ready(function() {
 	<div class="container">
      <div class="row">
          <div class="col-12">
-             <p class="studyRank-title">마감임박 스터디! ⏰</p>
+             <p class="studyRank-title">마감임박 스터디 ⏰</p>
              <div id="owl-two" class="study-list owl-carousel owl-loaded owl-drag">
                  <div class="owl-stage-outer">
                      <div class="owl-stage">
-                         <!-- 1 -->
+                     
+                     <!-- 스터디 리스트 -->
+                     <c:forEach items="${sList }" var="hashmap">
                          <div class="owl-item active">
                              <div class="study-item">
-                                 <a href="#" class="study-title">초보자도 쉽게 배우는 프론트앤드</a>
-                                 <p class="study-name">OOO 멘토</p>
-                                 <ul class="study-participants">
-                                     <li class="study-profile">
-                                     </li>
-                                 </ul>
+                           		<img src="" alt="게시글 첨부파일"><!-- 게시글 첨부파일 -->
+                               	<p class="study-title">${hashmap.STUDY_TITLE }</p>
+                               	<p class="study-name">${hashmap.MEMBER_NICK } 스터디장</p>
+                               	<p class="study-people">${hashmap.STUDY_PEOPLE } 명</p>
+                               	<button class="study-tag">${hashmap.STUDY_TAG }</button>
                              </div>
                          </div>
-                 
-                         <!-- 2 -->
-                         <div class="owl-item">
-                             <div class="study-item color">
-                                 <a href="#" class="study-title">비전공자도 가능한 웹사이트 만들기</a>
-                                 <p class="study-name">OOO 멘토</p>
-                                 <ul class="study-participants">
-                                     <li class="study-profile">
-                                     </li>
-                                 </ul>
-                             </div>
-                         </div>
-                 
-                         <!-- 3 -->
-                         <div class="owl-item">
-                             <div class="study-item">
-                                 <a href="#" class="study-title">Spring MVC를 이용해 웹사이트 만들기1</a>
-                                 <p class="study-name">OOO 멘토</p>
-                                 <ul class="study-participants">
-                                     <li class="study-profile">
-                                     </li>
-                                 </ul>
-                             </div>
-                         </div>
-                         
-                         <!-- 4 -->
-                         <div class="owl-item">
-                             <div class="study-item">
-                                 <a href="#" class="study-title">Spring MVC를 이용해 웹사이트 만들기2</a>
-                                 <p class="study-name">OOO 멘토</p>
-                                 <ul class="study-participants">
-                                     <li class="study-profile">
-                                     </li>
-                                 </ul>
-                             </div>
-                         </div>
-                         
-                         <!-- 5 -->
-                         <div class="owl-item">
-                             <div class="study-item">
-                                 <a href="#" class="study-title">5</a>
-                                 <p class="study-name">OOO 멘토</p>
-                                 <ul class="study-participants">
-                                     <li class="study-profile">
-                                     </li>
-                                 </ul>
-                             </div>
-                         </div>
-                         
+                     </c:forEach>
                      </div>
                  </div>
          
@@ -394,8 +268,17 @@ $(document).ready(function() {
              </div>
          </div>
      </div>
+     </div>
  </div><!-- container end -->
 </section><!-- 마감임박 스터디 end -->
+
+
+
+<!-- TEST -->
+<%-- <c:forEach items="${srListFile }" var="hashmap"> --%>
+<%-- <img src="/upload/${sRoomFile.fileUploadStor }" alt="studyroom-img"> --%>
+<%-- <p>${hashmap.SROOM_NAME}</p> --%>
+<%-- </c:forEach> --%>
 
 
 <!-- 인기 스터디룸 -->
@@ -404,13 +287,17 @@ $(document).ready(function() {
      	<div class="row">
         	<div class="col-12">
             	<p class="studyRank-title">인기 스터디룸</p>
-   				
-   				<div class="card" style="width: 18rem;">
-				  <img src="/resources/img/studyroom1.jfif" class="card-img-top">
-				  <div class="card-body">
-				    <h5 class="card-title">[강남] 스터디 클라우드 1호점</h5>
-				    <p class="card-text">소개소개가격가격</p>
-				  </div>
+				<div class="card-group" id="sRoom-wrap">
+				
+					<c:forEach items="${srList }" var="sr">
+   					<div class="card" id="sRoom">
+						<img src="/upload/${sr.FILEUPLOAD_STOR }" alt="studyroom-img">
+						<div class="card-title">
+				    		<p class="sRoomName">${sr.SROOM_NAME }</p>
+				  		</div>
+					</div>
+					</c:forEach>
+					
 				</div>
          	</div>
      	</div>
@@ -421,47 +308,23 @@ $(document).ready(function() {
 <!-- 멘토링 리뷰 -->
 <section class="review">
 	<div class="container mt-5">
-        <div class="row">
+        <div class="row" id="mtReview">
         <p class="studyRank-title">멘토링 리뷰</p>
+		<c:forEach items="${mtReviewList }" var="hashmap">
             <div class="col-md-4">
                 <div class="testimonial-1">
-                	<img class="mb-3" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
+                	<img class="mb-3" id="mark" src="https://i.imgur.com/ECXzJ1k.png" width="40">
+                    <p>${hashmap.MTREVIEW_CONTENT }<br><br></p>
                     <div class="d-flex flex-row align-items-center">
                     	<img class="rounded-circle" src="https://ifh.cc/g/VhRkMc.jpg" width="40" height="40">
                         <div class="ml-2 about">
-                        	<span class="d-block name">코딩매니아</span>
+                        	<span class="d-block name">${hashmap.MEMBER_NICK }</span>
                         	<span class="place">개발 / 자바</span>
                        	</div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="testimonial-1">
-                	<img class="mb-3" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
-                    <div class="d-flex flex-row align-items-center">
-                    	<img class="rounded-circle" src="https://ifh.cc/g/3a2cg1.jpg" width="40" height="40">
-                        <div class="ml-2 about">
-                        	<span class="d-block name">닉네임로컬호스트</span>
-                        	<span class="place">디자인 / UI & UX </span>
-                       	</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial-1">
-                	<img class="mb-3" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
-                    <div class="d-flex flex-row align-items-center">
-                    	<img class="rounded-circle" src="https://ifh.cc/g/JHR0Xz.jpg" width="40" height="40">
-                        <div class="ml-2 about">
-                        	<span class="d-block name">아이스아메리카노</span>
-                        	<span class="place">개발 / 자격증</span>
-                       	</div>
-                    </div>
-                </div>
-            </div>
+		</c:forEach>
         </div>
     </div>
 </section>
@@ -470,11 +333,11 @@ $(document).ready(function() {
 <!-- 스터디 리뷰 -->
 <section class="review">
 	<div class="container mt-5">
-        <div class="row">
+        <div class="row" id="stReview">
         <p class="studyRank-title">스터디 리뷰</p>
             <div class="col-md-4">
                 <div class="testimonial-1">
-                	<img class="mb-3" src="https://i.imgur.com/ECXzJ1k.png" width="40">
+                	<img class="mb-3" id="mark" src="https://i.imgur.com/ECXzJ1k.png" width="40">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
                     <div class="d-flex flex-row align-items-center">
                     	<img class="rounded-circle" src="https://ifh.cc/g/VhRkMc.jpg" width="40" height="40">

@@ -19,7 +19,6 @@ $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		
-		//스마트에디터에 작성된 내용을 #content에 반영
 		updateContents();
 		
 		$("form").submit();
@@ -28,9 +27,13 @@ $(document).ready(function() {
 })
 
 function updateContents() {
-	//스마트 에디터에 작성된 내용을 #content에 반영한다
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
+	//스마트 에디터에 작성된 내용을 #sRoomInfo에 반영한다
+	oEditors.getById["sRoomInfo"].exec("UPDATE_CONTENTS_FIELD", [])
+
+	//스마트 에디터에 작성된 내용을 #sRoomRole에 반영한다
+	oEditors2.getById["sRoomRole"].exec("UPDATE_CONTENTS_FIELD", [])
 }
+
 </script>
 
 <script type="text/javascript">
@@ -57,7 +60,7 @@ form { margin: 40px 5px auto;}
 </head>
 <body>
 
-<form action="/admin/sRoominsert" method="post" enctype="multipart/form-data"> <!-- 첨부파일 첨부 -->
+<form action="/admin/studyroom/write" method="post" enctype="multipart/form-data"> <!-- 첨부파일 첨부 -->
 
 
 <main id="main" class="main">
@@ -114,7 +117,7 @@ form { margin: 40px 5px auto;}
 		  	</div>
 		</div>
 
-		<div class="mb-3 row form-group" id="content2">
+		<div class="mb-3 row form-group">
 			<label for="sRoomRole" class="col-sm-2 col-form-label">이용&환불규정</label>
 		    <div class="col-sm-10">
 		  		<textarea class="form-control" id="sRoomRole" name="sRoomRole" rows="10"></textarea>
@@ -129,8 +132,8 @@ form { margin: 40px 5px auto;}
 		</div>	
 
 		<div class="text-center" style="margin-top: 70px;">
-			<button id="btnWrite" class="sRoom_insert_btn">등록</button>
-			<button id="btnCancel" class="sRoom_insert_btn_cancel">취소</button>
+			<button type="button" id="btnWrite" class="sRoom_insert_btn">등록</button>
+			<button type="button" id="btnCancel" class="sRoom_insert_btn_cancel">취소</button>
 		</div>
 
       	</div>
@@ -145,21 +148,24 @@ form { margin: 40px 5px auto;}
 
 <!-- 스마트 에디터 스킨 적용 -->
 <script type="text/javascript">
+
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
-	elPlaceHolder: "content",
+	elPlaceHolder: "sRoomInfo",
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 })
+
+var oEditors2 = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors2,
+	elPlaceHolder: "sRoomRole",
+	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
+	fCreator: "createSEditor2"
+})
+
 </script>
-
-</div>
-</div>
-
-</div><!-- container end -->
-
-
 
 </body>
 </html>

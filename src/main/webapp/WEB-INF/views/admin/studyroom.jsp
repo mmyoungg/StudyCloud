@@ -23,7 +23,6 @@ $(document).ready(function() {
 
 /* 테이블 */
 .table {
-	text-align: center;
 	vertical-align: middle;
 	margin-top: 20px;
 }
@@ -33,9 +32,10 @@ $(document).ready(function() {
 }
 
 .table thead th {
+	text-align: center;
     padding: 10px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 400;
     color: white;
 }
 
@@ -43,6 +43,24 @@ $(document).ready(function() {
     padding: 10px;
     margin: 0;
     font-size: 14px;
+}
+
+a {
+	text-decoration: none;
+	color: #212529;
+}
+
+a:hover{
+
+}
+
+/* 버튼 */
+#btnWrite {
+	background-color: #6cc4dc;
+	color: #fff;
+	padding: 5px;
+	border: 1px solid #aacde5;
+	border-radius: 10px;
 }
 
 </style>
@@ -79,10 +97,10 @@ $(document).ready(function() {
 			
 			<c:forEach items="${list }" var="studyroom">
 				<tr>
-					<td>${studyroom.sRoomNo }</td>
-					<td>${studyroom.sRoomName }</a></td>
+					<td style="text-align:center;">${studyroom.sRoomNo }</td>
+					<td><a href="/admin/studyroom/view?sRoomNo=${studyroom.sRoomNo }">${studyroom.sRoomName }</a></td>
 					<td>${studyroom.sRoomIntro }</td>
-					<td>${studyroom.sRoomPrice } /시간</td>
+					<td style="text-align:center;">${studyroom.sRoomPrice } 원/시간</td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -90,8 +108,8 @@ $(document).ready(function() {
 			</table>
 			
 			<button id="btnWrite" class="btn pull-left">글쓰기</button>
-			<span class="pull-right">total : ${paging.totalCount }</span>
 			<div class="clearfix"></div>
+			<span class="pull-right">total : ${paging.totalCount }</span>
 			
 			<c:import url="/WEB-INF/views/admin/paging.jsp" />
 

@@ -270,12 +270,6 @@ $(document).ready(function() {
 	})
 })
 
-$(document).ready(function() {
-	$("#btnLogout").click(function() {
-		location.href = "/admin/logout"
-	})
-})
-
 </script>
 
 </head>
@@ -298,7 +292,7 @@ $(document).ready(function() {
                     
                     <div>
                        <ul class="navbar-nav me-auto" id="btnMenu">
-                          <li class="nav-item"><a class="nav-link" href="/admin/login">로그아웃</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/admin/logout">로그아웃</a></li>
                        </ul>
                     </div>
                 </div>

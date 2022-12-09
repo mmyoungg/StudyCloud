@@ -2,10 +2,7 @@ package controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,16 +13,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import dto.FileUpload;
 import dto.Mboard;
 import dto.MboardLike;
+import dto.Member;
 import service.face.MboardService;
 import util.Paging;
 
@@ -60,8 +60,10 @@ public class MboardController {
 	@RequestMapping("/mboard/detail")
 	public void mboarddetail(
 			
-			int mboardNo
+			Member member
+			,int mboardNo
 			,Model model
+			,ModelAndView mav
 			
 			) {
 		
@@ -77,6 +79,9 @@ public class MboardController {
 		//첨부파일 모델값 전달
 		List<HashMap<String, Object>> fileUpload = mboardService.getAttachFile(mboardNo);
 		model.addAttribute("fileUpload", fileUpload);
+		
+		//좋아요 여부 데이터 가져오기
+		mav.addObject("mboardLike", mboardService.getmboardlike(member));
 		
 		return;
 		
@@ -188,15 +193,16 @@ public class MboardController {
 	
 	//------------------------------------------------------------------------
 	
-	//좋아요 기능 시작
+	//좋아요 등록
 	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/mboard/detail")
-	public ResponseEntity<String> mboardlike (
+	public ResponseEntity<String> mboardLike (
 			
 			@RequestBody MboardLike mboardLike
 			
 			) {
 		ResponseEntity<String> entity = null;
+		logger.info("좋아요");
 		
 		try {
 			mboardService.setMboardLike(mboardLike);
@@ -204,6 +210,30 @@ public class MboardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
+	}
+	
+	//좋아요 취소
+	@Transactional(rollbackFor = Exception.class)
+	@DeleteMapping("/mboard/detail")
+	public ResponseEntity<String> mboardLikeCancel (
+			
+			MboardLike mboardLike
+			
+			) {
+		
+		ResponseEntity<String> entity = null;
+		logger.info("좋아요 취소");
+		
+		try {
+			mboardService.setMboardLike(mboardLike);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

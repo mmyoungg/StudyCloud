@@ -35,7 +35,7 @@
 .table thead th {
     padding: 10px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 400;
     color: white;
 }
 
@@ -46,8 +46,22 @@
 }
 
 /* 버튼 */
-button {
+.btnOk {
+	width: 50px;
+	background-color: #fff;
+	color: #6cc4dc;
+	padding: 5px;
+	border: 1px solid #6cc4dc;
+	border-radius: 10px;
+}
+
+.btnView {
+	width: 50px;
 	background-color: #6cc4dc;
+	color: #fff;
+	padding: 5px;
+	border: 1px solid #aacde5;
+	border-radius: 10px;
 }
 
 </style>
@@ -121,9 +135,9 @@ myModal.addEventListener('shown.bs.modal', () => {
 								</c:when>
 								</c:choose>
 							</td>
-							<td><button type="submit" name="memberNo" value="${applymt.member.memberNo }">승인</button></td>
+							<td><button type="submit" class="btnOk" name="memberNo" value="${applymt.member.memberNo }">승인</button></td>
 </form>
-                            <td><button type="button" class="btn" id="btnView" data-bs-toggle="modal" data-bs-target="#applyModal${applymt.applymtNo }">신청서</button></td>
+                            <td><button type="button" class="btnView" id="btnView" data-bs-toggle="modal" data-bs-target="#applyModal${applymt.applymtNo }">신청서</button></td>
 							
 							<!-- 모달 -->
 							<div class="modal fade" id="applyModal${applymt.applymtNo }" tabindex="-1" aria-labelledby="applyModal" aria-hidden="true">
