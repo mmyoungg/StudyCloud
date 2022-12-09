@@ -16,6 +16,11 @@
 		WHERE member_id = #{memberId}
 	</select>
 	
+	<select id="selectMemberNo" resultType="string" parameterType="Member">
+		SELECT member_no FROM member
+		WHERE member_id = #{memberId}
+	</select>
+	
 	<select id="selectCntById" resultType="int" parameterType="Member">
 		SELECT count(*) FROM member
 		WHERE member_id = #{memberId}
@@ -30,6 +35,20 @@
 	VALUES ( member_seq.nextval, #{memberId}, #{memberPw}, #{memberEmail},
 	#{memberName}, #{memberNick}, #{memberPhone} )
 	</insert>
+	
+	<select id="getMemberById" parameterType="String" resultType="Member">
+      Select 
+         member_no memberNo,
+         member_id memberId,
+         member_email memberEmail,
+         member_name memberName,
+         member_nick memberNick,
+         authority,
+         member_phone memberPhone  
+      from 
+         member
+      where member_id = #{id}
+   </select>
 
 
 	<!-- 비밀번호 변경 -->

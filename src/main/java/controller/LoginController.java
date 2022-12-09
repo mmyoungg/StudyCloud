@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dto.Member;
 import service.face.MemberService;
@@ -32,52 +33,46 @@ public class LoginController {
 	
 	//로그인
 	@GetMapping("/login")
-	public String login() {
-		
+	public String login(HttpServletRequest req) {
+		req.setAttribute("message", "");
 		logger.info("/login [GET]성공");
 		return "login/login";
 	
 	}
 	
 	@PostMapping("/login")
-	public String loginProcess(Member member, HttpSession session, HttpServletRequest req) {
-		
-		logger.info("{}", member);
-		
-		boolean loginResult = memberService.login(member);
-		
-		logger.info("loginResult : {}", loginResult);
-		
-		if( loginResult ) {
-			
-			logger.info("로그인 성공");
-			
-			session.setAttribute("login", loginResult);
-			session.setAttribute("member_id", member.getMemberId());
-			session.setAttribute("member_no", member.getMemberNo());
-			session.setAttribute("member_nick", memberService.getMemberNick(member));
+	   public String loginProcess(Member member, HttpSession session, HttpServletRequest req) {
+	      
+	      logger.info("{}", member);
+	      
+	      boolean loginResult = memberService.login(member);
+	      
+	      logger.info("loginResult : {}", loginResult);
+	      
+	      if( loginResult ) {
+	         
+	         Member dbMember = memberService.getMemberById(member.getMemberId());
+	         
+	         logger.info("로그인 성공");
+	         
+	         session.setAttribute("login", loginResult);
+	         session.setAttribute("member_id", dbMember.getMemberId());
+	         session.setAttribute("member_no", dbMember.getMemberNo());
+	         session.setAttribute("member_nick", dbMember.getMemberNick() );
 
-			return "redirect:/mainpage";
+	         return "redirect:/mainpage";
 
-		} else {
+	      } else {
 
-			logger.info("로그인 실패");
+	         logger.info("로그인 실패");
 
-//			req.setAttribute("message", "error");
-//			req.setAttribute("url", "/login");
+//	         req.setAttribute("message", "error");
+//	         req.setAttribute("url", "/login");
 
-			return "redirect:/loginFail";
-		}
+	         return "redirect:/loginFail";
+	      }
 
-	}
-	
-		@GetMapping("/loginFail")
-		public String loginFail() {
-			
-	//		logger.info("/loginFail [GET]성공");
-			return "login/loginFail";
-		
-		}
+	   }
 		
 	//로그아웃
 	
@@ -115,15 +110,6 @@ public class LoginController {
 	
 
 	//비밀번호찾기
-	
-//	@GetMapping("/login/findpw")
-//	public String findpw() {
-//		
-//		logger.info("/login/findpw [GET]성공");
-//		
-//		return "login/findpw";
-//	
-//	}
 	
 	@RequestMapping(value = "/login/findpw", method = RequestMethod.GET)
 	public void findPwGET() throws Exception{

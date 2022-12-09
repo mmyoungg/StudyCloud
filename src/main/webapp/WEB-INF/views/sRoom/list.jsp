@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../layout/header.jsp"%>     
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
-
 <script src="https://kit.fontawesome.com/ca40b4f408.js" crossorigin="anonymous"></script>
 
 <style type="text/css">
@@ -52,9 +47,188 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .fa-solid { width: 13px; height: 13px; color:#aacde5; }
 .people { font-size: 13px; }
 .price { font-weight: bold; color: #3f92b7; }
+.sRoomTitle {  width: 189px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; } 
+.page-link { color: #282828; }
+.page-link:hover { background-color: #e3eff9; }
+.active>.page-link { background-color: #3f92b7; border-color: #3f92b7; }
+.sRoomList { margin-bottom: 40px; }
+.card a { text-decoration: none; color: black;}
+.card a:hover { background-color: #fff; }
 </style>
 
 <script type="text/javascript">
+ $(document).on("click", function(e) {
+	 var locMenu = $('#toggle');
+	 var pMenu = $('#toggle2');
+	 if (!$(e.target).closest(locMenu).length) {
+		 $('#menu1').hide();
+	 }
+	/*  if (!$(e.target).closest(pMenu).length) {
+		 $('#menu2').hide();
+	 } */
+}) 
+
+$(document).ready(function() {
+	var pageNo = ${paging.curPage};
+	console.log(pageNo); // 현재페이지 확인
+	pagingAjax(pageNo);	
+
+	
+	/* 각 메뉴 클릭 이벤트*/		
+    $('#toggle').add('#toggle2').on('click', function () {
+    		
+    	var $this = $(this);
+    		
+    	if($this.hasClass('btn-select col-4') ) {
+    			
+        	var state = $('#menu1').css('display'); 
+           	// state가 none 상태일경우
+            if (state == 'none') {
+            	$('#menu1').show();
+                $('#menu2').hide();
+            } else {            	
+            	$('#menu1').hide();
+           	}
+    	} else {
+        	var state2 = $('#menu2').css('display'); 
+           		// state가 none 상태일경우
+            if (state2 == 'none') {
+            	$('#menu2').show();
+                $('#menu1').hide();
+            } else {
+                $('#menu2').hide();
+           	}
+    	}
+	});
+    
+	
+	/* 지역선택 클릭이벤트 */
+	$(".sRoomlocation li").on("click", function(e) {
+		var pageNo = ${paging.curPage};
+		console.log($(this).attr('value'));
+		var sRoomLoc = $(this).attr('value');
+		$('#menu1').hide();
+	
+		
+		$.ajax({
+			type:"POST",
+			url: "/sRoom/locSearch",
+			dataType: "html", 
+			data : {"sRoomLoc": sRoomLoc, curPage: pageNo},
+			success : function(res){
+				console.log('[스터디룸 지역검색] AJAX 요청 성공');
+				$("#sRoomListContent").html(res);
+				
+				$("#searchIntro").html("");
+				var intro = "";
+				intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + sRoomLoc + '" 지역으로 조회한 결과입니다. </p>'
+				
+				$("#searchIntro").html(intro);
+				
+			} 
+		})
+		
+	})
+
+	/* 인원선택 */
+	$(".plus").on("click", function() {
+		/* var count = $(this).parent('input[type=number]').val(); */
+		var count = parseInt($(".quantity").val());
+		console.log( typeof count);
+		count = count + 1;
+		$(".quantity").val(count);
+		console.log($(".quantity").val());
+	})
+	
+ 	$(".down").on("click", function() {
+		var count = parseInt($(".quantity").val());
+		console.log( typeof count);
+		count = count - 1;
+		$(".quantity").val(count);
+		console.log($(".quantity").val());
+		
+		if(count < 1) {
+			alert("1명 이하는 선택하실 수 없습니다.")
+			$(".quantity").val(1);
+		}
+	}) 
+	
+	$(".numBtn1").on("click", function() {
+		$(".quantity").val(1);
+	})
+	
+	/* 인원선택 검색 */
+ 	$("#sRoomPeopleSearch").on("click", function() {
+		var numberOfPeople = parseInt($(".quantity").val());
+		console.log("선택한 인원 수 : " + numberOfPeople)
+		console.log( typeof numberOfPeople);
+		
+		$.ajax({
+			type:"POST",
+			url: "/sRoom/peopleSearch",
+			dataType: "html", 
+			data : {sRoompNum: numberOfPeople, curPage: pageNo},
+			success : function(res){
+				console.log('[스터디룸 인원수 검색] AJAX 요청 성공');
+				$("#sRoomListContent").html(res);
+				$("#searchIntro").html("");
+				var intro = "";
+				intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + numberOfPeople + '명" 으로 조회한 결과입니다. </p>'
+				
+				$("#searchIntro").html(intro);
+				
+				
+			} 
+		})
+	})
+	
+	/* selectBox 클릭시 정렬 */
+	$("#orderBy").on("change", function() {
+		var selected = parseInt($(this).val());
+		console.log( typeof selected );
+		console.log(selected);
+		
+		$.ajax({
+			type:"POST",
+			url: "/sRoom/seletedSort",
+			dataType: "html", 
+			data : {selectNum: selected, curPage: pageNo},
+			success : function(res){
+				console.log('[스터디룸 최신순 정렬] AJAX 요청 성공');
+			/* 	$("#sRoomListContent").html(res);
+				$("#searchIntro").html("");
+				var intro = "";
+				intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + numberOfPeople + '명" 으로 조회한 결과입니다. </p>'
+				
+				$("#searchIntro").html(intro); */
+				
+				
+			} 
+		}) 
+		
+	})
+	
+})
+
+function pagingAjax(pageNo) {
+	var page_no = pageNo;
+	console.log(page_no);
+	
+	$.ajax({
+		type:"GET",
+		url: "/sRoom/sRoomListAjax",
+		dataType: "html", 
+		data : {curPage: page_no},
+		success : function(res){
+		console.log('[스터디룸 리스트] AJAX 요청 성공');
+			$("#sRoomListContent").html(res);
+		//	console.log(res);
+		} 
+	})
+}
+ 
+
+ 
 </script>
 
 </head>
@@ -99,41 +273,37 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 <div class="flex-center">
 <div class ="btn-select col-4 form-select" id="toggle" >지역선택</div>
 <div id="menu1" style="display:none; transform: translateX(-105%);" >
-	<ul class="list-group list-group-horizontal list-member">
-   		<li class="list-group-item list">서울</li>
-    	<li class="list-group-item list">경기</li>
+	<ul class="list-group list-group-horizontal list-member sRoomlocation">
+   		<li class="list-group-item list" value="서울">서울</li>
+    	<li class="list-group-item list" value="경기">경기</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">인천</li>
-        <li class="list-group-item list">부산</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="인천">인천</li>
+        <li class="list-group-item list" value="부산">부산</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">인천</li>
-        <li class="list-group-item list">부산</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="광주">광주</li>
+        <li class="list-group-item list" value="대구">대구</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">광주</li>
-        <li class="list-group-item list">대구</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="대전">대전</li>
+        <li class="list-group-item list" value="울산">울산</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">대전</li>
-        <li class="list-group-item list">울산</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="제주">제주</li>
+        <li class="list-group-item list" value="강원">강원</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">제주</li>
-        <li class="list-group-item list">강원</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="경남">경남</li>
+        <li class="list-group-item list" value="경북">경북</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">경남</li>
-        <li class="list-group-item list">경북</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="전남">전남</li>
+        <li class="list-group-item list" value="전북">전북</li>
     </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">전남</li>
-        <li class="list-group-item list">전북</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member">
-        <li class="list-group-item list">충남/세종</li>
-        <li class="list-group-item list">충북</li>
+    <ul class="list-group list-group-horizontal list-member sRoomlocation">
+        <li class="list-group-item list" value="충남">충남</li>
+        <li class="list-group-item list" value="충북">충북</li>
     </ul>
 </div>
     
@@ -141,170 +311,32 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 <div id="menu2" style="display:none;">
 	<div class="list-member">
 		<div class="number-input">
-			<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
- 			<input class="quantity" min="1" name="quantity" value="1" type="number">
-  			<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+			<button class="down" id="down" ></button>
+ 			<input class="quantity" name="pNum" min="1" name="quantity" value="1" type="number">
+  			<button class="plus" id="plus"></button>
 		</div>
 		<div class="btnWrap">
 			<button class="numBtn1">초기화</button>
-			<button class="numBtn2">적용하기</button>
+			<button class="numBtn2" id="sRoomPeopleSearch">적용하기</button>
 		</div>
 	</div>
 
 </div>    
-<select class="form-select" aria-label="Default select example" style="width:300px;">
-  <option selected>최신순</option>
-  <option value="1">인기순</option>
-  <option value="2">관심순</option>
+<select class="form-select" id="orderBy"aria-label="Default select example" style="width:300px;">
+  <option value="1" selected>최신순</option>
+  <option value="2">인기순</option>
   <option value="3">평점순</option>
-  <option value="3">낮은가격순</option>
-  <option value="3">높은가격순</option>
+  <option value="4">낮은가격순</option>
+  <option value="5">높은가격순</option>
 </select>
 </div>
 
-<p style="color: #3f92b7;">📖 다양한 스터디룸을 확인해보세요!</p>
+<p id="searchIntro" style="color: #3f92b7;">📖 다양한 스터디룸을 확인해보세요!</p>
 <hr>
 
 
- 
-<script type="text/javascript">
-	$(document).ready(function () {
-    	$('#toggle').add('#toggle2').on('click', function () {
-    		
-    		var $this = $(this);
-    		
-    		if($this.hasClass('btn-select col-4') ) {
-    			
-        		var state = $('#menu1').css('display'); 
-           		// state가 none 상태일경우
-            	if (state == 'none') {
-            		$('#menu1').show();
-            	} else {
-                	$('#menu1').hide();
-           		}
-    		} else {
-        		var state2 = $('#menu2').css('display'); 
-           		// state가 none 상태일경우
-            	if (state2 == 'none') {
-            		$('#menu2').show();
-            	} else {
-                	$('#menu2').hide();
-           		}
-    		}
-        });
-    });
-</script>
+<div id="sRoomListContent"></div>
 
-<div class="row row-cols-1 row-cols-md-4 g-4">
-  <div class="col">
-    <div class="card">
-      <img src="https://ifh.cc/g/SG0cCl.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">스터디룸 이름</h5>
-        <table>
-        	<tr>
-        		<td class="price">1,500</td>
-        		<td style="font-size: 11px;">원/시간</td>
-        		<td colspan="2" class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        		<i class="fa-solid fa-heart" style="color:#f8bbd0;"></i>&nbsp;10&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>&nbsp;5</td>
-        	</tr>
-        	<tr>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user" style="color:#aacde5;"></i>최소 2명</td>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user"></i>최대 10명</td>
-        	</tr>
-        	
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://ifh.cc/g/vkFvSv.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">스터디룸 이름</h5>
-         <table>
-        	<tr>
-        		<td class="price">1,500</td>
-        		<td style="font-size: 11px;">원/시간</td>
-        		<td colspan="2" class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        		<i class="fa-solid fa-heart" style="color:#f8bbd0;"></i>&nbsp;10&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>&nbsp;5</td>
-        	</tr>
-        	<tr>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user" style="color:#aacde5;"></i>최소 2명</td>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user"></i>최대 10명</td>
-        	</tr>
-        	
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://ifh.cc/g/NCAN9A.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">스터디룸 이름</h5>
-        <table>
-        	<tr>
-        		<td class="price">1,500</td>
-        		<td style="font-size: 11px;">원/시간</td>
-        		<td colspan="2" class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        		<i class="fa-solid fa-heart" style="color:#f8bbd0;"></i>&nbsp;10&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>&nbsp;5</td>
-        	</tr>
-        	<tr>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user" style="color:#aacde5;"></i>최소 2명</td>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user"></i>최대 10명</td>
-        	</tr>
-        	
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://ifh.cc/g/vGtDAg.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">스터디룸 이름</h5>
-         <table>
-        	<tr>
-        		<td class="price">1,500</td>
-        		<td style="font-size: 11px;">원/시간</td>
-        		<td colspan="2" class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        		<i class="fa-solid fa-heart" style="color:#f8bbd0;"></i>&nbsp;10&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>&nbsp;5</td>
-        	</tr>
-        	<tr>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user" style="color:#aacde5;"></i>최소 2명</td>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user"></i>최대 10명</td>
-        	</tr>
-        	
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="https://ifh.cc/g/QoHnRq.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">스터디룸 이름</h5>
-         <table>
-        	<tr>
-        		<td class="price">1,500</td>
-        		<td style="font-size: 11px;">원/시간</td>
-        		<td colspan="2" class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        		<i class="fa-solid fa-heart" style="color:#f8bbd0;"></i>&nbsp;10&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>&nbsp;5</td>
-        	</tr>
-        	<tr>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user" style="color:#aacde5;"></i>최소 2명</td>
-        		<td colspan="2" class="small"><i class="fa-solid fa-user"></i>최대 10명</td>
-        	</tr>
-        	
-        </table>
-      </div>
-    </div>
-  </div>
-  
-  
-  
-</div>
 </div>
 
 

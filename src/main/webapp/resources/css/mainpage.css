@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-/* === 배너 === */
-.carousel-item {
-	height: 350px;
-}
-    
 /* ==== search box ==== */
 .search {
     padding-top: 50px;
@@ -91,57 +86,55 @@
 }
 
 .mento-list .mento-item {
-    padding: 16px 30px;
-    margin: 30px 15px;
+    padding: 10px;
+    margin: 30px 10px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+    
+    height: 350px;
+    cursor: pointer;
 }
 
-.mento-list .mento-item.color {
-    border: 1.5px solid #68cbd7;
+.mento-item > img { /* 멘토 게시글 이미지 */
+	height: 150px;
+}
+
+.mento-item:hover { /* 멘토 hover */
+	border: 1.5px solid #68cbd7;
 }
 
 .mento-title { /* 타이틀 폰트 */
+	margin-top: 10px;
     display: block;
     margin-bottom: 10px;
-    font-weight: 300;
+    font-weight: bold;
     color: #3c4142;
     text-decoration: none;
-}
-
-.mento-title:hover { /* 타이틀 폰트 hover */
-    color: #68cbd7;
-    text-decoration: none;
+    height: 50px;
 }
 
 .mento-name { /* 멘토 이름  */
-    color: #b1bac5;
-    margin-bottom: 0.625rem;
-    font-size: 12px;
-    font-weight: 300;
+    color: #3c4142;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
-.mento-profile { /* 프로필 사진-wrap */
-    width: 48px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
+.mento-price { /* 멘토링 가격 */
+	color: #3f92b7;
+	font-weight: bold;
+	font-size: 16px;
 }
 
-.mento-profile-pic { /* 프로필 이미지 */
-    width: 100%;
-    border-radius: 50%;
+.mento-field { /* 멘토 분야 버튼 */
+	cursor: default;
+	background-color: #e3eff9;
+	color: #3c4142;
+	border-radius: 15px;
+	border: none;
+	font-size: 10px;
+	padding: 5px;
 }
-
-.mento-participants { /* 프로필 사진 부분 왼쪽 여백 삭제 */
-    padding: 0;
-    margin: 0;
-}
-
 
 .owl-item { /* 내부 컨텐트 크기 */
     width: 25%;
@@ -187,11 +180,10 @@
 }
 
 
-
 /* 마감임박 스터디 */
 
 .studyRank {
-	margin-top: 70px;
+	margin-top: 50px;
 }
 
 .studyRank-title {
@@ -202,54 +194,106 @@
 }
 
 .study-list .study-item {
-    padding: 16px 30px;
-    margin: 30px 15px;
+    padding: 10px;
+    margin: 30px 10px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+    
+    height: 350px;
+    cursor: pointer;
 }
 
-.study-list .study-item.color {
-    border: 1.5px solid #68cbd7;
+.study-item > img {
+	height: 150px;
+}
+
+.study-item:hover { /* 스터디 hover */
+	border: 1.5px solid #68cbd7;
 }
 
 .study-title { /* 타이틀 폰트 */
+	margin-top: 10px;
     display: block;
-    margin-bottom: 0.625rem;
-    font-weight: 300;
+    margin-bottom: 10px;
+    font-weight: bold;
     color: #3c4142;
     text-decoration: none;
+    height: 50px;
 }
 
-.study-title:hover { /* 타이틀 폰트 hover */
-    color: #68cbd7;
-    text-decoration: none;
+.study-name { /* 스터디 이름  */
+    color: #3c4142;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
-.study-name { /* 멘토 이름  */
-    color: #b1bac5;
-    margin-bottom: 0.625rem;
-    font-size: 12px;
-    font-weight: 300;
+
+.study-people { /* 스터디 인원 */
+	color: #3f92b7;
+	font-weight: bold;
+	font-size: 16px;
 }
 
-.study-profile { /* 프로필 사진-wrap */
-    width: 48px;
+.study-tag { /* 스터디 태그 버튼 */
+	cursor: default;
+	background-color: #e3eff9;
+	color: #3c4142;
+	border-radius: 15px;
+	border: none;
+	font-size: 10px;
+	padding: 5px;
+}
+
+/* 인기 스터디룸 */
+.studyroom {
+	margin-top: 60px;
+}
+
+#sRoom-wrap {
+	margin-top: 15px;
+}
+
+#sRoom { /* 스터디룸 card */
+	padding: 10px;
+    margin: 10px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
 }
 
-.study-profile-pic { /* 프로필 이미지 */
-    width: 100%;
-    border-radius: 50%;
+#sRoom:hover { /* 스터디룸 card hover시 */
+	border: 1.5px solid #68cbd7;
 }
 
-.study-participants { /* 프로필 사진 부분 왼쪽 여백 삭제 */
-    padding: 0;
-    margin: 0;
+.studyroom > img { /* 스터디룸 썸네일 이미지 */
+	height: 150px;
 }
 
+.sRoomName { /* 스터디룸 타이틀 폰트 */
+	margin-top: 10px;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #3c4142;
+}
+
+.sRoomName:hover {
+	
+	
+}
+
+/* 멘토링 리뷰 */
+#mtReview {
+	padding: 10px;
+	
+}
+
+/* 스터디 리뷰 */
+#stReview {
+	
+	padding: 10px;
+	
+}

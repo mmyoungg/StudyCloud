@@ -1,7 +1,15 @@
 package service.impl;
 
 import java.io.PrintWriter;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -37,6 +45,16 @@ public class MemberServiceImpl implements MemberService {
 	public String getMemberNick(Member member) {
 		return memberDao.selectMemberNick(member);
 	}
+	
+	@Override
+	public String getMemberNo(Member member) {
+		return memberDao.selectMemberNo(member);
+	}
+	
+	@Override
+	   public Member getMemberById(String id) {
+	      return memberDao.getMemberById(id);
+	   }
 	
 	//회원가입
 
@@ -77,48 +95,92 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void sendEmail(Member member, String div) {
-		// Mail Server 설정
-		String charSet = "utf-8";
-		String hostSMTP = "smtp.gmail.com"; 
-//		String hostSMTPid = "서버 이메일 주소(보내는 사람 이메일 주소)";
-//		String hostSMTPpwd = "서버 이메일 비번(보내는 사람 이메일 비번)";
+		
+				Properties props = new Properties();
+				props.put("mail.smtp.host", "smtp.gmail.com");
+				props.put("mail.smtp.port", "587");
+				props.put("mail.smtp.auth", "true");
+				props.put("mail.smtp.starttls.enable", "true");
+				props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+				
+				Session session = Session.getInstance(props, new Authenticator() {
+					@Override
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication("parksy421@gmail.com", "joaenufuyysabsft");
+					}
+				});
+				
+				
+				String receiver = member.getMemberEmail(); // 메일 받을 주소
+				String subject = "";
+				String msg="";
+				
+				if(div.equals("findpw")) {
+					subject = "StudyCloud 임시 비밀번호 입니다.";
+					msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+					msg += "<h3 style='color: #3F92B7;'>";
+					msg += member.getMemberNick() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+					msg += "<p>임시 비밀번호 : ";
+					msg += member.getMemberPw() + "</p></div>";
+				}
+				
+				Message message = new MimeMessage(session);
+				try {
+					message.setFrom(new InternetAddress("parksy421@gmail.com", "(주)StudyCloud", "utf-8"));
+					message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
+					message.setSubject(subject);
+					message.setContent(msg, "text/html; charset=utf-8");
 
-		// 보내는 사람 EMail, 제목, 내용
-//		String fromEmail = "보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
-		String fromEmail = "admin@studycloud.com";
-		String fromName = "(주)StudyCloud";
-		String subject = "";
-		String msg = "";
-
-		if(div.equals("findpw")) {
-			subject = "StudyCloud 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += member.getMemberId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += member.getMemberPw() + "</p></div>";
-		}
-
-		// 받는 사람 E-Mail 주소
-		String mail = member.getMemberEmail();
-		try {
-			HtmlEmail email = new HtmlEmail();
-			email.setDebug(true);
-			email.setCharset(charSet);
-			email.setSSL(true);
-			email.setHostName(hostSMTP);
-			email.setSmtpPort(465);
-
-//			email.setAuthentication(hostSMTPid, hostSMTPpwd);
-			email.setTLS(true);
-			email.addTo(mail, charSet);
-			email.setFrom(fromEmail, fromName, charSet);
-			email.setSubject(subject);
-			email.setHtmlMsg(msg);
-			email.send();
-		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
-		}
+					Transport.send(message);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
+//		
+//		// Mail Server 설정
+//		String charSet = "utf-8";
+//		String hostSMTP = "smtp.gmail.com"; 
+////		String hostSMTPid = "서버 이메일 주소(보내는 사람 이메일 주소)";
+//		String hostSMTPid = "parksy421@gamil.com";
+//		String hostSMTPpwd = "joaenufuyysabsft";
+////		String hostSMTPpwd = "서버 이메일 비번(보내는 사람 이메일 비번)";
+//
+//		// 보내는 사람 EMail, 제목, 내용
+////		String fromEmail = "보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
+//		String fromEmail = "parksy421@gamil.com";
+//		String fromName = "(주)StudyCloud";
+//		String subject = "";
+//		String msg = "";
+//
+//		if(div.equals("findpw")) {
+//			subject = "StudyCloud 임시 비밀번호 입니다.";
+//			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+//			msg += "<h3 style='color: blue;'>";
+//			msg += member.getMemberId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+//			msg += "<p>임시 비밀번호 : ";
+//			msg += member.getMemberPw() + "</p></div>";
+//		}
+//
+//		// 받는 사람 E-Mail 주소
+//		String mail = member.getMemberEmail();
+//		try {
+//			HtmlEmail email = new HtmlEmail();
+//			email.setDebug(true);
+//			email.setCharset(charSet);
+//			email.setSSL(true);
+//			email.setHostName(hostSMTP);
+//			email.setSmtpPort(587);
+//			email.setSSL(true);
+////			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+//			email.setTLS(true);
+//			email.addTo(mail, charSet);
+//			email.setFrom(fromEmail, fromName, charSet);
+//			email.setSubject(subject);
+//			email.setHtmlMsg(msg);
+//			email.send();
+//		} catch (Exception e) {
+//			System.out.println("메일발송 실패 : " + e);
+//		}
 	}
 
 	//비밀번호찾기
@@ -147,3 +209,6 @@ public class MemberServiceImpl implements MemberService {
 
 
 }
+	
+ 
+

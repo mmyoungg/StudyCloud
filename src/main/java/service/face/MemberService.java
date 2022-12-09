@@ -21,6 +21,14 @@ public interface MemberService {
 	 * @return 사용자의 이름
 	 */
 	public String getMemberNick(Member member);
+	
+	/**
+	 * 회원의 번호 조회
+	 * 
+	 * @param member - 회원번호를 조회할 사용자의 정보
+	 * @return 사용자의 이름
+	 */
+	public String getMemberNo(Member member);
 
 	/**
 	 * 신규 회원 가입
@@ -62,6 +70,13 @@ public interface MemberService {
 	 */
 	public String findPw(Member member);
 	
+	/**
+	    * 회원 아이디로 회원 정보 가져오기
+	    * 
+	    * @param id
+	    * @throws Exception
+	    */
+	   public Member getMemberById(String id);
 	
 	
 }

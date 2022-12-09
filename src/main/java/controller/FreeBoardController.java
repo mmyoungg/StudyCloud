@@ -44,11 +44,6 @@ public class FreeBoardController {
 		
 		logger.info("/FreeBoard/list [GET]");
 		
-		// 추후 Login기능 구현 시 삭제 // 
-		session.setAttribute("login", true); 
-		session.setAttribute("member_no", 1); 
-		session.setAttribute("member_nick", "nick"); 
-		
 		CmtPaging paging = freeBoardService.getPaging(curPage);
 		model.addAttribute("paging", paging);
 		
@@ -119,10 +114,7 @@ public class FreeBoardController {
 	public String fBoardWriteProc(FreeBoard freeBoard, List<MultipartFile> fBoardFile, HttpSession session) {
 		logger.info("/freeBoard/write [POST], 파라미터 : {}", freeBoard);
 		
-		session.setAttribute("login", true); 
-		session.setAttribute("member_no", 1); 
-		session.setAttribute("member_nick", "nick"); 
-		
+		session.setAttribute("member_no", 4);
 		freeBoard.setMemberNo( (int)session.getAttribute("member_no") );
 		
 		freeBoardService.write(freeBoard, fBoardFile);
@@ -288,7 +280,7 @@ public class FreeBoardController {
 	
 	@RequestMapping(value="/freeBoard/search", method=RequestMethod.POST)
 	public String searchProc(Model model, @RequestParam(value="searchArr[]") List<String> searchArr, 
-							String searchKeyword, @RequestParam(defaultValue="0") Integer curPage) { // 프론트단에서 배열로 보내줬을때 List<>로 받아야한다.
+							String searchKeyword, @RequestParam(defaultValue="1") Integer curPage) { // 프론트단에서 배열로 보내줬을때 List<>로 받아야한다.
 		
 		logger.info("/freeBoard/search [AJAX POST] 요청완료");
 		logger.info("/freeBoard/search [AJAX POST] searchArr : {}", searchArr);
@@ -303,16 +295,29 @@ public class FreeBoardController {
 		CmtPaging paging = freeBoardService.getSearchPaging(map);
 		int startNo = paging.getStartNo();
 		int endNo = paging.getEndNo();
+		int totalCount = paging.getTotalCount();
+		int totalPage = paging.getTotalPage();
 		logger.info("[검색결과 리스트 페이징] startNo : {}", startNo);
 		logger.info("[검색결과 리스트 페이징] endNo : {}", endNo);
-		model.addAttribute("paging", paging);
+		logger.info("[검색결과 리스트 페이징] totalCount : {}", totalCount);
+		logger.info("[검색결과 리스트 페이징] totalPage : {}", totalPage);
 		
 		map.put("startNo", startNo);
 		map.put("endNo", endNo);
 		
 		List<HashMap<String, Object>> list = freeBoardService.getSearchList(map);
+		model.addAttribute("paging", paging);
+		
+		// --test--
+		List<String> searchType = (List<String>)map.get("list");
+		String sKeyword = (String)map.get("keyword");
+		//---------
+		
+		map.get("searchKeyword");
 		logger.info("검색 결과 리스트 : {}", list);
 		model.addAttribute("fBoardSearchList", list);
+		model.addAttribute("checked", searchType);
+		model.addAttribute("keyword", sKeyword);
 		
 		return "/freeBoard/SearchListAjax";
 		

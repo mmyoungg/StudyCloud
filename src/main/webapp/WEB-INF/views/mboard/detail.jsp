@@ -86,6 +86,34 @@ $(document).ready(function() {
 // 	});
 // }
 
+$(document).ready(function () {
+	$('#btn_like').click(function(event) {
+		event.preventDefault();
+		
+		//로그인 if문 추후 구현
+		//..
+		
+		$.ajax ({
+			type: "POST"
+			,url: "/mboard/detail"
+			,data: JSON.stirngify(form)
+			success: function( result ) {
+				console.log("좋아요 성공!")
+// 				if(confirm("해당 상품 좋아요 등록 완. 목록페이지 이동 ㄱ?")) {
+// 					location.href='/마이페이지';
+// 				} else {
+// 					location.reload();
+// 				}
+			}
+			, error: function(e) {
+				console.log(e);
+				alert("좋아요 실패!");
+				location.reload();
+			}
+		})
+	})
+})
+
 
 
 </script>

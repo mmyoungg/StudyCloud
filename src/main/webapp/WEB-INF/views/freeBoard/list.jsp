@@ -40,6 +40,12 @@ $(document).ready(function() {
 	pagingAjax(pageNo);	
 	
 	$("#writeBtn").click(function() {
+		
+		if(${empty login }) {
+			alert("로그인이 필요한 서비스입니다.")	
+			return false;
+		}
+		
 		location.href="/freeBoard/write"
 	})
 })		
@@ -71,7 +77,7 @@ function search() {
 		alert("검색조건과 검색 키워드를 모두 입력해주세요.");  
 		return false;
 	}
-	
+
 	$.ajax({
 		url: "/freeBoard/search",
 		type: "POST",
@@ -86,7 +92,29 @@ function search() {
 	
 } 
 	
-
+function pagingSearchAjax(pageNo, checked, keyword) {
+	var page_no = pageNo;
+	var checkArr = [];
+	var checked = checked;
+	var keyword = keyword;
+	$("input[name='fBoardSearch']:checked").each(function(i) {
+		checkArr.push($(this).val());
+	})
+	console.log(page_no);
+	console.log(checked);
+	console.log(keyword);
+	
+	 $.ajax({
+		type:"POST",
+		url: "/freeBoard/search",
+		dataType: "html", 
+		data : {"curPage" : page_no, "searchArr" : checkArr, "searchKeyword" : keyword},
+		success : function(r){
+		console.log('[댓글 페이징] AJAX 요청 완료');
+		$("#fBoard_content").html(r);
+		} 
+	}) 
+} 
 
 </script>
 

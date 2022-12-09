@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="dao.face.SRoomDao">
+
+ 	<select id="countSroom" resultType="int">
+		select count(*) from studyroom
+	</select>
+	
+	<select id="getSRoomPagingList" resultType="hashmap" parameterType="util.CmtPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT s.sRoom_no, nvl(m.mcnt, 0) mcnt, nvl(r.rcnt, 0) rcnt, round(nvl(r.avg, 0), 2) avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+				FROM studyRoom s LEFT OUTER JOIN (
+                    SELECT count(sRoomMark_no) mcnt, sRoom_no FROM sRoomMark
+                    GROUP BY sRoom_no) m
+                ON s.sRoom_no = m.sRoom_no
+                LEFT OUTER JOIN (
+                    SELECT count(sRoomReview_no) rcnt, AVG(sRoomReview_score) avg, sRoom_no FROM sRoomReview
+                    GROUP BY sRoom_no) r
+                ON s.sRoom_no = r.sRoom_no
+                LEFT OUTER JOIN fileUpload f
+                ON s.sRoom_no = f.sRoom_no
+                GROUP BY s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+                order by s.sRoom_no DESC
+				) B
+			) StudyRoom
+		where rnum BETWEEN #{startNo} AND #{endNo}	 
+	</select>
+	
+	<select id="getSRoomListByLocation" parameterType="hashMap" resultType="hashmap">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT s.sRoom_no, nvl(m.mcnt, 0) mcnt, nvl(r.rcnt, 0) rcnt, round(nvl(r.avg, 0), 2) avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+				FROM studyRoom s LEFT OUTER JOIN (
+                    SELECT count(sRoomMark_no) mcnt, sRoom_no FROM sRoomMark
+                    GROUP BY sRoom_no) m
+                ON s.sRoom_no = m.sRoom_no
+                LEFT OUTER JOIN (
+                    SELECT count(sRoomReview_no) rcnt, AVG(sRoomReview_score) avg, sRoom_no FROM sRoomReview
+                    GROUP BY sRoom_no) r
+                ON s.sRoom_no = r.sRoom_no
+                LEFT OUTER JOIN fileUpload f
+                ON s.sRoom_no = f.sRoom_no
+                WHERE s.sRoom_addr LIKE '%'||#{sRoomLoc}||'%'
+                GROUP BY s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+                order by s.sRoom_no DESC
+				) B
+			) StudyRoom
+		where rnum BETWEEN #{startNo} AND #{endNo}	 
+	</select>
+	
+	<select id="countLocSroom" parameterType="hashMap" resultType="int">
+		select count(*) from studyroom where sRoom_addr LIKE '%'||#{sRoomLoc}||'%'
+	</select>
+	
+	<select id="countpNumSroom" parameterType="hashMap" resultType="int">
+		select count(*) from studyroom where sRoom_people >= #{sRoompNum}
+	</select>
+	
+	<select id="getSRoomListByNumOfPeople" parameterType="hashMap" resultType="hashmap">
+				SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT s.sRoom_no, nvl(m.mcnt, 0) mcnt, nvl(r.rcnt, 0) rcnt, round(nvl(r.avg, 0), 2) avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+				FROM studyRoom s LEFT OUTER JOIN (
+                    SELECT count(sRoomMark_no) mcnt, sRoom_no FROM sRoomMark
+                    GROUP BY sRoom_no) m
+                ON s.sRoom_no = m.sRoom_no
+                LEFT OUTER JOIN (
+                    SELECT count(sRoomReview_no) rcnt, AVG(sRoomReview_score) avg, sRoom_no FROM sRoomReview
+                    GROUP BY sRoom_no) r
+                ON s.sRoom_no = r.sRoom_no
+                LEFT OUTER JOIN fileUpload f
+                ON s.sRoom_no = f.sRoom_no
+                WHERE s.sRoom_people >= #{sRoompNum}
+                GROUP BY s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+                order by s.sRoom_no DESC
+				) B
+			) StudyRoom
+		where rnum BETWEEN #{startNo} AND #{endNo}	
+	</select>
+	
+	<select id="getSroomDetailBySroomNo" parameterType="int" resultType="hashmap">
+		SELECT s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, s.sRoom_intro, s.sRoom_info, s.sRoom_role, f.fileUpload_no, f.sRoom_no, f.fileUpload_ori, f.fileUpload_stor 
+		FROM studyRoom s
+		JOIN fileUpload f
+		ON (s.sRoom_no = f.sRoom_no)
+		WHERE f.sRoom_no = #{sRoomNo}
+	</select>
+	
+	<insert id="insertSroomQna" parameterType="dto.SroomQna">
+		<selectKey order="BEFORE" resultType="int" keyProperty="sRoomQnaNo">
+			SELECT studyRoomQna_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO studyRoomQna( sRoomQna_no, sRoom_no, member_no, sRoomQna_grpno, sRoomQna_title, sRoomQna_content, sRoomQna_date, sRoomQna_secret )
+		VALUES( #{sRoomQnaNo}, #{sRoomNo}, #{memberNo}, #{sRoomQnaNo}, #{sRoomQnaTitle}, #{sRoomQnaContent}, sysdate, #{sRoomQnaSecret} )
+	</insert>
+	
+	<select id="getListQnAListBySroomNo" resultType="hashMap" parameterType="int">
+		SELECT m.member_nick, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor, q.*
+		FROM studyRoomQna q
+		LEFT OUTER JOIN member m ON (q.member_no = m.member_no)
+		LEFT OUTER JOIN fileUpload f ON (m.member_no = f.member_no)
+		WHERE q.sRoom_no = #{sRoomNo} 
+		ORDER BY q.sRoomQna_no DESC
+	</select>
+	
+	
+	
+	
+	
+
+</mapper>

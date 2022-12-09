@@ -92,10 +92,12 @@ public class Member {
 	public String getMemberPhone() {
 		return memberPhone;
 	}
-
+	
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
+	
+
 
 
 	
