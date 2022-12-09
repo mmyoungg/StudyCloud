@@ -6,7 +6,7 @@
 <script>
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-		location.href = "/mntboard/write"
+		location.href = "/mtboard/write"
 	})
 })
 </script>
@@ -18,6 +18,8 @@ $(document).ready(function() {
 		<th scope="col" style="width: 7%;">No.</th>
 		<th scope="col" style="width: 40%;">제목</th>
 		<th scope="col" style="width: 15%;">작성자</th>
+		<th scope="col" style="width: 20%;">직무</th>
+		<th scope="col" style="width: 20%;">경력</th>
 		<th scope="col" style="width: 10%;">조회수</th>
 		<th scope="col" style="width: 10%;">🤍</th>
 		<th scope="col" style="width: 15%;">작성일</th>
@@ -25,19 +27,21 @@ $(document).ready(function() {
 </thead>
 
 <tbody>
-<c:forEach items="${mntBoardlist }" var="mntboard">
+<c:forEach items="${mtBoardlist }" var="mtboard">
   <tr>
-      <td scope="row" class="no">${mntboard.MNTBOARD_NO }</td>
+      <td scope="row" class="no">${mtboard.MTBOARD_NO }</td>
       <td>
-      <a id="boardno" href="/mntboard/view?mntboardNo=${mntboard.MNTBOARD_NO }">${mntboard.MNTBOARD_TITLE }</a>
-      <c:if test="${mntboard.MNTBOARD_CMCNT  ne 0}">
-		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mntboard.MNTBOARD_CMCNT}"/>&nbsp;]</b></small>
+      <a id="boardno" href="/mtboard/view?mtboardNo=${mtboard.MTBOARD_NO }">${mtboard.MTBOARD_TITLE }</a>
+      <c:if test="${mtboard.MTBOARD_CMCNT  ne 0}">
+		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mtboard.MTBOARD_CMCNT}"/>&nbsp;]</b></small>
 	 </c:if>
       </td>
-      <td>${mntboard.MEMBER_NICK  }</td>
-      <td>${mntboard.MNTBOARD_HIT }</td>
-      <td>${mntboard.LIKE_CNT }</td>
-      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mntboard.MNTBOARD_DATE }"/>
+      <td>${mtboard.MEMBER_NICK  }</td>
+      <td>${mtboard.JOBDUTY  }</td>
+      <td>${mtboard.CAREER  }</td>
+      <td>${mtboard.MTBOARD_HIT }</td>
+      <td>${mtboard.MARK_CNT }</td>
+      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mtboard.MTBOARD_DATE }"/>
  </tr>
 </c:forEach>
  

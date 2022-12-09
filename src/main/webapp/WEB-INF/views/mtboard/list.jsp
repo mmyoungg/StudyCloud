@@ -11,7 +11,7 @@
 <c:import url="../layout/header.jsp" /> 
 
 <!-- css연결 -->
-<link rel="stylesheet" href="/resources/css/mtBoardList.css"> 
+<link rel="stylesheet" href="/resources/css/mtBoardList.css?ver=2"> 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,22 +19,26 @@
 <body>
 
 <script type="text/javascript">
-
 $(document).ready(function() {
-	$("#btnWrite").click(function() {
-		location.href = "/mtboard/write"
-	})
-	
-	$("#btnUpdate").click(function() {
-		location.href = "/mtboard/update?boardNo=${viewBoard.boardNo }"
-	})
-	
-	$("#btnDelete").click(function() {
-		location.href = "/mtboard/delete?boardNo=${viewBoard.boardNo }"
-	})
+	var curPage = 1;    	
+	console.log(curPage);
 })
 
 
+function pageMove(page_no) {
+	$.ajax({
+		type: "Get"
+	   , url: "/mtboard/listPaging"
+	   , data: {
+		   curPage:page_no
+	   }
+	   , dataType: "html"
+	   , success: function( p ) {
+		   $("#listPaging").html(p)
+	   }
+		
+	})
+}
 </script>
 
 
@@ -134,84 +138,10 @@ $(document).ready(function() {
 
   
 
-<table class="table">
-<thead>
-	<tr>
-		<th scope="col" style="width: 7%;">No.</th>
-		<th scope="col" style="width: 40%;">제목</th>
-		<th scope="col" style="width: 15%;">작성자</th>
-		<th scope="col" style="width: 20%;">직무</th>
-		<th scope="col" style="width: 20%;">경력</th>
-		<th scope="col" style="width: 10%;">조회수</th>
-		<th scope="col" style="width: 10%;">🤍</th>
-		<th scope="col" style="width: 15%;">작성일</th>
-	</tr>
-</thead>
-
-<tbody>
-  <tr>
-      <th scope="row" class="no">1</th>
-      <td>
-      백엔드 개발자 과외 합니다
-      <c:if test="${mtboarddto.reply_count ne 0}">
-		<small><b>[&nbsp;<c:out value="${mtboarddto.reply_count}"/>&nbsp;]</b></small>
-	 </c:if>
-      </td>
-      <td>코딩왕자</td>
-      <td>백엔드</td>
-      <td>미들</td>
-      <td>3</td>
-      <td>1</td>
-      <td>2022-11-20</td>
- </tr>
- 
- <tr>
-      <th scope="row" class="no">2</th>
-      <td>
-      웹디 달인에게 배우실분?
-      <c:if test="${mtboarddto.reply_count ne 0}">
-		<small><b>[&nbsp;<c:out value="${mtboarddto.reply_count}"/>&nbsp;]</b></small>
-	 </c:if>
-      </td>
-      <td>디자인여왕</td>
-      <td>웹디자이너</td>
-      <td>주니어</td>
-      <td>10</td>
-      <td>8</td>
-      <td>2022-11-21</td>
-    </tr>
-	
-    
-  <tr>
-      <th scope="row" class="no">3</th>
-      <td>
-      면접 도움 드려요
-      <c:if test="${mtboarddto.reply_count ne 0}">
-		<small><b>[&nbsp;<c:out value="${mtboarddto.reply_count}"/>&nbsp;]</b></small>
-	 </c:if>
-	 </td>
-      <td>언어달인</td>
-      <td>프론드엔드</td>
-      <td>주니어</td>
-      <td>7</td>
-      <td>6</td>
-      <td>2022-11-22</td>
-  </tr>
-    
-</tbody>
-</table>
-
-<!-- 멘토만 보이게 -->
-<div class="btn-zip">
-<button id="btnWrite" class="btn btn-primary pull-right">글쓰기</button>
-<button id="btnUpdate" class="btn btn-primary pull-right">수정</button>
-<button id="btnDelete" class="btn btn-primary pull-right">삭제</button>
+<div id="listPaging">
+<c:import url="/WEB-INF/views/mtboard/listPaging.jsp?ver=2" />
 </div>
 
-<br><br><br><br><br><br><br><br><br>
-
-
-<c:import url="/WEB-INF/views/mtboard/paging.jsp" />
 </div><!-- .글목록container -->
 </div> <!-- right -->
 

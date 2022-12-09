@@ -15,11 +15,14 @@
 <link rel="stylesheet" href="/resources/css/mntBoardView.css?ver=4"> 
 <script src="../resources/js/mtBoardDetail.js?ver=1"></script>
 
-</head>
-<body>
-
 <script type="text/javascript">
 $(document).ready(function() {
+	var curPage = 1;    	
+	console.log(curPage);
+	
+	cntMove(1)
+
+	
 	$("#MntbtnList").click(function() {
 		location.href = "/mntboard/list"
 	})
@@ -33,49 +36,41 @@ $(document).ready(function() {
 		location.href = "/mntboard/delete?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
 	}) 
 	
-	$("#btnReview").click(function() {
-		
-		 var commtForm = $("form[name='insertCommt']");
-		 commtForm.attr("action", "/mntboard/view");
-		 commtForm.submit();
-	})
 	
-	
-	/* $("#commtUpdatebtn").click(function() {
-			location.href = "/mntboard/view?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
-	 })
-	 */
-	/*
-	$("#MntbtnDelete").click(function() {
-		location.href = "/mntboard/delete?mntboardNo=${mntViewBoard.MNTBOARD_NO}"
-	}) 	 */
-	
-	$(document).ready(function() {
-		var curPage = 1;    	
-		console.log(curPage);
-		
-		cntMove(1)
-	})
 
-}) 
+	
+	function update(e){
+		console.log(e)
+	}
+	
+	
 	function cntMove(page_no) {
-		$.ajax({
+	console.log(${param.mntboardNo});	
+	$.ajax({
 			type: "Get"
-		   , url: "/mntboard/commtPaging"
+		   , url: "/mntboard/commtPage"
 		   , data: {
 			   curPage:page_no
 			   , mntboardNo: ${param.mntboardNo}
 		   }
 		   , dataType: "html"
 		   , success: function( c ) {
-			   $("#commtPaging").html(c)
+			   $("#commtPage").html(c)
 		   }
 			
 		})
 	}
 	
+
+	
+})
+
+
 </script>
 
+
+</head>
+<body>
 
  <!-- Modal -->
 <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -123,7 +118,7 @@ $(document).ready(function() {
 </div>
 
 <!-- 분야 -->
-<div class="select_field">${mntViewBoard.FIELD }</div>
+<span class="mnt_id">${mntViewBoard.MEMBER_NICK }</span>
 
 <!-- 로그인시에만 눌리게 / 비로그인시 로그인해주세요 창 띄움-->
 <!-- 찜하기 아작스로 구현 / 찜하기가 완료/취소되었습니다 멘트-->
@@ -147,8 +142,9 @@ $(document).ready(function() {
 
 <br><br>
 <br>
-<span class="mnt_id">${mntViewBoard.MEMBER_NICK }</span>
+
 <span class="write_date"><fmt:formatDate value="${mntViewBoard.MNTBOARD_DATE }" pattern="yyyy-MM-dd"/></span>
+<div class="select_field">분야 ${mntViewBoard.FIELD }</div>
 <hr>
 </div> <!-- mnt_wrap1 끝 -->
 
@@ -164,9 +160,21 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 </div><!-- mnt_wrap2 끝 -->
 
 
-
-
-
+<!-- 댓글작성 -->
+<%-- <form class="mb-3" name="insertCommt" id="insertCommt" method="post">
+<input type="hidden" name="mntBoardNo" value="${param.mntboardNo }">
+	
+<hr>		
+	<label for="memberNick" id="memberNick" >&nbsp;${mntViewBoard.MEMBER_NICK }</label>
+	<div>
+		<textarea class="col-auto form-control" id="reviewContents" name="commtContent"
+				  placeholder="댓글을 입력해주세요"></textarea>
+	</div>
+ <!-- Post 구현해야됨 -->
+	 <button class="btn btn-primary" id="btnReview" >등록</button>
+</form>	
+<br><br> --%>
+<!-- 댓글 끝 -->
 
 <!-- 댓글 페이징 -->
 <div class="reply_not_div">
@@ -174,13 +182,10 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 </div>
 <br>
 
-<div id="commtPaging">
-<c:import url="/WEB-INF/views/mntboard/commtPaging.jsp?ver=2" />
-</div> 	
 
 
-
-
+<div id="commtPage">
+<c:import url="/WEB-INF/views/mntboard/commtPage.jsp?ver=2" /> 
 
 <div class="btn-wrap">
 	<button id="MntbtnList" class="btn btn-primary">목록</button>

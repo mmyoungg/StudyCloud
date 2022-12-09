@@ -84,7 +84,7 @@ span.write_date {
 
 /* 본문 */
 .mnt_wrap2 {
-	margin-bottom: 100px;
+/* 	margin-bottom: 100px; */
 }
 
 
@@ -184,7 +184,7 @@ textarea::placeholder {
 	}
 	.pageMaker{
 	    list-style: none;
-	    display: inline-block;	
+	    display: inline-block;
 	}
 	.pageMaker_btn{
 		float: left;
@@ -249,3 +249,7 @@ textarea::placeholder {
 	text-align: right;
 }
 
+#page_btn {
+    color:#3f92b7;
+    font-size: 14px;
+}
