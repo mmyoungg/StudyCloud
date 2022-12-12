@@ -70,20 +70,22 @@ public interface MboardService {
 	 * @param mboard
 	 */
 	public void delete(Mboard mboard);
+//
+//	/**
+//	 * 좋아요
+//	 * @param mboardLike
+//	 */
+//	public void setMboardLike(MboardLike mboardLike);
+//	
+//	/**
+//	 * 찜 여부 확인
+//	 * @param member
+//	 * @return
+//	 */
+//	public Object getmboardlike(Member member);
+	
+	
 
-	/**
-	 * 좋아요
-	 * @param mboardLike
-	 */
-	public void setMboardLike(MboardLike mboardLike);
-	
-	/**
-	 * 찜 여부 확인
-	 * @param member
-	 * @return
-	 */
-	public Object getmboardlike(Member member);
-	
 
 
 	

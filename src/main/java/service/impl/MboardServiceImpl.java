@@ -9,7 +9,6 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.io.IOExceptionWithCause;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +59,10 @@ public class MboardServiceImpl implements MboardService{
 		
 		//상세보기 조회 결과 리턴
 		return mboardDao.detailPageByMboardNo(mboardNo);
+		
+		//좋아요 삽입
+//		mboardDao.insertlike(mboardNo);
+		
 	}
 
 
@@ -180,16 +183,22 @@ public class MboardServiceImpl implements MboardService{
 		mboardDao.delete(mboard);
 	}
 
-	@Override
-	public void setMboardLike(MboardLike mboardLike) {
-		
-	}
+	
 
-	@Override
-	public Object getmboardlike(Member member) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
+//	@Override
+//	public void setMboardLike(MboardLike mboardLike) {
+//		
+//	}
+//
+//	@Override
+//	public Object getmboardlike(Member member) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
+	
 
 
 

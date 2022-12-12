@@ -90,6 +90,12 @@
 		WHERE mboard_no = #{mboardNo }
 	</delete>
 	
+	<!-- 좋아요 여부 -->
+	<select id="findlike" resultType="int">
+		SELECT count(*) from mboardlike
+		WHERE member_no = #{memberNo } AND mboard_no = #{mboardNo }
+	</select>
+	
 	
 	
 
