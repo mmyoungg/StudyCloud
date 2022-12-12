@@ -63,7 +63,7 @@ public class CommtPaging {
 		if (curPage == 0)
 			this.curPage = 1; // 첫 페이지를 기본 페이지로 설정한다
 		if (listCount == 0)
-			this.listCount = 7; // 화면에 보여질 게시글 수를 10개로 설정
+			this.listCount = 6; // 화면에 보여질 게시글 수를 10개로 설정
 		if (pageCount == 0)
 			this.pageCount = 10; // 화면에 보여질 페이징 수를 10개로 설정
 

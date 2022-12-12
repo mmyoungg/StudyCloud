@@ -5,7 +5,6 @@ public class MntBoardLike {
 	private int mntboardlikeNo;
 	private int mntboardNo;
 	private int memberNo;
-	private int mlike;
 	
 	public MntBoardLike() {}
 
@@ -14,13 +13,12 @@ public class MntBoardLike {
 		this.mntboardlikeNo = mntboardlikeNo;
 		this.mntboardNo = mntboardNo;
 		this.memberNo = memberNo;
-		this.mlike = mlike;
 	}
 
 	@Override
 	public String toString() {
 		return "MntBoardLike [mntboardlikeNo=" + mntboardlikeNo + ", mntboardNo=" + mntboardNo + ", memberNo="
-				+ memberNo + ", mlike=" + mlike + "]";
+				+ memberNo + "]";
 	}
 
 	public int getMntboardlikeNo() {
@@ -47,14 +45,6 @@ public class MntBoardLike {
 		this.memberNo = memberNo;
 	}
 
-	public int getMlike() {
-		return mlike;
-	}
-
-	public void setMlike(int mlike) {
-		this.mlike = mlike;
-	}
-	
 	
 	
 	

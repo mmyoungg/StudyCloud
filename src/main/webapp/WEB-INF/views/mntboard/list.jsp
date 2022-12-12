@@ -11,7 +11,7 @@
 <c:import url="../layout/header.jsp" /> 
 
 <!-- css연결 -->
-<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=3"> 
+<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=2"> 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
