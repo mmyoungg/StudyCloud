@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import dto.FileUpload;
+import dto.SroomQna;
 import dto.StudyRoom;
 import util.Paging;
 
@@ -73,8 +74,30 @@ public interface SroomService_admin {
 
 	public List<Map<String, Object>> srListWithFile(StudyRoom studyroom);
 
+	
+	//===== QnA =====
+	
+	/**
+	 * 게시글 정보로 QnA를 함께 조회한다
+	 * 
+	 * @param studyroom - 게시글 정보
+	 * @return QnA 리스트
+	 */
+	public List<HashMap<String, Object>> qnaList();
 
+	/**
+	 * 게시글 상세보기
+	 * 
+	 * @param studyroom - 상세 조회할 게시글 번호 객체
+	 * @return 조회된 상세 게시글 객체
+	 */
+	public SroomQna qnaView(SroomQna qnaView);
 
-
+	/**
+	 * 게시글 정보와 첨부파일을 함께 처리한다
+	 * 
+	 * @param sroomQna - 게시글 정보 객체
+	 */
+	public void writeqna(SroomQna sroomQna);
 
 }

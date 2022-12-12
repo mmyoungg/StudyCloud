@@ -101,7 +101,7 @@
 }
 
 .mento-item:hover { /* 멘토 hover */
-	border: 1.5px solid #68cbd7;
+	background-color:rgba(216, 229, 236, 0.5);
 }
 
 .mento-title { /* 타이틀 폰트 */
@@ -109,6 +109,7 @@
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 18px;
     color: #3c4142;
     text-decoration: none;
     height: 50px;
@@ -117,7 +118,7 @@
 .mento-name { /* 멘토 이름  */
     color: #3c4142;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .mento-price { /* 멘토링 가격 */
@@ -132,7 +133,7 @@
 	color: #3c4142;
 	border-radius: 15px;
 	border: none;
-	font-size: 10px;
+	font-size: 12px;
 	padding: 5px;
 }
 
@@ -147,7 +148,6 @@
   top: 0;
   margin-left: 0;
   display: block !important;
-  /* background-image: linear-gradient(to right, #F4F7FD, transparent) !important; */
 }
 
 .owl-prev .owl-nav-wrapper { /* prev 버튼 위치 */
@@ -166,7 +166,6 @@
   top: 0;
   right: 0;
   display: block !important;
-  /* background-image: linear-gradient(to right, transparent, #F4F7FD) !important; */
 }
 
 .owl-next .owl-nav-wrapper { /* next 버튼 위치 */
@@ -199,17 +198,11 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-    
-    height: 350px;
     cursor: pointer;
 }
 
-.study-item > img {
-	height: 150px;
-}
-
 .study-item:hover { /* 스터디 hover */
-	border: 1.5px solid #68cbd7;
+	background-color:rgba(216, 229, 236, 0.5);
 }
 
 .study-title { /* 타이틀 폰트 */
@@ -217,6 +210,7 @@
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 18px;
     color: #3c4142;
     text-decoration: none;
     height: 50px;
@@ -225,9 +219,8 @@
 .study-name { /* 스터디 이름  */
     color: #3c4142;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 16px;
 }
-
 
 .study-people { /* 스터디 인원 */
 	color: #3f92b7;
@@ -241,11 +234,11 @@
 	color: #3c4142;
 	border-radius: 15px;
 	border: none;
-	font-size: 10px;
+	font-size: 12px;
 	padding: 5px;
 }
 
-/* 인기 스터디룸 */
+/* 최신 업데이트 스터디룸 */
 .studyroom {
 	margin-top: 60px;
 }
@@ -254,7 +247,7 @@
 	margin-top: 15px;
 }
 
-#sRoom { /* 스터디룸 card */
+#sRoom { /* 스터디룸 */
 	padding: 10px;
     margin: 10px;
     background-color: #ffffff;
@@ -265,11 +258,18 @@
 }
 
 #sRoom:hover { /* 스터디룸 card hover시 */
-	border: 1.5px solid #68cbd7;
+	background-color:rgba(216, 229, 236, 0.5);
 }
 
-.studyroom > img { /* 스터디룸 썸네일 이미지 */
-	height: 150px;
+#sRoom > img {
+    width:100%;
+	height: 200px;
+    object-fit:cover;
+}
+
+a {
+	text-decoration: none;
+	
 }
 
 .sRoomName { /* 스터디룸 타이틀 폰트 */
@@ -277,23 +277,16 @@
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 18px;
     color: #3c4142;
-}
-
-.sRoomName:hover {
-	
-	
+    text-decoration: none;
 }
 
 /* 멘토링 리뷰 */
 #mtReview {
 	padding: 10px;
-	
 }
 
-/* 스터디 리뷰 */
-#stReview {
-	
-	padding: 10px;
-	
+.mtReviewContent { /* 리뷰 내용 */
+	font-size: 16px;
 }

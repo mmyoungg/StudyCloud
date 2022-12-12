@@ -2,6 +2,7 @@ package service.impl.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dao.face.admin.SroomDao_admin;
 import dto.FileUpload;
+import dto.SroomQna;
 import dto.StudyRoom;
 import service.face.admin.SroomService_admin;
 import util.Paging;
@@ -185,14 +187,32 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 	}
 
 	
+	//QnA 리스트
+	@Override
+	public List<HashMap<String, Object>> qnaList() {
+		
+		return sRoomDao_admin.qnaList();
+	}
+	
+	@Override
+	public SroomQna qnaView(SroomQna qnaView) { //QnA 상세보기
+		return sRoomDao_admin.selectQnaView(qnaView);
+	}
+
+	@Override
+	public void writeqna(SroomQna sroomQna) { //답변 작성
+		sRoomDao_admin.writeQna(sroomQna);
+	}
+
+	//메인페이지
+	
 	@Override
 	public List<Map<String, Object>> srListWithFile(StudyRoom studyroom) {
 		
-//		HashMap<String, Object> map = new HashMap<>();
-//		
-//		map.put("StudyRoom", sRoomDao_admin.selectStudyroom(studyroom));
-//		map.put("FileUpload", sRoomDao_admin.selectFileBySroomNo(studyroom));
-		
 		return sRoomDao_admin.selectMap();
 	}
+
+
+
+
 }

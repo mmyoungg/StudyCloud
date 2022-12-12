@@ -38,4 +38,12 @@ public interface ReserveDao_admin {
 	 */
 	public List<HashMap<String, Object>> previewReserve();
 
+	/**
+	 * 키워드를 이용하여 검색한다
+	 * 
+	 * @param search_option - 검색할 키워드
+	 * @return 조회된 게시글 목록
+	 */
+	public List<HashMap<String, Object>> searchReserve(String search_option);
+
 }

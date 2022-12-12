@@ -15,7 +15,7 @@
 
 <!-- 파비콘 적용 -->
 <link rel="icon" type="image/png" sizes="32x32" href="/resources/img/favicon-32x32.png">
-<link rel="manifest" href="/site.webmanifest">
+<link rel="/manifest" href="/site.webmanifest">
 
 <style type="text/css">
 
@@ -108,7 +108,9 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <!-- studyCloud 이미지 -->
-                <img class="navbar-brand name" id="logo" src="/resources/img/Logo.png" />
+                <a href="/mainpage">
+                	<img class="navbar-brand name" id="logo" src="/resources/img/Logo.png" />
+                </a>
                 
                 <!-- 토글 -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,7 +128,7 @@
                             <a class="nav-link dropdown menu" href="#" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/freeBoard/list">자유게시판</a></li>
-                                <li><a class="dropdown-item" href="#">번개게시판</a></li>
+                                <li><a class="dropdown-item" href="/mboard/main">번개게시판</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"> <a class="nav-link" id="menu" href="/sRoom/list">스터디 공간 대여</a> </li>
@@ -137,16 +139,16 @@
                        
                           <!-- 비로그인 상태 -->
                           <c:if test="${empty login }">
-                          <li class="nav-item"><a class="nav-link" href="./login">로그인</a></li>
-                          <li class="nav-item"><a class="nav-link" href="./join">회원가입</a></li>
-                          <li class="nav-item"><a class="nav-link" href="./mypage">마이페이지</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/join">회원가입</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/mypage">마이페이지</a></li>
                           </c:if>
                           
                           <!-- 로그인 상태 -->
                           <c:if test="${not empty login }">
-                          <li class="nav-item">${member.memberNick }님</li>
-                          <li class="nav-item"><a class="nav-link" href="./mypage/mypageMain">마이페이지</a></li>
-                          <li class="nav-item"><a class="nav-link" href="./login/logout">로그아웃</a></li>
+                          <li class="nav-item">${memberNick } 님</li>
+                          <li class="nav-item"><a class="nav-link" href="/mypage">마이페이지</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/login/logout">로그아웃</a></li>
                           </c:if>
                           
                        </ul>
