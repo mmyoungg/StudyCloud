@@ -21,6 +21,7 @@ import dto.ApplyMt;
 import dto.FileUpload;
 import dto.Member;
 import dto.Reservation;
+import dto.SroomQna;
 import dto.StudyBoard;
 import dto.StudyRoom;
 import service.face.admin.ApplyMtService_admin;
@@ -279,10 +280,52 @@ public class AdminController {
 		return "redirect:/admin/studyroom";
 	}
 	
-	
+	//스터디룸 QnA
 	@RequestMapping("/admin/qna")
-	public void qna() {
+	public void qna(StudyRoom studyroom, Model model) {
 		
+		logger.info("/admin/qna [GET]");
+		
+		List<HashMap<String, Object>> qna = sRoomService_admin.qnaList();
+		
+		logger.info("qna: {}", qna);
+		
+		model.addAttribute("qna", qna);
+		
+	}
+	
+	@GetMapping("/admin/qna/view") //QnA 상세보기
+	public String qnaView(SroomQna qnaView, Model model) {
+		
+		//잘못된 게시글 번호 처리
+		if( qnaView.getsRoomNo() < 0) {
+			return "redirect:/admin/qna";
+		}
+		
+		//게시글 조회
+		qnaView = sRoomService_admin.qnaView(qnaView);
+		logger.debug("조회된 게시글 {}", qnaView);
+		
+		//모델값 전달
+		model.addAttribute("qnaView", qnaView);
+		
+		return "/admin/qnaView";
+	}
+	
+	@PostMapping("/admin/qna/view") //QnA 답변 등록
+	public String insertqna(SroomQna sroomQna, Member member, HttpSession session, Model model ) {
+		
+		logger.info("/admin/qna/view [POST]");
+		
+		logger.info("{}", sroomQna);
+
+		sroomQna.setMemberNo( (int) session.getAttribute("member_no") );
+		
+		//게시글 처리
+		sRoomService_admin.writeqna(sroomQna);
+		
+		//목록으로 리다이렉트
+		return "redirect:/admin/qna";
 	}
 	
 	//예약 관리
@@ -304,7 +347,7 @@ public class AdminController {
 
 	}
 	
-	@RequestMapping("admin/reserve/view")
+	@RequestMapping("admin/reserve/view") //예약 상세보기
 	public String view(Reservation res, Model model) {
 		
 		logger.info("/admin/reserve/view [GET]");
@@ -316,6 +359,19 @@ public class AdminController {
 		
 		return "admin/reserveView";
 	}
+	
+	@RequestMapping("/admin/reserve/search") //예약 검색
+	public void search(@RequestParam(defaultValue="sroom_name") String search_option
+			,@RequestParam(defaultValue="") String keyword, Model model) { //키워드 : 스터디룸명 
+		logger.info("/admin/reserve/search [GET]");
+		logger.info("{}", search_option);
+		logger.info("{}", keyword);
+		
+		List<HashMap<String, Object>> resList = reserveService_admin.searchReserve(search_option);
+		
+		model.addAttribute("resList", resList);
+	}
+
 	
 	//회원 정보
 	@GetMapping("admin/member")

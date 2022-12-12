@@ -38,5 +38,12 @@ public class ReserveServiceImpl_admin implements ReserveService_admin {
 		//상세보기 결과 리턴
 		return reserveDao_admin.selectReserve(res);
 	}
+	
+
+	//예약 검색
+	@Override
+	public List<HashMap<String, Object>> searchReserve(String search_option) {
+		return reserveDao_admin.searchReserve(search_option);
+	}
 
 }

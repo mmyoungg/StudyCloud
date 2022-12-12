@@ -1,5 +1,6 @@
 package service.face.admin;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,5 +45,16 @@ public interface SboardService_admin {
 	 * @return 
 	 */
 	public int todayApply(StudyBoard studyBoard);
+
+	
+	//메인 페이지
+	
+	/**
+	 * 게시글 번호를 이용해 회원정보를 함께 조회한다
+	 * 
+	 * @param sboard - 게시글 번호
+	 * @return 게시글 + 작성자
+	 */
+	public List<HashMap<String, Object>> stList();
 
 }

@@ -103,6 +103,7 @@ a:hover{
 					<td style="text-align:center;">${studyroom.sRoomPrice } 원/시간</td>
 				</tr>
 			</c:forEach>
+
 			</tbody>
 			
 			</table>

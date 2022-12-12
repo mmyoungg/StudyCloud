@@ -55,5 +55,18 @@
 		WHERE authority = 1
 		AND member_no = #{memberNo }
 	</select>
+	
+	
+	<!-- ========== 메인 페이지 ========== -->
+
+	<!-- 인기 스터디 목록 조회 -->
+	<select id="selectStList" resultType="hashmap">
+		SELECT S.*, M.*
+		FROM studyboard S, member M
+		WHERE S.member_no = M.member_no
+		<![CDATA[AND rownum <= 8]]>
+		ORDER BY study_no DESC
+	</select>
+	
 
 </mapper>
