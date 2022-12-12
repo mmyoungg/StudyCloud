@@ -109,9 +109,89 @@
 		ORDER BY q.sRoomQna_no DESC
 	</select>
 	
+	<update id="updateQnaBySroomQnaNo" parameterType="dto.SroomQna">
+		UPDATE studyRoomQna SET sRoomQna_title = #{sRoomQnaTitle}
+			, sRoomQna_content = #{sRoomQnaContent}
+			, sRoomQna_date = sysdate	
+			, sRoomQna_secret = #{sRoomQnaSecret}		
+		WHERE sRoomQna_no = #{sRoomQnaNo}
+	</update>
 	
+	<delete id="deleteQnaBySroomQnaNo" parameterType="int">
+		DELETE studyRoomQna WHERE sRoomQna_no = #{sRoomQnaNo }
+	</delete>
 	
+	<insert id="insertReservation" parameterType="dto.Reservation">
+		<selectKey order="BEFORE" resultType="int" keyProperty="reserveNo">
+			SELECT reservation_seq.nextval FROM dual
+		</selectKey>
 	
+		INSERT INTO reservation (reserve_no, sRoom_no, member_no, reserve_date, reserve_stime, reserve_etime, reserve_people, reserve_price)
+		VALUES ( #{reserveNo}, #{sroomNo}, #{memberNo}, #{reserveDate}, #{reserveStime}, #{reserveEtime}, #{reservePeople}, #{reservePrice} )
+	</insert>
+	
+	<select id="selectReserveInfo" resultType="hashMap" parameterType="dto.Reservation">
+		SELECT r.reserve_no, m.member_no, m.member_phone, m.member_email, m.member_name, s.sRoom_no, s.sRoom_name, r.reserve_date, r.reserve_stime, r.reserve_etime, r.reserve_price, r.reserve_people
+		FROM reservation r
+		JOIN member m
+		ON ( r.member_no = m.member_no )
+		JOIN studyRoom s
+		ON ( r.sRoom_no = s.sRoom_no)
+		WHERE reserve_no = #{reserveNo}
+	</select>
+	
+	<insert id="insertSroomPayment" parameterType="dto.SroomPayment">
+		
+		INSERT INTO sRoomPay VALUES( sRoomPay_seq.nextval, #{reserveNo }, #{sRoomPayUid }, #{sRoomPayApply}, sysdate, #{sRoomPayMsg}, #{sRoomPayPrice}, #{sRoomPayMethod} )
+	
+		<selectKey order="AFTER" resultType="int" keyProperty="sRoomPayNo">
+			SELECT sRoomPay_seq.CURRVAL FROM dual
+		</selectKey>
+	</insert>
+	
+	<select id="seletPayInfoBySroomPayNo" resultType="hashMap" parameterType="int">
+		SELECT m.member_no, m.member_name, m.member_phone, s.sRoom_no, s.sRoom_name, s.sRoom_intro, 
+			   r.reserve_no, r.reserve_date, r.reserve_sTime, r.reserve_eTime, r.reserve_people,
+			   p.sRoomPay_no, p.sRoomPay_uid, p.sRoomPay_apply, p.sRoomPay_date, p.sRoomPay_msg, 
+			   p.sRoompay_price, p.sRoomPay_method
+	    FROM member m
+	    JOIN reservation r
+	    ON (m.member_no = r.member_no)
+	    JOIN studyRoom s
+	    ON (r.sRoom_no = s.sRoom_no)
+	    JOIN sRoomPay p
+	    ON (r.reserve_no = p.reserve_no)
+	    WHERE sRoomPay_no = #{sRoomPayNo}
+	</select>
+	
+	<select id="selectPayInfoByUid" resultType="hashMap" parameterType="dto.SroomPayment">
+		SELECT m.member_no, m.member_name, m.member_phone, s.sRoom_no, s.sRoom_name, s.sRoom_intro, 
+			   r.reserve_no, r.reserve_date, r.reserve_sTime, r.reserve_eTime, r.reserve_people,
+			   p.sRoomPay_no, p.sRoomPay_uid, p.sRoomPay_apply, p.sRoomPay_date, p.sRoomPay_msg, 
+			   p.sRoompay_price, p.sRoomPay_method
+	    FROM member m
+	    JOIN reservation r
+	    ON (m.member_no = r.member_no)
+	    JOIN studyRoom s
+	    ON (r.sRoom_no = s.sRoom_no)
+	    JOIN sRoomPay p
+	    ON (r.reserve_no = p.reserve_no)
+	    WHERE sRoomPay_uid = #{sRoomPayUid}
+	</select>
+	
+	<insert id="insertReview" parameterType="dto.SroomReview">
+		INSERT INTO sRoomReview 
+		VALUES( sRoomReview_seq.nextval, #{sRoomNo}, #{memberNo}, #{sRoomReviewScore}, #{sRoomReviewContent}, sysdate )
+	</insert>
+	
+	<select id="getReviewLstBySroomNo" parameterType="int" resultType="hashMap">
+		SELECT m.member_nick, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor, r.*
+		FROM sRoomReview r
+		LEFT OUTER JOIN member m ON (r.member_no = m.member_no)
+		LEFT OUTER JOIN fileUpload f ON (m.member_no = f.member_no)
+		WHERE r.sRoom_no = #{sRoomNo}
+		ORDER BY r.sRoomReview_no DESC
+	</select>
 	
 
 </mapper>

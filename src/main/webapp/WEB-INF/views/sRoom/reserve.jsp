@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -22,7 +23,9 @@ input[type='checkbox'] { width:20px; height:20px; background:white; border-radiu
 		  border-radius: 5px; color: white; }
 
 </style>
+
 <script type="text/javascript">
+
 function selectAll(selectAll)  {
 	  const checkboxes 
 	       = document.getElementsByName('reserve_checked');
@@ -30,7 +33,7 @@ function selectAll(selectAll)  {
 	  checkboxes.forEach((checkbox) => {
 	    checkbox.checked = selectAll.checked;
 	  })
-	}
+}
 	
 function payCheck() {
   	
@@ -41,6 +44,44 @@ function payCheck() {
 		 return false; 
 	}
 } 	
+
+function requestPay() {
+	IMP.init("imp85321741"); 
+	var msg;
+    IMP.request_pay({
+        pg : 'html5_inicis',
+        pay_method : 'card',
+        merchant_uid: 'merchant_'+new Date().getTime(), 
+        name : '스터디 클라우드 결제',
+        amount : 100,
+        buyer_email : '${reserveInfo.MEMBER_EMAIL }',
+        buyer_name : '${reserveInfo.MEMBER_NAME }',
+        buyer_tel : '${reserveInfo.MEMBER_PHONE }',
+    }, function (rsp) { // callback
+        if (rsp.success) {
+        	var no = ${reserveInfo.RESERVE_NO };
+        	var msg = $("#content").val();
+        	
+        	$.ajax({
+	  	        type : "POST",
+	  	        url : "/sRoom/reserve",
+	  	    	dateType:"html",
+	  	    	data : { sRoomPayUid : rsp.imp_uid, sRoomPayApply : rsp.apply_num, reserveNo : no, sRoomPayMsg : msg, 
+	  	    		sRoomPayPrice : rsp.paid_amount, sRoomPayMethod : rsp.pay_method },
+  	    	}).done(function(data){
+  	    		console.log("[스터디룸 결제내역] AJAX 전송성공");
+                location.href='/sRoom/payResult?sRoomPayUid='+rsp.imp_uid;
+            
+  	        })
+        } else {
+            console.log(rsp);
+        }
+    });
+    
+}
+
+
+
 </script>
 
 </head>
@@ -51,24 +92,23 @@ function payCheck() {
 <h2>예악자 정보</h2>
 <hr>
 
-<form name="form" action="./write" method="post" enctype="multipart/form-data">
 
   <div class="mb-3 row">
-    <label for="reserve_name" class="col-sm-2 col-form-label">성함</label>
+    <label for="reserve_name" class="col-sm-2 col-form-label">예약자 성함</label>
     <div class="col-sm-8">
-      <input type="text" readonly class="form-control-plaintext" id="reserve_name" value="예약자 이름">
+      <input type="text" readonly class="form-control-plaintext" id="reserve_name" value="${reserveInfo.MEMBER_NAME }">
     </div>
   </div>
     
   <div class="mb-3 row">
     <label for="reserve_phone" class="col-sm-2 col-form-label">연락처</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="reserve_phone">
+      <input type="text" class="form-control" id="reserve_phone" value="${reserveInfo.MEMBER_PHONE }" readonly>
     </div>
   </div>
   
   <div class="mb-3 row">
-   <label for="reserve_request" class="col-sm-2 col-form-label">요청사항</label>
+   <label for="reserve_request" id="requestM" class="col-sm-2 col-form-label">요청사항</label>
   	<div class="col-sm-10">
   		<textarea class="form-control" id="content" rows="6"></textarea>
   	</div>
@@ -85,8 +125,8 @@ function payCheck() {
   	<td class="reserve_th">예약 날짜</td>
   </tr>
   <tr>
-  	<td>스터디룸 이름</td>
-  	<td>2022-11-08</td>
+  	<td>${reserveInfo.SROOM_NAME }</td>
+  	<td>${reserveInfo.RESERVE_DATE }</td>
   </tr>
   <tr></tr>
   <tr>
@@ -94,12 +134,18 @@ function payCheck() {
   	<td class="reserve_th">예약 인원</td>
   </tr>
   <tr>
-  	<td>11:00~13:00</td>
-  	<td>4명</td>
+  	<td>${reserveInfo.RESERVE_STIME } ~ ${reserveInfo.RESERVE_ETIME }</td>
+  	<td>${reserveInfo.RESERVE_PEOPLE }명</td>
   </tr>
   
   </table>
 </div>   
+<div class="reserve_info_wrap">
+  <h2>총 가격</h2>
+  <hr>
+  <h3 style="color: #3f92b7; font-weight: bold;">${reserveInfo.RESERVE_PRICE } 원</h3>
+</div>
+ 
  
  <div class="reserve_info_wrap">
   <h2>서비스 동의</h2>
@@ -115,14 +161,13 @@ function payCheck() {
  </div> 
 
 <div class="text-center">
-	<button id="writeBtn" class="detail-reserve-button">결제하기</button>
+	<button class="detail-reserve-button" onclick="requestPay()">결제하기</button>
 </div>
 
 
-</form>
+
 
 </div>
 </div>
-
 </body>
 </html>

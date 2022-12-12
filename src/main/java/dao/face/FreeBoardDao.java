@@ -56,6 +56,8 @@ public interface FreeBoardDao {
 
 	public int countSearchList(HashMap<String, Object> map);
 
+	public void deleteComtByFboardNo(FreeBoard freeBoard);
+
 	
 
 

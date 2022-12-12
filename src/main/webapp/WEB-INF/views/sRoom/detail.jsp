@@ -17,6 +17,10 @@
 <!-- 폰트어썸 -->
 <script src="https://kit.fontawesome.com/ca40b4f408.js"></script>
 
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
 <!-- TimePicker -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
@@ -35,9 +39,14 @@
 
 <link rel="stylesheet" href="../resources/css/sRoomDetail.css?ver=1">
 <script defer src="../resources/js/sRoomDetail.js?ver=2"></script>
-
+2
 <script type="text/javascript">
 $(document).ready(function() {
+		
+/*  	$("input[name='sRooomReviewScore']").on("click", function(e) {
+		  console.log($("input[name='sRooomReviewScore']:checked").val());
+		});  */
+	 
 	// 비밀글 체크박스 이벤트
 	$("input[name=sRoomQnaSecret]").change(function() {
 		if( $(this).is(":checked") ) {
@@ -71,11 +80,102 @@ $(document).ready(function() {
 				$("#sRoomQnATitle").val('');
 				$("#sRoomQnAContent").val('');
 				$(".modal-custom").css("display", "none");
+				console.log(r);
 				$("#sRoomQnaArea").html(r);
 				
 			} 
 		})
 	}) // QNA
+	
+	
+	$
+	
+	// 리뷰쓰기
+	$("#sRooomReviewBtn").on("click", function() {
+		var score = $(":input:radio[name='reviewStar']:checked").val();
+		var reviewcontent = $("#sRoomReviewContent").val();		
+		var roomno = ${sRoomView.SROOM_NO};
+		console.log(score);
+		console.log(typeof score);
+		
+		console.log(reviewcontent);
+		console.log(roomno);
+		
+		$.ajax({
+			url: "/sRoom/reviewInsert",
+			type: "POST",
+			data: { "sRoomReviewScore" : score, "sRoomReviewContent" : reviewcontent, sRoomNo : roomno },
+			success : function(r){
+				console.log('[리뷰 등록] AJAX 요청 성공');
+				$(":input:radio[name='reviewStar']:checked").val('');
+				$("#sRoomReviewContent").val('');		
+				$(".modal-custom").css("display", "none");
+				console.log(r);
+				$("#sRoomRevArea").html(r);
+				
+			} 
+		})
+	})
+	
+	
+	
+	
+	
+	//인원선택
+	var priceArea = ${sRoomView.SROOM_PRICE}
+	$(".plus").on("click", function() {
+		/* var count = $(this).parent('input[type=number]').val(); */
+		var count = parseInt($(".quantity").val());
+		console.log( typeof count);
+		count = count + 1;
+		$(".quantity").val(count);
+		console.log($(".quantity").val());
+		
+		var duration = $("#timeDuration").val();
+			if(duration != "") {
+			// 이용시간 * 인원수 * 가격 계산
+			var timeNum = parseInt(duration.slice(1,2));
+			$(".price-input-box").val(priceArea * count * timeNum);
+		} else {
+			$(".price-input-box").val(priceArea * count * 1);
+		}
+	})
+	
+ 	$(".down").on("click", function() {
+		var count = parseInt($(".quantity").val());
+		console.log( typeof count);
+		var minPeople = ${sRoomView.SROOM_PEOPLE};
+		var duration = $("#timeDuration").val();
+		var timeNum = parseInt(duration.slice(1,2));
+		count = count - 1;
+		if(count < minPeople) {
+			alert("최소인원 이하는 선택하실 수 없습니다.")
+			if( duration == "") {
+				$(".price-input-box").val(priceArea * minPeople);
+				$(".quantity").val(minPeople);
+				return false;
+			} else {
+				$(".price-input-box").val(priceArea * minPeople * timeNum);
+				$(".quantity").val(minPeople);
+				return false;
+			}
+		}
+		$(".quantity").val(count);
+		console.log($(".quantity").val());
+		$(".price-input-box").val(priceArea * count);
+		
+		if(duration != "") {
+			// 이용시간 * 인원수 * 가격 계산
+			$(".price-input-box").val(priceArea * count * timeNum);
+		} else {
+			$(".price-input-box").val(priceArea * count * 1);
+		}
+	
+	}) 
+	
+	$
+	
+	
 	
 }) // end
 
@@ -84,9 +184,6 @@ $(document).ready(function() {
 
 
 <body>
-<input type="hidden" id="sAddr" value="${sRoomView.SROOM_ADDR}">
-<input type="hidden" id="sName" value="${sRoomView.SROOM_NAME}">
-
 <div class="content">
 	<div class="detail-wrap">
 		<div class="left">
@@ -134,7 +231,14 @@ $(document).ready(function() {
 				<!-- Trigger/Open The Modal -->
 				<div class="qna">
 					<h3 class="qna_h3">❔ QnA</h3>
-					<button class="modal-custom-button" href="#myModal1">QnA 작성</button>
+					<c:choose>
+    					<c:when test="${not empty login}">
+							<button class="modal-custom-button" id="qna_write_btn" href="#myModal1">QnA 작성</button>
+    					</c:when>
+    					<c:otherwise>
+    						<div class="modal-custom-button" style="background-color: #aacde5; font-weight: bold;">로그인 후에 QnA를 작성하실 수 있습니다.</div>
+    					</c:otherwise>
+					</c:choose>
 				</div>
 				
 				<!-- The Modal -->
@@ -142,9 +246,9 @@ $(document).ready(function() {
 
    				<!-- Modal content -->
     				<div class="modal-content">
-        				<div class="modal-header">
-           					<h1 class="modal-title fs-5" id="exampleModalLabel">QnA 작성하기</h1>
-        				</div>
+	        			<div class="modal-header">
+	           				<h1 class="modal-title fs-5" id="exampleModalLabel">QnA 작성하기</h1>
+	        			</div>
         
         				<div class="modal-body">
            					<form>
@@ -200,80 +304,34 @@ $(document).ready(function() {
         				<div class="modal-body">
            					<form>
           						<div class="mb-3">
-          						<div class="popup-text">별점 등록하기</div>
-            						<div class="star-rating space-x-4">
-										<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-										<label for="5-stars" class="star pr-4">★</label>
-										<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-										<label for="4-stars" class="star">★</label>
-										<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-										<label for="3-stars" class="star">★</label>
-										<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-										<label for="2-stars" class="star">★</label>
-										<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-										<label for="1-star" class="star">★</label>
-									</div>
+          						  <div class="mb-3" id="myform">
+          						  	<fieldset>
+        								<legend>이모지 별점</legend>
+	            						<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
+										<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
+										<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>
+										<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>
+										<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
+									</fieldset>
+          						  </div>
           						</div>
           						<div class="mb-3">
             						<div class="popup-text">리뷰 남기기</div>
-            						<textarea class="form-control" id="message-text"></textarea>
+            						<textarea class="form-control" id="sRoomReviewContent"></textarea>
           						</div>
         					</form>	
         				</div>
         
          				<div class="modal-footer">
         					<button type="button" class="close-modal" id="close">취소</button>
-           					<button type="button" class="button">작성하기</button>
+           					<button type="button" id="sRooomReviewBtn" class="button">작성하기</button>
         				</div>
     				</div>
 				</div>
 				
-				<div class="infoBox">
-					<ul class="Qna_list">
-						<li class="qna_hr">
-							<div class="qna_box">
-								<span><img src='https://ifh.cc/g/oDFOOq.jpg' class="pimg"></span>
-								<p class="write_name">오쪼쪼</p>
-								<div class="star-rating2 space-x-4">
-										<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-										<label for="5-stars" class="star pr-4">★</label>
-										<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-										<label for="4-stars" class="star">★</label>
-										<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-										<label for="3-stars" class="star">★</label>
-										<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-										<label for="2-stars" class="star">★</label>
-										<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-										<label for="1-star" class="star">★</label>
-								</div>
-								<p class="qna_cont">잘 이용하고 갑니다!</p>
-								<p class="write_date">2022-11-06</p>
-								<button class="miniBtn">수정</button><button class="miniBtn">삭제</button>
-							</div>
-						</li>
-						<li class="qna_hr">
-							<div class="qna_box">
-								<span><img src='https://ifh.cc/g/ocJk39.jpg' class="pimg"></span>
-								<strong class="write_name">우쭈쭈</strong>
-								<div class="star-rating2 space-x-4">
-										<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-										<label for="5-stars" class="star pr-4">★</label>
-										<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-										<label for="4-stars" class="star">★</label>
-										<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-										<label for="3-stars" class="star">★</label>
-										<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-										<label for="2-stars" class="star">★</label>
-										<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-										<label for="1-star" class="star">★</label>
-								</div>
-								<p class="qna_cont">시설도 깔끔하고 화장실도 깨끗해서 전체적으로 마음에 듭니다.</p>
-								<p class="write_date">2022-11-06</p>
-								<button class="miniBtn">수정</button><button class="miniBtn">삭제</button>
-							</div>
-						</li>
-					</ul>				
-				</div>
+				<div id="sRoomRevArea"><c:import url="/WEB-INF/views/sRoom/sRoomReviewList.jsp" /></div>
+				
+				
  		   </div>
 </div>
 				
@@ -316,6 +374,8 @@ $(document).ready(function() {
 					<p class="s-addr" id="s-addr">${sRoomView.SROOM_ADDR}</p>
 				</div>
 				<div class="detail-right-info">
+					<input type="hidden" id="originalPrice" value="${sRoomView.SROOM_PRICE}">
+					<input type="hidden" id="originalPeople" value="${sRoomView.SROOM_PEOPLE}">
 					<h5>${sRoomView.SROOM_PRICE} 원/시간</h5>
 					<p class="s-addr" id="s-addr">최소인원 : ${sRoomView.SROOM_PEOPLE}명</p>
 				</div>
@@ -342,11 +402,12 @@ $(document).ready(function() {
 				</div>
 					
 				</div>
+				<form action="/sRoom/reserve" method="get">
 				<div class="detail-clicked-info-wrap">	
 					<div class="detail-clicked-info-wrap">			
- 					<input type="text" id="clickedDate" value="" class="sRoom-clicked-info" readonly>
-					<input type="text" id="clickedStartTime" value="" class="sRoom-clicked-info-time" readonly>
-					<input type="text" id="timeDuration" class="sRoom-timeDuration" value="" style="width: 53px;" readonly> 
+ 					<input type="text" name="reserveDate" id="clickedDate" value="" class="sRoom-clicked-info" readonly> <!-- 날짜 -->
+					<input type="text" id="clickedStartTime" value="" class="sRoom-clicked-info-time" readonly><!-- 시간 -->
+					<input type="text" id="timeDuration" class="sRoom-timeDuration" value="" style="width: 53px;" readonly> <!-- 몇시간인지 -->
 					</div>
 				</div>
 				<div class="detail-right-time">
@@ -358,9 +419,9 @@ $(document).ready(function() {
 					<div id="menu2">
 						<div class="list-member">
 							<div class="number-input">
-							<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
- 							<input class="quantity" min="1" name="quantity" value="1" type="number">
-  							<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+							<button class="down" type="button" id="down"></button>
+ 							<input class="quantity" id="pNum" min="1" name="reservePeople" value="${sRoomView.SROOM_PEOPLE}" type="number">
+  							<button class="plus" type="button" id="plus"></button>
 							</div>		
 						</div>
 					</div>    					
@@ -370,12 +431,20 @@ $(document).ready(function() {
 					<div class="detail-right-info">
 					<h4>가격</h4>
 					
-					<input type="text" value="3,000원" class="price-input-box">
+					<input type="text" placeholder="날짜/인원을 선택해주세요." name="reservePrice" class="price-input-box" id="price-input-box" readonly>
+					<%-- <fmt:formatNumber type="number" value="${sRoomView.SROOM_PRICE}"" pattern="#,###" /> --%>
 				</div>
+				
+				<input type="hidden" id="sAddr" value="${sRoomView.SROOM_ADDR}">
+				<input type="hidden" id="sName" name="sRoomName" value="${sRoomView.SROOM_NAME}">
+				<input type="hidden" name="sRoomNo" value="${sRoomView.SROOM_NO}">
+				<input type="hidden" name="reserveStime" id="reserveStime" value="">
+				<input type="hidden" name="reserveEtime" id="reserveEtime" value="">
 				
 				<div>
 					<button class="detail-reserve-button">예약하기</button>
 				</div>
+				</form>
 				
 			</div>
 			
@@ -384,7 +453,7 @@ $(document).ready(function() {
 </div>
 </div>
 </div>
-
+</div>
 <script src="../resources/js/sRoomCalendar.js?ver=1"></script>
 </body>
 

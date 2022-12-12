@@ -40,7 +40,7 @@ public class FreeBoardController {
 	@Autowired FreeBoardService freeBoardService;
 	
 	@RequestMapping("/freeBoard/list")
-	public void list(Model model, @RequestParam(defaultValue="0") int curPage, HttpSession session) {
+	public void list(Model model, @RequestParam(defaultValue="0") int curPage) {
 		
 		logger.info("/FreeBoard/list [GET]");
 		
@@ -113,8 +113,6 @@ public class FreeBoardController {
 	@RequestMapping(value="/freeBoard/write", method=RequestMethod.POST)
 	public String fBoardWriteProc(FreeBoard freeBoard, List<MultipartFile> fBoardFile, HttpSession session) {
 		logger.info("/freeBoard/write [POST], 파라미터 : {}", freeBoard);
-		
-		session.setAttribute("member_no", 4);
 		freeBoard.setMemberNo( (int)session.getAttribute("member_no") );
 		
 		freeBoardService.write(freeBoard, fBoardFile);
@@ -235,8 +233,6 @@ public class FreeBoardController {
 		commt.setfBoardNo(fBoardNo);
 		commt.setCommtContent(commtContent);
 		
-		// 세션정보 - 추후 수정
-		session.setAttribute("member_no", 1); 
 		commt.setMemberNo( (int)session.getAttribute("member_no") );
 		
 		Commt fBoardCmt = freeBoardService.insertCmt(commt);
