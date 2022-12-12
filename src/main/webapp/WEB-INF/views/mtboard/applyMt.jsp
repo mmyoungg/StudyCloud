@@ -11,9 +11,17 @@
 
 <!-- css연결 -->
 <link rel="stylesheet" href="/resources/css/applyMt.css"> 
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
-<script src="../resources/js/applyMt.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#apply_btn").click(function() {
+		
+		$("form").submit();
+	})
+})
+</script>
 </head>
 <body>
 
@@ -31,30 +39,29 @@
 </div>
 
 <main class="all_content">
-
-<!-- 필수값 구현해야됨 -->
+<form action="./applyMt" method="post" enctype="multipart/form-data">
 <div class="applyForm">
 <div class="naming">Study Cloud 아이디
-<input class="form-control" type="text" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" aria-label="default input example" id="memberId" name="memberId" style="margin-top: 5px; font-size: 13px" value="${member_id}" readonly="readonly"></div>
 <div class="naming">이메일
-<input class="form-control" type="text" placeholder="이메일 주소를 입력해주세요" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" aria-label="default input example" id="memberEmail" name="memberEmail" style="margin-top: 5px; font-size: 13px" value="${member_email}" readonly="readonly"></div>
 <div class="naming">이름
-<input class="form-control" type="text" placeholder="실명을 입력해주세요" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" aria-label="default input example" id="memberName" name="memberName" style="margin-top: 5px; font-size: 13px" value="${member_name}" readonly="readonly"></div>
 <div class="naming">연락처
-<input class="form-control" type="text" placeholder="000-0000-0000" aria-label="default input example" oninput="oninputPhone(this)" maxlength="14" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" aria-label="default input example" id="memberPhone" name="memberPhone" style="margin-top: 5px; font-size: 13px" value="${member_phone}" readonly="readonly"></div>
 
 <div class="naming">분야
-<select class="form-select" aria-label="Default select example" id="apply_fd" style="margin-top: 5px; font-size: 13px">
-  <option selected value="1">개발 · 프로그래밍</option>
-  <option value="2">어학 · 외국어</option>
-  <option value="3">직무 · 마케팅</option>
-  <option value="4">커리어</option>
-  <option value="5">기타</option>
+<select class="form-select" aria-label="Default select example" id="field" name="field" style="margin-top: 5px; font-size: 13px">
+  <option>개발 · 프로그래밍</option>
+   <option>어학 · 외국어</option>
+  <option>직무 · 마케팅</option>
+  <option>커리어</option>
+  <option>기타</option>
 </select>
 </div>
 
 <div class="naming">간단한 자기소개 글을 작성해주세요
-<textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="margin-top: 6px;"></textarea>
+<textarea class="form-control" id="applymtContent" name="applymtContent" rows="10" style="margin-top: 6px;"></textarea>
 
 <!-- Modal 제출완료-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -93,13 +100,9 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="apply_btn">제출하기</button>
 </div>
 
-
-
-
-
 </div>
+</form>
 </main>
-
 
 </main>
 

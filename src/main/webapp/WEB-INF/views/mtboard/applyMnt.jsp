@@ -77,7 +77,7 @@ $(document).ready(function() {
 
 <main class="all_content">
 
-<!-- <form action="./pay_info" method="post" enctype="multipart/form-data"> -->
+<form action="./applyMnt" method="post" enctype="multipart/form-data">
 
 <div class="applyForm">
 <h3>신청하기</h3>
@@ -88,11 +88,10 @@ $(document).ready(function() {
 
 <br><br><br>
 
-<!-- 필수값 구현해야됨 -->
 <div class="naming">&nbsp;이메일<span class="rq">*</span>
-<input class="form-control" type="text" placeholder="실명을 입력해주세요" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" id="memberEmail" value="${member_email}" readonly="readonly" name="memberEmail" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
 <div class="naming">&nbsp;연락처<span class="rq">*</span>
-<input class="form-control" type="text" placeholder="000-0000-0000" aria-label="default input example" oninput="oninputPhone(this)" maxlength="14" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" id="memberPhone" name="memberPhone" value="${member_phone}" readonly="readonly" aria-label="default input example"  style="margin-top: 5px; font-size: 13px"></div>
 
 <!-- 플랫피커 -->
 <div class="naming">
@@ -132,7 +131,7 @@ $(document).ready(function() {
 </div>
 
 </div>
-
+</form>
 <!-- </form> -->
 </main>
 </main>

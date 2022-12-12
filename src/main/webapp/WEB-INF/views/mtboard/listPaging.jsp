@@ -31,7 +31,7 @@ $(document).ready(function() {
   <tr>
       <td scope="row" class="no">${mtboard.MTBOARD_NO }</td>
       <td>
-      <a id="boardno" href="/mtboard/view?mtboardNo=${mtboard.MTBOARD_NO }">${mtboard.MTBOARD_TITLE }</a>
+      <a id="boardno" href="/mtboard/detail?mtboardNo=${mtboard.MTBOARD_NO }">${mtboard.MTBOARD_TITLE }</a>
       <c:if test="${mtboard.MTBOARD_CMCNT  ne 0}">
 		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mtboard.MTBOARD_CMCNT}"/>&nbsp;]</b></small>
 	 </c:if>

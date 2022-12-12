@@ -36,6 +36,8 @@
 	<!-- DownloadView 스프링 빈 등록 -->
 	<beans:bean id="down" class="view.DownloadView" />
 	
+	   <!-- jsonView 스프링 빈 등록 -->
+    <beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" /> 
 	
 	<!-- MultipartResolver 설정 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

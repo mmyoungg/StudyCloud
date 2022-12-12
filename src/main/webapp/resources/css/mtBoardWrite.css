@@ -49,11 +49,6 @@ input::placeholder {
 	font-size: 14px
 }
 
-#time_sel {
-	cursor: pointer;
-	margin-top: 5px; 
-	font-size: 14px;
-}
 
 .btn-zip {
 	width: 102%;
