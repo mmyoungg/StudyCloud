@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
+<style type="text/css">
+.cmt_box_empty { text-align: center; height: 350px; line-height: 350px; font-weight: bold; background-color: #e3eff9; font-weight: bold; font-size: 20px; }		 
+</style> 
+
 <script type="text/javascript"> 
 
 function cmtUpdate(cmtNo, content, nick) {
@@ -75,17 +79,24 @@ function cmtDelete(cmtNo) {
 <div class="cmt_header">
 댓글(${fBaordCmtCount })
 </div>
- <c:forEach items="${fBaordCmt }" var="cmtList">
-<div class="cmt_box" id="cont${cmtList.COMMT_NO }">
-	<strong class="cmt_writer">${cmtList.MEMBER_NICK }</strong>
-	<div class="cmt_cont_box">
-		<div class="cmt_cont">${cmtList.COMMT_CONTENT }</div>
-	</div>
-	<p class="cmt_date"><fmt:formatDate value="${cmtList.COMMT_DATE }" pattern="yy-MM-dd HH:mm:ss"/></p>
-	<a class="miniBtn" onclick="cmtUpdate(${cmtList.COMMT_NO}, '${cmtList.COMMT_CONTENT }', '${cmtList.MEMBER_NICK }')">수정</a>
-	<a class="miniBtn" onclick="cmtDelete(${cmtList.COMMT_NO})">삭제</a>
-</div>
-</c:forEach>
+
+
+<c:choose>
+	<c:when test="${not empty fBaordCmt }"> 
+		<c:forEach items="${fBaordCmt }" var="cmtList">
+			<div class="cmt_box" id="cont${cmtList.COMMT_NO }">
+				<strong class="cmt_writer">${cmtList.MEMBER_NICK }</strong>
+				<div class="cmt_cont_box">
+					<div class="cmt_cont">${cmtList.COMMT_CONTENT }</div>
+				</div>
+				<p class="cmt_date"><fmt:formatDate value="${cmtList.COMMT_DATE }" pattern="yy-MM-dd HH:mm:ss"/></p>
+				<c:if test="${member_no eq cmtList.MEMBER_NO }">
+					<a class="miniBtn" onclick="cmtUpdate(${cmtList.COMMT_NO}, '${cmtList.COMMT_CONTENT }', '${cmtList.MEMBER_NICK }')">수정</a>
+					<a class="miniBtn" onclick="cmtDelete(${cmtList.COMMT_NO})">삭제</a>
+				</c:if>
+			</div>
+		</c:forEach>
+
 
 
 <nav aria-label="Page navigation example">
@@ -149,5 +160,9 @@ function cmtDelete(cmtNo) {
 	</ul>
 </div>
 </nav>
-
+</c:when>
+	<c:otherwise>
+		<div class="cmt_box_empty">🔎 등록된 댓글이 없습니다.</div>
+	</c:otherwise>
+</c:choose> 
  

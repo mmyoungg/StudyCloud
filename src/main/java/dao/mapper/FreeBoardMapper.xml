@@ -28,7 +28,7 @@
 	</update>
 	
 	<select id="ViewfBoardByfBoardNo" resultType="hashmap" parameterType="int">
-		select f.fboard_no, f.category_name, m.member_nick, f.fboard_date, f.fboard_hit, f.fboard_title, f.fboard_content 
+		select f.fboard_no, f.category_name, m.member_nick, m.member_no, f.fboard_date, f.fboard_hit, f.fboard_title, f.fboard_content 
 		from freeBoard f
 		join member m ON ( f.member_no = m.member_no )
 		where fboard_no = #{fBoardNo}
@@ -73,6 +73,10 @@
 	
 	<delete id="deleteByfBoardNo" parameterType="dto.FreeBoard">
 		DELETE freeBoard WHERE fBoard_no = #{fBoardNo }
+	</delete>
+	
+	<delete id="deleteComtByFboardNo" parameterType="dto.FreeBoard">
+		DELETE Commt WHERE fBoard_no = #{fBoardNo }
 	</delete>
 	
 	<select id="detailFile" parameterType="dto.FreeBoard" resultType="dto.FileUpload">

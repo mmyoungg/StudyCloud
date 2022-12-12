@@ -46,14 +46,40 @@ ul li { list-style: none; }
 .modal-header{padding:2px 16px; background-color:#e3eff9; color:balck; }
 .modal-body{padding:2px 16px; }
 .modal-footer{padding:2px 16px; background-color:#e3eff9; }
-.star-rating { display: flex; flex-direction: row-reverse; font-size: 2.25rem; line-height: 2.5rem;
+/* .star-rating { display: flex; flex-direction: row-reverse; font-size: 2.25rem; line-height: 2.5rem;
   			   justify-content: space-around; padding: 0 0.2em; text-align: center; width: 5em; }
 .star-rating input, .star-rating2 input { display: none; }
 .star-rating label { -webkit-text-fill-color: transparent; -webkit-text-stroke-width: 2.3px;
   					 -webkit-text-stroke-color: #2b2a29; cursor: pointer; }
 .star-rating :checked ~ label, .star-rating2 :checked ~ label { -webkit-text-fill-color: gold;  }
 .star-rating label:hover,
-.star-rating label:hover ~ label { -webkit-text-fill-color: #fff58c; }
+.star-rating label:hover ~ label { -webkit-text-fill-color: #fff58c; } */
+
+#myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#myform fieldset {
+    text-align: left;
+}
+#myform input[type=radio]{
+    display: none;
+}
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
 .popup-text { font-weight: bold; color: #3f92b7; }
 .star-rating2 { position: absolute; right: 0; top: -6px; font-size: 1.3rem; padding: 0;}
 .star-rating2 .star { color: #6cc4dc; }

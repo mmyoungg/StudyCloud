@@ -39,6 +39,8 @@ $(document).ready(function() {
 	  	$('#eTimepicker').timepicker('option', 'minTime', stTime+'1:00');
 			  
     	document.getElementById("clickedStartTime").value = stTime;
+    	document.getElementById("reserveStime").value = stTime;
+    	
 	  } 	    		
     	    		
     $('#eTimepicker').timepicker({
@@ -58,6 +60,7 @@ $(document).ready(function() {
 	  console.log(stTime);
 	  console.log(endTime);
 	  document.getElementById("clickedStartTime").value += '~' + endTime;
+	  document.getElementById("reserveEtime").value = endTime;
 	  
 	  // 일부 자르기
 	  var strStTime = stTime.slice(0,2);
@@ -74,6 +77,22 @@ $(document).ready(function() {
 	  
 	  // 시간차이 반영
 	  document.getElementById("timeDuration").value = '(' + durationTime + '시간)';
+	  
+	  var OriginPeople = document.getElementById("originalPeople").value;
+	  var priceArea = document.getElementById("originalPrice").value;
+	  var price = parseInt(priceArea);
+	  
+	  console.log("가격 : " + price);
+	  console.log("시간차이 : " + durationTime );
+	  console.log("가격 데이터타입 : " + typeof price);
+	  console.log("시간차이 데이터 타입 : " + typeof durationTime);
+	  
+	  if(peopleNum !="") {
+	 	 var peopleNum = document.getElementById("pNum").value;
+	 	 document.getElementById("price-input-box").value = durationTime * price * peopleNum;
+	  } else {
+	 	 document.getElementById("price-input-box").value = durationTime * price * OriginPeople;
+	  }
 	}
 	
 	
@@ -97,9 +116,11 @@ for (var i = 0; i < btn.length; i++) {
         console.log(modal);
         modal.style.display = "block";
     }
+}
     
-    spans[i].onclick = function () {
-        for (var index in modals) {
+for (var i = 0; i < spans.length; i++) {
+    spans[i].onclick = function (e) {
+          for (var index in modals) {
             if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
         }
     }

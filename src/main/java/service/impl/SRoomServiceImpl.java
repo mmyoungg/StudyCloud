@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.face.SRoomDao;
+import dto.Reservation;
+import dto.SroomPayment;
 import dto.SroomQna;
+import dto.SroomReview;
+import dto.StudyRoom;
 import service.face.SRoomService;
 import util.CmtPaging;
 
@@ -82,8 +86,79 @@ public class SRoomServiceImpl implements SRoomService {
 		return sRoomDao.getListQnAListBySroomNo(sRoomNo);
 	}
 	
+	@Override
+	public void updateQna(int sRoomQnaNo, String sRoomQnaTitle, String sRoomQnaContent, int sRoomQnaSecret, int memberNo) {
+		SroomQna sRoomQna = new SroomQna();
+		sRoomQna.setMemberNo(memberNo);
+		sRoomQna.setsRoomQnaNo(sRoomQnaNo);
+		sRoomQna.setsRoomQnaTitle(sRoomQnaTitle);
+		sRoomQna.setsRoomQnaContent(sRoomQnaContent);
+		sRoomQna.setsRoomQnaSecret(sRoomQnaSecret);
+		
+		sRoomDao.updateQnaBySroomQnaNo(sRoomQna);
+	}
 	
+	@Override
+	public void deleteQna(int sRoomQnaNo) {
+		sRoomDao.deleteQnaBySroomQnaNo(sRoomQnaNo);
+	}
 	
+	@Override
+	public void insertResevation(Reservation reservation, StudyRoom studyRoom, int memberNo) {
+		reservation.setMemberNo(memberNo);	
+		reservation.setSroomNo(studyRoom.getsRoomNo());
+		
+		sRoomDao.insertReservation(reservation);
+	}
 	
+	@Override
+	public HashMap<String, Object> getReserveInfo(Reservation reservation) {
+		return sRoomDao.selectReserveInfo(reservation);
+	}
+	
+	@Override
+	public HashMap<String, Object> insertPay(String sRoomPayUid, String sRoomPayApply, int reserveNo, String sRoomPayMsg,
+			int sRoomPayPrice, String sRoomPayMethod) {
+		
+		SroomPayment sRoomPayment = new SroomPayment();
+		sRoomPayment.setReserveNo(reserveNo);
+		sRoomPayment.setsRoomPayApply(sRoomPayApply);
+		sRoomPayment.setsRoomPayMethod(sRoomPayMethod);
+		sRoomPayment.setsRoomPayMsg(sRoomPayMsg);
+		sRoomPayment.setsRoomPayPrice(sRoomPayPrice);
+		sRoomPayment.setsRoomPayUid(sRoomPayUid);
+		
+		sRoomDao.insertSroomPayment(sRoomPayment);
+		
+		int sRoomPayNo = sRoomPayment.getsRoomPayNo();
+		System.out.println("[DB삽입된 결제시퀀스 조회] : " + sRoomPayNo );
+		return sRoomDao.seletPayInfoBySroomPayNo(sRoomPayNo);
+		
+	}
+	
+	@Override
+	public HashMap<String, Object> selectPayInfo(String sRoomPayUid) {
+		SroomPayment pay = new SroomPayment();
+		pay.setsRoomPayUid(sRoomPayUid);
+		return sRoomDao.selectPayInfoByUid(pay);
+	}
+	
+	@Override
+	public void insertReview(String sRoomReviewScore, String sRoomReviewContent, int sRoomNo, HttpSession session) {
+		SroomReview sRoomReview = new SroomReview();
+		
+		sRoomReview.setMemberNo( (int)session.getAttribute("member_no") );
+		sRoomReview.setsRoomNo(sRoomNo);
+		sRoomReview.setsRoomReviewScore(Integer.parseInt(sRoomReviewScore));
+		sRoomReview.setsRoomReviewContent(sRoomReviewContent);
+	
+		sRoomDao.insertReview(sRoomReview);
+		
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getReviewList(int sRoomNo) {
+		return sRoomDao.getReviewLstBySroomNo(sRoomNo);
+	}
 	
 }

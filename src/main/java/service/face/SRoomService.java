@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import dto.Reservation;
 import dto.StudyRoom;
 import dto.StudyRoomList;
 import util.CmtPaging;
@@ -37,6 +38,31 @@ public interface SRoomService {
 	
 	// QnA 리스트 조회 
 	public List<HashMap<String, Object>> getQnaList(int sRoomNo);
+
+	// QnA 수정
+	public void updateQna(int sRoomQnaNo, String sRoomQnaTitle, String sRoomQnaContent, int sRoomQnaSecret, int memberNo);
+	
+	// QnA 삭제
+	public void deleteQna(int sRoomQnaNo);
+
+	// 예약정보 삽입(결제전 확인)
+	public void insertResevation(Reservation reservation, StudyRoom studyRoom, int memberNo);
+	
+	// 예약정보 확인(결제전 확인)
+	public HashMap<String, Object> getReserveInfo(Reservation reservation);
+	
+	// 결제정보 삽입(결제 성공 후)
+	public HashMap<String, Object> insertPay(String sRoomPayUid, String sRoomPayApply, int reserveNo, String sRoomPayMsg,
+			int sRoomPayPrice, String sRoomPayMethod);
+	
+	// 결제내역
+	public HashMap<String, Object> selectPayInfo(String sRoomPayUid);
+	
+	// 리뷰 등록
+	public void insertReview(String sRoomReviewScore, String sRoomReviewContent, int sRoomNo, HttpSession session);
+	
+	// 리뷰리스트 조회
+	public List<HashMap<String, Object>> getReviewList(int sRoomNo);
 	
 
 

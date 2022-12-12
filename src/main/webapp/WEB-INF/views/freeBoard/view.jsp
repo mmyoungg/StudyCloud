@@ -44,7 +44,7 @@ table th { text-align: center; background-color: #E3EFF9;  }
 		var BoardNo = ${fBoardView.FBOARD_NO}
 		console.log(pageNo); // 현재페이지 확인
 		console.log(BoardNo); // 현재 게시글번호 확인
-		pagingAjax(1, BoardNo);	
+		pagingAjax(pageNo, BoardNo);	
 		
 		$("#listBtn").click(function() {
 			location.href="/freeBoard/list"
@@ -100,6 +100,7 @@ function pagingAjax(pageNo, BoardNo) {
 		success : function(r){
 		console.log('[댓글 페이징] AJAX 요청 완료');
 			$("#fBoardCmtList").html(r);
+		
 		} 
 	})
 }
@@ -148,12 +149,19 @@ function pagingAjax(pageNo, BoardNo) {
     </tr>
     <tr>
       <td colspan="4" class="fBoard_content">${fBoardView.FBOARD_CONTENT }
-	  <c:forEach items="${fileUpload }" var="fBoardFileList">
-	 	<div class="fBoardContentImg">
-        <img src="/freeBoard/display?fileUploadStor=${fBoardFileList.fileUploadStor }">
-	 	</div>
-	  
-	  </c:forEach>
+      <c:choose>
+      <c:when test="${not empty fileUpload}">
+	  	<c:forEach items="${fileUpload }" var="fBoardFileList">
+	 		<div class="fBoardContentImg">
+	 			<img src="/upload/${fBoardFileList.fileUploadStor }">
+	 		</div>
+	  	</c:forEach>
+      </c:when>
+      <c:otherwise>
+      <div></div>
+      </c:otherwise>
+      </c:choose>
+      
       
       </td>
     </tr>
@@ -176,10 +184,21 @@ function pagingAjax(pageNo, BoardNo) {
 	
 	<label for="content" class="fBoard_cmt">comment 작성하기</label>
     	<div class="input-group">
+    	<c:choose>
+    	<c:when test="${not empty member_no}">
         	<textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt"></textarea>
             <span class="input-group-btn">
             	<button class="button" type="button" id="commentInsertBtn">등록</button>
             </span>
+    	</c:when>
+    	<c:otherwise>
+        	<textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt" placeholder="회원만 댓글을 등록할 수 있습니다." disabled></textarea>
+            <span class="input-group-btn">
+            	<!-- <button class="button" type="button">등록</button> -->
+            </span>
+    	</c:otherwise>
+    	</c:choose>
+    	
         </div>
 </form>
 <div id="fBoardCmtList"></div>
@@ -189,8 +208,10 @@ function pagingAjax(pageNo, BoardNo) {
 <div class="row"></div>
 	<div class="col text-center">
   		<button class="button mx-auto" type="button" id="listBtn">목록</button>
-  		<button class="button mx-auto" type="button" id="fBoardUpdateBtn">수정</button>
-  		<button class="button mx-auto" type="button" id="fBoardDeleteBtn">삭제</button>
+  		<c:if test="${member_no eq fBoardView.MEMBER_NO}">
+	  		<button class="button mx-auto" type="button" id="fBoardUpdateBtn">수정</button>
+  			<button class="button mx-auto" type="button" id="fBoardDeleteBtn">삭제</button>
+  		</c:if>
 	</div>
 </div>
 

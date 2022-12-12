@@ -58,6 +58,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		if(fBoardFile.size() <= 0) { return; }
 		
+		for(int i=0; i<fBoardFile.size(); i++) {
+			
+			if(fBoardFile.get(i).getSize() <= 0) {
+				return;
+			}
+		}
+		
 		String storedPath = context.getRealPath("upload");
 		File storedFolder = new File( storedPath );
 		if( !storedFolder.exists() ) {
@@ -69,10 +76,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		for(int i=0; i<fBoardFile.size(); i++) {
 			String originName = fBoardFile.get(i).getOriginalFilename();
-			System.out.println("[파일업로드 수정 서비스] originName : " + originName);
 			String storedName = originName + UUID.randomUUID().toString().split("-")[1];
-			System.out.println("[파일업로드 수정 서비스] storedName : " + storedName);
-			
+						
 			Map<String, String> map = new HashMap<>();
 			map.put("originName", originName);
 			map.put("storedName", storedName);
@@ -83,21 +88,21 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		// 저장할 파일의 정보 객체
 		for(int i=0; i<fBoardFile.size(); i++) {
-		File dest = new File( storedFolder, fileList.get(i).get("storedName"));
-		try {
-			fBoardFile.get(i).transferTo(dest);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// 첨부파일 정보 DB 기록
-		FileUpload fileUpload = new FileUpload();
-		fileUpload.setfBoardNo(freeBoard.getfBoardNo());
-		fileUpload.setFileUploadOri(fileList.get(i).get("originName"));
-		fileUpload.setFileUploadStor(fileList.get(i).get("storedName"));
-			
-		freeBoardDao.insertFile(fileUpload);
+			File dest = new File( storedFolder, fileList.get(i).get("storedName"));
+			try {
+				fBoardFile.get(i).transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 첨부파일 정보 DB 기록
+			FileUpload fileUpload = new FileUpload();
+			fileUpload.setfBoardNo(freeBoard.getfBoardNo());
+			fileUpload.setFileUploadOri(fileList.get(i).get("originName"));
+			fileUpload.setFileUploadStor(fileList.get(i).get("storedName"));
+				
+			freeBoardDao.insertFile(fileUpload);
 		}
 		
 		
@@ -183,6 +188,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	@Override
 	public void delete(FreeBoard freeBoard) {
+		freeBoardDao.deleteComtByFboardNo(freeBoard);
+		freeBoardDao.deleteFile(freeBoard);
 		freeBoardDao.deleteByfBoardNo(freeBoard);
 	}
 	
