@@ -8,16 +8,16 @@ import util.Paging;
 
 public interface SboardService {
 
-	Paging getPaging(int curPage);
+	public Paging getPaging(int curPage);
 
-	ArrayList<HashMap<String, Object>> selectSboardHash(Paging paging);
+	public ArrayList<HashMap<String, Object>> selectSboardHash(Paging paging);
 
-	HashMap<String, Object> detail(int studyNo);
+	public HashMap<String, Object> detail(int studyNo);
 
-	void enroll(StudyBoard sboard);
+	public void enroll(StudyBoard sboard);
 
-	void update(StudyBoard sboard);
+	public void update(StudyBoard sboard);
 
-	void delete(StudyBoard sboard);
+	public void delete(StudyBoard sboard);
 
 }

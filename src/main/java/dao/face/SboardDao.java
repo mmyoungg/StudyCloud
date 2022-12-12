@@ -16,8 +16,9 @@ public interface SboardDao {
 
 	public void enroll(StudyBoard sboard);
 	
-	public void insert(StudyBoard sboard);
+	public void update(StudyBoard sboard);
 
 	public void delete(StudyBoard sboard);
+
 
 }
