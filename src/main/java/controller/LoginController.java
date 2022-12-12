@@ -41,38 +41,52 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	   public String loginProcess(Member member, HttpSession session, HttpServletRequest req) {
-	      
-	      logger.info("{}", member);
-	      
-	      boolean loginResult = memberService.login(member);
-	      
-	      logger.info("loginResult : {}", loginResult);
-	      
-	      if( loginResult ) {
-	         
-	         Member dbMember = memberService.getMemberById(member.getMemberId());
-	         
-	         logger.info("로그인 성공");
-	         
-	         session.setAttribute("login", loginResult);
-	         session.setAttribute("member_id", dbMember.getMemberId());
-	         session.setAttribute("member_no", dbMember.getMemberNo());
-	         session.setAttribute("member_nick", dbMember.getMemberNick() );
+	public String loginProcess(Member member, HttpSession session, RedirectAttributes rttr, HttpServletRequest req) {
+		
+		logger.info("{}", member);
+		
+		boolean loginResult = memberService.login(member);
+		
+		logger.info("loginResult : {}", loginResult);
+		
+		if( loginResult ) {
+			
+			logger.info("로그인 성공");
+			
+			member = memberService.memberInfo(member);
+			logger.info("{}", member);
+			
+			session.setAttribute("login", loginResult);
+//			session.setAttribute("member_id", member.getMemberId());
+			session.setAttribute("member_no", member.getMemberNo());
+//			session.setAttribute("member_nick", member.getMemberNick());
+//            session.setAttribute("member_email", member.getMemberEmail() );
+//            session.setAttribute("authority", member.getAuthority() );
+//            session.setAttribute("member_name", member.getMemberName() );
+//            session.setAttribute("member_phone", member.getMemberPhone() );
+			
+			return "redirect:/mainpage";
 
-	         return "redirect:/mainpage";
+		} else {
 
-	      } else {
+			logger.info("로그인 실패");
 
-	         logger.info("로그인 실패");
+			//req.setAttribute("message", "error");
+			req.setAttribute("url", "/login");
+			rttr.addFlashAttribute("message", "error");
 
-//	         req.setAttribute("message", "error");
-//	         req.setAttribute("url", "/login");
+			return "redirect:/login";
+		}
 
-	         return "redirect:/loginFail";
-	      }
-
-	   }
+	}
+	
+		@GetMapping("/loginFail")
+		public String loginFail() {
+			
+	//		logger.info("/loginFail [GET]성공");
+			return "login/loginFail";
+		
+		}
 		
 	//로그아웃
 	
@@ -127,4 +141,12 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+
+	
+	
+	
+	
 }

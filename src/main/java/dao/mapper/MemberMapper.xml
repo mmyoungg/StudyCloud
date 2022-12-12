@@ -62,4 +62,40 @@
 		WHERE member_email = #{memberEmail}
 	</select>
 	
+	<select id="selectMemberByEmail" parameterType="String" resultType="Member">
+		SELECT  
+			 member_no memberNo,
+	         member_id memberId,
+	         member_email memberEmail,
+	         member_name memberName,
+	         member_nick memberNick,
+	         authority,
+	         member_phone memberPhone  
+         FROM 
+         	member
+		WHERE 
+			member_email = #{memberEmail}
+	</select>
+	
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idchk" resultType="int" parameterType="Member">
+		SELECT count(*) FROM member
+		WHERE member_id = #{memberId}
+	</select>
+	
+	
+	<select id="getMemberByMemberNo" parameterType="Member" resultType="Member">
+      Select 
+         member_no,
+         member_id,
+         member_email,
+         member_name,
+         member_nick,
+         authority,
+         member_phone
+      from 
+         member
+      where member_no = #{memberNo}
+   </select>
 </mapper>

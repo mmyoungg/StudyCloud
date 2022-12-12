@@ -32,7 +32,7 @@ $(document).ready(function() {
 
 
 $(function(e){
-	e.preventDefault()
+// 	e.preventDefault()
 	$("#btn").click(function(){
 	 memberId = $("#memberId").val();
 	 var memberPw =$("#memberPw").val();
@@ -91,7 +91,22 @@ function kakaoLogin() {
       }
   });  
 
-});
+//카카오로그아웃 
+
+  function kakaoLogout() {
+      if (Kakao.Auth.getAccessToken()) {
+        Kakao.API.request({
+          url: '/v1/user/unlink',
+          success: function (response) {
+          	console.log(response)
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+        Kakao.Auth.setAccessToken(undefined)
+      }
+    }  
 
 
 </script>
@@ -298,8 +313,14 @@ a {
 							<button class="btn btn-bold btn-primary" id="btn">Login</button>
 							<img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인" onclick="kakaoLogin();"
 								style="height: 46px; width: 62%; padding-left: 14px;"> <a href="javascript:void(0)"></a> <br>
-
-								<a href="/login/kakaologout">로그아웃</a>
+								
+<!-- 								<ul> -->
+<!-- 								<li onclick="kakaoLogout();"> -->
+<!-- 							      <a href="javascript:void(0)"> -->
+<!-- 							          <span>카카오 로그아웃</span> -->
+<!-- 							      </a> -->
+<!-- 								</li> -->
+<!-- 								</ul> -->
 						</div>
 								
 					</div>

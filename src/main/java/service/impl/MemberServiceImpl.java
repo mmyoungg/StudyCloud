@@ -95,6 +95,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void sendEmail(Member member, String div) {
+		logger.info("sendEmail");
 		
 				Properties props = new Properties();
 				props.put("mail.smtp.host", "smtp.gmail.com");
@@ -110,6 +111,7 @@ public class MemberServiceImpl implements MemberService {
 					}
 				});
 				
+				Member dbMember = memberDao.selectMemberByEmail(member.getMemberEmail());
 				
 				String receiver = member.getMemberEmail(); // 메일 받을 주소
 				String subject = "";
@@ -119,7 +121,7 @@ public class MemberServiceImpl implements MemberService {
 					subject = "StudyCloud 임시 비밀번호 입니다.";
 					msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 					msg += "<h3 style='color: #3F92B7;'>";
-					msg += member.getMemberNick() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+					msg += dbMember.getMemberNick() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
 					msg += "<p>임시 비밀번호 : ";
 					msg += member.getMemberPw() + "</p></div>";
 				}
@@ -208,6 +210,28 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	// 아이디 중복 체크
+	public int idchk(String memberId) throws Exception {
+		int result = memberDao.idchk(memberId);
+		return result;
+		
+	}
+
+	@Override
+	public int idchk(Member member) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Member memberInfo(Member member) {
+		return memberDao.getMemberById(member.getMemberId());
+	}
+	
+	@Override
+	public Member memberInfoByNo(Member member) {
+		return memberDao.getMemberByMemberNo(member);
+	}
 }
 	
  

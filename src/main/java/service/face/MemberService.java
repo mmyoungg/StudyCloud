@@ -71,12 +71,26 @@ public interface MemberService {
 	public String findPw(Member member);
 	
 	/**
-	    * 회원 아이디로 회원 정보 가져오기
-	    * 
-	    * @param id
-	    * @throws Exception
-	    */
-	   public Member getMemberById(String id);
+	 * 회원 아이디로 회원 정보 가져오기
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public Member getMemberById(String id);
+	
+	/**
+	 * 아이디 중복 체크
+	 * 
+	 * @param member
+	 * @return
+	 * @throws Exception
+	 */
+	public int idchk(Member member) throws Exception;
+
+	public Member memberInfo(Member member);
+
+	public Member memberInfoByNo(Member member);
+
 	
 	
 }
