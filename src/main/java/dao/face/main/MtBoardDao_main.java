@@ -2,21 +2,24 @@ package dao.face.main;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface MtBoardDao_main {
 
+	//메인페이지
+	
 	/**
-	 * 멘토링 게시글 목록 조회
+	 * 게시글 번호를 이용해 첨부파일 함께 조회한다
 	 * 
-	 * @return - 게시글 목록
+	 * @return - 게시글 + 첨부파일
 	 */
-	public List<HashMap<String, Object>> mtList();
+	public List<Map<String, Object>> selectMtList();
 
 	/**
-	 * 멘토링 리뷰 목록 조회
+	 * 게시글 번호를 이용해 회원정보를 조회한다
 	 * 
-	 * @return - 리뷰 목록
+	 * @return - 게시글 + 작성자 정보
 	 */
-	public List<HashMap<String, Object>> mtReviewList();
+	public List<HashMap<String, Object>> selectMtReviewList();
 
 }

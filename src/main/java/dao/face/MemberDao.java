@@ -75,6 +75,19 @@ public interface MemberDao {
 	public int readMember(String memberEmail);
 
 
+	public Member selectMemberByEmail(String memberEmail);
+
+
+	
+	//아이디 중복체크
+	public int idchk(String memberId);
+
+
+	public Member getMemberByMemberNo(Member member);
+	
+	
+	
+
 
 
 

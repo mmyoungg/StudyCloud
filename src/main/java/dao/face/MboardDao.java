@@ -81,5 +81,6 @@ public interface MboardDao {
 	 */
 	public void delete(Mboard mboard);
 	
+
 	
 }

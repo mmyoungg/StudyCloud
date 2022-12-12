@@ -17,7 +17,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
+<
 <style type="text/css">
+
 
 .header-box {
 	color: white;
@@ -28,7 +30,7 @@
 /* 	margin: 20%; */
 }
 
-.container{
+.container1{
 	margin: 0 auto;
 	width: 950px;
 }
@@ -145,15 +147,15 @@ h4, h6 {
 	
 	<div class="button-menu">
 		<span class="button-op">
-			<a class="btn btn-primary" href="./enrollstudy" role="button" style="background-color: #6cc4dc; border: none;">스터디 개설하기</a>
+			<a class="btn btn-primary" href="./enroll" role="button" style="background-color: #6cc4dc; border: none;">스터디 개설하기</a>
 		</span>
 		<span class="button-op">
-			<a class="btn btn-primary" role="button" style="background-color: #6cc4dc; border: none;">스터디 찾아보기</a>
+			<a class="btn btn-primary" href="./main" role="button" style="background-color: #6cc4dc; border: none;">스터디 찾아보기</a>
 		</span>
 	</div>
 	
 	
-<div class="container">
+<div class="container1">
 	
 	<div class="search-tag" style="padding-left: 30px; margin-bottom: 25px;">
 		<form class="d-flex" role="search">
@@ -186,11 +188,13 @@ h4, h6 {
 	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
 	  				<label class="form-check-label" for="flexRadioDefault1">인기순</label>
 				</div>
+				
+				<a class="btn btn-primary btn-sm" href="./kakaomap" role="button" style="background-color: #6cc4dc; border: none;">내 주변 스터디 찾기</a>
 			
-				<div class="form-check">
-	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-	  				<label class="form-check-label" for="flexRadioDefault1">내 주변 스터디 찾기</label>
-				</div>
+<!-- 				<div class="form-check"> -->
+<!-- 	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> -->
+<!-- 	  				<label class="form-check-label" for="flexRadioDefault1">내 주변 스터디 찾기</label> -->
+<!-- 				</div> -->
 				
 				</div>
 		
@@ -216,11 +220,10 @@ h4, h6 {
 <!-- 						<span class="title-and-detail"> -->
 <%-- 							<h4 class="study-title">${studyboard.STUDY_TITLE }</h4> --%>
 <%-- 							<h6 class="study-detail">${studyboard.STUDY_CONTENT }</h6> --%>
-<!-- <!-- 								<div class="icon"> --> -->
-<!-- <!-- 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"> --> -->
-<!-- <!--   									<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/> --> -->
-<!-- <!-- 									</svg> --> -->
-<!-- <!-- 								</div> --> -->
+<!-- <!-- 								<div class="icon"> --> 
+<!-- <!-- 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"> --> 
+<!-- <!--   									<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/> -->
+<!-- <!-- 								</div> --> 
 <!-- 						</span> -->
 <!-- 					</div> -->
 					

@@ -13,8 +13,23 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <link rel="stylesheet" href="/resources/css/mtBoardDetail.css?ver=2"> 
-<script src="../resources/js/mtBoardDetail.js?ver=1"></script>
+<script src="../resources/js/mntBoardView.js?ver=1"></script>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$("#MtbtnList").click(function() {
+			location.href = "/mtboard/list"
+		})
+		 $("#MtbtnUpdate").click(function() {
+				location.href = "/mtboard/update?mtboardNo=${mtViewBoard.MTBOARD_NO}"
+		 })
+		$("#MtbtnDelete").click(function() {
+			location.href = "/mtboard/delete?mtboardNo=${mtViewBoard.MTBOARD_NO}"
+		}) 
+	})
+
+</script>
 </head>
 <body>
 
@@ -60,10 +75,9 @@
 
 <div class="mt_wrap1">
 
-<div class="mt_hit">조회수 3</div>
+<div class="mt_hit">조회수 ${mtViewBoard.MTBOARD_HIT }</div>
 <div class="mt_title">
-	<h2 style="font-weight: 600; margin-bottom: 36px;">백엔드 개발자 과외 합니다</h2>
-	<%-- ${detailBoard.mtboardTitle} --%>
+	<h2 style="font-weight: 600; margin-bottom: 36px;">${mtViewBoard.MTBOARD_TITLE }</h2>
 </div>
 
 
@@ -89,54 +103,36 @@
 
 <!-- 아이디 부분 (수업자료보기) -->
 
-<p class="mt_id">아리사랑</p>
-<%-- ${detailBoard.memberId} --%>
+<p class="mt_id">${mtViewBoard.MEMBER_NICK }</p>
 
 <table class="info_table">
 <tr>
 	<td class="info_name" scope="row">직무</td>
-	<td>백엔드</td><%-- <td>${viewBoard.boardNo }</td> --%>
+	<td>${mtViewBoard.JOBDUTY }</td><%-- <td>${viewBoard.boardNo }</td> --%>
 </tr>
 <tr>
 	<td class="info_name" scope="row">경력</td>
-	<td>미들(4~8년)</td><%-- <td>${viewBoard.writerId }</td> --%>
+	<td>${mtViewBoard.CAREER }</td><%-- <td>${viewBoard.writerId }</td> --%>
 </tr>
 <tr>
 	<td class="info_name" scope="row">현직</td>
-	<td>네카라쿠배</td><%-- <td>${viewBoard.writerNick }</td> --%>
+	<td>${mtViewBoard.CO_NAME }</td>
 </tr>
 </table>
 
-<span class="write_date">2022-11-20 오후 3:30</span>
+<span class="write_date"><fmt:formatDate value="${mtViewBoard.MTBOARD_DATE }" pattern="yyyy-MM-dd"/></span>
 
-<div class="mt_time">1시간 / 10,000원</div>
+<div class="mt_time">1시간 / ${mtViewBoard.MT_PRICE } 원</div>
 <hr>
 </div> <!-- mt_wrap1 끝 -->
-
+<div style="float: right;"><a class="filedown" href="/mtboard/download?fileUploadNo=${fileUpload.fileUploadNo}">${fileUpload.fileUploadOri }</a></div>
 
 
 <!-- 본문 -->
 <div class="mt_wrap2">
 
 <div class="mt_content">
-
-않으며 가고 집중이다, 곳의 대하고 있다. 몸을 재킷과 선의 가지 인간은 두 동전의 찾다 지니는걸. 
-학원이 것 춤을 다른 위력이, 저에서 그 끼어들어서 인생은 하고 필요하다. 거 것 갈긴 있는 인정받고 버린, 자꾸 거듭하다. 
-국내를 국제다 맹목을 지면 흘겨보다. 한다 경찰서의 보이는 모임의 오후가, 전파조차 시장은, 다시 던지어 위하다 하다. 
-문화에 익히는지 후예다 셈 노래가 웃다. 앨범을 하여 문학적 도시에 때를 군사력을 하자. 
-
-쓰레기에 뜻한 구호의 정도의 정부와 2024년 동안에 할걸. 수돗가의 하지 입원이, 커피의, 벌겋는 멀티미디어화가, 
-언제 이곳저곳 해외 하는 안다. 저가 다음이 짐을, 추수를, 죽다 경쾌하라. 작은 2020년대 부여하고 생각한 그러나 화폐의 시작하여 
-고맙는 복잡다기하는 질환을 쉽다. 하던 있다 감자의 논의 기우에서, 지켜보아요 찾아갈 위하다. 워커치고 있야, 
-걸작이 아니고 부서에서 세우지 하는지. 남 생활으로 칠월은 나에 부분이 빨라 있다. 
-
-길의 혹은 되다, 신령하고, 이제 온다. 상태가 부르어 펼쳐진 도와 가지다 쓰라. 
-현상이 하사가 듯하여 열심히 사람을 선거철을, 부도덕하는 대치한 아니할지. 있다 말하고 계급은 하는 안쓰럽다 그런 스치는 단순하다. 
-상품의 기대하는 41마리 말이, 그럼 거치다 같을지 촌스럽으네. 
-졸음에 끼면 피지배를 곡과 개입이 자본의 어둡습니다 악동은, 하는, 넘어가다. 
-아직 내모는 도그마의, 대리나 날리다 특히 사태다 실소하다. 
-죽은 밑이 자유롭은 것 잔칫집에서 극복하는 번, 노릇은 골품제를 떳떳하라. 
-득표력도 착용하여서 아깝아 한 먹습니다 그렇고 말의 지나치다.
+${mtViewBoard.MTBOARD_CONTENT }
 </div>
 
 <a class="btn btn-primary" href="/mtboard/applyMnt" type="button" style="float: right; font-size: 15px;">
@@ -175,10 +171,6 @@
 
 
 
-<!-- 댓글 페이징 -->
-<div class="reply_not_div">
-					
-</div>
 	<ul class="reply_content_ul">
 	<li>
 		<div class="comment_wrap">
@@ -219,9 +211,9 @@
 
 
 <div class="text-center" style="margin-top: 241px">
-	<button id="btnList" class="btn btn-primary">목록</button>
-		<button id="btnUpdate" class="btn btn-primary">수정</button>
-		<button id="btnDelete" class="btn btn-primary">삭제</button>
+	<button id="MtbtnList" class="btn btn-primary">목록</button>
+		<button id="MtbtnUpdate" class="btn btn-primary">수정</button>
+		<button id="MtbtnDelete" class="btn btn-primary">삭제</button>
 </div>
 
 </div><!-- mt_wrap3 끝 -->

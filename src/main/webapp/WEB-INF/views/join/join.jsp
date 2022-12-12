@@ -11,6 +11,221 @@
 <meta charset="UTF-8">
 <title>StudyCloud</title>
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	$("#btnjoin").on("click", function(){
+
+		if($("#memberId").val()==""){
+			alert("아이디를 입력해주세요.");
+			$("#memberId").focus();
+			return false;
+		}
+		if($("#memberPw").val()==""){
+			alert("비밀번호를 입력해주세요.");
+			$("#memberPw").focus();
+			return false;
+		}
+		if($("#memberEmail").val()==""){
+			alert("이메일을 입력해주세요.");
+			$("#memberEmail").focus();
+			return false;
+		}
+		if($("#memberName").val()==""){
+			alert("성명을 입력해주세요.");
+			$("#memberName").focus();
+			return false;
+		}
+		if($("#memberPhone").val()==""){
+			alert("연락처 입력해주세요.");
+			$("#memberPhone").focus();
+			return false;
+		}
+		var idChkVal = $("#idchk").val();
+		if(idChkVal == "N"){
+			alert("중복확인 버튼을 눌러주세요.");
+		}else if(idChkVal == "Y"){
+			$("#joinForm").submit();
+		}
+	})
+	});
+
+
+//카카오 회원가입
+
+Kakao.init('ebc8fc53624cdd3b21b34f099837f10c');
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+
+function kakaoLogin() {
+
+    $.ajax({
+        url: '/login/getKakaoAuthUrl',
+        type: 'get',
+        async: false,
+        dataType: 'text',
+        success: function (res) {
+            location.href = res;
+        }
+    });
+
+  }
+
+  $(document).ready(function() {
+
+      var kakaoInfo = '${kakaoInfo}';
+
+      if(kakaoInfo != ""){
+          var data = JSON.parse(kakaoInfo);
+
+          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+          alert(
+          "user : \n" + "email : "
+          + data['email']  
+          + "\n nickname : " 
+          + data['nickname']);
+      }
+  });  
+  
+ //휴대폰 번호 자동 하이픈 추가 
+ 
+  $(document).ready(function() {
+	   $("#memberPhone").keydown(function(event) {   //입력창에 숫자 입력
+	       var key = event.charCode || event.keyCode || 0;
+	       $text = $(this); 
+	      
+	       if (key !== 8 && key !== 9) {
+	           if ($text.val().length === 3) {
+	               $text.val($text.val() + '-');
+	           }
+	           if ($text.val().length === 8) {
+	               $text.val($text.val() + '-');
+	           }
+	       }
+	   })
+  })
+  
+ 
+
+//아이디 중복 체크
+$(document).ready(function() {
+
+function fn_idChk() {
+   $.ajax({
+      url : "/login/idchk",
+      type : "post",
+      dataType : "text",
+      data : {
+         "memberId" : $("#memberId").val()
+      },
+      success : function(data) {
+    	  
+		console.log("data", data)
+         if (data === '1') {
+            alert('중복된 아이디입니다.');
+         } else if (data === '0'){
+            $("#idchk").attr("value", "Y");
+            alert('사용가능한 아이디입니다.');
+
+            } else {
+			alert('요청중 에러가 발생하였습니다');
+			}
+         }
+      , error: function(e){
+    	    console.log(e)
+    	  }
+      })
+   }
+   
+   
+
+})
+
+
+//비밀번호 일치 확인
+	function passConfirm() {
+
+	var password = document.getElementById('memberPw');					
+	var passwordConfirm = document.getElementById('memberPwchk');	
+		
+		if(password.value == passwordConfirm.value){
+			alert("비밀번호가 일치합니다.");
+		}else{
+			alert("비밀번호가 일치하지 않습니다");
+		}
+	}
+
+// 가입 전 유효성 검사
+$(document).ready(function() {
+	$('#btnjoin').click(function(e) {
+
+	//가입 전에 입력한 항목이 규칙에 따라 정확히 입력되어있는지 확인하기 위해       
+	// submit 이벤트 막아주기
+	e.preventDefault();
+	
+	// 아이디 입력 값 가져오기
+	var id = $('#memberId').val();
+	
+	// 비밀번호 입력 값 가져오기
+	var pw = $('#memberPw').val();
+	
+	// 비밀번호 확인 입력 값 가져오기
+	var confirmPw = $('#memberPwck')
+			.val();
+	
+	// 핸드폰번호 입력 값 가져오기
+	var phone = $('#memberPhone').val();
+	
+	//이메일 입력 값 가져오기
+	var email = $('#memberEmail').val();
+	
+	// 정규식 일치여부 등을 저장할 회원가입 혹은 회원정보 수정의 항목 success 변수 정의하기
+	var idSucc;
+	var pwSucc;
+	var confirmPwSucc;
+	var phoneSucc;
+	var emailSucc;
+	
+	// 정규식 등으로 정확히 입력했는지, 입력하지 않았다면 띄울 문구와 해당 엘리먼트에 focus 지정하기
+	
+	let reg_id1 = /^[a-z0-9_-]{4,20}$/; // 소문자 + 숫자 + 언더바/하이픈 허용 4~20자리
+	let reg_pw2 = /(?=.*[a-zA-ZS])(?=.*?[#?!@$%^&*-]).{8,16}/; // 문자와 특수문자 조합의 8~16 자리
+	let reg_mobile = /^\d{3}-\d{3,4}-\d{4}$/; // 휴대폰 번호
+	let reg_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/; // (이메일) 길이까지 확실한 검증
+	
+	//아이디 체크
+	if (id.length > 21 || id.length < 5) {
+		$('#memid').focus()
+		$('#idMsg').text('아이디는 4~20자 소문자 + 숫자 + _ , -')
+	}
+	
+	//pw 체크
+	if (pw.length > 17 || pw.length < 7) {
+		$('#mempw').focus()
+		$('#pwMsg').text('비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자')
+	
+		} else {
+			idSucc = true;
+			pwSucc = true;
+			confirmPwSucc = true;
+			phoneSucc = true;
+			emailSucc = true;
+		}
+	
+	// 모든 항목에 정상 값을 입력했을 경우 모든 success변수가 true라면 submit
+	
+	if (idSucc && pwSucc && confirmPwSuc && phoneSucc && emailSucc) {
+		// 폼 엘리먼트.submit();
+		$('#joinForm').submit();
+
+		}
+
+	})
+
+})
+</script>
+
 <style type="text/css">
 
 .padding {
@@ -22,6 +237,7 @@ body {
 }
 
 /* card css */
+
 .card {
 	border: 0;
 	border-radius: 0px;
@@ -51,6 +267,21 @@ body {
 }
 
 /* card 내부 */
+
+.errorMsg {
+color:red;
+font-size: 9pt;
+
+}
+
+#idMsg {
+margin-left: -11%;
+}
+
+#pwMsg {
+margin-left: -7%;
+
+}
 .fw-400 {
 	font-weight: 400 !important;
 }
@@ -119,6 +350,7 @@ body {
 	-webkit-box-shadow: 0 0 0 0.1rem rgba(51, 202, 187, 0.15);
 	box-shadow: 0 0 0 0.1rem rgba(51, 202, 187, 0.15);
 }
+	
 
 /* button css */
 #btn {
@@ -127,12 +359,26 @@ body {
 	margin-bottom: 10px;
 }
 
-#btnchk {
+#btnjoin {
+	width: 50%;
+	padding: 12px;
+	margin-bottom: 10px;
+}
+
+#idchk {
 	width: 10%;
 	padding: 6px;
 	display: inline;
-	margin-left: 430px;
-	margin-top: -85px;
+	margin-left: 500px;
+	margin-top: -65px;
+}
+
+#pwchk {
+	width: 11%;
+	padding: 6px;
+	display: inline;
+	margin-left: 420px;
+	margin-top: -65px;
 }
 
 .btn-primary {
@@ -166,7 +412,7 @@ body {
 		<div class="padding">
 			<div class="row container d-flex justify-content-center">
 				<div class="col-md-6 col-lg-4">
-					<form action="/join" method="post" class="card">
+					<form action="/join" method="post" class="card" id="joinForm">
 						<h4 class="card-title fw-400">JOIN</h4>
 						<br>
 						
@@ -175,21 +421,25 @@ body {
 								<div class="form-id">아이디</div>
 								<div>
 									<input class="form-control" type="text" id="memberId" name="memberId"
-										placeholder="  아이디는 4~20자 소문자 + 숫자 + _ , -">
-									<button class="btn btn-bold btn-primary btnsm" id="btnchk">중복확인</button>
+										placeholder="  아이디는 4~20자 소문자 + 숫자 + _ , -" >
+									 <span id="idMsg" class="errorMsg"></span>
+									<button class="btn btn-bold btn-primary btnsm" id="idchk" onclick="fn_idChk();" value="N">중복확인</button>
 									<br>
 								</div>
-
-							</div>
+							</div><br>
 
 							<div class="form-group">
 								<div class="form-pw">비밀번호</div>
 								<input class="form-control" type="password" id="memberPw" name="memberPw"
-									placeholder="  영문, 숫자, 특수문자를 포함하여 8자리 이상">
+									placeholder="  영문, 숫자, 특수문자를 포함하여 8자리 이상">	
+								 <span id="pwMsg" class="errorMsg"></span>    
+																	
 							</div>
 							<div class="form-group">
 								<div class="form-pwck">비밀번호확인</div>
 								<input class="form-control" type="password" id="memberPwck" name="memberPwck">
+								<button class="btn btn-bold btn-primary btnsm" id="pwchk" onclick="passConfirm();" value="N">일치확인</button>
+								<br>
 							</div>
 							<div class="form-group">
 								<div class="form-name">이름</div>
@@ -213,9 +463,9 @@ body {
 							<!-- 회원가입 버튼 -->
 
 							<div class=buts>
-								<button class="btn btn-bold btn-primary" id="btn">JOIN</button>
-								<br> <img src="https://ifh.cc/g/7XpWOg.png" alt="카카오 회원가입" style="height: 48px; width: 50%;" />
-							</div>
+								<button class="btn btn-bold btn-primary" id="btnjoin">JOIN</button>
+								<img src="https://ifh.cc/g/7XpWOg.png" alt="카카오계정 로그인" onclick="kakaoLogin();"
+								style="height: 46px; width: 50%; padding-left: 5px;"> <a href="javascript:void(0)"></a> <br>							</div>
 							<br>
 						</div>
 					</form>

@@ -55,7 +55,7 @@ public class SboardServiceImpl implements SboardService{
 			sboard.setStudyTitle("(제목없음)");
 		}
 				
-		sboardDao.insert(sboard);
+		sboardDao.enroll(sboard);
 				
 	}
 
@@ -66,7 +66,7 @@ public class SboardServiceImpl implements SboardService{
 			sboard.setStudyTitle("(제목없음)");
 		}
 		
-		sboardDao.insert(sboard);
+		sboardDao.update(sboard);
 		
 	}
 

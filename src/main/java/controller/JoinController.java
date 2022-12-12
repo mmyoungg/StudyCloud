@@ -1,5 +1,6 @@
 package controller;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -8,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.face.MemberService;
 import dto.Member;
@@ -30,22 +36,50 @@ public class JoinController {
 	
 	}
 	
+	//아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value="login/idchk", method = RequestMethod. POST)
+	public String idchk(@RequestBody Member memberId) {
+
+		try{
+			logger.info("{}", memberId);
+
+			int result = memberService.idchk(memberId);
+			return Integer.toString(result);	 
+
+		} catch(Exception e){
+			e.printStackTrace();
+			return "failed";
+
+		}
+	}
+	
 	@PostMapping("/join")
-	public String joinProcess(Member member, HttpSession session) {
+	public String joinProcess(Member member, HttpSession session) throws Exception {
+		int result = memberService.idchk(member);
+		
 		logger.info("{}", member);
 		
 		boolean joinResult = memberService.join(member);
 		
+		try {
 		if( joinResult ) {
 			
 			logger.info("회원가입 성공");
 			return "redirect:/login";
 			
 		} else {
-			
+				
 			logger.info("회원가입 실패");
 			return "redirect:/join";
 		}
+		
+		} catch (Exception e) {
+			throw new RuntimeException();
+
+		}
+
+
 	}
 
 }

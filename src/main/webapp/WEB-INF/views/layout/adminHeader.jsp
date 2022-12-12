@@ -280,7 +280,9 @@ $(document).ready(function() {
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <!-- studyCloud 이미지 -->
-                <img class="navbar-brand name" id="logo" src="/resources/img/Logo.png" />
+                <a href="/admin/main">
+                	<img class="navbar-brand name" id="logo" src="/resources/img/Logo.png" />
+                </a>
 
                 <!-- 메뉴바 -->
                 <div class="collapse navbar-collapse" id="menu-wrap">

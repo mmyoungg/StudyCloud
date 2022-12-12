@@ -27,7 +27,7 @@ import com.google.gson.JsonParser;
 
 @Controller
 public class KakaoController {
-
+		
 	@RequestMapping(value = "/login/getKakaoAuthUrl")
 		public @ResponseBody String getKakaoAuthUrl(
 				HttpServletRequest request) throws Exception {
@@ -184,21 +184,6 @@ public class KakaoController {
 
         return userInfo;
     }
-    
-    
-    
-    //로그아웃
-    
-    @RequestMapping(value="/login/kakaologout")
-	public String access(HttpSession session) throws IOException {
-		
-		String access_token = (String)session.getAttribute("access_token");
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("Authorization", "Bearer "+ access_token);
-//		String result = conn.HttpPostConnection("https://kapi.kakao.com/v1/user/logout", map).toString();
-//		System.out.println(result);
-		
-		return "redirect:/";
-	}
+
     
  }

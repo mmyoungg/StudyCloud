@@ -11,11 +11,46 @@
 
 <script type="text/javascript">
 
+$(document).ready(function() {
+
+//파일이름 변경 
+
 $("#file").on('change',function(){
 	  var fileName = $("#file").val();
 	  $(".upload-name").val(fileName);
+	  
 	});
-	
+
+//버튼 클릭시 이동
+
+// $("#btnsave").on("click", function(){
+// 	location.href="/mypage";
+// })
+
+$("#gotologin").on("click", function(){
+	location.href="/login";
+	})
+
+})
+
+
+//휴대폰 번호 자동 하이픈 추가 
+ 
+  $(document).ready(function() {
+	   $("#memberPhone").keydown(function(event) {   //입력창에 숫자 입력
+	       var key = event.charCode || event.keyCode || 0;
+	       $text = $(this); 
+	      
+	       if (key !== 8 && key !== 9) {
+	           if ($text.val().length === 3) {
+	               $text.val($text.val() + '-');
+	           }
+	           if ($text.val().length === 8) {
+	               $text.val($text.val() + '-');
+	           }
+	       }
+	   })
+  })
 </script>
 
 <style type="text/css">
@@ -29,7 +64,7 @@ body {
 	border: 0;
 	border-radius: 0px;
  	margin-bottom: 30px; 
- 	height: 750px;
+ 	height: 850px;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
 	-webkit-transition: .5s;
@@ -88,6 +123,7 @@ body {
 	-webkit-transition: 0.2s linear;
 	transition: 0.2s linear;
 	width: 40%;
+	margin-top: 2%;
 /* 	margin: 0 auto; */
 }
 
@@ -142,19 +178,35 @@ body {
 }
 
 
+/* 로그인 하지 않았을 때 창 */
+
+#gotologin {
+	margin-left: 35%;
+}
+
+.loginment {
+	margin-top: 10%;
+}
+
+
+
 </style>
 </head>
 
 <body>
 
 	<div class="container rounded bg-white mt-5">
-		<form class="card">
+       <c:if test="${not empty login }">
+	
+		<form class="card" action="/edit" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="memberNo" value="${member.memberNo }">
+			<input type="text" id="memberName" value="${member.memberName}">	
 			<div class="col-md-4 border-right">
 				<div class="d-flex flex-column align-items-center text-center p-3 py-5" >
 					<img class="rounded-circle mt-5"
 						src="https://img.icons8.com/color/512/test-account.png" width="90"><br>
-					<span class="font-weight-bold">John Doe</span> <span
-						class="text-black-50">john_doe12@bbb.com</span><br>
+					<span class="font-weight-bold">${member.memberName}</span> <span
+						class="text-black-50">${member.memberEmail}</span><br>
 					<div class="filebox">
 						<input class="upload-name" value="프로필사진 변경" placeholder="프로필사진 변경">
 						<label for="file">파일찾기</label> <input type="file" id="file">
@@ -165,36 +217,52 @@ body {
 				<div class="p-3 py-5">
 					<div class="row mt-2 input-wrap">
 						<div class="form-name">비밀번호</div>
-						<input class="form-control" type="password"
+						<input class="form-control" type="password" id="memberPw" name="memberPw"
 							placeholder="    영문, 숫자, 특수문자를 포함하여 8자리 이상">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">비밀번호확인</div>
-						<input class="form-control" type="password" placeholder="">
+						<input class="form-control" type="password" placeholder="" id="memberPwck" name="memberPwck">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">이름</div>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" id="memberName" name="memberName" value="${member.memberName}">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">연락처</div>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" id="memberPhone" name="memberPhone" value="${member.memberPhone}">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">이메일</div>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" id="memberEmail" name="memberEmail" value="${member.memberEmail}">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">닉네임</div>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" id="memberNick" name="memberNick" value="${member.memberNick}">
 					</div>
 				</div>
 				<div class="mt-5 text-right">
-					<button class="btn btn-primary profile-button" type="button">수정내역
+					<button class="btn btn-primary profile-button" id="btnsave">수정내역
 						저장</button>
 				</div>
 				</div>
 			</form>
+			</c:if>
+			
+            <c:if test="${empty login }">
+			 <div class="card">
+            <div class="loginment">
+	            	<h2 class ="text-dark text-center">회원 정보 수정 페이지입니다.</h2>
+	            	<p class="text-center"> 
+	            		<span>로그인 후 이용해주세요.</span>
+	            	</p>
+	            <div class="mt-5 text-right">
+	           		<button type="button" class="btn btn-primary profile-button" id="gotologin">로그인 하기</button>
+	            </div>
+            </div>
+            </div>
+			</c:if>
+			
 		</div>
 	<br><br><br><br><br>
 

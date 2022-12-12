@@ -31,8 +31,8 @@ public class SboardController {
 	public void sboardmain(
 			
 			@RequestParam(defaultValue = "0") int curPage
-//			,Member authority
-//			,Member member
+			,Member authority
+			,Member member
 			,Model model
 			
 			) {
@@ -81,15 +81,19 @@ public class SboardController {
 	@GetMapping("/sboard/enroll")
 	public void enroll() {}
 
-	@RequestMapping("/sboard/enroll")
+	@PostMapping("/sboard/enroll")
 	public String enrollproc(
 			
-			StudyBoard sboard
+			Member member
+			,StudyBoard sboard
 			,HttpSession session
 			
 			) {
 		
 		logger.debug("{}", sboard);
+		
+		//작성자 정보 추가
+		sboard.setMemberNo( (int) session.getAttribute("memberNo"));
 		
 		sboardService.enroll(sboard);
 		
@@ -97,7 +101,7 @@ public class SboardController {
 		return "redirect:/sboard/main";
 	}
 	
-	@GetMapping("/sboard/upate")
+	@GetMapping("/sboard/update")
 	public void update(
 			
 			int studyNo
@@ -141,6 +145,11 @@ public class SboardController {
 		sboardService.delete(sboard);
 		
 		return "redirect:/mboard/main";
+		
+	}
+	
+	@RequestMapping("/sboard/kakaomap")
+	public void kakaoMap() {
 		
 	}
 	

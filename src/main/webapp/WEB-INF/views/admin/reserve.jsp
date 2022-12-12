@@ -93,6 +93,7 @@ $(function() {
 
 </style>
 
+
 </head>
 <body>
 
@@ -102,11 +103,14 @@ $(function() {
     <div class="pagetitle">
     	<h1>예약 리스트</h1>
     </div>
-
+    
     <section class="adminReserve">
       	<div class="row">
 
      	<!-- 테이블 -->
+     	
+     	<form action="/admin/reserve" method="get">
+     	
        	<div class="col-lg-12">
 				
 		   <!-- 필터 검색 -->
@@ -136,13 +140,24 @@ $(function() {
 				            
 	 					<div>
 	 						<span>
-	 							<select>
-	 								<option>스터디룸 명</option>
-	 								<option>예약자</option>
+	 							<select name="search_option">
+	 							
+ 							        <option value="sRoomName"
+									<c:if test="${map.search_option == 'sRoomName'}">selected</c:if>
+									>스터디룸명</option>
+
+ 							        <option value="memberName"
+									<c:if test="${map.search_option == 'memberName'}">selected</c:if>
+									>예약자</option>
+	 							
 	 							</select>
 	 						</span>
-	 						<span><input type="text" name="keyword"></span>
-							<span><button id="search">검색</button></span>
+	 						
+	 						<span><input name="keyword" value="${map.keyword}"></span>
+							<span><input type="submit" value="조회"></span>
+
+<!-- 	 						<span><input type="text" class="search-box" id="keyword" name="keyword"></span> -->
+<!-- 							<span><button id="search" class="search-box">검색</button></span> -->
 	 					</div>
 						
 				            
@@ -164,17 +179,17 @@ $(function() {
                             <th>관리</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach items="${list }" var="hashmap">
+                    <tbody class="reserveList" id="reserveList">
+                    <c:forEach items="${list }" var="reserve">
                         <tr>
-                            <td>${hashmap.RESERVE_NO }</td>
-                            <td>${hashmap.SROOM_NAME }</td>
-                            <td>${hashmap.MEMBER_NAME }</td>
-                            <td>${hashmap.MEMBER_PHONE }</td>
-                            <td>${hashmap.RESERVE_DATE }</td>
-                            <td>${hashmap.RESERVE_PEOPLE } 명</td>
+                            <td>${reserve.RESERVE_NO }</td>
+                            <td>${reserve.SROOM_NAME }</td>
+                            <td>${reserve.MEMBER_NAME }</td>
+                            <td>${reserve.MEMBER_PHONE }</td>
+                            <td>${reserve.RESERVE_DATE }</td>
+                            <td>${reserve.RESERVE_PEOPLE } 명</td>
 	                        <td>
-	                        	<a href="/admin/reserve/view?reserveNo=${hashmap.RESERVE_NO }">상세보기</a>
+	                        	<a href="/admin/reserve/view?reserveNo=${reserve.RESERVE_NO }">상세보기</a>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -182,10 +197,16 @@ $(function() {
             </div>
 			<span class="pull-right">total : ${paging.totalCount }</span>
        	</div>
+       	
+       	
+       	</form>
+       	
+       	
 		</div><!-- main row end -->
 	</section>
 
 </div><!-- main container end -->
+
 </main><!-- main end -->
 
 </body>

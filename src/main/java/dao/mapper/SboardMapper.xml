@@ -31,13 +31,13 @@
 		WHERE study_no = #{studyNo }
 	</select>
 	
-<!-- 	<select id="enroll" parameterType="dto.StudyBoard"> -->
-<!-- 		<selectKey order="BEFORE" resultType="int" keyProperty="studyNo"> -->
-<!-- 			SELECT studyboard_seq.nextval FROM dual -->
-<!-- 		</selectKey> -->
-<!-- 		INSERT INTO studyboard ( study_no, member_no, study_title, study_people, study_address, study_tag, study_date, study_time, study_content, study_notify, enrollstudy_date, sboard_markcnt) -->
-<!-- 		VALUES( ${studyNo }, #{memberNo }, #{studyTitle }, #{studyPeople }, #{studyAddress }, #{studyTag }, #{studyDate }, #{studyTime }, #{studyContent }, #{studyNotify }, #{enrollstudyDate }, #{sboardMarkcnt }) -->
-<!-- 	</select> -->
+	<insert id="enroll" parameterType="dto.StudyBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="studyNo">
+			SELECT studyboard_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO studyboard ( study_no, member_no, study_title, study_people, study_address, study_tag, study_date, study_time, study_content, study_notify)
+		VALUES( ${studyNo }, #{memberNo }, #{studyTitle }, #{studyPeople }, #{studyAddress }, #{studyTag }, #{studyDate }, #{studyTime }, #{studyContent }, #{studyNotify } )
+	</insert>
 	
 	<update id="update" parameterType="dto.StudyBoard">
 		UPDATE studyboard
