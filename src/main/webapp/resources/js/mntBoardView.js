@@ -65,38 +65,4 @@ try {
 ; window.kakaoDemoCallback && window.kakaoDemoCallback() }
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
-// 목록, 수정, 삭제버튼
-
-$(document).ready(function() {
-	$("#btnList").click(function() {
-		location.href = "/mtboard/list"
-	})
-//	$("#btnUpdate").click(function() {
-//		location.href = "/mtboard/update?boardNo=${mtDetailBoard.boardNo }"
-//	})
-	
-//	$("#btnDelete").click(function() {
-//		location.href = "/board/delete?boardNo=${mtDetailBoard.boardNo }"
-//	})
-
-
-
-var updateCmbtn = document.getElementsByClassName('updateCmbtn')
-	for(var i = 0; i < updateCmbtn.length; i++) {
-		updateCmbtn[i].addEventListener("click", function(e) {
-			console.log("Clicked index: " + e.target.innerText);
-		})
-	}
-
-
-var test = document.getElementsByClassName('test')
-	for(var i = 0; i < test.length; i++) {
-		console.log(test[i])
-		test[i].addEventListener("click", function(e) {
-			console.log("Clicked index: " + e.target.innerText);
-		})
-	}
-
-
-})
 

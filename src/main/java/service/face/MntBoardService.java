@@ -102,21 +102,29 @@ public interface MntBoardService {
 	
 	public CommtPaging getCommtPaging(int curPage, int mntboardNo);
 	
-	public void writeCommt(Commt commt);
+	public Commt writeCommt(Commt commt);
 
 	public void updateCommt(Commt commt);
 	
 	public void deleteCommt(int commtNo);
+
+
+
 	
+	
+	// ---------- 좋아요 -----------
+	
+	public boolean mntboardLike(MntBoardLike mntboardLike);
+
+	public boolean like(MntBoardLike mntboardLike);
+	
+	public int getTotalCntLike(MntBoardLike mntboardLike);
+
 
 	
 
 	
 
-	/*
-	 * // 댓글수정 public List<HashMap<String, Object>> commtList(Commt commt);
-	 */
-	
 	
 	
 	

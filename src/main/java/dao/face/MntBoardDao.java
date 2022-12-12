@@ -107,12 +107,13 @@ public interface MntBoardDao {
 	
 	public List<HashMap<String, Object>> CommtList(HashMap<String, Object> map);
 	
+	// 리스트옆 댓글수
 	public void mntBoardCmt(int mntboardNo);
 	
 	public void insertCommt(Commt commt);
 	
-	public void updateCommt (Commt commt);
-
+	public Commt selectCmtByCommtNo(int commtNo);
+	
 	public void updateMntCommt(Commt commt);
 	
 	public void deleteMntCommt(int commtNo);
@@ -120,6 +121,18 @@ public interface MntBoardDao {
 
 	
 	// 좋아요
+
+	public int selectCntLike(MntBoardLike mntboardLike);
+	
+	public void deleteLike(MntBoardLike mntboardLike);
+	
+	public void insertLike(MntBoardLike mntboardLike);
+	
+	public int getTotalCntLike(MntBoardLike mntboardLike);
+
+	// 좋아요 수
+	public void mntBoardLike(MntBoard viewBoard);
+
 
 
 
