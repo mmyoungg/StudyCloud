@@ -22,7 +22,7 @@
 
 
 .all_content {
-    margin: 150px 150px 0px 150px;
+    margin: 150px 120px 0px 120px;
     height: 1100px;
 }
 
@@ -131,7 +131,6 @@ th {
     float: left;
     width: 14%;
     margin-left: 10px;
-    margin-right: 30px;
 
 }
 
@@ -146,7 +145,7 @@ th {
 
 .right_sort {
     display: flex;
-    width: 80%;
+    width: 83%;
     place-items: center;
 }
 

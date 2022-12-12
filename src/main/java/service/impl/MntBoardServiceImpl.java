@@ -58,6 +58,9 @@ public class MntBoardServiceImpl implements MntBoardService {
 		// 조회수 증가
 		mntBoardDao.mntBoardHit(viewBoard);
 		
+		// 좋아요 수
+		mntBoardDao.mntBoardLike(viewBoard);
+		
 		// 상세보기 조회결과 
 		return mntBoardDao.selectMntBoard(viewBoard);
 	}
@@ -75,7 +78,7 @@ public class MntBoardServiceImpl implements MntBoardService {
 		
 		// ----------------------------------------------------
 		
-		//빈 파일일 경우
+				//빈 파일일 경우
 				if( file.getSize() <= 0 ) {
 					return;
 				}
@@ -227,10 +230,17 @@ public class MntBoardServiceImpl implements MntBoardService {
 	}
 
 	@Override
-	public void writeCommt(Commt commt) {
+	public Commt writeCommt(Commt commt) {
 		mntBoardDao.insertCommt(commt);
+		
+		int commtNo = commt.getCommtNo();
+		System.out.println("<댓글번호> : " + commtNo);
+		Commt commtInsert = mntBoardDao.selectCmtByCommtNo(commtNo);
+		return commtInsert;
+	
 	}
 
+	// 리스트 옆 댓글수
 	@Override
 	public void mntBoardCmt(int mntboardNo) {
 		mntBoardDao.mntBoardCmt(mntboardNo);
@@ -245,6 +255,41 @@ public class MntBoardServiceImpl implements MntBoardService {
 	public void deleteCommt(int commtNo) {
 		mntBoardDao.deleteMntCommt(commtNo);
 	}
+	
+	
+	// 좋아요
+	@Override
+	public boolean like(MntBoardLike mntboardLike) {
+		int likeCnt = mntBoardDao.selectCntLike(mntboardLike);
+		
+		if(likeCnt > 0) {
+				return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean mntboardLike(MntBoardLike mntboardLike) {
+		
+		if(like(mntboardLike)) {
+			mntBoardDao.deleteLike(mntboardLike);
+			return false;
+		} else {
+			mntBoardDao.insertLike(mntboardLike);
+		}
+		return true;
+	}
+	
+	
+	@Override
+	public int getTotalCntLike(MntBoardLike mntboardLike) {
+		return mntBoardDao.getTotalCntLike(mntboardLike);
+	}
+
+	
+	
+
 
 
 

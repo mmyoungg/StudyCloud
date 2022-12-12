@@ -13,7 +13,7 @@
 	</select>
 	
 	<!-- 게시글 리스트 -->
-	<select id="selectList" resultType="StudyRoom" parameterType="util.Paging">
+	<select id="selectList" resultType="StudyRoom" parameterType="Paging">
 		SELECT * FROM (
 			SELECT rownum rnum, S.* FROM (
 				SELECT
@@ -23,9 +23,9 @@
 				ORDER BY sroom_no DESC
 			) S
 		) STUDYROOM
-		WHERE rnum BETWEEN #{startNo } AND #{endNo } 
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
 	</select>
-    
+
     <!-- 게시글 등록 -->
     <insert id="insertsRoom" parameterType="StudyRoom">
     	<selectKey order="BEFORE" resultType="int" keyProperty="sRoomNo">
@@ -81,6 +81,34 @@
 		WHERE sroom_no = #{sRoomNo }
 	</delete>
 	
+	<!-- 스터디룸 QnA 리스트 -->
+	<select id="qnaList" resultType="hashmap">
+		SELECT S.*, M.*, Q.*
+		FROM studyroom S
+		JOIN studyroomqna Q
+		ON S.sroom_no = Q.sroom_no
+		JOIN member M
+		ON Q.member_no = M.member_no
+		ORDER BY sroomqna_grpno, sroomqna_grpord, Q.sroomqna_no
+	</select>
+	
+	<!-- QnA 상세보기 -->
+	<select id="selectQnaView" resultType="SroomQna" parameterType="SroomQna">
+		SELECT *
+		FROM studyroomqna
+		WHERE sroomqna_no = #{sRoomQnaNo }
+		ORDER BY sroomqna_no DESC
+	</select>
+	
+	<!-- QnA 답변 작성 -->
+	<insert id="writeQna" parameterType="SroomQna">
+    	<selectKey order="BEFORE" resultType="int" keyProperty="sRoomQnaGrpOrd">
+    		SELECT max(sroomqna_grpord) + 1 FROM studyroomqna WHERE sroomqna_grpno = #{sRoomQnaNo}
+    	</selectKey>
+		
+    	INSERT INTO studyroomqna ( sroomqna_no, sroom_no, member_no, sroomqna_grpno, sroomqna_grpord, sroomqna_step, sroomqna_title, sroomqna_content )
+    	VALUES ( studyroomqna_seq.nextval, #{sRoomNo}, #{memberNo}, #{sRoomQnaNo}, #{sRoomQnaGrpOrd }, 1, #{sRoomQnaTitle }, #{sRoomQnaContent } )
+   	</insert>
 	
 	<!-- ========== 메인페이지 ========== -->
 	
@@ -92,11 +120,11 @@
 	
 	<!-- 게시글 + 첨부파일 조회 -->
 	<select id="selectMap" resultType="hashmap">
-		SELECT S.sroom_name, F.fileupload_stor
+		SELECT S.sroom_name, S.sroom_no, F.fileupload_stor
 		FROM studyroom S
 		JOIN fileupload F
 		ON S.sroom_no = F.sroom_no
-		<![CDATA[WHERE rownum <= 3]]>
+		<![CDATA[WHERE rownum <= 6]]>
 		ORDER BY S.sroom_no DESC
 	</select>
 	

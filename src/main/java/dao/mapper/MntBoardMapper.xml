@@ -16,7 +16,8 @@
 			SELECT rownum rnum, B.* FROM (
 			SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
 			, n.mntboard_content , n.mntboard_cmcnt , n.mntboard_hit 
-			, n.mntboard_date, n.like_cnt
+			, n.mntboard_date
+			, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
 			FROM mntboard n 
 			JOIN member m
 			ON ( n.member_no = m.member_no )
@@ -36,7 +37,8 @@
 	
 	<select id="selectMntBoard" resultType="hashmap" parameterType="dto.MntBoard">
 		SELECT	 n.mntboard_no,  m.member_nick, n.field, n.mntboard_title, n.mntboard_content 
-				, n.mntboard_cmcnt , n.mntboard_hit , n.mntboard_date, n.like_cnt
+				, n.mntboard_cmcnt , n.mntboard_hit , n.mntboard_date
+				, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
 			FROM mntboard n 
 			JOIN member m
 			ON (n.member_no = m.member_no)
@@ -114,16 +116,18 @@
 		WHERE m.mntboard_no = #{mntboardNo}
 	</update>
 	
-
-	<!-- 좋아요 -->
-	<!-- <select id="mntBoardLike" resultType="int">
-		SELECT COUNT(*) FROM mntboardlike 
-		WHERE mntboard_bo = #{mntboardNo} 
-		AND member_no = #{memberNo}
-	</select> -->
+	
+	<!-- 게시파 리스트 좋아요수 -->
+	<update id="mntBoardLike" parameterType="dto.MntBoard">
+		UPDATE mntboard m
+		SET m.like_cnt = 
+		(SELECT COUNT(mntboardlike_no) FROM mntboardlike WHERE mntboard_no = #{mntboardNo})
+		WHERE m.mntboard_no = #{mntboardNo}
+	</update>
 	
 
-	<!--  <insert id="" ></insert> -->
+	
+
 	
 	
 	<!-- 댓글 -->
@@ -156,7 +160,12 @@
 		)
     </insert>
 
-    
+    <select id="selectCmtByCommtNo" parameterType="int" resultType="dto.Commt">
+		SELECT commt_no, mntboard_no, member_no, commt_content
+		FROM commt 
+		WHERE commt_no = #{commtNo}
+	</select>
+	
     <update id="updateMntCommt" parameterType="dto.Commt">
         UPDATE commt
         SET commt_content = #{commtContent}
@@ -169,6 +178,34 @@
 		DELETE commt 
 		WHERE commt_no = #{commtNo}
 	</delete>
+	
+	
+	<!-- 좋아요 -->
+	<select id="selectCntLike" parameterType="dto.MntBoardLike" resultType="int">
+		SELECT count(*)
+		FROM mntboardlike
+		WHERE mntboard_no = #{mntboardNo}
+			AND member_no = #{memberNo }
+	</select>
+	
+	<select id="getTotalCntLike" parameterType="dto.MntBoardLike" resultType="int">
+		SELECT count(*)
+		FROM mntboardlike
+		WHERE member_no = #{memberNo }
+	</select>
+	
+	<delete id="deleteLike" parameterType="dto.MntBoardLike">
+		DELETE mntboardlike
+		WHERE member_no = #{memberNo }
+			AND mntboard_no = #{mntboardNo}
+	</delete>
+	
+	<insert id="insertLike" parameterType="dto.MntBoardLike">
+		INSERT INTO mntboardlike (mntboardlike_no, mntboard_no, member_no)
+		VALUES (mntboardlike_seq.nextval, #{mntboardNo }, #{memberNo })
+	</insert>
+	
+	
 	
 	
 	

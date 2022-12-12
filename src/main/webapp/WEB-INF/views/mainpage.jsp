@@ -23,7 +23,7 @@
 <style type="text/css">
 
 /* 리뷰 */
-.testimonial-1 {
+.reviewContent {
   background: #fff;
   padding: 14px;
   color: #000;
@@ -31,24 +31,17 @@
   border-radius: 20px;
 }
 
-.col-md-4{
-    margin-top:25px;
+.mtTitle { /* 멘토링 타이틀 */
+	font-weight: bold;
+	font-size: 18px;
 }
 
-.name {
-  font-weight: 700;
+.col-md-4 {
+	margin-top: 20px;
+}
+
+.name { /* 수강생 닉네임 */
   font-size: 14px;
-  margin-bottom: -3px;
-}
-
-.place {
-  font-size: 13px;
-  color: #988c8c;
-}
-
-.place-2 {
-  font-size: 13px;
-  color: #ffffff;
 }
 
 </style>
@@ -116,20 +109,20 @@ $(document).ready(function() {
 	</div>
 </section>
 
-
 <!-- 검색창 -->
-<section class="search">
-	<div class="container">
-		<div class="content">
-			<p class="search_title">
-			    검색창 멘트
-			</p>
-     			<div class="search_wrap">
-    					<input class="search_input" type="text" placeholder="Search">
-			</div>
- 		</div>
-	</div>
-</section><!-- searchBox end -->
+<!-- <section class="search"> -->
+<!-- 	<div class="container"> -->
+<!-- 		<div class="content"> -->
+<!-- 			<p class="search_title"> -->
+<!-- 			    검색창 멘트 -->
+<!-- 			</p> -->
+<!--      			<div class="search_wrap"> -->
+<!--     					<input class="search_input" type="text" placeholder="Search"> -->
+<!-- 			</div> -->
+<!--  		</div> -->
+<!-- 	</div> -->
+<!-- </section> -->
+<!-- searchBox end -->
 
 <!-- 지금 뜨고있는 멘토 -->
 <section class="mentoRank">
@@ -142,14 +135,14 @@ $(document).ready(function() {
                         <div class="owl-stage">
 						
 						<!-- 멘토 리스트 -->
-						<c:forEach items="${mtList }" var="hashmap">
+						<c:forEach items="${mtList }" var="mtList">
                             <div class="owl-item active">
                                 <div class="mento-item">
-                               		<img src="" alt="게시글 첨부파일"><!-- 게시글 첨부파일 -->
-                                   	<p class="mento-title">${hashmap.MTBOARD_TITLE }</p>
-                                   	<p class="mento-name">${hashmap.MEMBER_NICK } 멘토</p>
-                                   	<p class="mento-price">₩ ${hashmap.MT_PRICE }</p>
-                                   	<button class="mento-field">${hashmap.FIELD }</button>
+                               		<img src="/upload/${mtList.FILEUPLOAD_STOR }" alt="mento-img">
+                                   	<p class="mento-title">${mtList.MTBOARD_TITLE }</p>
+                                   	<p class="mento-name">${mtList.MEMBER_NICK } 멘토</p>
+                                   	<p class="mento-price">₩ ${mtList.MT_PRICE }</p>
+                                   	<button class="mento-field">${mtList.FIELD }</button>
                                 </div>
                             </div>
 						</c:forEach>
@@ -214,14 +207,13 @@ $(document).ready(function() {
                      <div class="owl-stage">
                      
                      <!-- 스터디 리스트 -->
-                     <c:forEach items="${sList }" var="hashmap">
+                     <c:forEach items="${stList }" var="stList">
                          <div class="owl-item active">
                              <div class="study-item">
-                           		<img src="" alt="게시글 첨부파일"><!-- 게시글 첨부파일 -->
-                               	<p class="study-title">${hashmap.STUDY_TITLE }</p>
-                               	<p class="study-name">${hashmap.MEMBER_NICK } 스터디장</p>
-                               	<p class="study-people">${hashmap.STUDY_PEOPLE } 명</p>
-                               	<button class="study-tag">${hashmap.STUDY_TAG }</button>
+                               	<p class="study-title">${stList.STUDY_TITLE }</p>
+                               	<p class="study-name">${stList.MEMBER_NICK } 스터디장</p>
+                               	<p class="study-people">${stList.STUDY_PEOPLE } 명</p>
+                               	<button class="study-tag">${stList.STUDY_TAG }</button>
                              </div>
                          </div>
                      </c:forEach>
@@ -263,7 +255,7 @@ $(document).ready(function() {
                              style="color: #6cc4dc">
                              <polyline points="9 18 15 12 9 6" class="owl-next"></polyline>
                         	</svg>
-                     </div>
+                     	</div>
                  </button>
              </div>
          </div>
@@ -273,56 +265,19 @@ $(document).ready(function() {
 </section><!-- 마감임박 스터디 end -->
 
 
-
-<!-- TEST -->
-<%-- <c:forEach items="${srListFile }" var="hashmap"> --%>
-<%-- <img src="/upload/${sRoomFile.fileUploadStor }" alt="studyroom-img"> --%>
-<%-- <p>${hashmap.SROOM_NAME}</p> --%>
-<%-- </c:forEach> --%>
-
-
-<!-- 인기 스터디룸 -->
+<!-- 최신 업데이트 스터디룸 -->
 <section class="studyroom">
 	<div class="container">
-     	<div class="row">
-        	<div class="col-12">
-            	<p class="studyRank-title">인기 스터디룸</p>
-				<div class="card-group" id="sRoom-wrap">
-				
-					<c:forEach items="${srList }" var="sr">
-   					<div class="card" id="sRoom">
-						<img src="/upload/${sr.FILEUPLOAD_STOR }" alt="studyroom-img">
-						<div class="card-title">
-				    		<p class="sRoomName">${sr.SROOM_NAME }</p>
-				  		</div>
-					</div>
-					</c:forEach>
-					
-				</div>
-         	</div>
-     	</div>
- 	</div><!-- container end -->
-</section><!-- studyroom end -->	
-
-
-<!-- 멘토링 리뷰 -->
-<section class="review">
-	<div class="container mt-5">
-        <div class="row" id="mtReview">
-        <p class="studyRank-title">멘토링 리뷰</p>
-		<c:forEach items="${mtReviewList }" var="hashmap">
+        <div class="row" id="sRoom-wrap">
+        <p class="studyRank-title">최신 업데이트 스터디룸 🆕</p>
+		<c:forEach items="${srList }" var="srList">
             <div class="col-md-4">
-                <div class="testimonial-1">
-                	<img class="mb-3" id="mark" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>${hashmap.MTREVIEW_CONTENT }<br><br></p>
-                    <div class="d-flex flex-row align-items-center">
-                    	<img class="rounded-circle" src="https://ifh.cc/g/VhRkMc.jpg" width="40" height="40">
-                        <div class="ml-2 about">
-                        	<span class="d-block name">${hashmap.MEMBER_NICK }</span>
-                        	<span class="place">개발 / 자바</span>
-                       	</div>
-                    </div>
-                </div>
+				<a href="/sRoom/detail?sRoomNo=${srList.SROOM_NO }">
+	                <div id="sRoom">
+						<img src="/upload/${srList.FILEUPLOAD_STOR }" alt="studyroom-img" id="sRoom-img">
+			    		<p class="sRoomName">${srList.SROOM_NAME }</p>
+	                </div>
+                </a>
             </div>
 		</c:forEach>
         </div>
@@ -330,54 +285,27 @@ $(document).ready(function() {
 </section>
 
 
-<!-- 스터디 리뷰 -->
+<!-- 멘토링 리뷰 -->
 <section class="review">
 	<div class="container mt-5">
-        <div class="row" id="stReview">
-        <p class="studyRank-title">스터디 리뷰</p>
+        <div class="row" id="mtReview">
+        <p class="studyRank-title">멘토링 리뷰 💬<p>
+		<c:forEach items="${mtReviewList }" var="list">
             <div class="col-md-4">
-                <div class="testimonial-1">
+                <div class="reviewContent">
                 	<img class="mb-3" id="mark" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
-                    <div class="d-flex flex-row align-items-center">
-                    	<img class="rounded-circle" src="https://ifh.cc/g/VhRkMc.jpg" width="40" height="40">
-                        <div class="ml-2 about">
-                        	<span class="d-block name">코딩매니아</span>
-                        	<span class="place">개발 / 자바</span>
-                       	</div>
-                    </div>
+                    <p class="mtTitle">${list.MTBOARD_TITLE }</p>
+                    <p class="mtReviewContent">${list.MTREVIEW_CONTENT }</p>
+                    <div class="ml-2 about">
+                    	<span class="d-block name">${list.MEMBER_NICK } 님</span>
+                    	<button class="study-tag">${list.FIELD }</button>
+                   	</div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="testimonial-1">
-                	<img class="mb-3" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
-                    <div class="d-flex flex-row align-items-center">
-                    	<img class="rounded-circle" src="https://ifh.cc/g/3a2cg1.jpg" width="40" height="40">
-                        <div class="ml-2 about">
-                        	<span class="d-block name">닉네임로컬호스트</span>
-                        	<span class="place">디자인 / UI & UX </span>
-                       	</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial-1">
-                	<img class="mb-3" src="https://i.imgur.com/ECXzJ1k.png" width="40">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br><br></p>
-                    <div class="d-flex flex-row align-items-center">
-                    	<img class="rounded-circle" src="https://ifh.cc/g/JHR0Xz.jpg" width="40" height="40">
-                        <div class="ml-2 about">
-                        	<span class="d-block name">아이스아메리카노</span>
-                        	<span class="place">개발 / 자격증</span>
-                       	</div>
-                    </div>
-                </div>
-            </div>
+		</c:forEach>
         </div>
     </div>
 </section>
-
 
 <c:import url="layout/footer.jsp" />
 

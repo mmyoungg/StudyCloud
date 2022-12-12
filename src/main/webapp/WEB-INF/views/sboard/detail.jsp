@@ -262,7 +262,7 @@ textarea:focus {
 				<div class="con-detail">
 					<div class="title">
 					<img src="/resources/se2/img/users-solid.svg">
-					<span class="con-detail-1" id="title" name="title">${detailSboard.STUDY_PEOPLE }</span>
+					<span class="con-detail-1" id="people" name="people">${detailSboard.STUDY_PEOPLE }명</span>
 					</div>
 				</div>
 				

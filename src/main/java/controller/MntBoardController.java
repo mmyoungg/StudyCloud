@@ -1,10 +1,10 @@
 package controller;
 
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,15 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import dto.Commt;
 import dto.FileUpload;
 import dto.MntBoard;
+import dto.MntBoardLike;
 import service.face.MntBoardService;
 import util.CommtPaging;
 import util.Paging;
@@ -35,6 +36,7 @@ public class MntBoardController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired MntBoardService mntBoardService;
+	@Autowired ServletContext context;
 	
 	
 	@RequestMapping("/list")
@@ -76,7 +78,7 @@ public class MntBoardController {
 	public void view (
 		 @RequestParam(defaultValue = "1") 
 		 int curPage, HttpSession session, 
-		 MntBoard viewBoard, int mntboardNo, Model model) {
+		 MntBoard viewBoard, int mntboardNo, Model model, MntBoardLike mntboardLike) {
 		/* logger.info("/mntboard/view - {} ", viewBoard); */
 		
 		logger.info("mntboardNo : {}" , mntboardNo);
@@ -91,7 +93,8 @@ public class MntBoardController {
 		FileUpload fileUpload = mntBoardService.getAttachFile(viewBoard);
 		model.addAttribute("fileUpload", fileUpload);
 		
-	// -------------------------------------------------------------------------------	
+	// -------------------------------------------------------------------------------
+		
 		viewBoard.setMemberNo( (int)session.getAttribute("member_no") );
 
 		CommtPaging commtPaging = mntBoardService.getCommtPaging(curPage, mntboardNo);
@@ -104,14 +107,16 @@ public class MntBoardController {
 		model.addAttribute("commtList", commtList);
 		
 		
+		// ----------- 좋아요 -----------
 		
+		mntboardLike.setMemberNo( (int)session.getAttribute("member_no") );
+		// 좋아요 모델값 
+		model.addAttribute("like", mntBoardService.like(mntboardLike));
+		// 좋아요 수 모델값
+		model.addAttribute("likeCnt", mntBoardService.getTotalCntLike(mntboardLike));
 		
 	}
 	
-	
-	
-
-
 	
 	@GetMapping("/write")
 	public void write() {}
@@ -185,6 +190,8 @@ public class MntBoardController {
 		 
 	 }
 	 
+	 // ---------------- 댓글 -------------------
+	 
 	 
 	 @RequestMapping("/commtPage")
 		public void commtListPaging(int curPage, Model model, int mntboardNo ) {
@@ -209,22 +216,33 @@ public class MntBoardController {
 		}
 	 
 	 // 댓글 등록
-	  @PostMapping("/view")
-	  public String CommtWrite( Commt commt, HttpSession session) {
-		  logger.debug("{}", commt);
+	  @PostMapping("/writeCommt")
+	  @ResponseBody
+	  public String CommtWrite( @RequestParam Map<String, Object> map, HttpServletRequest req) {
 		  
-		  // 임시 세션
-		  session.setAttribute("member_no", 1); 
-		  commt.setMemberNo( (int)session.getAttribute("member_no") ); 
-		  logger.info("댓글등록 : {}", commt);
-		  
-		  mntBoardService.writeCommt(commt);
-		  
-		  return "redirect:/mntboard/view?mntboardNo=" + commt.getMntBoardNo();
+		  try {
+			  HttpSession session = req.getSession();
+			  String no = session.getAttribute("member_no").toString();
+			  int memberNo = Integer.parseInt(no);
+			  
+			  logger.info("글번호 : {}", map.get("mntboard_no"));
+			  logger.info("회원번호 : {} ", memberNo);
+			  logger.info("댓글내용 : {}", map);
+			  
+			  Commt commt = new Commt();
+			  commt.setMntBoardNo(Integer.parseInt(map.get("mntboard_no").toString()));
+			  commt.setCommtContent(map.get("commt_content").toString());
+			  commt.setMemberNo(memberNo);
+			  
+			  mntBoardService.writeCommt(commt);
+			  
+			  return "success";
+		  } catch (Exception e) {
+			  return "failed";
+		}
 	  }
 	 
 	  
-	  // 미구현
 	  @PostMapping("/updateCommt")
 	  @ResponseBody
 	  public String updateCommt(@RequestParam Map<String, Object> map,  HttpServletRequest req) {
@@ -265,6 +283,40 @@ public class MntBoardController {
 				return "failed";
 			}
 		}
+	  
+	 
+	  // ------------------------ 좋아요 ---------------------
+	  @RequestMapping("/like")
+	  public ModelAndView Like(MntBoardLike mntboardLike, ModelAndView mav, HttpSession session) {
+		
+		  // 좋아요 하트
+		  mntboardLike.setMemberNo((int)session.getAttribute("member_no"));
+		  
+		  // 좋아요 상태 확인
+//		  boolean like = mntBoardService.like(mntboardLike);
+		  
+		  boolean result = mntBoardService.mntboardLike(mntboardLike);
+		  
+		  // 좋아요 수 조회
+		  int likeCnt = mntBoardService.getTotalCntLike(mntboardLike);
+		  
+		  mav.addObject("result", result);
+		  mav.addObject("likeCnt", likeCnt);
+		  
+		  mav.setViewName("jsonView");
+		  
+		  
+		  return mav;
+		  
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 }
 

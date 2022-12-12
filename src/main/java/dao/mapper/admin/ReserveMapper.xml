@@ -27,13 +27,20 @@
 		AND R.sroom_no = S.sroom_no
 	</select>
 	
-	<select id="previewReserve" resultType="hashmap" >
+	<select id="previewReserve" resultType="hashmap">
 		SELECT R.*, M.*, S.*
 		FROM reservation R, member M, studyroom S
 		WHERE R.member_no = M.member_no
 		AND R.sroom_no = S.sroom_no
 		<![CDATA[AND rownum <= 5]]> 
 		ORDER BY reserve_no DESC
+	</select>
+	
+	<!-- 예약 검색 -->
+	<select id="searchReserve" resultType="hashmap" parameterType="hashmap">
+		SELECT R.*, M.*, S.*
+		FROM reservation R, member M, studyroom S
+		WHERE ${search_option } LIKE '%'|| #{keyword }|| '%'
 	</select>
 	
 </mapper>

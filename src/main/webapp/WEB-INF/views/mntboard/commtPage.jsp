@@ -3,11 +3,53 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- <script src="../resources/js/mtBoardDetail.js?ver=1"></script> -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script type="text/javascript">
+
+
+
+
+ <!-- 댓글작성 -->
+<input type="hidden" name="mntBoardNo" value="${param.mntboardNo }">
+	<div>
+		<textarea class="col-auto form-control" id="reviewContents" name="commtContent"
+				  placeholder="댓글을 입력해주세요"></textarea>
+	</div>	
+	 <button type="button" class="btn btn-primary" id="btnReview">등록</button>
+	 <button type="button" class="btn btn-primary" id="btnReviewUpdate" style="display:none" >수정</button>
+<!-- </form>	 -->
+<br><br>
+<!-- 댓글 끝 -->    
+
+
 	
-	// 댓글 수정버튼 클릭시 
+<h6>댓글 (<span class="reply_cnt" style="font-weight: bold;"> ${CntCommt } </span>)</h6>
+<br>	
+<c:forEach items="${commtList }" var="commt">
+	<ul class="reply_content_ul">
+	<!-- 첫번째 댓글 -->
+	<li>
+		<div class="comment_wrap">
+		<div class="reply_top">
+			<span class="id_span">☁️ ${commt.MEMBER_NICK  } ☁️</span>
+			<span class="date_span"><fmt:formatDate pattern="yyyy-MM-ddㅤHH:mm" value="${commt.COMMT_DATE }"/></span>
+			<a class="updateCmbtn updateCmt${commt.COMMT_NO}" data-commtno="${commt.COMMT_NO}" onclick="updateCmt(${commt.COMMT_NO})">수정</a>	
+			<a class="deleteCmbtn deleteCmt${commt.COMMT_NO}" data-commtno="${commt.COMMT_NO}" onclick="deleteCmt(${commt.COMMT_NO})">삭제</a>
+		</div>
+		<div class="reply_bottom">
+		<div class="reply_bottom_txt" id="content${commt.COMMT_NO}">
+		${commt.COMMT_CONTENT  }
+			</div>
+			</div>
+		</div>
+	</li>
+	</ul>
+</c:forEach>
+
+<script type="text/javascript">
+
+
+
+//댓글 수정버튼 클릭시 
 	function updateCmt(e){
 		var btnReviewUpdate = document.getElementById('btnReviewUpdate')
 		var btnReview = document.getElementById('btnReview')
@@ -30,7 +72,40 @@
 		
 	}
 	
-	// 댓글 삭제버튼 클릭시
+	// 댓글 등록 버튼 
+	$('#btnReview').click(function (e) {
+		e.preventDefault()
+		// textarea element를 변수에 저장
+		var boardNo = ${param.mntboardNo};
+		var content = $("#reviewContents").val();
+		// textarea에 있는 값 불러오기
+		console.log("글번호 :"  + boardNo);
+		console.log("내용 : " + content);
+		
+		 var data = {
+				mntboard_no : boardNo,
+				commt_content : content }
+				
+		// ajax로 저장 해주기 
+		$.ajax({
+			type: "post"
+		   , url : "/mntboard/writeCommt"
+		   , data: data
+		   , dataType: "html"
+		   , success: function( c ) {
+		   		if(c === 'success'){
+		   		 alert('댓글이 등록되었습니다.')
+		   		 getComments()
+		   		$("#reviewContents").val('');
+		   		} else{
+					 alert('댓글 등록에 실패하였습니다')
+		 		}
+		   }
+		
+		})
+	}) 
+	
+	 // 댓글 삭제버튼 클릭시
 	function deleteCmt(e){
 		var result = window.confirm('선택하신 댓글을 삭제하시겠습니까?')
 		if(result){
@@ -51,24 +126,11 @@
 				
 			})
 		}
-	}
+	} 
 	
- 	
-	// 댓글 submit 버튼 
-	$('#btnReview').click(function (e) {
-		e.preventDefault()
-		
-		// textarea element를 변수에 저장
-		
-		// textarea에 있는 값 불러오기
-		
-		// ajax로 저장 해주기 
-		
-		
-		console.log(e)
-	}) 
 	
- 
+	
+
 	// 수정 댓글 submit 버튼 
 	$('#btnReviewUpdate').click(function (e) {
 		e.preventDefault()
@@ -88,6 +150,7 @@
 		   , dataType: "text" // 컨트롤러 리턴 타입 :public *String* updateCommt
 		   , success: function( c ) { // 컨트롤러에서 응답해준 데이터 :return "success"
 			   if(c === 'success'){
+				   alert('댓글이 수정되었습니다.')
 				   getComments()
 			   }else{
 				   alert('댓글 수정 중 오류가 발생하였습니다.')
@@ -111,50 +174,17 @@
 				
 			})
 	}
-	
-	
-</script> 
-
-<div class="mnt_wrap3">
-<h5>댓글<span class="reply_cnt">(${CntCommt })</span></h5>
-<br>
-</div>
-
-
-
-<c:forEach items="${commtList }" var="commt">
-	<ul class="reply_content_ul">
-	<!-- 첫번째 댓글 -->
-	<li>
-		<div class="comment_wrap">
-		<div class="reply_top">
-			<span class="id_span">☁️ ${commt.MEMBER_NICK  } ☁️</span>
-			<span class="date_span"><fmt:formatDate pattern="yyyy-MM-ddㅤHH:mm" value="${commt.COMMT_DATE }"/></span>
-			<%-- <a class="updateCmbtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-commtno="${commt.COMMT_NO}">수정</a>	 --%>
-			<a class="updateCmbtn updateCmt${commt.COMMT_NO}" data-commtno="${commt.COMMT_NO}" onclick="updateCmt(${commt.COMMT_NO})">수정</a>	
-			<a class="deleteCmbtn deleteCmt${commt.COMMT_NO}" data-commtno="${commt.COMMT_NO}" onclick="deleteCmt(${commt.COMMT_NO})">삭제</a>
-		</div>
-		<div class="reply_bottom">
-		<div class="reply_bottom_txt" id="content${commt.COMMT_NO}">
-		${commt.COMMT_CONTENT  }
-			</div>
-			</div>
-		</div>
-	</li>
-	</ul>
-</c:forEach>
-
-
+</script>
 
 <div class="repy_pageInfo_div">
 	<ul class="pageMaker" id="pageMaker">
 
-<%-- <c:choose>
+<c:choose>
 <c:when test="${commtPaging.startPage ne 1 }">
 <li class="pageMaker_btn prev">
 <a onclick="cntMove(${commtPaging.startPage - commtPaging.pageCount })">이전</a>
 </li></c:when>
-</c:choose> --%>
+</c:choose>
 
 <c:forEach begin="${commtPaging.startPage }" end="${commtPaging.endPage }" var="i">
 <c:if test="${commtPaging.curPage eq i }">
@@ -169,31 +199,15 @@
 </c:if>
 </c:forEach>
 
-<%-- <c:choose>
+<c:choose>
 	<c:when test="${commtPaging.endPage ne commtPaging.totalPage }">
 <li class="pageMaker_btn next">
 <a onclick="cntMove(${commtPaging.startPage + commtPaging.pageCount })">다음</a>
 </li>
 </c:when>							
-</c:choose> --%>
+</c:choose>
 
 </ul>
 </div>
 
-
-        <!-- 댓글작성 -->
-<!-- <form class="mb-3" name="insertCommt" id="insertCommt" method="post"> -->
-<input type="hidden" name="mntBoardNo" value="${param.mntboardNo }">
-	
-<hr>		
-<%-- 	<label for="memberNick" id="memberNick" >&nbsp;${mntViewBoard.MEMBER_NICK }</label> --%>
-	<div>
-		<textarea class="col-auto form-control" id="reviewContents" name="commtContent"
-				  placeholder="댓글을 입력해주세요"></textarea>
-	</div>	
- <!-- Post 구현해야됨 -->
-	 <button type="button" class="btn btn-primary" id="btnReview">등록</button>
-	 <button type="button" class="btn btn-primary" id="btnReviewUpdate" style="display:none" >수정</button>
-<!-- </form>	 -->
-<br><br>
-<!-- 댓글 끝 -->              
+           

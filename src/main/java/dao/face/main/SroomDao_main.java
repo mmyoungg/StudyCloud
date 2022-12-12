@@ -24,7 +24,4 @@ public interface SroomDao_main {
 	 */
 	public FileUpload selectFileBySroomNo(StudyRoom studyroom);
 
-	//테스트
-//	public List<HashMap<String, Object>> selectSroomFile();
-
 }

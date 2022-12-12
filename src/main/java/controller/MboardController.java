@@ -60,10 +60,10 @@ public class MboardController {
 	@RequestMapping("/mboard/detail")
 	public void mboarddetail(
 			
-			Member member
+			String memberId
 			,int mboardNo
 			,Model model
-			,ModelAndView mav
+//			,ModelAndView mav
 			
 			) {
 		
@@ -81,7 +81,8 @@ public class MboardController {
 		model.addAttribute("fileUpload", fileUpload);
 		
 		//좋아요 여부 데이터 가져오기
-		mav.addObject("mboardLike", mboardService.getmboardlike(member));
+//		model.addAttribute("like", mboardService.findmboardlike(mboardNo, memberId);
+//		model.addAttribute("getLike", mboardService.getmboardlike(mboardNo));
 		
 		return;
 		
@@ -92,7 +93,7 @@ public class MboardController {
 	
 	@PostMapping("/mboard/write")
 	public String writeProcess(
-			
+			Member member,
 			Mboard mboard,
 			MultipartFile file,
 			HttpSession session
@@ -103,8 +104,7 @@ public class MboardController {
 		logger.debug("{}", file);
 
 //		작성자 정보
-		mboard.setMemberNo( (int)session. getAttribute("member_no"));
-//		logger.debug("{}", mboard);
+		member.setMemberNo( (int)session. getAttribute("memberNo"));
 		
 		mboardService.write(mboard, file);
 		
@@ -194,52 +194,52 @@ public class MboardController {
 	//------------------------------------------------------------------------
 	
 	//좋아요 등록
-	@Transactional(rollbackFor = Exception.class)
-	@PostMapping("/mboard/detail")
-	public ResponseEntity<String> mboardLike (
-			
-			@RequestBody MboardLike mboardLike
-			
-			) {
-		ResponseEntity<String> entity = null;
-		logger.info("좋아요");
-		
-		try {
-			mboardService.setMboardLike(mboardLike);
-			entity = new ResponseEntity<String>("success", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-		
-	}
-	
+//	@Transactional(rollbackFor = Exception.class)
+//	@PostMapping("/mboard/detail")
+//	public ResponseEntity<String> mboardLike (
+//			
+//			@RequestBody MboardLike mboardLike
+//			
+//			) {
+//		ResponseEntity<String> entity = null;
+//		logger.info("좋아요");
+//		
+//		try {
+//			mboardService.setMboardLike(mboardLike);
+//			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		return entity;
+//		
+//	}
+//	
 	//좋아요 취소
-	@Transactional(rollbackFor = Exception.class)
-	@DeleteMapping("/mboard/detail")
-	public ResponseEntity<String> mboardLikeCancel (
-			
-			MboardLike mboardLike
-			
-			) {
-		
-		ResponseEntity<String> entity = null;
-		logger.info("좋아요 취소");
-		
-		try {
-			mboardService.setMboardLike(mboardLike);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-		
-	}
-	
+//	@Transactional(rollbackFor = Exception.class)
+//	@DeleteMapping("/mboard/detail")
+//	public ResponseEntity<String> mboardLikeCancel (
+//			
+//			MboardLike mboardLike
+//			
+//			) {
+//		
+//		ResponseEntity<String> entity = null;
+//		logger.info("좋아요 취소");
+//		
+//		try {
+//			mboardService.setMboardLike(mboardLike);
+//			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		return entity;
+//		
+//	}
+//	
 
 	
 	

@@ -43,8 +43,10 @@ th {
 	color: white;
 }
 
-
 </style>
+
+
+
 
 </head>
 <body>
@@ -57,13 +59,14 @@ th {
     	<h1>예약 정보</h1>
     </div>
 
-    <section class="dashboard">
+    <section class="reserveView">
       	<div class="row">
 
      	<!-- 예약 테이블 -->
        	<div class="col-lg-12">
 				
 		    <div class="table-responsive px-2">
+		    
                 <table class="table">
                 <c:forEach items="${view }" var="hashmap">
                 	<tr>

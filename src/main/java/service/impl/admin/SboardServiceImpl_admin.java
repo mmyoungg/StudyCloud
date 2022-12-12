@@ -1,7 +1,7 @@
 package service.impl.admin;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +48,13 @@ public class SboardServiceImpl_admin implements SboardService_admin {
 	@Override
 	public Member updateMember(Member member) {
 		return sBoardDao_admin.updateStudyMember(member);
+	}
+
+	
+	//메인 페이지
+	@Override
+	public List<HashMap<String, Object>> stList() {
+		return sBoardDao_admin.selectStList();
 	}
 
 

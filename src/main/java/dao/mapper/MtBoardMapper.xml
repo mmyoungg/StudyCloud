@@ -23,5 +23,159 @@
 			) mtboard
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
+	
+	<update id="mtBoardHit" parameterType="dto.MtBoard">
+		UPDATE mtboard
+		SET mtboard_hit = mtboard_hit + 1
+		WHERE mtboard_no = #{mtboardNo}
+	</update>
+	
+	<select id="selectMtBoard" resultType="hashmap" parameterType="dto.MtBoard">
+			SELECT n.mtboard_no, m.member_nick, n.field, n.jobduty, n.jobgroup, n.career
+				   , n.mtboard_title, n.mtboard_content , n.mtboard_cmcnt , n.mtboard_hit 
+				   , n.mtboard_date, n.co_name, n.mt_price, n.mark_cnt
+			FROM mtboard n 
+			JOIN member m
+			ON (n.member_no = m.member_no)
+		WHERE mtboard_no = #{mtboardNo}
+	</select>
+	
+	<insert id="insertBoard" parameterType="dto.MtBoard">
+		<selectKey order="BEFORE" resultType="int" keyProperty="mtboardNo">
+			SELECT mtboard_seq.nextval FROM dual		
+		</selectKey>
+		
+		INSERT INTO mtboard (
+			mtboard_no, member_no, field, jobduty, jobgroup, career
+			, mtboard_title, mtboard_content, mtboard_hit
+			, mtboard_date, co_name, mt_price
+		)
+		
+		VALUES (
+			#{mtboardNo }, #{memberNo }, #{field }, #{jobDuty }, #{jobGroup }
+			, #{career }, #{mtboardTitle }, #{mtboardContent }, #{mtboardHit }
+			, sysdate, #{coName}, #{mtPrice}	
+		)
+	</insert>
+
+	<insert id="insertFile" parameterType="dto.FileUpload">
+		INSERT INTO fileUpload (
+			fileUpload_no, mtboard_no, fileUpload_ori, fileUpload_stor )
+		
+		VALUES ( fileUpload_seq.nextval, #{mtBoardNo }
+				, #{fileUploadOri }, #{fileUploadStor }
+		)
+	</insert>
+	
+	<select id="selectMtBoardFileByBoardNo" resultType="FileUpload" parameterType="dto.MntBoard">
+		SELECT fileupload_no, mtboard_no, fileupload_ori, fileupload_stor
+		FROM   fileupload
+		WHERE  mtboard_no = #{mtboardNo }
+	</select>
+	
+	<select id="selectBoardFileByFileNo" resultType="FileUpload" parameterType="dto.FileUpload">
+		SELECT fileupload_no, mtboard_no, fileupload_ori, fileupload_stor
+		FROM   fileupload
+		WHERE  fileupload_no = #{fileUploadNo }
+	</select>
+	
+	<update id="updateMtBoard"  parameterType="dto.MtBoard">
+		UPDATE mtboard
+	   	SET    co_name = #{coName}
+	    	 , mt_price = #{mtPrice}
+		     , mtboard_title = #{mtboardTitle}
+			 , mtboard_content = #{mtboardContent}
+		WHERE mtboard_no = #{mtboardNo}
+	</update>
+	
+	<delete id="deleteFile" parameterType="dto.MtBoard">
+		DELETE fileupload
+		WHERE  mtboard_no = #{mtboardNo}
+	</delete>
+	
+	<delete id="deleteMtBoard" parameterType="dto.MtBoard">
+		DELETE mtboard
+		WHERE mtboard_no = #{mtboardNo}
+	</delete>
+	
+	
+	<!-- 멘토지원 -->
+	<!-- <insert id="applyMt" parameterType="dto.ApplyMt">
+		<selectKey order="BEFORE" resultType="int" keyProperty="applymtNo">
+			SELECT applymt_seq.nextval FROM dual		
+		</selectKey>
+		
+		INSERT INTO applymt (
+			applymt_no, member_no, field, applymt_content, applymt_date
+		)
+		VALUES (
+			#{applymtNo}, #{memberNo}, #{field}, #{applymtContent}, sysdate
+		)
+	</insert> -->
+	
+	<!-- 리뷰 -->
+	<!-- <select id="CntReview" parameterType="dto.MtReview" resultType="int">
+        SELECT count(*) 
+        FROM mtreview
+        WHERE mtboard_no = #{mtboardNo}
+    </select>
+	
+	<select id="reviewList" parameterType="hashmap" resultType="hashmap">
+        	SELECT * FROM (
+            SELECT rownum rnum, C.* FROM(
+        	SELECT c.mtreview_no, c.mtboard_no, m.member_no, m.member_nick
+        		 , a.applymnt_no, c.mtreview_content, c.mtreview_date, mtreview_score
+            FROM commt c
+            JOIN member m
+            ON (c.member_no = m.member_no)
+            WHERE mntboard_no = #{mntboardNo} AND commt_no > 0  
+            ORDER BY commt_no DESC ) C
+            ) Commt
+			 WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
+    </select> -->
+	
+	
+	<insert id="applyMnt" parameterType="dto.ApplyMnt">
+		<selectKey order="BEFORE" resultType="int" keyProperty="applymtNo">
+			SELECT applymnt_seq.nextval FROM dual		
+		</selectKey>
+		
+		INSERT INTO applymt (
+			applymnt_no, mtboard_no, member_no, sttime, edtime
+			,mnt_content, total_price, mnt_paydate
+		)
+		VALUES (
+			#{applymntNo}, #{mtboardNo}, #{memberNo}, #{stTime}, #{edTime}
+			, #{mntDate}, #{mntContent}, #{totalPrice}, #{mntPaydate}   
+		)
+	</insert>
+
+
+
+
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

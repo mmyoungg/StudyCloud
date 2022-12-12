@@ -1,9 +1,11 @@
 package dao.face.admin;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import dto.FileUpload;
+import dto.SroomQna;
 import dto.StudyRoom;
 import util.Paging;
 
@@ -91,6 +93,29 @@ public interface SroomDao_admin {
 	 * @return 조회된 게시글 + 첨부파일
 	 */
 	public List<Map<String, Object>> selectMap();
+
+	/**
+	 * 게시글 번호를 이용해 QnA를 함께 조회한다
+	 * 
+	 * @param studyroom - 게시글 번호
+	 * @return QnA 리스트
+	 */
+	public List<HashMap<String, Object>> qnaList();
+
+	/**
+	 * 게시글 번호를 이용하여 게시글을 조회한다
+	 * 
+	 * @param qna - 조회하려는 게시글 번호
+	 * @return 조회된 게시글 정보
+	 */
+	public SroomQna selectQnaView(SroomQna qnaView);
+
+	/**
+	 * 게시글 정보를 삽입한다
+	 * 
+	 * @param sroomQna - 삽입할 스터디룸 정보
+	 */
+	public void writeQna(SroomQna sroomQna);
 
 
 

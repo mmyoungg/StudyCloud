@@ -28,4 +28,12 @@ public interface ReserveService_admin {
 	 */
 	public List<HashMap<String, Object>> viewReserve(Reservation res);
 
+	/**
+	 * 키워드로 검색
+	 * 
+	 * @param search_option - 검색할 키워드
+	 * @return 조회된 내용
+	 */
+	public List<HashMap<String, Object>> searchReserve(String search_option);
+
 }

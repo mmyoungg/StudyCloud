@@ -10,23 +10,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-
-<!-- 게시판 테이블 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel ="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-<!-- 테이블 css -->
-<link rel="stylesheet" href="${path}/resources/css/admin/mento.css" />
+<title>admin QnA List</title>
 
 </head>
 <body>
 
-
-
 <main id="main" class="main">
-<form action="/admin/mento" method="post">
   
 <div class="container">
   
@@ -45,24 +34,38 @@
 					<thead>
                         <tr>
                             <th scope="col">No</th>
+                            <th scope="col">스터디룸 명</th>
+                            <th scope="col">제목</th>
                             <th scope="col">아이디</th>
                             <th scope="col">닉네임</th>
-                            <th scope="col">이름</th>
-                            <th scope="col">회원등급</th>
+                            <th scope="col">등록일</th>
                         </tr>
                     </thead>
                     
                     <tbody>
-                   	<c:forEach items="${list }" var="applymt">
+                   	<c:forEach items="${qna }" var="qna">
+                   	<c:choose>
+                       <c:when test="${qna.SROOMQNA_STEP eq 0 }"> <!-- 문의글일 경우 -->
                        <tr>
-                           	<td><span class="bg-blight">${applymt.applymtNo }</span></td>
-							<td><span class="bg-bdark">${applymt.member.memberId }</span></td>
-							<td><span class="bg-blight">${applymt.member.memberNick }</span></td>
-							<td><span class="bg-bdark">${applymt.member.memberName }</span></td>
-							<td><span class="bg-bdark">${applymt.member.authority }</span></td>
-							<td><button type="submit" name="memberNo" value="${applymt.member.memberNo }">확인</button></td>
-</form>
+                           	<td>${qna.SROOMQNA_NO }</td>
+                           	<td><a href="/sRoom/detail?sRoomNo=${qna.SROOM_NO }">${qna.SROOM_NAME }</a></td>
+							<td><a href="/admin/qna/view?sRoomQnaNo=${qna.SROOMQNA_NO }&sRoomNo=${qna.SROOM_NO }">${qna.SROOMQNA_TITLE }</a></td>
+							<td>${qna.MEMBER_ID }</td>
+							<td>${qna.MEMBER_NICK }</td>
+							<td>${qna.SROOMQNA_DATE }</td>
 		               </tr>
+		               </c:when>
+                       <c:when test="${qna.SROOMQNA_STEP ne 0 }"> <!-- 답변글일 경우 -->
+                       <tr>
+                           	<td> -> ${qna.SROOMQNA_NO }</td> <!-- 넘버에 들여쓰기 -->
+                           	<td><a href="/sRoom/detail?sRoomNo=${qna.SROOM_NO }">${qna.SROOM_NAME }</a></td>
+							<td><a href="/admin/qna/view?sRoomQnaNo=${qna.SROOMQNA_NO }&sRoomNo=${qna.SROOM_NO }">${qna.SROOMQNA_TITLE }</a></td>
+							<td>${qna.MEMBER_ID }</td>
+							<td>${qna.MEMBER_NICK }</td>
+							<td>${qna.SROOMQNA_DATE }</td>
+		               </tr>
+		               </c:when>
+                   	</c:choose>
                     </c:forEach>
                    	</tbody>
                 </table>
