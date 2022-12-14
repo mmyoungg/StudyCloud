@@ -286,7 +286,7 @@ textarea:focus {
 		<div class="nav-detail">
 			<div class="nav-info-detail" style="padding-left: 0px; font-weight: bolder;">${detailMboard.MEMBER_NICK }</div>
 			<div class="nav-info-detail"><fmt:formatDate value="${detailMboard.MBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss"/></div>
-			<div class="nav-info-detail">${detailMboard.MBOARD_HIT }</div>
+			<div class="nav-info-detail">조회수 ${detailMboard.MBOARD_HIT }</div>
 			<div class="nav-info-detail" style="border-right: none;">like ${detailMboard.MBOARD_LIKECNT }</div>
 			
 <%-- 			<c:choose> --%>

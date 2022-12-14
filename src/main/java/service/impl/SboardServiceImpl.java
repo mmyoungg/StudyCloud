@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.face.SboardDao;
+import dto.Commt;
 import dto.StudyBoard;
 import service.face.SboardService;
 import util.Paging;
@@ -77,5 +78,47 @@ public class SboardServiceImpl implements SboardService{
 		sboardDao.delete(sboard);
 		
 	}
+	
+	//-------------------------------------------------------------------
+
+	@Override
+	public ArrayList<HashMap<String, Object>> sboardcmt(int studyNo) {
+		
+		return sboardDao.getsboardcmtmain(studyNo);
+	}
+
+	@Override
+	public int getScmtcnt(int studyNo) {
+		int cmtcnt = sboardDao.sboardcmtcnt(studyNo);
+		return cmtcnt;
+	}
+
+	@Override
+	public void sboardcmtcnt(int studyNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertcmmt(Commt commt) {
+		
+		sboardDao.insertcmt(commt);
+		
+		int commtNo = commt.getCommtNo();
+		Commt insertcom = sboardDao.selectCmtByCommtNo(commtNo);
+		
+	}
+	
+	@Override
+	public void deletecmt(int commtNo) {
+		sboardDao.deletecmt(commtNo);
+	}
+
+	
+	
+	
+	
+
+	
 
 }

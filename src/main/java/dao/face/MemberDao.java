@@ -83,6 +83,7 @@ public interface MemberDao {
 	public int idchk(String memberId);
 
 
+	//
 	public Member getMemberByMemberNo(Member member);
 	
 	
