@@ -93,7 +93,6 @@ public class MboardController {
 	
 	@PostMapping("/mboard/write")
 	public String writeProcess(
-			Member member,
 			Mboard mboard,
 			MultipartFile file,
 			HttpSession session
@@ -103,9 +102,12 @@ public class MboardController {
 		logger.debug("{}", mboard);
 		logger.debug("{}", file);
 
-//		작성자 정보
-		member.setMemberNo( (int)session. getAttribute("memberNo"));
+		//작성자 정보
+		int member_no = (int) session.getAttribute("member_no");
+		mboard.setMemberNo(member_no);
+		logger.debug("{}", mboard);
 		
+		//게시글, 첨부파일 처리
 		mboardService.write(mboard, file);
 		
 		//번개게시판 메인으로 리다이렉트

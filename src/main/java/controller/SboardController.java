@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dto.Commt;
 import dto.Member;
 import dto.StudyBoard;
 import service.face.SboardService;
 import util.Paging;
+
 
 @Controller
 public class SboardController {
@@ -58,7 +60,7 @@ public class SboardController {
 		
 	}
 	
-	@RequestMapping("sboard/detail")
+	@RequestMapping("/sboard/detail")
 	public void sboarddetail(
 			
 			int studyNo
@@ -75,7 +77,14 @@ public class SboardController {
 		//모델값 전달
 		model.addAttribute("detailSboard", Sboarddetail);
 		
-		return;
+		//댓글 보여주기
+		ArrayList<HashMap<String, Object>> sboardclist = sboardService.sboardcmt(studyNo);
+			for( HashMap<String, Object> sc : sboardclist )
+				logger.debug("{}", sc);
+	
+			model.addAttribute("slist", sboardclist);
+			
+			return;
 	}
 	
 	@GetMapping("/sboard/enroll")
@@ -93,7 +102,10 @@ public class SboardController {
 		logger.debug("{}", sboard);
 		
 		//작성자 정보 추가
-		sboard.setMemberNo( (int) session.getAttribute("memberNo"));
+//		sboard.setMemberNo( (int) session.getAttribute("member_no"));
+		
+		int member_no = (int) session.getAttribute("member_no");
+		sboard.setMemberNo(member_no);
 		
 		sboardService.enroll(sboard);
 		
@@ -144,7 +156,7 @@ public class SboardController {
 		
 		sboardService.delete(sboard);
 		
-		return "redirect:/mboard/main";
+		return "redirect:/sboard/main";
 		
 	}
 	
@@ -152,6 +164,60 @@ public class SboardController {
 	public void kakaoMap() {
 		
 	}
+	
+	@RequestMapping("/sboard/cmt")
+	public void cmtlist(
+			
+			int studyNo
+			,Model model
+			
+			) {
+		
+		ArrayList<HashMap<String, Object>> sboardclist = sboardService.sboardcmt(studyNo);
+		logger.debug("{}", sboardclist);
+		
+		model.addAttribute("sboardclist", sboardclist);
+		
+		int scmtcnt = sboardService.getScmtcnt(studyNo);
+		model.addAttribute("scmtcnt", scmtcnt);
+//		sboardService.sboardcmtcnt(studyNo);
+	}
+	
+	@GetMapping("/sboard/writcmt")
+	public void cmtwrite() {}
+	
+	@PostMapping("/sboard/writecmt")
+	public void cmtwriteproc(
+			
+			Member member
+			,Commt commt
+			,StudyBoard sboard
+			,HttpSession session
+			
+			) {
+		
+		logger.debug("{}", sboard);
+		
+		//작성자 정보
+		int member_no = (int) session.getAttribute("member_no");
+		sboard.setMemberNo(member_no);
+		
+		sboardService.insertcmmt(commt);
+		
+	}
+	
+	@RequestMapping("/sboard/deletecmt")
+	public void cmtdelete(
+			
+			int commtNo
+			, Commt commt
+			
+			) {
+		
+		sboardService.deletecmt(commtNo);
+		
+	}
+	
 	
 	
 	

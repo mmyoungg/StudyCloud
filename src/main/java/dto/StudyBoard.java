@@ -2,6 +2,8 @@ package dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class StudyBoard {
 	
 	private int studyNo;
@@ -9,7 +11,8 @@ public class StudyBoard {
 	private String studyTitle;
 	private int studyPeople;
 	private String studyAddress; 
-	private String studyTag; 
+	private String studyTag;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date studyDate;
 	private String studyTime; 
 	private String studyContent;
