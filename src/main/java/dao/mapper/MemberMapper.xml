@@ -44,7 +44,8 @@
          member_name memberName,
          member_nick memberNick,
          authority,
-         member_phone memberPhone  
+         member_phone memberPhone,
+         member_pw memberPw  
       from 
          member
       where member_id = #{id}
@@ -79,12 +80,13 @@
 	
 	
 	<!-- 아이디 중복 체크 -->
-	<select id="idchk" resultType="int" parameterType="Member">
+	<select id="idchk" resultType="int" parameterType="String">
 		SELECT count(*) FROM member
 		WHERE member_id = #{memberId}
 	</select>
 	
 	
+	<!--  -->	
 	<select id="getMemberByMemberNo" parameterType="Member" resultType="Member">
       Select 
          member_no,

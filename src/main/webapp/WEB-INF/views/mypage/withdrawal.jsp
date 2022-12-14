@@ -10,6 +10,56 @@
 <meta charset="UTF-8">
 <title>StudyCloud</title>
 
+<script type="text/javascript">
+
+$(document).ready(function(e){
+	$('#withdrawal').click(function(){
+		
+		//패스워드 입력 확인
+		if($('#memberPw').val() == ''){
+			alert("패스워드를 입력해 주세요.");
+			$('#memberPw').focus();
+			return;
+		}else if($('#passwdCheck').val() == ''){
+			alert("패스워드를 입력해 주세요.");
+			$('#passwdCheck').focus();
+			return;
+		}
+		
+		//입력한 패스워드가 같인지 체크
+		if($('#passwdCheck').val() != $('#passwd').val()){
+			alert("패스워드가 일치하지 않습니다.");
+			$('#passwdCheck').focus();
+			return;
+		}
+		
+		//패스워드 맞는지 확인
+		$.ajax({
+			url: "${pageContext.request.contextPath}/withdrawal",
+			type: "POST",
+			data: $('#withdrawal').serializeArray(),
+			success: function(data){
+				if(data==0){
+					alert("패스워드가 틀렸습니다.");
+					return;
+				}else{
+					//탈퇴
+					var result = confirm('정말 탈퇴 하시겠습니까?');
+					if(result){
+						$('#withdrawal').submit();
+					}
+				}
+			},
+			error: function(){
+				alert("서버 에러.");
+			}
+		});
+	});
+});
+
+
+</script>
+
 <style type="text/css">
 
 .padding {
@@ -109,7 +159,7 @@ body {
 
 /* button css */
 
-#btn {
+#withdrawal {
 	width: 50%;
 	padding: 12px;
 	margin-bottom: 10px;
@@ -154,7 +204,7 @@ body {
 		<div class="padding">
 			<div class="row container d-flex justify-content-center">
 				<div class="col-md-6 col-lg-4">
-					<form class="card">
+					<form class="card" action="/withdrawal" name="withdrawal" id="withdrawal" method="post"> 
 						<h4 class="card-title fw-400">회원탈퇴</h4>
 						<br><br><br>
 
@@ -165,7 +215,8 @@ body {
 							탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</div><br>
 
 							<div class="form-group">
-								<input class="form-control" type="password" placeholder="  비밀번호 입력">
+								<input class="form-control" type="password" id="memberPw" placeholder=" 비밀번호 입력">
+								<input class="form-control" type="password" id="passwdCheck" placeholder=" 비밀번호 확인">
 							</div>
 							<br>
 
@@ -173,7 +224,7 @@ body {
 							<!-- 버튼 -->
 
 							<div class=buts>
-								<button class="btn btn-bold btn-primary" id="btn">탈퇴하기</button>
+								<button class="btn btn-bold btn-primary" id="withdrawal">탈퇴하기</button>
 							</div><br><br>
 						</div>
 					</form>
