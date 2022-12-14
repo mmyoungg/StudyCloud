@@ -11,14 +11,34 @@
 		SELECT count(*) FROM reservation
 	</select>
 	
+	<!-- 예약 리스트 조회 -->
 	<select id="selectHash" resultType="hashmap" parameterType="util.Paging">
-		SELECT R.*, M.*, S.*
-		FROM reservation R, member M, studyroom S
-		WHERE R.member_no = M.member_no
-		AND R.sroom_no = S.sroom_no
-		ORDER BY reserve_no DESC
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT m.member_no, m.member_name, m.member_phone
+				, s.sroom_no, s.sroom_name
+				, r.reserve_no, r.reserve_date, r.reserve_people
+				FROM reservation R
+				JOIN member M
+				ON R.member_no = M.member_no
+				JOIN studyroom S
+				ON R.sroom_no = S.sroom_no
+				ORDER BY reserve_no DESC
+			) B
+		) Reservation
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+	</select>
+
+	<!-- 예약 검색 -->
+	<select id="searchName" resultType="hashmap">
+		SELECT S.*, M.*, R.*
+		FROM studyroom S, member M, reservation R
+		WHERE S.sroom_no = R.sroom_no
+		AND R.member_no = M.member_no
+		AND sroom_name LIKE '%'|| #{keyword }|| '%'
 	</select>
 	
+	<!-- 예약 상세조회 -->
 	<select id="selectReserve" resultType="hashmap" parameterType="dto.Reservation">
 		SELECT R.*, M.*, S.*
 		FROM reservation R, member M, studyroom S
@@ -27,6 +47,7 @@
 		AND R.sroom_no = S.sroom_no
 	</select>
 	
+	<!-- 관리자 메인페이지 미리보기 -->
 	<select id="previewReserve" resultType="hashmap">
 		SELECT R.*, M.*, S.*
 		FROM reservation R, member M, studyroom S
@@ -34,13 +55,6 @@
 		AND R.sroom_no = S.sroom_no
 		<![CDATA[AND rownum <= 5]]> 
 		ORDER BY reserve_no DESC
-	</select>
-	
-	<!-- 예약 검색 -->
-	<select id="searchReserve" resultType="hashmap" parameterType="hashmap">
-		SELECT R.*, M.*, S.*
-		FROM reservation R, member M, studyroom S
-		WHERE ${search_option } LIKE '%'|| #{keyword }|| '%'
 	</select>
 	
 </mapper>

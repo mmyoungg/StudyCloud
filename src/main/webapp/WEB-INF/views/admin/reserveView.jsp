@@ -68,34 +68,30 @@ th {
 		    <div class="table-responsive px-2">
 		    
                 <table class="table">
-                <c:forEach items="${view }" var="hashmap">
+                <c:forEach items="${view }" var="view">
                 	<tr>
                 		<th>스터디룸 명</th>
-                        <td>${hashmap.SROOM_NAME }</td>
+                        <td>${view.SROOM_NAME }</td>
                 	</tr>
                 	<tr>	
                 		<th>예약자</th>
-                        <td>${hashmap.MEMBER_NAME }</td>
+                        <td>${view.MEMBER_NAME }</td>
                 	</tr>	
                 	<tr>
                 		<th>예약일</th>
-                        <td>${hashmap.RESERVE_DATE }</td>
+                        <td>${view.RESERVE_DATE }</td>
                 	</tr>
                     <tr>
                         <th>예약 시간</th>
-                        <td>${hashmap.RESERVE_STIME } ~ ${hashmap.RESERVE_ETIME }</td>
+                        <td>${view.RESERVE_STIME } ~ ${view.RESERVE_ETIME }</td>
                     </tr>
                     <tr>
                         <th>인원</th>
-                        <td>${hashmap.RESERVE_PEOPLE } 명</td>
+                        <td>${view.RESERVE_PEOPLE } 명</td>
                     </tr>
                     <tr>
                         <th>연락처</th>
-                        <td>${hashmap.MEMBER_PHONE }</td>
-                    </tr>
-                    <tr>
-                        <th>요청사항</th>
-                        <td>${hashmap.RESERVE_REQ }</td>
+                        <td>${view.MEMBER_PHONE }</td>
                     </tr>
                 </c:forEach>
                 </table>
