@@ -20,10 +20,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-		//보내고
 		$("#form").submit();
-		//메인으로 이동
-		location.href = "/mboard/main";
+		
 	})
 	
 	$("#btnCancle").click(function () {
@@ -93,17 +91,17 @@ $(document).ready(function() {
 	<div class="container">
 		<div class="mb-3">
   			<label for="title" class="form-label"></label>
-  			<input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
+  			<input type="text" class="form-control" id="mboardTitle" name="mboardTitle" placeholder="제목을 입력하세요">
 		</div>
 		
 		<div class="mb-3">
   			<label for="content" class="form-label"></label>
-  			<textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요"></textarea>
+  			<textarea class="form-control" id="mboardContent" name="mboardContent" rows="10" placeholder="내용을 입력하세요"></textarea>
 		</div>
 		
 		<div class="mb-3">
   			<label for="formFileSm" class="form-label"></label>
- 			<input class="form-control form-control-sm" id="formFileSm" type="file">
+ 			<input class="form-control form-control-sm" id="file" type="file">
 		</div>
 		
 		<div class="button">
