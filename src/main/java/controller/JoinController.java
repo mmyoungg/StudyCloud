@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Map;
+
 import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpSession;
 
@@ -37,13 +39,16 @@ public class JoinController {
 	}
 	
 	//아이디 중복 체크
+	
+	/*
+	 * @RequestParam :  Map<String, Object> 
+	 * @RequestBody :  DTO (만약 Member객체로 받으려면 해당 어노테이션 이용)
+	 * */
 	@ResponseBody
-	@RequestMapping(value="login/idchk", method = RequestMethod. POST)
-	public String idchk(@RequestBody Member memberId) {
-
+	@RequestMapping(value="login/idchk", method = RequestMethod.POST)
+	public String idchk(@RequestParam Map<String, Object> paramMap) {
 		try{
-			logger.info("{}", memberId);
-
+			String memberId = paramMap.get("memberId").toString();
 			int result = memberService.idchk(memberId);
 			return Integer.toString(result);	 
 
@@ -56,7 +61,7 @@ public class JoinController {
 	
 	@PostMapping("/join")
 	public String joinProcess(Member member, HttpSession session) throws Exception {
-		int result = memberService.idchk(member);
+		int result = memberService.idchk(member.getMemberId());
 		
 		logger.info("{}", member);
 		

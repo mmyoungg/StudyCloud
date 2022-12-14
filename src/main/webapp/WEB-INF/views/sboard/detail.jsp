@@ -100,18 +100,21 @@ function check() {
 </script>
 
 <script type="text/javascript">
-신청서 제출 완료 시
- $(document).ready(function() {
- 	$("#btnApply").click(function() {
-		if (return true;) {
- 		confirm("신청이 성공적으로 완료되었습니다! 스터디 개설자의 수락 후 [마이페이지->나의 스터디]에서 신청 내역을 확인하실 수 있습니다.");
-		}
- 	})
- })
+$(document).ready(function() {
+	$("#btnMain").click(function() {
+		location.href = "/sboard/main"
+	})
+	
+	$("#btnUpdate").click(function() {
+		location.href = "/sboard/update?studyNo=${detailSboard.STUDY_NO }"
+	})
+	
+	$("#btnDelete").click(function() {
+		location.href = "/sboard/delete?studyNo=${detailSboard.STUDY_NO }"
+	})
+})
 
 </script>
-
-
 
 
 
@@ -146,7 +149,7 @@ function check() {
 	
 }
 
-img {
+#img-detail {
 	width : 36px;
 	height: 36px;
 	filter: invert(46%) sepia(93%) saturate(308%) hue-rotate(153deg) brightness(94%) contrast(87%);
@@ -192,7 +195,7 @@ hr{
 }
 
 .whole2 {
-	margin-top: 4%;
+	margin-top: 1%;
 	background-color: #e3eff9;
 	height: 500px;
 	border-top: 1px solid #f1f3f5;
@@ -257,37 +260,39 @@ textarea:focus {
 	
 	<div class="container">
 			<h2>${detailSboard.STUDY_TITLE }</h2>
+			<h5>${detailSboard.STUDY_CONTENT }</h5>
 			<br>
 			<div class="content">
 				<div class="con-detail">
 					<div class="title">
-					<img src="/resources/se2/img/users-solid.svg">
+					<img src="/resources/se2/img/users-solid.svg" id="img-detail">
 					<span class="con-detail-1" id="people" name="people">${detailSboard.STUDY_PEOPLE }명</span>
 					</div>
 				</div>
 				
 				<div class="con-detail">
 					<div class="location">
-					<img src="/resources/se2/img/location-dot-solid.svg">
+					<img src="/resources/se2/img/location-dot-solid.svg"  id="img-detail">
 					<span class="con-detail-1" id="location" name="location">${detailSboard.STUDY_ADDRESS }</span>
 					</div>
 				</div>
 				
 				<div class="con-detail">
 					<div class="day">
-					<img src="/resources/se2/img/calendar-days-solid.svg">
-					<span class="con-detail-1" id="day" name="day">${detailSboard.STUDY_DATE }</span>
+					<img src="/resources/se2/img/calendar-days-solid.svg"  id="img-detail">
+ 					<span id="date" name="date" style="padding-left: 17px;"><fmt:formatDate value="${detailSboard.STUDY_DATE }" pattern="yyyy-MM-dd"/></span>
+<%-- 					<span class="con-detail-1" id="date" name="date">${detailSboard.STUDY_DATE }</span> --%>
 					</div>
 				</div>
 				
 				<div class="con-detail">
 					<div class="time">
-					<img src="/resources/se2/img/clock-regular.svg">
+					<img src="/resources/se2/img/clock-regular.svg"  id="img-detail">
 					<span class="con-detail-1" id="time" name="time">${detailSboard.STUDY_TIME }</span>
 					</div>				
 				</div>
 				
-				<div class="box1">개설자의 말💁‍♂️</div>
+				<div class="box1">개설자(${detailSboard.MEMBER_NICK }님)의 말💁‍♂️</div>
 				<hr>
 				<div class="publisher-comment">
 					${detailSboard.STUDY_NOTIFY }
@@ -311,6 +316,18 @@ textarea:focus {
 						<span class="con-detail-2" style="font-size:14px;">공유하기</span>
 					</div>
 					
+					<br><br>
+					
+					
+				</div>
+					<div class="go-button" style="float:right;">
+						<button type="button" id="btnMain" class="btn btn-primary" style="background-color: #6cc4dc; border: none;">목록</button>
+	
+						<c:if test="${memberNo eq detailSboard.MEMBER_NO }">
+							<button type="button" id="btnUpdate" class="btn btn-primary" style="background-color: #6cc4dc; border: none;">수정</button>
+							<button type="button" id="btnDelete" class="btn btn-danger" style="background-color: #6cc4dc; border: none;">삭제</button>
+						</c:if>
+					</div>
 <!-- 스터디 신청 폼 모달 -->
 <div class="modal fade" id="applyFormModal" tabindex="-1"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -417,8 +434,9 @@ textarea:focus {
  			<div class="mb-3">
  				
  				<div class="comment-box">
- 					<form name="commentInsertForm" method="post" enctype="multipart/form-data">				
+ 					<form action="/sboard/writecmt" name="commentInsertForm" method="post" enctype="multipart/form-data">				
  					<div class="comtitle"><h3 style="color: #C1C2C2">Comments</h3></div>
+ 					
  					<div class="cominput">
  						<textarea class="commentbox" name="com-content"  style="width: 894px; height: 200px;"></textarea>
  					

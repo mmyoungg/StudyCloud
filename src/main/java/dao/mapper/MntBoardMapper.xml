@@ -7,27 +7,72 @@
 <mapper namespace="dao.face.MntBoardDao">
 
 
-	<select id="CntBoard" resultType="int">
-		SELECT count(*) FROM mntboard
+	<select id="CntBoard" resultType="int" parameterType="map">
+		SELECT count(*) FROM (
+			SELECT rownum rnum, B.* 
+				FROM (
+					SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
+						, n.mntboard_content , n.mntboard_cmcnt , n.mntboard_hit 
+						, n.mntboard_date
+						, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
+					FROM mntboard n 
+					JOIN member m
+					ON ( n.member_no = m.member_no )
+					<if test="type != null and type != 'tc'">
+						where ${type} like  '%' ||  #{keyword} || '%'
+					</if>
+					<if test="type == 'tc'">
+						where mntboard_title like '%' ||  #{keyword} || '%'
+						or mntboard_content like '%' ||  #{keyword} || '%'
+					</if>
+			 )  B
+		) MntBoard
 	</select>
 	
-	 <select id="MntBoardList" resultType="hashmap" parameterType="util.Paging">
+	 <select id="MntBoardList" resultType="hashmap" parameterType="map">
 		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
-			SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
-			, n.mntboard_content , n.mntboard_cmcnt , n.mntboard_hit 
-			, n.mntboard_date
-			, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
-			FROM mntboard n 
-			JOIN member m
-			ON ( n.member_no = m.member_no )
-			ORDER BY mntboard_no DESC )  B
-			) MntBoard
+			SELECT rownum rnum, B.* 
+				FROM (
+					SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
+						, n.mntboard_content , n.mntboard_cmcnt , n.mntboard_hit 
+						, n.mntboard_date
+						, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
+					FROM mntboard n 
+					JOIN member m
+					ON ( n.member_no = m.member_no )
+					<if test="type != null and type != 'tc'">
+						where ${type} like  '%' ||  #{keyword} || '%'
+					</if>
+					<if test="type == 'tc'">
+						where mntboard_title like '%' ||  #{keyword} || '%'
+						or mntboard_content like '%' ||  #{keyword} || '%'
+					</if>
+					
+					ORDER BY ${sort} DESC
+			 )  B
+		) MntBoard
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	 <select id="MntBoardListPaging" resultType="hashmap" parameterType="util.PagingVUp">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* 
+				FROM (
+					SELECT n.mntboard_no, m.member_nick, n.field, n.mntboard_title
+						, n.mntboard_content , n.mntboard_cmcnt , n.mntboard_hit 
+						, n.mntboard_date
+						, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
+					FROM mntboard n 
+					JOIN member m
+					ON ( n.member_no = m.member_no )
+					ORDER BY mntboard_date DESC
+			 )  B
+		) MntBoard
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 
 	
-	<update id="mntBoardHit" parameterType="dto.MntBoard">
+	<update id="mntBoardHit" parameterType="int">
 		UPDATE mntboard
 		SET mntboard_hit = mntboard_hit + 1
 		WHERE mntboard_no = #{mntboardNo}
@@ -35,7 +80,7 @@
 	
 	
 	
-	<select id="selectMntBoard" resultType="hashmap" parameterType="dto.MntBoard">
+	<select id="selectMntBoard" resultType="hashmap" parameterType="int">
 		SELECT	 n.mntboard_no,  m.member_nick, n.field, n.mntboard_title, n.mntboard_content 
 				, n.mntboard_cmcnt , n.mntboard_hit , n.mntboard_date
 				, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
@@ -71,10 +116,10 @@
 	</insert>
 	
 	
-	<select id="selectMntBoardFileByBoardNo" resultType="FileUpload" parameterType="dto.MntBoard">
+	<select id="selectMntBoardFileByBoardNo" resultType="FileUpload" parameterType="int">
 		SELECT fileupload_no, mntboard_no, fileupload_ori, fileupload_stor
 		FROM   fileupload
-		WHERE  mntboard_no = #{mntboardNo }
+		WHERE  mntboard_no = #{mntboardNo}
 	</select>
 	
 	
@@ -206,7 +251,54 @@
 	</insert>
 	
 	
+	<select id="getSearchList" parameterType="hashMap" resultType="hashmap">
+		SELECT	 n.mntboard_no,  m.member_nick, n.field, n.mntboard_title, n.mntboard_content 
+				, n.mntboard_cmcnt , n.mntboard_hit , n.mntboard_date
+				, ( SELECT count(*) FROM mntboardlike ML WHERE N.mntboard_no = ML.mntboard_no ) like_cnt
+		FROM mntboard n 
+		JOIN member m
+		ON (n.member_no = m.member_no)
+		WHERE
+			<foreach collection="list" item="list" separator="AND">
+				<choose>
+					<when test="list == 'mntBoardTitle'.toString()">
+						n.mntboard_title like '%'||#{keyword}||'%'
+					</when>
+					<when test="list == 'mntBoardContent'.toString()">
+						n.mntBoard_content like '%'||#{keyword}||'%'
+					</when>
+					<when test="list == 'memberNo'.toString()">
+						m.member_nick like '%'||#{keyword}||'%'
+					</when>
+				</choose>
+			</foreach>
+			ORDER BY mntBoard_no desc ) B
+		) mntboard
+	WHERE rnum BETWEEN #{startNo} AND #{endNo}	
+	</select>
 	
+	<select id="cntSearchList" resultType="int">
+		SELECT count(*) 
+		FROM mntboard n
+		JOIN  member m
+		ON (n.member_no = m.member_no)
+		WHERE
+		<foreach collection="list" item="list" separator="AND">
+			<choose>
+				<when test="list == 'mntBoardTitle'.toString()">
+					n.mntboard_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="list == 'mntBoardContent'.toString()">
+					n.mntBoard_content like '%'||#{keyword}||'%'
+				</when>
+				
+				<when test="list == 'memberNo'.toString()">
+					m.member_nick like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</foreach>
+		
+	</select>
 	
 	
 	

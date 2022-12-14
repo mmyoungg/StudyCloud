@@ -14,7 +14,7 @@
 }
 
 .mnt_allwrap {
-    margin: 200px 400px 0px 400px;
+    margin: 180px 400px 0px 400px;
     height: 1800px;
 }
 
@@ -64,6 +64,20 @@ span.write_date {
 	color: gray;
 	font-size: 14px;
 	float: right;
+	
+}
+
+.select_field {
+    color: gray;
+    font-size: 14px;
+    width: 130px;
+    text-align: center;
+    background-color: #e3eff9;
+    border : none;
+    border-radius: 6px;
+    box-shadow : 1px 1px 1px #696969;
+    transition-duration: 0.3s;
+    height: 29px;
 }
 
 
@@ -71,14 +85,8 @@ span.write_date {
 	color: gray;
 	font-size: 14px;
 	float: right;
-	padding-top: 20px;
+	padding-top: 40px;
 }
-
-.mnt_time {
-	color: gray;
-	font-size: 14px;
-}
-
 
 
 

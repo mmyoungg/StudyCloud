@@ -1,6 +1,5 @@
 package service.impl;
 
-import java.io.PrintWriter;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -10,15 +9,13 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.mail.HtmlEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.face.MemberDao;
+import dto.FileUpload;
 import dto.Member;
 import service.face.MemberService;
 
@@ -211,16 +208,9 @@ public class MemberServiceImpl implements MemberService {
 
 
 	// 아이디 중복 체크
-	public int idchk(String memberId) throws Exception {
-		int result = memberDao.idchk(memberId);
-		return result;
-		
-	}
-
 	@Override
-	public int idchk(Member member) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int idchk(String memberId) throws Exception {
+		 return memberDao.idchk(memberId);
 	}
 
 	@Override
@@ -231,6 +221,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member memberInfoByNo(Member member) {
 		return memberDao.getMemberByMemberNo(member);
+	}
+
+	@Override
+	public FileUpload getProfileMemberNo(Member member) {
+		return null;
 	}
 }
 	

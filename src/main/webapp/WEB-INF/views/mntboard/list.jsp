@@ -11,7 +11,7 @@
 <c:import url="../layout/header.jsp" /> 
 
 <!-- css연결 -->
-<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=2"> 
+<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=4"> 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
@@ -20,26 +20,98 @@
 <body>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	var curPage = 1;    	
-	console.log(curPage);
-})
+	var sort = "mntboard_date";
+	var page = 1;
 
+	var keyword;
+	var type;
+	
+	// 기본값으로 리스트 불러오기(최신순으로 1페이지 리스트)
+	getList()
+	
 
-function pageMove(page_no) {
-	$.ajax({
-		type: "Get"
-	   , url: "/mntboard/listPaging"
-	   , data: {
-		   curPage:page_no
-	   }
-	   , dataType: "html"
-	   , success: function( p ) {
-		   $("#listPaging").html(p)
-	   }
+	function pageMove(page_no) {
+		page = page_no
 		
-	})
-}
+		// 페이지에 맞는 리스트 불러오기 
+		getList()
+	}
+
+	function pageSort(e){
+		sort = e
+		
+		// 소팅된 리스트 불러오기
+		getList()
+	}
+
+	function search(e){
+		var searchTypeSel = $('#searchTypeSel').val();
+		var kword = $('#keyword').val();
+		type = searchTypeSel
+		keyword = kword
+		
+		var isExistType = (type !== undefined && type.length > 0)
+		var isExistKeyword = (keyword !== undefined && keyword.length > 0)
+		
+		console.log(isExistKeyword)
+		console.log(isExistType)
+		
+		// 검색 결과 리스트 불러오기
+		if(isExistType && isExistKeyword){
+			getList()
+		}else if (!isExistType){
+			alert("검색 조건을 선택하세요!");
+		}else if(!isExistKeyword) {
+			alert("검색어를 입력하세요!");
+		}
+		
+	}
+
+	function getList(){
+		var param = {
+				curPage : page,
+				sort : sort,
+				keyword: keyword,
+				type: type
+		}
+		$.ajax({
+			type: "Get"
+		   , url: "/mntboard/listPaging"
+		   , data: param
+		   , dataType: "html"
+		   , success: function( p ) {
+			   $("#listPaging").html(p)
+		   }
+			
+		})
+	}
+	
+
+	function setSearchTypeSelect(){
+		var $searchTypeSel = $('#searchTypeSel');
+		var $keyword = $('#keyword');
+		
+		//검색 버튼이 눌리면
+		$('#searchBtn').on('click',function(){
+			var searchTypeVal = $searchTypeSel.val();
+			var keywordVal = $keyword.val();
+			
+			if(!searchTypeVal){
+				alert("검색 조건을 선택하세요!");
+				return;
+			}else if(!keywordVal){
+				alert("검색어를 입력하세요!");
+				return;
+			}
+			
+			/* var url = "listPage?page=1"
+				+ "&perPageNum=" + " ${commtPaging.curPage}"
+				+ "&searchType=" + searchTypeVal
+				+ "&keyword=" + encodeURIComponent(keywordVal);
+			window.location.href = url; */
+		})
+	}
+
 </script>
 
 
@@ -61,7 +133,7 @@ function pageMove(page_no) {
 
 <div class="content-container">
 
-	<!-- 왼쪽 정렬 항목-->
+	 <!-- 왼쪽 정렬 항목-->
 	<div class="left_sort">
   
     <div class="field">
@@ -114,7 +186,6 @@ function pageMove(page_no) {
 	</a>
 	</div> <!-- 왼쪽정렬 항목 끝 -->
 	
-	
 
 
 <div class="right_sort">
@@ -122,16 +193,20 @@ function pageMove(page_no) {
 
 <div class="radio_bt">	
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked  onclick="pageSort('mntboard_date')"> 
   <label class="form-check-label" for="flexRadioDefault1">최신순</label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onclick="pageSort('mntboard_cmcnt')" >
   <label class="form-check-label" for="flexRadioDefault2">댓글 많은 순</label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" onclick="pageSort('like_cnt')" >
   <label class="form-check-label" for="flexRadioDefault2">좋아요순</label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" onclick="pageSort('mntboard_hit')" >
+  <label class="form-check-label" for="flexRadioDefault2">조회수순</label>
 </div>
 </div>
 
@@ -143,25 +218,30 @@ function pageMove(page_no) {
 
 
 </div><!-- .글목록container -->
-
-
 </div> <!-- right -->
 
 
 
 	<!-- <!-- 검색바 -->
-  <div class="container-fluid">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search"
+  <div class="searchContainer">
+    <form class="search" role="search">
+	<select class="form-select" id="searchTypeSel" name="searchType" >
+		<option value="">검색조건</option>
+		<option value="mntboard_title">제목</option>
+		<option value="mntboard_content">내용</option>
+		<option value="member_nick">작성자</option>
+		<option value="tc">제목+내용</option>
+	</select>
+      <input class="form-control me-2"  type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" aria-label="Search"
       onfocus="this.placeholder=''" onblur="this.placeholder='검색어를 입력하세요'">
-      <button class="btn" type="submit">☁️</button>
+      <button type="button" class="btn searchBtn" onclick="search(this)">☁️</button>
     </form>
-  </div>
-
 </div> <!-- container --> 
 
 
 
+
+</div>
 </main>
 </main>
 <c:import url="../layout/footer.jsp" />  
