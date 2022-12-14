@@ -3,6 +3,8 @@ package dao.face;
 import java.util.HashMap;
 import java.util.List;
 
+import dto.ApplyMnt;
+import dto.ApplyMt;
 import dto.FileUpload;
 import dto.MtBoard;
 import util.Paging;
@@ -42,10 +44,14 @@ public interface MtBoardDao {
 	public void deleteMtBoard(MtBoard mtBoard);
 
 	// 멘토지원
-	public void applyMt(MtBoard mtBoard);
+	public void applyMt(ApplyMt applyMt);
+	/* public void applyMt(MtBoard mtBoard); */
 
 	// 멘토링신청
-	public void applyMnt(MtBoard mtBoard);
+	public void applyMnt(ApplyMnt applyMnt);
+	/* public void applyMnt(MtBoard mtBoard); */
+
+
 
 	
 	// 리뷰

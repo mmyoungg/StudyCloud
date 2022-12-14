@@ -1,7 +1,9 @@
 package service.face;
 
 import java.util.HashMap;
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,102 +12,63 @@ import dto.FileUpload;
 import dto.MntBoard;
 import dto.MntBoardLike;
 import util.CommtPaging;
-import util.Paging;
+import util.PagingVUp;
 
 public interface MntBoardService {
 
-	/**
-	 * 
-	 * 게시글 목록을 위한 페이징 객체 생성
-	 * 
-	 * @param curPage - 요청 페이지 번호
-	 * @return 계산이 완료된 Paging 객체
-	 */
-	public Paging getPaging(int curPage);
+	// ------ 게시판 -------
+	
+	// 페이징
+	public PagingVUp getPaging(Map<String, Object> map, int curPage);
 
-	/**
-	 * 페이징 적용된 게시글 목록 조회
-	 * 
-	 * 
-	 * @param paging - 페이징 정보 객체
-	 * @return 페이징이 적용된 게시글목록
-	 */
-	public List<HashMap<String, Object>> list(Paging paging);
+	// 글목록
+	public List<HashMap<String, Object>> list(Map<String, Object> map);
 	
 	
-	/**
-	 * 게시글 상세
-	 * 
-	 * @param viewBoard - 상세 조회할 게시글 번호 객체
-	 * @return 조회된 상세 게시글 객체
-	 */
-	public HashMap<String, Object> view(MntBoard viewBoard);
+	public List<HashMap<String, Object>> list(PagingVUp paging);
 	
+	
+	// 게시글 조회
+	public HashMap<String, Object> view(int viewBoardNo);
 
-	/**
-	 * 게시글 정보, 첨부파일 함께 처리
-	 * 
-	 * @param mntBoard 게시글정보
-	 * @param file 첨부파일정보
-	 */
+	// 게시글 쓰기
 	public void write(MntBoard mntBoard, MultipartFile file);
 
-	
-	/**
-	 * 게시글 정보 / 첨부파일 처리
-	 * 
-	 * @param viewBoard 게시글 정보
-	 * @return file 첨부파일 정보
-	 */
-	public FileUpload getAttachFile(MntBoard viewBoard);
-	
-	
-	/**
-	 * 
-	 * @param fileUpload 조회할 파일 번호 
-	 * @return 첨부 파일 정보
-	 */
+	// 첨부파일
+	public FileUpload getAttachFile(int viewBoardNo);
 	public FileUpload getFile(FileUpload fileUpload);
 
-	
-	/**
-	 * 
-	 * @param mntBoard
-	 * @return 
-	 */
+	// 글 수정 값
 	public HashMap<String, Object> updateBoard(MntBoard mntBoard);
 
-	
-	/**
-	 * 
-	 * @param mntBoard 
-	 * @param file 수정된 파일정보
-	 */
+	// 글 수정
 	public void update(MntBoard mntBoard, MultipartFile file);
 
-	
-	
-	/**
-	 * 게시글 삭제
-	 * @param mntBoard
-	 */
+	// 글 삭제
 	public void delete(MntBoard mntBoard);
 
 	
 	// --------------- 댓글 ---------------
 	
+	// 댓글 개수
 	public int getCntCommt(int mntboardNo);
 	
+	// 댓글 목록
 	public List<HashMap<String, Object>> commtList(CommtPaging commtPaging, int mntboardNo);
 
+	// 글목록 옆 댓글 개수 
 	public void mntBoardCmt(int mntboardNo);
 	
+	// 댓글 페이징
 	public CommtPaging getCommtPaging(int curPage, int mntboardNo);
 	
+	// 댓글 쓰기
 	public Commt writeCommt(Commt commt);
 
+	// 댓글 수정
 	public void updateCommt(Commt commt);
 	
+	// 댓글 삭제
 	public void deleteCommt(int commtNo);
 
 
@@ -118,7 +81,18 @@ public interface MntBoardService {
 
 	public boolean like(MntBoardLike mntboardLike);
 	
+	// 좋아요 누적 수 
 	public int getTotalCntLike(MntBoardLike mntboardLike);
+
+	
+	
+	// ---------- 검색 -----------
+
+	
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map);
+	
+	public CommtPaging getSearchPaging(HashMap<String, Object> map);
+	
 
 
 	

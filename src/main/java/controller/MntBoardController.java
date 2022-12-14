@@ -23,11 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.Commt;
 import dto.FileUpload;
+import dto.MboardLike;
 import dto.MntBoard;
 import dto.MntBoardLike;
 import service.face.MntBoardService;
 import util.CommtPaging;
 import util.Paging;
+import util.PagingVUp;
 
 @Controller
 @RequestMapping("/mntboard")
@@ -41,65 +43,87 @@ public class MntBoardController {
 	
 	@RequestMapping("/list")
 	public void mntBoardList(
-			@RequestParam(defaultValue = "0") int curPage, HttpSession session
+			@RequestParam(defaultValue = "1") int curPage, HttpSession session
 			, Model model ) { 
 		
 		session.setAttribute("login", true); 
 		session.setAttribute("member_no", 1); 
 		session.setAttribute("member_nick", "nick"); 
-		
-		Paging paging = mntBoardService.getPaging(curPage);
+		Map<String, Object> map =new HashMap<>();
+		PagingVUp paging = mntBoardService.getPaging(map, curPage);
 		model.addAttribute("paging", paging);  
-		logger.debug("{}", paging);
+		logger.info("paging : {}", paging);
 		
-		List<HashMap<String,Object>> list = mntBoardService.list(paging);
-		for( HashMap<String, Object> b : list )	logger.debug("{}", b);
+		List<HashMap<String,Object>> list = mntBoardService.list(paging); 
+		for( HashMap<String, Object> b : list ) logger.debug("{}", b);
 		model.addAttribute("mntBoardlist", list);
+		
 		
 	} 
 	
-	@RequestMapping("/listPaging")
-	public void mntBoardListPaging(int curPage, Model model ) { 
+	@RequestMapping("/listPaging")	
+	public void mntBoardListPaging(@RequestParam Map<String, Object> map, Model model ) { 
 		
-		logger.info("curpage - {} ", curPage);
+	
 		
-		Paging paging = mntBoardService.getPaging(curPage);
+		int curPage = Integer.parseInt(map.get("curPage").toString()); 
+		PagingVUp paging = mntBoardService.getPaging(map, curPage);
 		model.addAttribute("paging", paging);  
 		
-		List<HashMap<String,Object>> list = mntBoardService.list(paging);
+		map.put("startNo",paging.getStartNo());
+		map.put("endNo",paging.getEndNo());
+		map.put("paging",paging);
+		
+		
+		logger.info("map - {} ", map);
+		
+		List<HashMap<String,Object>> list = mntBoardService.list(map);
 		model.addAttribute("mntBoardlist", list);
-		
-		
 	} 
+	
+//	@ResponseBody
+//	@RequestMapping("/listPaging")
+//	public void mntBoardListPaging(@RequestParam Map<String, Object> curPage, Model model ) { 
+//		
+//		logger.info("curpage - {} ", curPage);
+//		
+//		Paging paging = mntBoardService.getPaging(curPage);
+//		model.addAttribute("paging", paging);  
+//		
+//		List<HashMap<String,Object>> list = mntBoardService.list(paging);
+//		model.addAttribute("mntBoardlist", list);
+//		
+//		
+//	} 
 	
 //	조인으로 불러올 애들만 hash로 구현
 	
 	@RequestMapping("/view")
-	public void view (
-		 @RequestParam(defaultValue = "1") 
-		 int curPage, HttpSession session, 
-		 MntBoard viewBoard, int mntboardNo, Model model, MntBoardLike mntboardLike) {
+	public void view (HttpSession session, Model model,
+			@RequestParam(defaultValue = "1") int curPage,
+			@RequestParam(required = true) int mntboardNo) {
 		/* logger.info("/mntboard/view - {} ", viewBoard); */
 		
-		logger.info("mntboardNo : {}" , mntboardNo);
-		// 글조회
-		HashMap<String, Object> mntViewBoard = mntBoardService.view(viewBoard);
-		/* logger.info("조회된 게시글 {}", mntViewBoard); */
 		
+		// 글조회
+		HashMap<String, Object> mntViewBoard = mntBoardService.view(mntboardNo);
+		/* logger.info("조회된 게시글 {}", mntViewBoard); */
+		logger.info("mntViewBoard : {}" , mntViewBoard);
 		model.addAttribute("mntViewBoard", mntViewBoard);
 		
 		
 		// 첨부파일
-		FileUpload fileUpload = mntBoardService.getAttachFile(viewBoard);
+		FileUpload fileUpload = mntBoardService.getAttachFile(mntboardNo);
 		model.addAttribute("fileUpload", fileUpload);
+		logger.info("fileUpload : {}" , fileUpload);
 		
 	// -------------------------------------------------------------------------------
 		
-		viewBoard.setMemberNo( (int)session.getAttribute("member_no") );
+		// viewBoard.setMemberNo( (int)session.getAttribute("member_no") );
 
 		CommtPaging commtPaging = mntBoardService.getCommtPaging(curPage, mntboardNo);
 		model.addAttribute("commtPaging", commtPaging);
-		 logger.debug("{}", commtPaging);
+		 logger.debug(" commtPaging : {}", commtPaging);
 		 
 		List<HashMap<String,Object>> commtList = mntBoardService.commtList(commtPaging, mntboardNo);
 		for( HashMap<String, Object> c : commtList )	logger.debug(" c : {}", c);
@@ -109,6 +133,7 @@ public class MntBoardController {
 		
 		// ----------- 좋아요 -----------
 		
+		MntBoardLike mntboardLike = new MntBoardLike();
 		mntboardLike.setMemberNo( (int)session.getAttribute("member_no") );
 		// 좋아요 모델값 
 		model.addAttribute("like", mntBoardService.like(mntboardLike));
@@ -156,15 +181,15 @@ public class MntBoardController {
 	
 	
 	@GetMapping("/update")
-	public void update(MntBoard mntBoard, Model model) {
-		logger.debug("{}", mntBoard);
+	public void update( @RequestParam(required = true) int mntboardNo, Model model) {
+		logger.debug("{}", mntboardNo);
 		
-		HashMap<String, Object> mntViewBoard = mntBoardService.view(mntBoard);
+		HashMap<String, Object> mntViewBoard = mntBoardService.view(mntboardNo);
 		logger.debug("업데이트할 게시글 조회 {}", mntViewBoard);
 		
 		model.addAttribute("updateBoard", mntViewBoard);
 	
-		FileUpload fileUpload = mntBoardService.getAttachFile(mntBoard);
+		FileUpload fileUpload = mntBoardService.getAttachFile(mntboardNo);
 		model.addAttribute("fileUpload", fileUpload);
 		
 	}
@@ -310,6 +335,36 @@ public class MntBoardController {
 		  
 	  }
 	  
+	  
+	  // ------------------------ 검색 --------------------------
+	  
+	    @PostMapping("/search")
+		public String mntSearch(Model model, 
+				@RequestParam(value="searcharr[]") List<String> searcharr
+				, String searchKeyword, @RequestParam(defaultValue="1") int curPage) {
+			
+	    	logger.info("searcharr : {}", searcharr);
+			logger.info("searchKeyword : {}", searchKeyword);
+	    	
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("list", searcharr); // 체크박스 값 담긴 List
+			map.put("keyword", searchKeyword); // 검색 키워드
+			map.put("curPage", curPage); // 페이징처리를 위한 현재페이지
+			
+	    	CommtPaging paging = mntBoardService.getSearchPaging(map);
+	    	
+	    	List<HashMap<String, Object>> list = mntBoardService.getSearchList(map);
+			model.addAttribute("paging", paging);
+			
+			map.get("searchKeyword");
+			logger.info("검색 결과 : {} ", list);
+			model.addAttribute("mntSearchList", list);
+			model.addAttribute("Keyword", list);
+			
+			
+			
+	    	return "/mntboard/searchPaging";
+		}
 	  
 	  
 	  

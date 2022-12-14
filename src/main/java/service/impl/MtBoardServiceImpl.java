@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.face.MtBoardDao;
+import dto.ApplyMnt;
+import dto.ApplyMt;
 import dto.FileUpload;
 import dto.MtBoard;
 import service.face.MtBoardService;
@@ -168,13 +170,17 @@ public class MtBoardServiceImpl implements MtBoardService {
 	}
 
 	@Override
-	public void applyMt(MtBoard mtBoard) {
-		mtBoardDao.applyMt(mtBoard);
+	public void applyMt(ApplyMt applyMt) {
+		mtBoardDao.applyMt(applyMt);
 	}
 
+	/*
+	 * @Override public void applyMnt(MtBoard mtBoard) {
+	 * mtBoardDao.applyMnt(mtBoard); }
+	 */
 	@Override
-	public void applyMnt(MtBoard mtBoard) {
-		mtBoardDao.applyMnt(mtBoard);
+	public void applyMnt(ApplyMnt applyMnt) {
+		mtBoardDao.applyMnt(applyMnt);
 	}
 
 	/*

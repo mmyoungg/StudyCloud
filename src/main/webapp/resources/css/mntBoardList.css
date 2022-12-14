@@ -27,13 +27,19 @@
 }
 
 /* 검색바 */
-.form-control {
+.form-control, #searchTypeSel, .searchBtn {
+    
     width: auto;
-    font-size: 13px;
     color: gray;
-    float: right;
-    padding-right: 80px;
-    margin-right: 3px !important;
+    font-size: 13px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    
+}
+
+.form-control, #searchTypeSel {
+    margin-right: -2px!important;
 }
 
 .btn {
@@ -46,13 +52,13 @@
     background-color: #6cc4dc;
 }
 
-.d-flex {
-    float: right !important;
-    margin-right: 16px;
+.searchBtn {
+	 margin-right: 10px;
 }
 
-.container-fluid {
-    padding: 0px;
+
+.searchContainer {
+	text-align: right;
 }
 
 /* 검색바 끝 */
@@ -171,7 +177,6 @@ th {
     margin-bottom: 36px;
     justify-content: center;
     --bs-pagination-color: #aacde5;
-    padding-top: 80px;
 
 }
 

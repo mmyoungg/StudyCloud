@@ -2,9 +2,11 @@ package service.impl;
 
 import java.io.File;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -22,7 +24,7 @@ import dto.MntBoard;
 import dto.MntBoardLike;
 import service.face.MntBoardService;
 import util.CommtPaging;
-import util.Paging;
+import util.PagingVUp;
 
 @Service
 public class MntBoardServiceImpl implements MntBoardService {
@@ -34,32 +36,35 @@ public class MntBoardServiceImpl implements MntBoardService {
 
 	  // 페이징
 	  @Override 
-	  public Paging getPaging(int curPage) { 
+	  public PagingVUp getPaging(Map<String, Object> map, int curPage) {
 		  
-		  int totalCount = mntBoardDao.CntBoard();
-		  Paging paging = new Paging(totalCount, curPage);
+		  int totalCount = mntBoardDao.CntBoard(map); // 검색 결과에 따라 총 카운트 바뀌도록 수정
+		  PagingVUp paging = new PagingVUp(totalCount, curPage);
 		  return paging; 
 		  
 	  }
 
 	 // 페이징 글목록
 	@Override
-	public List<HashMap<String, Object>> list(Paging paging) {
-		
-		return mntBoardDao.MntBoardList(paging);
+	public List<HashMap<String, Object>> list(Map<String, Object> map) {
+		return mntBoardDao.MntBoardList(map);
 	}
 
-	
+	 // 페이징 글목록
+		@Override
+		public List<HashMap<String, Object>> list(PagingVUp paging) {
+			return mntBoardDao.MntBoardListPaging(paging);
+		}
 	
 	//	게시글 상세보기
 	@Override
-	public HashMap<String, Object> view(MntBoard viewBoard) {
+	public HashMap<String, Object> view(int viewBoard) {
 		
 		// 조회수 증가
 		mntBoardDao.mntBoardHit(viewBoard);
 		
-		// 좋아요 수
-		mntBoardDao.mntBoardLike(viewBoard);
+		// 좋아요 수 => ? 
+		// mntBoardDao.mntBoardLike(viewBoard);
 		
 		// 상세보기 조회결과 
 		return mntBoardDao.selectMntBoard(viewBoard);
@@ -120,8 +125,8 @@ public class MntBoardServiceImpl implements MntBoardService {
 	}
 
 	@Override
-	public FileUpload getAttachFile(MntBoard viewBoard) {
-		return mntBoardDao.selectMntBoardFileByBoardNo(viewBoard);
+	public FileUpload getAttachFile(int mntboardNo) {
+		return mntBoardDao.selectMntBoardFileByBoardNo(mntboardNo);
 		
 	}
 
@@ -285,6 +290,23 @@ public class MntBoardServiceImpl implements MntBoardService {
 	@Override
 	public int getTotalCntLike(MntBoardLike mntboardLike) {
 		return mntBoardDao.getTotalCntLike(mntboardLike);
+	}
+	
+	
+	
+	
+	// 검색
+	@Override
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map) {
+		return mntBoardDao.getSearchList(map);
+	}
+
+	@Override
+	public CommtPaging getSearchPaging(HashMap<String, Object> map) {
+		int totalCount = mntBoardDao.cntSearchList(map);
+		int curPage = (int) map.get("curPage");
+		CommtPaging paging = new CommtPaging(totalCount, curPage);
+		return paging;
 	}
 
 	

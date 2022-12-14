@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link rel="stylesheet" href="/resources/css/mntBoardView.css?ver=2"> 
+<link rel="stylesheet" href="/resources/css/mntBoardView.css?ver=3"> 
 <script src="../resources/js/mntBoardView.js?ver=1"></script>
 
 <script type="text/javascript">
@@ -180,7 +180,7 @@ $(document).ready(function() {
 <br>
 
 <span class="write_date"><fmt:formatDate value="${mntViewBoard.MNTBOARD_DATE }" pattern="yyyy-MM-dd"/></span>
-<div class="select_field">분야 ${mntViewBoard.FIELD }</div>
+<button class="select_field">${mntViewBoard.FIELD }</button>
 <hr>
 </div> <!-- mnt_wrap1 끝 -->
 
@@ -197,12 +197,6 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 
 <hr>	
 <div class="mnt_wrap3">
-<br>
-
-
-<br>
-
-
 
 
 
