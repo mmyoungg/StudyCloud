@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.HashMap;
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dto.ApplyMnt;
+import dto.ApplyMt;
 import dto.FileUpload;
+import dto.Member;
 import dto.MtBoard;
+import service.face.MemberService;
 import service.face.MtBoardService;
-import util.CommtPaging;
 import util.Paging;
 
 
@@ -31,7 +33,7 @@ public class MtBoardController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired MtBoardService mtBoardService;
-	
+	@Autowired private MemberService memberService;
 	
 	@RequestMapping("/mtboard/list")
 	public void mtBoardList(
@@ -215,35 +217,47 @@ public class MtBoardController {
 		public void applyMt() {}
 		 
 	 @PostMapping("/mtboard/applyMt")
-		public String applyMtPost(MtBoard mtBoard, HttpSession session) {
-		 logger.debug("{}", mtBoard);
+		public String applyMtPost(ApplyMt applyMt, HttpSession session) {
+		 logger.debug("{}", applyMt);
 			 
-		mtBoard.setMemberNo( (int)session.getAttribute("member_no") ); 
+		 applyMt.setMemberNo( (int)session.getAttribute("member_no") ); 
 		System.out.println("로그인 : " + session.getAttribute("member_no")) ; 
 				
-		mtBoardService.applyMt(mtBoard);
+		mtBoardService.applyMt(applyMt);
 				
 		return "redirect:/mtboard/list";
 			
 			}
 	
+	 
+	 
+	 
 	 @GetMapping("/mtboard/applyMnt")
 		public void applyMnt() {}
 	
 	 @PostMapping("/mtboard/applyMnt")
-		public String applyMntPost(MtBoard mtBoard, HttpSession session) {
-		 logger.debug("{}", mtBoard);
+		public String applyMntPost(ApplyMnt applyMnt, HttpSession session, Model model) {
+		 logger.debug("{}", applyMnt);
 			 
-		mtBoard.setMemberNo( (int)session.getAttribute("member_no") ); 
-		System.out.println("로그인 : " + session.getAttribute("member_no")) ; 
+//		applyMnt.setMemberNo( (int)session.getAttribute("member_no") ); 
+//		System.out.println("로그인 : " + session.getAttribute("member_no")) ; 
+//				
+		 int member_no = (int) session.getAttribute("member_no");
+			Member member = new Member();
+			member.setMemberNo(member_no);
+			member = memberService.memberInfoByNo(member);
+			
+			logger.info("!!!!!!!!!!!!member!!!!!!!!!! : {} ", member);
+
+			model.addAttribute("member", member);
+			
+		mtBoardService.applyMnt(applyMnt);
 				
-		mtBoardService.applyMnt(mtBoard);
-				
-		 return "redirect:/mntboard/detail?mtboardNo=" + mtBoard.getMtboardNo();
+		 return "redirect:/mntboard/detail?mtboardNo=" + applyMnt.getMtboardNo();
 			
 			}
 	
-	
+	//      넘겨주는거 해야됨
 	
 	
 	
