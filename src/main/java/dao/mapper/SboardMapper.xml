@@ -25,7 +25,7 @@
 	
 	<select id="detailPageBySboardNo" resultType="hashMap" parameterType="int">
 		SELECT s.study_no, s.study_title, s.study_people, s.study_address, s.study_tag, s.study_date, s.study_time, s.study_content
-				, s.study_notify, s.enrollstudy_date, s.sboard_markcnt 
+				, s.study_notify, s.enrollstudy_date, s.sboard_markcnt, m.member_id, m.member_nick
 		FROM studyboard s
 		JOIN member m ON (s.member_no = m.member_no )
 		WHERE study_no = #{studyNo }

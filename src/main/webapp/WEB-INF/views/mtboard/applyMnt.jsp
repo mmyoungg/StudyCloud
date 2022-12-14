@@ -72,6 +72,7 @@ $(document).ready(function() {
 <div class="mento_intro">
 	<div class="mento_intro_content">
 			<h1>☁️ ☁️ ☁️</h1>
+			${member.memberName} 1111
 	</div>
 </div>
 
@@ -89,9 +90,9 @@ $(document).ready(function() {
 <br><br><br>
 
 <div class="naming">&nbsp;이메일<span class="rq">*</span>
-<input class="form-control" type="text" id="memberEmail" value="${member_email}" readonly="readonly" name="memberEmail" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" id="memberEmail" value="${member_email }" readonly="readonly" name="memberEmail" aria-label="default input example" style="margin-top: 5px; font-size: 13px"></div>
 <div class="naming">&nbsp;연락처<span class="rq">*</span>
-<input class="form-control" type="text" id="memberPhone" name="memberPhone" value="${member_phone}" readonly="readonly" aria-label="default input example"  style="margin-top: 5px; font-size: 13px"></div>
+<input class="form-control" type="text" id="memberPhone" name="memberPhone" value="${member_phone }" readonly="readonly" aria-label="default input example"  style="margin-top: 5px; font-size: 13px"></div>
 
 <!-- 플랫피커 -->
 <div class="naming">

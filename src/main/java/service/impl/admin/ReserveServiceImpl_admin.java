@@ -2,6 +2,7 @@ package service.impl.admin;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,18 +33,19 @@ public class ReserveServiceImpl_admin implements ReserveService_admin {
 		return paging;
 	}
 
+	//검색
+	@Override
+	public List<HashMap<String, Object>> searchName(String keyword) {
+		return reserveDao_admin.searchName(keyword);
+	}
+
+	//상세보기
 	@Override
 	public List<HashMap<String, Object>> viewReserve(Reservation res) {
 		
 		//상세보기 결과 리턴
 		return reserveDao_admin.selectReserve(res);
 	}
+
 	
-
-	//예약 검색
-	@Override
-	public List<HashMap<String, Object>> searchReserve(String search_option) {
-		return reserveDao_admin.searchReserve(search_option);
-	}
-
 }

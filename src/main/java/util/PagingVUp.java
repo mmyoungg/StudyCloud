@@ -1,58 +1,56 @@
 package util;
 
-public class CommtPaging {
+public class PagingVUp {
 
-	private int curPage; // 현재 댓글 번호
+	private int curPage; // 현재 페이지 번호
 
-	private int totalCount; // 총 댓글 수
-	private int listCount; // 한 페이지에 보여질 댓글의 수
+	private int totalCount; // 총 게시글 수
+	private int listCount; // 한 페이지에 보여질 게시글의 수
 	private int totalPage; // 총 페이지 수
 
 	private int pageCount; // 한 화면에 출력될 페이지네이션의 개수
 	private int startPage; // 화면에 보이는 시작 페이지네이션 번호
 	private int endPage; // 화면에 보이는 끝 페이지네이션 번호
 
-	private int startNo; // 화면에 보이는 댓글의 시작 번호
-	private int endNo; // 화면에 보이는 댓글의 끝 번호
-
+	private int startNo; // 화면에 보이는 게시글의 시작 번호
+	private int endNo; // 화면에 보이는 게시글의 끝 번호
 
 	// 디폴트 생성자 - 페이징 로직이 처리되지 않는다
-	public CommtPaging() {}
-
-	public CommtPaging(int totalCount, int curPage) {
-		setTotalCount(totalCount);
-		setCurPage(curPage);
-		
-		makeCommtPaging();
+	public PagingVUp() {
 	}
 
-	public CommtPaging(int totalCount) {
-		setTotalCount(totalCount);
-
-		makeCommtPaging();
-	}
-
-	public CommtPaging(int totalCount, int curPage, int listCount) {
+	public PagingVUp(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
-		setListCount(listCount); // 화면에 보여질 댓글 개수 지정하기
 
-		makeCommtPaging();
+		makePaging();
 	}
 
-	public CommtPaging(int totalCount, int curPage, int listCount, int pageCount) {
+	public PagingVUp(int totalCount) {
+		setTotalCount(totalCount);
+
+		makePaging();
+	}
+
+	public PagingVUp(int totalCount, int curPage, int listCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
-		setListCount(listCount); // 화면에 보여질 댓글 개수 지정하기
+		setListCount(listCount); // 화면에 보여질 게시글 개수 지정하기
+
+		makePaging();
+	}
+
+	public PagingVUp(int totalCount, int curPage, int listCount, int pageCount) {
+		setTotalCount(totalCount);
+		setCurPage(curPage);
+		setListCount(listCount); // 화면에 보여질 게시글 개수 지정하기
 		setPageCount(pageCount); // 화면에 보여질 페이징 개수 지정하기
 
-		makeCommtPaging();
+		makePaging();
 	}
 
-
-
 	// 페이지 정보를 생성(계산)하는 메소드
-	public void makeCommtPaging() {
+	public void makePaging() {
 		if (totalCount == 0)
 			return; // 게시글이 없는 경우 중단
 
@@ -60,7 +58,7 @@ public class CommtPaging {
 		if (curPage == 0)
 			this.curPage = 1; // 첫 페이지를 기본 페이지로 설정한다
 		if (listCount == 0)
-			this.listCount = 6; // 화면에 보여질 게시글 수를 10개로 설정
+			this.listCount = 10; // 화면에 보여질 게시글 수를 10개로 설정
 		if (pageCount == 0)
 			this.pageCount = 10; // 화면에 보여질 페이징 수를 10개로 설정
 
@@ -68,7 +66,8 @@ public class CommtPaging {
 
 		// 총 페이지 수 계산
 		totalPage = totalCount / listCount; // 총 게시글 수 / 한 페이지 게시글 수
-		if (totalPage % listCount >= 0)
+	
+		if (totalPage % listCount > -1) {}
 			totalPage++;
 
 		// 총 페이지 수 보정
@@ -98,9 +97,9 @@ public class CommtPaging {
 
 	@Override
 	public String toString() {
-		return "CommtPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
-				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
-				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + "]";
+		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
+				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
 	}
 
 	public int getCurPage() {
@@ -174,5 +173,5 @@ public class CommtPaging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
-	
+
 }

@@ -2,18 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script>
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		location.href = "/mntboard/write"
 	})
 })
-
-
 </script>
 
 
-<table class="table" id="table">
+<table class="table">
 <thead>
 	<tr>
 		<th scope="col" style="width: 7%;">No.</th>
@@ -26,19 +25,19 @@ $(document).ready(function() {
 </thead>
 
 <tbody>
-<c:forEach items="${mntBoardlist }" var="mntboard">
+<c:forEach items="${mntSearchList }" var="mntSearch">
   <tr>
-      <td scope="row" class="no">${mntboard.MNTBOARD_NO }</td>
+      <td scope="row" class="no">${mntSearch.MNTBOARD_NO }</td>
       <td>
-      <a id="boardno" href="/mntboard/view?mntboardNo=${mntboard.MNTBOARD_NO }">${mntboard.MNTBOARD_TITLE }</a>
-      <c:if test="${mntboard.MNTBOARD_CMCNT  ne 0}">
-		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mntboard.MNTBOARD_CMCNT}"/>&nbsp;]</b></small>
+      <a id="boardno" href="/mntboard/view?mntboardNo=${mntSearch.MNTBOARD_NO }">${mntSearch.MNTBOARD_TITLE }</a>
+      <c:if test="${mntSearch.MNTBOARD_CMCNT  ne 0}">
+		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mntSearch.MNTBOARD_CMCNT}"/>&nbsp;]</b></small>
 	 </c:if>
       </td>
-      <td>${mntboard.MEMBER_NICK  }</td>
-      <td>${mntboard.MNTBOARD_HIT }</td>
-      <td>${mntboard.LIKE_CNT }</td>
-      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mntboard.MNTBOARD_DATE }"/>
+      <td>${mntSearch.MEMBER_NICK  }</td>
+      <td>${mntSearch.MNTBOARD_HIT }</td>
+      <td>${mntSearch.LIKE_CNT }</td>
+      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mntSearch.MNTBOARD_DATE }"/>
  </tr>
 </c:forEach>
  

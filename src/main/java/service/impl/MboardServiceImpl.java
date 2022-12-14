@@ -76,10 +76,10 @@ public class MboardServiceImpl implements MboardService{
 		
 		mboardDao.insert(mboard);
 		
-		//빈 파일인 경우
-		if( file.getSize() <= 0 ) {
-			return;
-		}
+//		//빈 파일인 경우
+//		if( file.getSize() <= 0 ) {
+//			return;
+//		}
 		
 		//파일 저장 될 경로
 		String storedPath = context.getRealPath("upload");

@@ -2,6 +2,7 @@ package dao.face;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dto.Commt;
 import dto.FileUpload;
@@ -9,6 +10,7 @@ import dto.MntBoard;
 import dto.MntBoardLike;
 import util.CommtPaging;
 import util.Paging;
+import util.PagingVUp;
 
 public interface MntBoardDao {
 
@@ -17,7 +19,7 @@ public interface MntBoardDao {
 	 * 
 	 * @return 총 게시글 수
 	 */
-	public int CntBoard();
+	public int CntBoard(Map<String, Object> map);
 
 	/**
 	 * 페이징이 적용된 게시글 목록 조회
@@ -25,14 +27,16 @@ public interface MntBoardDao {
 	 * @param paging
 	 * @return
 	 */
-	public List<HashMap<String, Object>> MntBoardList(Paging paging);
+	public List<HashMap<String, Object>> MntBoardList(Map<String, Object> map);
+	
+	public List<HashMap<String, Object>> MntBoardListPaging(PagingVUp paging);
 
 
 	/**
 	 * 조회수 증가
 	 * @param viewBoard
 	 */
-	public void mntBoardHit(MntBoard viewBoard);
+	public void mntBoardHit(int viewBoard);
 
 	
 	/**
@@ -41,7 +45,7 @@ public interface MntBoardDao {
 	 * @param viewBoard - 조회 할 글번호
 	 * @return 조회된 글정보
 	 */
-	public HashMap<String, Object> selectMntBoard(MntBoard viewBoard);
+	public HashMap<String, Object> selectMntBoard(int mntboardNo);
 
 	
 	/**
@@ -64,10 +68,10 @@ public interface MntBoardDao {
 	/**
 	 * 게시글 번호 이용해서 첨부파일 정보 조회
 	 * 
-	 * @param viewBoard 조회할 게시글 번호
+	 * @param int mntboardNo 조회할 게시글 번호
 	 * @return 조회된 첨부파일 정보
 	 */
-	public FileUpload selectMntBoardFileByBoardNo(MntBoard viewBoard);
+	public FileUpload selectMntBoardFileByBoardNo(int mntboardNo);
 
 	
 	/**
@@ -132,6 +136,12 @@ public interface MntBoardDao {
 
 	// 좋아요 수
 	public void mntBoardLike(MntBoard viewBoard);
+
+	
+	// 검색
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map);
+
+	public int cntSearchList(HashMap<String, Object> map);
 
 
 

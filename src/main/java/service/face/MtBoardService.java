@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import dto.ApplyMnt;
+import dto.ApplyMt;
 import dto.FileUpload;
 import dto.MntBoard;
 import dto.MtBoard;
@@ -32,10 +34,10 @@ public interface MtBoardService {
 
 	public void delete(MtBoard mtBoard);
 
-	public void applyMt(MtBoard mtBoard);
+	public void applyMt(ApplyMt applyMt);
 
 	// 멘토링신청
-	public void applyMnt(MtBoard mtBoard);
+	public void applyMnt(ApplyMnt applyMnt);
 
 	// 후기
 	//public CommtPaging getCommtPaging(int curPage, int mtboardNo);

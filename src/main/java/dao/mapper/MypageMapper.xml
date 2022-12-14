@@ -14,21 +14,32 @@
         where member_no = #{memberNo}
     </update>
     
-	<!-- 프로필 사진 -->
-<!-- 	<select id="selectProfile" resultType="hashmap" parameterType="dto.Member"> -->
-<!-- 		SELECT M.*, F.* FROM member M, fileupload F -->
-<!-- 			WHERE m.member_no = f.member_no -->
-<!-- 	</select>		 -->
-	
-	
+	<!-- 프로필 사진 가져오기 -->
+	<select id="selectProfile" resultType="dto.FileUpload" parameterType="int">
+		SELECT F.* FROM member M, fileupload F
+			WHERE m.member_no = f.member_no
+			and m.member_no = #{memberNo} 
+			and fboard_no is null and mtboard_no is null and mntboard_no is null and sroom_no is null
+	</select>		
 	
     <!-- 회원 탈퇴 -->
-<!-- 	<delete id="withdrawal" parameterType="member"> -->
-<!-- 		delete from member -->
-<!-- 		where member_pw = #{memberPw} -->
-<!-- 	</delete> -->
+	<delete id="withdrawal" parameterType="member">
+		delete from member
+		where member_pw = #{memberPw}
+	</delete>
 	
-    
+    <!-- 프로필 사진 생성 -->
+	<insert id="insertProfile" parameterType="map">
+		INSERT INTO fileUpload (fileUpload_no, member_no, fileUpload_ori, fileUpload_stor )
+		VALUES (fileUpload_seq.nextval, #{memberNo}, #{fileUploadOri}, #{fileUploadStor})
+	</insert>
+	
+	<!-- 프로필 사진 업데이트 -->
+	<select id="updateProfile" parameterType="dto.FileUpload">
+		update fileUpload
+			set fileUpload_ori = #{fileUploadOri},
+			fileUpload_stor = #{fileUploadStor}
+	</select>		
 	
 	
 

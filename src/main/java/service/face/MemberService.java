@@ -2,6 +2,7 @@ package service.face;
 
 import javax.servlet.http.HttpServletResponse;
 
+import dto.FileUpload;
 import dto.Member;
 
 public interface MemberService {
@@ -81,15 +82,17 @@ public interface MemberService {
 	/**
 	 * 아이디 중복 체크
 	 * 
-	 * @param member
+	 * @param memberId
 	 * @return
 	 * @throws Exception
 	 */
-	public int idchk(Member member) throws Exception;
+	public int idchk(String memberId) throws Exception;
 
 	public Member memberInfo(Member member);
 
 	public Member memberInfoByNo(Member member);
+
+	public FileUpload getProfileMemberNo(Member member);
 
 	
 	

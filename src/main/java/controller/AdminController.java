@@ -120,10 +120,13 @@ public class AdminController {
 	//멘토 등록
 	@GetMapping("/admin/mento")
 	public void mento(
-			@RequestParam(defaultValue = "0" ) int curPage
+			@RequestParam(defaultValue = "0" ) int curPage, HttpSession session
 			, Model model ) {
 		
 		logger.info("/admin/mento [GET]");
+		
+//		int member_no = (int) session.getAttribute("member_no");
+//		model.addAttribute("member_no", member_no);
 		
 		Paging paging = applyMtService_admin.getPaging(curPage);
 		logger.debug("{}", paging);
@@ -344,7 +347,20 @@ public class AdminController {
 		System.out.println( list );
 		
 		model.addAttribute("list", list);
-
+		
+		
+	}
+	
+	@GetMapping("/admin/reserve/search") //예약 검색
+	public String search(@RequestParam(value="keyword") String keyword, Model model) {
+		
+		List<HashMap<String, Object>> search = reserveService_admin.searchName(keyword);
+		
+		logger.debug("search : {}", search);
+		
+		model.addAttribute("search", search);
+		
+		return "/admin/reserveSearch";
 	}
 	
 	@RequestMapping("admin/reserve/view") //예약 상세보기
@@ -358,18 +374,6 @@ public class AdminController {
 		model.addAttribute("view", view);
 		
 		return "admin/reserveView";
-	}
-	
-	@RequestMapping("/admin/reserve/search") //예약 검색
-	public void search(@RequestParam(defaultValue="sroom_name") String search_option
-			,@RequestParam(defaultValue="") String keyword, Model model) { //키워드 : 스터디룸명 
-		logger.info("/admin/reserve/search [GET]");
-		logger.info("{}", search_option);
-		logger.info("{}", keyword);
-		
-		List<HashMap<String, Object>> resList = reserveService_admin.searchReserve(search_option);
-		
-		model.addAttribute("resList", resList);
 	}
 
 	

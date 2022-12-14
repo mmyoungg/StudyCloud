@@ -51,15 +51,15 @@ $(document).ready(function() {
  	background-color: #aacde5; 
  	text-align: center; 
  	padding: 60px; 
- 	margin: 20%;  
+/*  	margin: 20%;   */
 /* 	margin: 0 auto; */
 /* 	text-align:center; */
 /* 	background-color: #e3eff9; */
  } 
 
-.container{
+.container1{
 	margin: 0 auto;
-	width: 1000px;
+ 	width: 1000px; 
 }
 
 .nav-m {
@@ -185,7 +185,7 @@ td {
 	</div>
 	
 	<br><br>
-	<div class="container">
+	<div class="container1">
 		<div class="nav-m">
 			<div class="form-check">
 	  			<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -209,6 +209,7 @@ td {
 	     	
      	</div>
      	
+     	<div class="mboard">
 		<table class="table">
 			<thead class="table-head">
 				<tr>
@@ -233,8 +234,6 @@ td {
 			</tbody>
 		</table>
 		
-		<br><br><br><br><br><br>
-		
 		<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
   			<button type="button" class="btn btn-primary" id="btnWrite"
         			style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; ">
@@ -254,8 +253,9 @@ td {
 <!--   			<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="on"> -->
 <!--   			<label class="btn btn-outline-light" for="btnradio3">삭제하기</label> -->
 		</div>
+		</div>
 		
-		<br><br><br><br><br><br>
+		<br><br><br><br><br>
 		<c:import url="/WEB-INF/views/mboard/paging.jsp" />
 
 

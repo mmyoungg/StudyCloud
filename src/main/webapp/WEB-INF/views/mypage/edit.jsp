@@ -194,22 +194,26 @@ body {
 </head>
 
 <body>
-
 	<div class="container rounded bg-white mt-5">
        <c:if test="${not empty login }">
-	
 		<form class="card" action="/edit" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="memberNo" value="${member.memberNo }">
-			<input type="text" id="memberName" value="${member.memberName}">	
 			<div class="col-md-4 border-right">
 				<div class="d-flex flex-column align-items-center text-center p-3 py-5" >
+					 <c:if test="${picture.fileUploadStor ne null}">
+					<img class="rounded-circle mt-5"
+						src="${pageContext.request.contextPath}/resources/${picture.fileUploadStor}" width="90"><br>
+					</c:if>
+					<c:if test="${picture.fileUploadStor eq null}">
 					<img class="rounded-circle mt-5"
 						src="https://img.icons8.com/color/512/test-account.png" width="90"><br>
+					</c:if>  
+					
+					
 					<span class="font-weight-bold">${member.memberName}</span> <span
 						class="text-black-50">${member.memberEmail}</span><br>
 					<div class="filebox">
 						<input class="upload-name" value="프로필사진 변경" placeholder="프로필사진 변경">
-						<label for="file">파일찾기</label> <input type="file" id="file">
+						<label for="file">파일찾기</label> <input type="file" id="file" name="file">
 					</div>
 				</div>
 			</div>
@@ -217,16 +221,16 @@ body {
 				<div class="p-3 py-5">
 					<div class="row mt-2 input-wrap">
 						<div class="form-name">비밀번호</div>
-						<input class="form-control" type="password" id="memberPw" name="memberPw"
+						<input class="form-control" type="password" id="memberPw" name="memberPw" 
 							placeholder="    영문, 숫자, 특수문자를 포함하여 8자리 이상">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">비밀번호확인</div>
-						<input class="form-control" type="password" placeholder="" id="memberPwck" name="memberPwck">
+						<input class="form-control" type="password" placeholder="" id="memberPwck"  name="memberPwck">
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">이름</div>
-						<input class="form-control" type="text" id="memberName" name="memberName" value="${member.memberName}">
+						<input class="form-control" type="text" id="memberName" name="memberName" value="${member.memberName}" readonly>
 					</div>
 					<div class="row mt-3 input-wrap">
 						<div class="form-name">연락처</div>
@@ -240,6 +244,7 @@ body {
 						<div class="form-name">닉네임</div>
 						<input class="form-control" type="text" id="memberNick" name="memberNick" value="${member.memberNick}">
 					</div>
+						<input class="form-control" type="hidden" id="memberId" name="memberId" value="${member.memberId}">
 				</div>
 				<div class="mt-5 text-right">
 					<button class="btn btn-primary profile-button" id="btnsave">수정내역
@@ -265,7 +270,6 @@ body {
 			
 		</div>
 	<br><br><br><br><br>
-
 
 </body>
 

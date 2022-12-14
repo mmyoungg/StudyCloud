@@ -110,33 +110,35 @@ function kakaoLogin() {
 
 //아이디 중복 체크
 $(document).ready(function() {
+	$("#idchk").click(function(e){
+		console.log($("#memberId").val())
+		e.preventDefault()
+	   $.ajax({
+	      url : "/login/idchk",
+	      type : "post",
+	      dataType : "text",
+	  //    contentType: 'application/json',
+	      data : {
+	         "memberId" : $("#memberId").val()
+	      },
+	      success : function(data) {
+	    	  
+			console.log("data", data)
+	         if (data === '1') {
+	            alert('중복된 아이디입니다.');	
+	         } else if (data === '0'){
+	            $("#idchk").attr("value", "Y");
+	            alert('사용가능한 아이디입니다.');
 
-function fn_idChk() {
-   $.ajax({
-      url : "/login/idchk",
-      type : "post",
-      dataType : "text",
-      data : {
-         "memberId" : $("#memberId").val()
-      },
-      success : function(data) {
-    	  
-		console.log("data", data)
-         if (data === '1') {
-            alert('중복된 아이디입니다.');
-         } else if (data === '0'){
-            $("#idchk").attr("value", "Y");
-            alert('사용가능한 아이디입니다.');
-
-            } else {
-			alert('요청중 에러가 발생하였습니다');
-			}
-         }
-      , error: function(e){
-    	    console.log(e)
-    	  }
-      })
-   }
+	            } else {
+				alert('요청중 에러가 발생하였습니다');
+				}
+	         }
+	      , error: function(e){
+	    	    console.log(e)
+	    	  }
+	      })
+	})
    
    
 
@@ -423,7 +425,7 @@ margin-left: -7%;
 									<input class="form-control" type="text" id="memberId" name="memberId"
 										placeholder="  아이디는 4~20자 소문자 + 숫자 + _ , -" >
 									 <span id="idMsg" class="errorMsg"></span>
-									<button class="btn btn-bold btn-primary btnsm" id="idchk" onclick="fn_idChk();" value="N">중복확인</button>
+									<button type="button" class="btn btn-bold btn-primary btnsm" id="idchk" value="N">중복확인</button>
 									<br>
 								</div>
 							</div><br>
