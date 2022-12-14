@@ -207,7 +207,7 @@ $(function(){
 </head>
 <body>
 
-<form action="/admin/reserve/search" method="get" class="search-form">
+<form action="/admin/reserve" method="get" class="search-form">
 
 <main id="main" class="main">
 <div class="container">
@@ -227,12 +227,12 @@ $(function(){
 		    <div class="filter">
 			    <div class="card">
 			    	<div class="card-body">
-						
+				            
 	 					<div>
 	 						<span>
 	 							<select name="searchName">
 	 							
- 							        <option value="keyword">스터디룸명</option>
+ 							        <option value="sRoomName">스터디룸명</option>
  							        <option value="memberName">예약자</option>
 	 							
 	 							</select>

@@ -35,11 +35,18 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectApplyList" resultMap="ApplyMtMap" parameterType="util.Paging">
-		SELECT A.*, M.*
-		FROM applymt A, member M
-		WHERE A.member_no = M.member_no
-		ORDER BY applymt_no DESC
+	<select id="selectApplyList" resultMap="ApplyMtMap" parameterType="Paging">
+		SELECT * FROM (
+			SELECT rownum rnum, S.* FROM (
+				SELECT A.applymt_no, A.field, A.applymt_content, A.applymt_date
+					, M.member_no, M.member_id, M.member_email, M.member_name, M.member_nick, M.authority, M.member_phone
+				FROM applymt A
+				JOIN member M
+				ON A.member_no = M.member_no
+				ORDER BY applymt_no DESC
+			) S
+		) ApplyMt
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
 	</select>
 	
 	<select id="updateApplyMember" parameterType="Member">
