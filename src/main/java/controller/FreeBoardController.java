@@ -108,7 +108,11 @@ public class FreeBoardController {
 	
 	
 	@RequestMapping(value="/freeBoard/write", method=RequestMethod.GET)
-	public void write() {}
+	public void write(HttpSession session) {
+		int memberNo = (int)session.getAttribute("member_no");
+		String memberNick = freeBoardService.getUserNick(memberNo);
+		session.setAttribute("member_nick", memberNick);
+	}
 	
 	@RequestMapping(value="/freeBoard/write", method=RequestMethod.POST)
 	public String fBoardWriteProc(FreeBoard freeBoard, List<MultipartFile> fBoardFile, HttpSession session) {

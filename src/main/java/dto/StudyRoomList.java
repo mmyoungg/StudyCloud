@@ -10,9 +10,9 @@ public class StudyRoomList {
 	private String sRoomIntro;
 	private String sRoomInfo;
 	private String sRoomRole;
-	private int sRoomReviewCnt;
-	private int sRoomMarkCnt;
-	private double sRoomReviewScore;
+	private int sRoomReviewCnt; // 리뷰개수
+	private int sRoomMarkCnt; // 좋아요수
+	private double sRoomReviewScore; // 평점
 	
 	public StudyRoomList() {}
 

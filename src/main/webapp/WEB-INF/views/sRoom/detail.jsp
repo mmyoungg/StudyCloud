@@ -42,10 +42,46 @@
 2
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	// 좋아요 검증
+	var hnum = ${markCount};
+	if( hnum > 0 ) {
+		console.log(hnum);
+		$("#mark").attr("src", "https://ifh.cc/g/6qDnPA.png");
+	} else {
+		console.log(hnum);
+		$("#mark").attr("src", "https://ifh.cc/g/tyOqod.png");
+	}
+	
+	// 좋아요 클릭
+	$("#marks").on("click", function() {
+		var heart = $("#marks");
+		var srno = ${sRoomView.SROOM_NO};
 		
-/*  	$("input[name='sRooomReviewScore']").on("click", function(e) {
-		  console.log($("input[name='sRooomReviewScore']:checked").val());
-		});  */
+		if(${empty login }) {
+			alert("로그인이 필요한 서비스입니다.")	
+			return false;
+		}
+		
+		$.ajax({
+			url: "/sRoom/sRoomMark",
+			type: "POST",
+			data : { "sRoomNo" : srno },
+			success : function(res) {
+				console.log("[찜하기] 전송성공");
+				heart.prop("name", res);
+				if(res==1) {
+					$("#mark").attr("src", "https://ifh.cc/g/6qDnPA.png");
+				} else {
+					$("#mark").attr("src", "https://ifh.cc/g/tyOqod.png");
+				}
+			} // success
+			
+		}) // ajax
+		
+	}) // mark
+	
+	
 	 
 	// 비밀글 체크박스 이벤트
 	$("input[name=sRoomQnaSecret]").change(function() {
@@ -60,6 +96,7 @@ $(document).ready(function() {
 			
 	// QnA 등록
 	$("#qnaWriteBtn").on("click", function() {
+				
 		var title = $("#sRoomQnATitle").val();
 		var content = $("#sRoomQnAContent").val();
 		if( !($("input[name=sRoomQnaSecret]").is(":checked")) ) {
@@ -70,6 +107,12 @@ $(document).ready(function() {
 		console.log(title);
 		console.log(content);
 		console.log(secret);
+		
+		if( (title=="") || (content="") ) {
+			alert("제목과 문의내용 모두 입력해주세요.")
+			return false;
+			
+		}
 		
 		$.ajax({
 			url: "/sRoom/qnaInsert",
@@ -87,39 +130,54 @@ $(document).ready(function() {
 		})
 	}) // QNA
 	
-	
-	$
-	
 	// 리뷰쓰기
 	$("#sRooomReviewBtn").on("click", function() {
 		var score = $(":input:radio[name='reviewStar']:checked").val();
 		var reviewcontent = $("#sRoomReviewContent").val();		
 		var roomno = ${sRoomView.SROOM_NO};
+		
 		console.log(score);
 		console.log(typeof score);
-		
 		console.log(reviewcontent);
 		console.log(roomno);
 		
-		$.ajax({
-			url: "/sRoom/reviewInsert",
+		if( (score == "") || (reviewcontent == "") ) {
+			alert("별점과 리뷰내용을 작성해주세요.")
+			return false;
+		}
+		
+		$.ajax({ // 리뷰 갯수로 사전검증
+			url: "/sRoom/ReviewCount",
 			type: "POST",
-			data: { "sRoomReviewScore" : score, "sRoomReviewContent" : reviewcontent, sRoomNo : roomno },
-			success : function(r){
-				console.log('[리뷰 등록] AJAX 요청 성공');
-				$(":input:radio[name='reviewStar']:checked").val('');
-				$("#sRoomReviewContent").val('');		
-				$(".modal-custom").css("display", "none");
-				console.log(r);
-				$("#sRoomRevArea").html(r);
-				
-			} 
-		})
-	})
-	
-	
-	
-	
+			data: { sRoomNo : roomno },
+			success: function(cnt) {
+				console.log("검증결과 : " + cnt);
+				if ( cnt == 0) { // 카운트가 0이면 리뷰등록 실행
+					$.ajax({
+						url: "/sRoom/reviewInsert",
+						type: "POST",
+						data: { "sRoomReviewScore" : score, "sRoomReviewContent" : reviewcontent, sRoomNo : roomno },
+						success : function(res){
+							console.log('[리뷰 등록] AJAX 요청 성공');
+							$(":input:radio[name='reviewStar']").prop("checked", false);
+							$("#sRoomReviewContent").val('');		
+							$(".modal-custom").css("display", "none");
+							iscount = 1;
+							$("#sRoomRevArea").html(res);
+						} 
+					}) // ajax
+				} else { // 카운트가 1 이상이면 false
+					alert("이미 리뷰를 작성하셨습니다.");
+					$(":input:radio[name='reviewStar']").prop("checked", false);
+					$("#sRoomReviewContent").val('');		
+					$(".modal-custom").css("display", "none");
+					return false;
+				} //if & else
+					
+			} // 사전검증 success
+		}) // 사전검증 ajax
+		
+	}) // 리뷰쓰기 end
 	
 	//인원선택
 	var priceArea = ${sRoomView.SROOM_PRICE}
@@ -173,11 +231,50 @@ $(document).ready(function() {
 	
 	}) 
 	
-	$
+	$(".detail-reserve-button").on("click", function() {
+		var stime = $("#reserveStime").val();
+		var etime = $("#reserveEtime").val();
+		var rdate = $("#clickedDate").val();
+		
+		if( (stime=="") || (etime=="") || (rdate=="") ) {
+			alert("날짜/시간을 모두 선택해주세요.");
+			return false;
+		}
+		
+	})
 	
 	
 	
-}) // end
+}) // jQuery end
+
+function revInsert() {
+	var score = $(":input:radio[name='reviewStar']:checked").val();
+	var reviewcontent = $("#sRoomReviewContent").val();		
+	var roomno = ${sRoomView.SROOM_NO};
+	console.log(score);
+	console.log(typeof score);
+	
+	console.log(reviewcontent);
+	console.log(roomno);
+	
+	$.ajax({
+		url: "/sRoom/reviewInsert",
+		type: "POST",
+		data: { "sRoomReviewScore" : score, "sRoomReviewContent" : reviewcontent, sRoomNo : roomno },
+		success : function(res){
+			console.log('[리뷰 등록] AJAX 요청 성공');
+			$(":input:radio[name='reviewStar']").prop("checked", false);
+			$("#sRoomReviewContent").val('');		
+			$(".modal-custom").css("display", "none");
+			
+			
+			console.log(res);
+			$("#sRoomRevArea").html(res);
+			
+		} 
+	})
+	
+}
 
 </script>
 </head>
@@ -188,6 +285,7 @@ $(document).ready(function() {
 	<div class="detail-wrap">
 		<div class="left">
 			<h2>💠 ${sRoomView.SROOM_NAME}</h2>
+			<h5 style="margin-top: 25px; font-weight: bold; color: #3f92b7;">🔵 ${sRoomView.SROOM_INTRO}</h5>
 			<img src="/upload/${sRoomView.FILEUPLOAD_STOR }" class="img-fluid" alt="...">
 			<div id="sRoom-menu-wrap">
 				<ul class="sRoom-menu-ul">
@@ -247,8 +345,9 @@ $(document).ready(function() {
    				<!-- Modal content -->
     				<div class="modal-content">
 	        			<div class="modal-header">
-	           				<h1 class="modal-title fs-5" id="exampleModalLabel">QnA 작성하기</h1>
+	           				<h1 class="modal-title fs-5" id="exampleModalLabel" style="margin: 0 auto; font-weight: bold;">QnA 작성하기 ✍</h1>
 	        			</div>
+	        			<hr>
         
         				<div class="modal-body">
            					<form>
@@ -282,23 +381,33 @@ $(document).ready(function() {
 			<div class="sec-5 scroll" id="sec5">
 				<div class="qna">
 					<h3 class="qna_h3">💬 리뷰</h3>
-					<button class="modal-custom-button" href="#myModal2">리뷰 쓰기</button>
-					<h6 class="review_intro">후기 개수
-						<strong class="review_point"><em>31</em>개</strong>
-						<span class="dot"></span>
-						<span>평균 별점<strong class="review_point"><em>5.0</em></strong></span>
-					</h6>
-					<hr>
 					
+					
+					
+					<c:choose>
+    					<c:when test="${not empty login}">
+    						<c:choose>
+    							<c:when test="${payInfo > 0}">
+									<button class="modal-custom-button" href="#myModal2">리뷰 쓰기</button>
+    							</c:when>
+    							<c:otherwise>
+    								<div class="modal-custom-button" style="background-color: #aacde5; font-weight: bold; color:#FFFF00;">해당 스터디룸의 예약내역이 없습니다.</div>
+    							</c:otherwise>
+    						</c:choose>
+    					</c:when>
+    					<c:otherwise>
+    						<div class="modal-custom-button" style="background-color: #aacde5; font-weight: bold;">로그인 후에 리뷰를 작성하실 수 있습니다.</div>
+    					</c:otherwise>
+					</c:choose>
     			</div>
     			
     			<!-- The Modal -->
-				<div id="myModal2" class="modal-custom">
+				<div id="myModal2" class="modal-custom rev">
 
    				<!-- Modal content -->
     				<div class="modal-content">
         				<div class="modal-header">
-           					<h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성하기</h1>
+           					<h1 class="modal-title fs-5" id="exampleModalLabel" style="margin: 0 auto; font-weight: bold;">리뷰 작성하기 ⭐</h1>
         				</div>
         				<hr>
         				<div class="modal-body">
@@ -306,7 +415,7 @@ $(document).ready(function() {
           						<div class="mb-3">
           						  <div class="mb-3" id="myform">
           						  	<fieldset>
-        								<legend>이모지 별점</legend>
+        								<legend class="popup-text" style="text-align: center;">별점을 매겨주세요</legend>
 	            						<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
 										<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
 										<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>
@@ -322,7 +431,7 @@ $(document).ready(function() {
         					</form>	
         				</div>
         
-         				<div class="modal-footer">
+         				<div class="modal-footer revfooter">
         					<button type="button" class="close-modal" id="close">취소</button>
            					<button type="button" id="sRooomReviewBtn" class="button">작성하기</button>
         				</div>
@@ -343,7 +452,9 @@ $(document).ready(function() {
 
 		<div class="right">
 			<div class="sRoomBtn">
-				<button class="detail-button"><img src="https://ifh.cc/g/67soWT.png">찜하기</button>
+				<button class="detail-button" type="button" id="marks">
+					<img id="mark" src="https://ifh.cc/g/tyOqod.png"> 찜하기
+				</button>
 				<button class="detail-button-share"><img src="https://ifh.cc/g/phQSC6.png">공유하기</button>
 				<div class="shareModal hidden">
 				  <div class="bg"></div>

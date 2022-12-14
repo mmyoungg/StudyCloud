@@ -22,7 +22,17 @@ $(document).ready(function() {
 	
 	$("#file").on("change", handleFileSelect);
 
+	$("#writeBtn").on("click", function() {
+		var boardTitle = $("#title").val();
+		var boardContent = $("#content").val();
+		
+		if( (boardTitle == "") || (boardContent == "") ) {
+			alert("제목 & 내용을 모두 입력해주세요.");
+			return false;
+		}
+	})
 })
+
 
 function handleFileSelect(e) {
 	
