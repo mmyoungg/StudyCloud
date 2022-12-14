@@ -49,8 +49,8 @@
 		<selectKey order="BEFORE" resultType="int" keyProperty="mboardNo">
 			SELECT mboard_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO mboard ( mboard_no, member_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt, mboard_likecnt, member_id, member_nick)
-		VALUES( #{mboardNo }, #{memberNo }, #{mboardTitle }, #{mboardContent }, #{mboardDate }, #{mboardHit }, #{mboardCmtcnt }, #{mboardLikecnt }, #{memberId }, #{memberNick } )
+		INSERT INTO mboard ( mboard_no, member_no, mboard_title, mboard_content, mboard_date, mboard_hit, mboard_cmtcnt, mboard_likecnt)
+		VALUES( #{mboardNo }, #{memberNo }, #{mboardTitle }, #{mboardContent }, sysdate, #{mboardHit }, #{mboardCmtcnt }, #{mboardLikecnt } )
 	</insert>
 	
 	<!-- 파일 삽입 -->

@@ -75,10 +75,11 @@
 
 .badge {
 /* 	margin: 20px; */
-	margin-left: 31px;
-	margin-right: 10px;
+	float: left;
+ 	margin-left: 21px;
+	margin-right: 31px;
 	margin-bottom: 30px;
-	margin-top: 30px;
+	margin-top: 26px;
 /*  	background-color: #3f92b7;  */
  	background-color: #aacde5; 
 /* 	.bg-{color} : #e3eff9; */
@@ -86,11 +87,11 @@
 
 
 .title-and-detail {
-	float: right;
-	margin-right: 75%;
-/* 	margin-left: 10%; */
-	padding-top: 1%;
-/* 	margin-top: 10px; */
+/*  	float: left; */
+/* 	margin-right: 70%; */
+/* 	padding-left: 2%; */
+	padding-bottom: 1%;
+ 	margin-top: 5px; 
 }
 
 :root {
@@ -126,13 +127,16 @@
 }
 
 .shadow {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.08)!important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.084)!important;
 }
 
 h4, h6 {
 	color: #636363;
 }
 
+.p-3 {
+	padding-left: 5%;
+}
 </style>
 
 </head>
@@ -177,19 +181,18 @@ h4, h6 {
   					</ul>
 				</div>
 				
-				<div class="nav-option-sort">
-				<!-- 정렬 -->
-				<div class="form-check">
-	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-	  				<label class="form-check-label" for="flexRadioDefault1">최신순</label>
-				</div>
+				<div class="nav-option-sort" style="float: right;">
+				<a class="btn btn-primary btn-sm" href="./kakaomap" role="button" style="background-color: #3f92b7; border: none;">내 주변 스터디 찾기</a>
+<!-- 				<div class="form-check"> -->
+<!-- 	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> -->
+<!-- 	  				<label class="form-check-label" for="flexRadioDefault1">최신순</label> -->
+<!-- 				</div> -->
 			
-				<div class="form-check">
-	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-	  				<label class="form-check-label" for="flexRadioDefault1">인기순</label>
-				</div>
+<!-- 				<div class="form-check"> -->
+<!-- 	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> -->
+<!-- 	  				<label class="form-check-label" for="flexRadioDefault1">인기순</label> -->
+<!-- 				</div> -->
 				
-				<a class="btn btn-primary btn-sm" href="./kakaomap" role="button" style="background-color: #6cc4dc; border: none;">내 주변 스터디 찾기</a>
 			
 <!-- 				<div class="form-check"> -->
 <!-- 	  				<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> -->
@@ -205,56 +208,18 @@ h4, h6 {
 			<c:forEach items="${slist }" var="studyboard">
 			<ul class="sboard-list">
 				<li class="study" style="list-style-type:none;">
-					<div class="shadow p-3 mb-5 bg-body rounded"><a href="/sboard/detail?studyNo=${studyboard.STUDY_NO}">
+					<div class="shadow p-3 mb-5 bg-body rounded" style="padding: 5px;">
 						<span class="badge">모집중</span>
-						<span class="title-and-detail">
-							<h4 class="study-title">${studyboard.STUDY_TITLE }</h4>
-							<h6 class="study-detail">${studyboard.STUDY_CONTENT }</h6>
-						</span>
+						<div class="title-and-detail">
+							<a href="/sboard/detail?studyNo=${studyboard.STUDY_NO}" style="font-size: 20px; text-decoration: none; color:#60392a; font-weight: normal;">${studyboard.STUDY_TITLE }</div>
+							<div class="study-detail" style="font-size: 14px; padding-bottom: 12px;">${studyboard.STUDY_TAG }
+						</div>
 					</div>
 				</li>	
 			</ul>
 			</c:forEach>
-<!-- 					<div class="shadow p-3 mb-5 bg-body rounded"> -->
-<!-- 						<span class="badge" style="background-color: #DBDBDB; margin-left: 25px;">모집완료</span> -->
-<!-- 						<span class="title-and-detail"> -->
-<%-- 							<h4 class="study-title">${studyboard.STUDY_TITLE }</h4> --%>
-<%-- 							<h6 class="study-detail">${studyboard.STUDY_CONTENT }</h6> --%>
-<!-- <!-- 								<div class="icon"> --> 
-<!-- <!-- 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"> --> 
-<!-- <!--   									<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/> -->
-<!-- <!-- 								</div> --> 
-<!-- 						</span> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="shadow p-3 mb-5 bg-body rounded"> -->
-<!-- 						<span class="badge">모집중</span> -->
-<!-- 						<span class="title-and-detail"> -->
-<!-- 							<h4 class="study-title">Spring 스터디</h4> -->
-<!-- 							<h6 class="study-detail">spring 스터디 모집합니다.</h6> -->
-							
-<!-- 						</span> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="shadow p-3 mb-5 bg-body rounded"> -->
-<!-- 						<span class="badge">모집중</span> -->
-<!-- 						<span class="title-and-detail"> -->
-<!-- 							<h4 class="study-title">Spring 스터디</h4> -->
-<!-- 							<h6 class="study-detail">spring 스터디 모집합니다.</h6> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="shadow p-3 mb-5 bg-body rounded"> -->
-<!-- 						<span class="badge">모집중</span> -->
-<!-- 						<span class="title-and-detail"> -->
-<!-- 							<h4 class="study-title">Spring 스터디</h4> -->
-<!-- 							<h6 class="study-detail">spring 스터디 모집합니다.</h6> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-			
-			<c:import url="/WEB-INF/views/mboard/paging.jsp" />
+
+			<c:import url="/WEB-INF/views/sboard/paging.jsp" />
 		</div>
 
 		
