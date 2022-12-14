@@ -104,9 +104,9 @@ function moreAndHide() {
 	// 접기
 	$("#hideBtn").on("click", function(e) {
 		e.preventDefault();
-		var length = $(".qna_box:hidden").length - 2;
+		var length = $(".qna_box:hidden").length-2;
 		console.log($(".qna_box").length)
-		$(".qna_box").slice(2, length).slideUp();
+		$(".qna_box").slice(2).slideUp();
 		$("#hideBtn").hide();
 		$("#moreBtn").show();
 	})
@@ -196,4 +196,4 @@ function moreAndHide() {
            	<button type="button" class="button" id="qnaUpdateBtn">수정하기</button>
         </div>
     </div>
-</div>				
+</div>					

@@ -245,4 +245,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return paging;
 		
 	}
+	
+	@Override
+	public String getUserNick(int memberNo) {
+		return freeBoardDao.getNickByMemberNo(memberNo);
+	}
 }

@@ -58,6 +58,8 @@ public interface FreeBoardDao {
 
 	public void deleteComtByFboardNo(FreeBoard freeBoard);
 
+	public String getNickByMemberNo(int memberNo);
+
 	
 
 

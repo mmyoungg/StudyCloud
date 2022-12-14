@@ -63,6 +63,10 @@ table th { text-align: center; background-color: #E3EFF9;  }
 			var boardNo = ${fBoardView.FBOARD_NO};
 			//var memNick = ${fBoardView.MEMBER_NICK }
 			var cmtContent = $("#fBoardCmt").val();
+			if( cmtContent == "") {
+				alert("댓글 내용을 입력해주세요.");
+				return false;
+			}
 			
 			console.log("-----댓글 등록 정보-----")
 			console.log("게시글번호 : " + boardNo);

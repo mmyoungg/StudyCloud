@@ -21,7 +21,7 @@
     			margin-top: 50px; width: 300px; border-radius: 6px; border: 1px solid #e0e0e0;
     			background: #fff; }
 .list-member li { height: 40px; padding: 5px 8px; box-sizing: border-box; }         
-.flex-center { display:flex; justify-content: center; margin: 50px auto;}
+.flex-center { display:flex; justify-content: center; margin: 0 0 40px 0;}
 .num-picker { padding: 32px 20px;}
 
 input[type="number"] { -webkit-appearance: textfield; -moz-appearance: textfield; appearance: textfield; }
@@ -54,18 +54,24 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .sRoomList { margin-bottom: 40px; }
 .card a { text-decoration: none; color: black;}
 .card a:hover { background-color: #fff; }
+.bestkeyword { list-style: none; }
+.bestkeyword li { float: left; margin-top: 20px; margin-right: 15px; font-weight: bold; font-size: 16px; }
+.bestkeyword li:hover { background-color: #e3eff9; color: #3f92b7; font-size: 19px; cursor: pointer;}
+.rnum { margin-right: 10px; }
+.keywordArea  p { margin : 10px 0 0 32px; font-size: 23px; font-weight: bold; color: #aacde5; }
+.keywordArea { width: 875px; margin: 15px 0 15px 0; height: 120px;}
+.rnum { padding: 11px; background-color: #e3eff9;  border: 1px solid #e3eff9; border-radius: 15px; }
 </style>
 
 <script type="text/javascript">
  $(document).on("click", function(e) {
 	 var locMenu = $('#toggle');
 	 var pMenu = $('#toggle2');
+	 var keywordArea = $(".keywordArea");
 	 if (!$(e.target).closest(locMenu).length) {
 		 $('#menu1').hide();
 	 }
-	/*  if (!$(e.target).closest(pMenu).length) {
-		 $('#menu2').hide();
-	 } */
+
 }) 
 
 $(document).ready(function() {
@@ -73,6 +79,31 @@ $(document).ready(function() {
 	console.log(pageNo); // 현재페이지 확인
 	pagingAjax(pageNo);	
 
+	
+	/* 스터디룸 정보 통합검색 */
+	$("#totalSearchBtn").on("click", function() {
+		var keyword = $("#totalSearch").val();
+		console.log("검색키워드 : " + keyword);
+		
+		$.ajax({
+			type:"POST",
+			url: "/sRoom/totalSearch",
+			dataType: "html", 
+			data : {"keywordWord": keyword },
+			success : function(res){
+				console.log('[스터디룸 통합검색] AJAX 요청 성공');
+				 $("#sRoomListContent").html(res);
+				console.log(res);
+				$("#searchIntro").html("");
+				var intro = "";
+				intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + keyword + '" (으)로 조회한 결과입니다. </p>'
+				$("#searchIntro").html(intro);
+			} 
+		})
+		
+		
+	})
+	
 	
 	/* 각 메뉴 클릭 이벤트*/		
     $('#toggle').add('#toggle2').on('click', function () {
@@ -187,7 +218,8 @@ $(document).ready(function() {
 		var selected = parseInt($(this).val());
 		console.log( typeof selected );
 		console.log(selected);
-		
+		console.log($("select[name=sortSelect] option:selected").text());
+		var selectText = $("select[name=sortSelect] option:selected").text()
 		$.ajax({
 			type:"POST",
 			url: "/sRoom/seletedSort",
@@ -195,12 +227,12 @@ $(document).ready(function() {
 			data : {selectNum: selected, curPage: pageNo},
 			success : function(res){
 				console.log('[스터디룸 최신순 정렬] AJAX 요청 성공');
-			/* 	$("#sRoomListContent").html(res);
+			 	$("#sRoomListContent").html(res);
 				$("#searchIntro").html("");
 				var intro = "";
-				intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + numberOfPeople + '명" 으로 조회한 결과입니다. </p>'
+				intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + selectText + ' 으로 조회한 결과입니다. </p>'
 				
-				$("#searchIntro").html(intro); */
+				$("#searchIntro").html(intro); 
 				
 				
 			} 
@@ -209,6 +241,29 @@ $(document).ready(function() {
 	})
 	
 })
+
+function bestKeywordSearch(keyword) {
+	 console.log(keyword);
+	 
+	 $.ajax({
+		url: "/sRoom/keywordSearch",
+		type: "POST",
+		data :{"keywordWord" : keyword},
+		dataType: "html",
+		success: function(r) {
+			console.log("[인기키워드 검색] 요청성공")
+			 $("#sRoomListContent").html(r);
+			$("#searchIntro").html("");
+			var intro = "";
+			intro += '<p id="searchIntro" style="color: #3f92b7; font-size: 20px; font-weight: bold;" >🔎 "' + keyword + '" (으)로 조회한 결과입니다. </p>'
+			$("#searchIntro").html(intro);
+			
+			
+		} //success
+		 
+	 }) //ajax
+	 
+ }
 
 function pagingAjax(pageNo) {
 	var page_no = pageNo;
@@ -265,10 +320,18 @@ function pagingAjax(pageNo) {
 
 </div>
 <div class="input-group">
-  <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username with two button addons">
-  <button class="btn btn-outline-secondary" type="button">검색</button>
+  <input type="text" class="form-control" placeholder="검색어를 입력하세요." id="totalSearch">
+  <button class="btn btn-outline-secondary" type="button" id="totalSearchBtn">검색</button>
   <button class="btn btn-outline-secondary" type="button">초기화</button>
 </div>
+<div class="keywordArea">
+	  <p> 👑 실시간 인기검색어 </p>
+	  <ul class="bestkeyword">
+	  	<c:forEach items="${bestKeyword }" var="bestKeyword">
+		  	<li class="rnum" onclick="bestKeywordSearch('${bestKeyword.KEYWORD_WORD }')">${bestKeyword.RNUM }위. ${bestKeyword.KEYWORD_WORD } (${bestKeyword.WCNT }회)</li>
+		</c:forEach>
+	 </ul>
+</div>	  
  
 <div class="flex-center">
 <div class ="btn-select col-4 form-select" id="toggle" >지역선택</div>
@@ -322,12 +385,13 @@ function pagingAjax(pageNo) {
 	</div>
 
 </div>    
-<select class="form-select" id="orderBy"aria-label="Default select example" style="width:300px;">
+<select class="form-select" id="orderBy"aria-label="Default select example" name="sortSelect" style="width:300px;">
   <option value="1" selected>최신순</option>
   <option value="2">인기순</option>
   <option value="3">평점순</option>
-  <option value="4">낮은가격순</option>
-  <option value="5">높은가격순</option>
+  <option value="4">리뷰많은순</option>
+  <option value="5">낮은가격순</option>
+  <option value="6">높은가격순</option>
 </select>
 </div>
 

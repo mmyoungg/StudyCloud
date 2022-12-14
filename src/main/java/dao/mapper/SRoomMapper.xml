@@ -193,5 +193,185 @@
 		ORDER BY r.sRoomReview_no DESC
 	</select>
 	
+	<update id="updateSroomReview" parameterType="dto.SroomReview">
+		UPDATE sRoomReview SET sRoomReview_content = #{sRoomReviewContent}
+			, sRoomReview_score = #{sRoomReviewScore}
+			, sRoomReview_date = sysdate	
+		WHERE sRoomReview_no = #{sRoomReviewNo}
+	</update>
+	
+	<delete id="deleteSroomReview" parameterType="int">
+		DELETE sRoomReview WHERE sRoomReview_no = #{sRoomReviewNo }
+	</delete>
+	
+	<select id="isMarkCount" parameterType="dto.SroomMark" resultType="int">
+		SELECT count(*) FROM sRoomMark where member_no = #{memberNo} and sroom_no = #{sRoomNo}
+	</select>
+	
+	<insert id="insertMark" parameterType="dto.SroomMark">
+		INSERT INTO sRoomMark VALUES ( sRoomMark_seq.nextval, #{sRoomNo}, #{memberNo}  )
+	</insert>
+	
+	<delete id="deleteMark" parameterType="dto.SroomMark">
+		DELETE sRoomMark WHERE sRoom_no = #{sRoomNo} AND member_no = #{memberNo}
+	</delete>
+	
+	<select id="getReveiwInfoBySroomNo" resultType="hashMap" parameterType="int">
+		SELECT s.sroom_no, nvl(r.cnt, 0) cnt, round(nvl(r.avg, 0), 2) avg 
+		FROM studyRoom s LEFT OUTER JOIN (
+		SELECT count(SroomReview_no) cnt, AVG(SroomReview_score) avg, sroom_no FROM SroomReview
+		GROUP BY sroom_no) r
+		ON s.sroom_no = r.sroom_no
+		WHERE s.sroom_no = #{sRoomNo}
+		GROUP BY s.sroom_no, cnt, avg
+	</select>
+	
+	<select id="getPayInfo" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM
+		member m
+		JOIN reservation r
+		ON ( m.member_no = r.member_no )
+		JOIN sRoomPay p
+		ON ( r.reserve_no = p.reserve_no)
+		WHERE sroom_no = #{sRoomNo} and m.member_no = #{memberNo}
+	</select>
+	
+	<select id="getRoomListByselectNum" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT m.member_no, s.sRoom_no, nvl(m.mcnt, 0) mcnt, nvl(r.rcnt, 0) rcnt, round(nvl(r.avg, 0), 2) avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+				FROM studyRoom s LEFT OUTER JOIN (
+                    SELECT count(sRoomMark_no) mcnt, sRoom_no FROM sRoomMark
+                    GROUP BY sRoom_no) m
+                ON s.sRoom_no = m.sRoom_no                
+                LEFT OUTER JOIN (
+                    SELECT count(sRoomReview_no) rcnt, AVG(sRoomReview_score) avg, sRoom_no FROM sRoomReview
+                    GROUP BY sRoom_no) r
+                ON s.sRoom_no = r.sRoom_no
+                LEFT OUTER JOIN fileUpload f
+                ON s.sRoom_no = f.sRoom_no
+                LEFT OUTER JOIN member m
+                ON f.member_no = m.member_no                
+                GROUP BY m.member_no, s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+                ORDER BY 
+                <choose>
+					<when test="selecNum == 1"> 
+		                s.sRoom_no DESC
+					</when>                
+					<when test="selecNum == 2">
+		                 mcnt DESC 
+					</when>                
+					<when test="selecNum == 3">
+		                 avg DESC
+					</when>    
+					<when test="selecNum == 4">
+		                 rcnt DESC
+					</when>    
+					<when test="selecNum == 5">
+		                 s.sRoom_price
+					</when>                
+					<when test="selecNum == 6">
+		                 s.sRoom_price DESC
+					</when>                
+                </choose>
+                
+				) B
+			) StudyRoom
+		where rnum BETWEEN #{startNo} AND #{endNo}
+	
+	</select>
+	
+	<insert id="insertKeyword" parameterType="dto.SroomKeyword">
+		INSERT INTO keyword VALUES( keyword_seq.nextval, #{memberNo}, #{keywordWord}, sysdate )
+	</insert>
+	
+	<insert id="insertKeywordNoLogin" parameterType="String">
+		INSERT INTO keyword(keyword_no, keyword_word, keyword_date) 
+		VALUES( keyword_seq.nextval, #{keywordWord}, sysdate )
+	</insert>
+	
+	<select id="selectSearchListByKeyword" parameterType="hashMap" resultType="hashMap" >
+	  SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT m.member_no, s.sRoom_no, nvl(m.mcnt, 0) mcnt, nvl(r.rcnt, 0) rcnt, round(nvl(r.avg, 0), 2) avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+				FROM studyRoom s LEFT OUTER JOIN (
+                    SELECT count(sRoomMark_no) mcnt, sRoom_no FROM sRoomMark
+                    GROUP BY sRoom_no) m
+                ON s.sRoom_no = m.sRoom_no                
+                LEFT OUTER JOIN (
+                    SELECT count(sRoomReview_no) rcnt, AVG(sRoomReview_score) avg, sRoom_no FROM sRoomReview
+                    GROUP BY sRoom_no) r
+                ON s.sRoom_no = r.sRoom_no
+                LEFT OUTER JOIN fileUpload f
+                ON s.sRoom_no = f.sRoom_no
+                LEFT OUTER JOIN member m
+                ON f.member_no = m.member_no 
+                WHERE (
+                    s.sroom_name  LIKE '%'||#{keywordWord}||'%' 
+                    or s.sroom_addr LIKE '%'||#{keywordWord}||'%' 
+                    or s.sroom_price LIKE '%'||#{keywordWord}||'%' 
+                    or s.sroom_people LIKE '%'||#{keywordWord}||'%'
+                    or s.sroom_intro LIKE '%'||#{keywordWord}||'%'
+                    or s.sroom_info LIKE '%'||#{keywordWord}||'%'
+                )
+                GROUP BY m.member_no, s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+                order by s.sroom_no DESC
+				) B
+			) StudyRoom
+		where rnum BETWEEN #{startNo} AND #{endNo}
+	
+	</select>
+	
+	<select id="getBestSearchKeyword" resultType="hashMap">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* from (
+		        SELECT keyword_word, count(keyword_word) as wcnt 
+		        FROM keyword 
+		    GROUP BY keyword_word  
+		    ORDER BY wcnt DESC ) B
+		    ) KEYWORD     
+		<![CDATA[WHERE rnum <= 5]]>  
+	</select>
+	
+	<select id="searchListByBestKeyword" parameterType="hashMap" resultType="hashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT m.member_no, s.sRoom_no, nvl(m.mcnt, 0) mcnt, nvl(r.rcnt, 0) rcnt, round(nvl(r.avg, 0), 2) avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+				FROM studyRoom s LEFT OUTER JOIN (
+                    SELECT count(sRoomMark_no) mcnt, sRoom_no FROM sRoomMark
+                    GROUP BY sRoom_no) m
+                ON s.sRoom_no = m.sRoom_no                
+                LEFT OUTER JOIN (
+                    SELECT count(sRoomReview_no) rcnt, AVG(sRoomReview_score) avg, sRoom_no FROM sRoomReview
+                    GROUP BY sRoom_no) r
+                ON s.sRoom_no = r.sRoom_no
+                LEFT OUTER JOIN fileUpload f
+                ON s.sRoom_no = f.sRoom_no
+                LEFT OUTER JOIN member m
+                ON f.member_no = m.member_no 
+                WHERE (
+                    s.sroom_name  LIKE '%'||#{keywordWord}||'%' 
+                    or s.sroom_addr LIKE '%'||#{keywordWord}||'%' 
+                    or s.sroom_price LIKE '%'||#{keywordWord}||'%' 
+                    or s.sroom_people LIKE '%'||#{keywordWord}||'%'
+                    or s.sroom_intro LIKE '%'||#{keywordWord}||'%'
+                    or s.sroom_info LIKE '%'||#{keywordWord}||'%'
+                )
+                GROUP BY m.member_no, s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
+                ORDER BY s.sroom_no DESC
+				) B
+			) StudyRoom
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	<select id="getIsCountReview" parameterType="dto.SroomReview" resultType="int">
+		SELECT count(*) cnt FROM 
+			member m
+			JOIN sRoomReview r
+			ON ( m.member_no = r.member_no )
+			JOIN studyRoom s
+			ON ( r.sroom_no = s.sroom_no)
+			where s.sroom_no = #{sRoomNo} and m.member_no = #{memberNo}
+	</select>
+	
 
 </mapper>

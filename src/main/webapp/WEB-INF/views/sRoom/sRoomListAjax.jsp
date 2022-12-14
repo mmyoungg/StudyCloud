@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
 
+
+
 <div class="row row-cols-1 row-cols-md-4 g-4 sRoomList">
    <c:forEach items="${sRoomList }" var="sRoomList"> 
   <div class="col">
