@@ -227,6 +227,11 @@ public class MemberServiceImpl implements MemberService {
 	public FileUpload getProfileMemberNo(Member member) {
 		return null;
 	}
+
+	@Override
+	public String loginMember(Member member) {
+		return memberDao.login(member) ;
+	}
 }
 	
  

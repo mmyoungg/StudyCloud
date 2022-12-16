@@ -13,7 +13,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(e){
-	$('#withdrawal').click(function(){
+	$('#withdrawal').submit(function(e){
+		e.preventDefault()
 		
 		//패스워드 입력 확인
 		if($('#memberPw').val() == ''){
@@ -27,33 +28,38 @@ $(document).ready(function(e){
 		}
 		
 		//입력한 패스워드가 같인지 체크
-		if($('#passwdCheck').val() != $('#passwd').val()){
-			alert("패스워드가 일치하지 않습니다.");
+		if($('#passwdCheck').val() != $('#memberPw').val()){
+		//	alert("패스워드가 일치하지 않습니다.");
 			$('#passwdCheck').focus();
 			return;
 		}
 		
-		//패스워드 맞는지 확인
-		$.ajax({
-			url: "${pageContext.request.contextPath}/withdrawal",
-			type: "POST",
-			data: $('#withdrawal').serializeArray(),
-			success: function(data){
-				if(data==0){
-					alert("패스워드가 틀렸습니다.");
-					return;
-				}else{
-					//탈퇴
-					var result = confirm('정말 탈퇴 하시겠습니까?');
-					if(result){
-						$('#withdrawal').submit();
+		var result = confirm('정말 탈퇴 하시겠습니까?');
+		
+		if(result){
+			$.ajax({
+				url: "${pageContext.request.contextPath}/withdrawal",
+				type: "POST",
+				data: {
+					memberPw: $('#memberPw').val()
+				},
+				dataType: "text",
+				success: function(data){
+					if(data=="success"){
+						alert("탈퇴되었습니다");
+						window.location.href = '/logout'
+					}else if (data == "disaccord"){
+						alert("입력하신 비밀번호와 회원정보가 일치하지 않습니다.");
+					} else {
+						alert("오류가 발생하였습니다.");
 					}
+				},
+				error: function(){
+					alert("서버 에러.");
 				}
-			},
-			error: function(){
-				alert("서버 에러.");
-			}
-		});
+			});
+		}
+	
 	});
 });
 
