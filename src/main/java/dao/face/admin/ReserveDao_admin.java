@@ -2,6 +2,7 @@ package dao.face.admin;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dto.Reservation;
 import util.Paging;
@@ -39,11 +40,11 @@ public interface ReserveDao_admin {
 	public List<HashMap<String, Object>> previewReserve();
 
 	/**
-	 * 키워드를 이용하여 검색한다
+	 * 키워드 검색
+	 * @param keyword 
 	 * 
-	 * @param search_option - 검색할 키워드
-	 * @return 조회된 게시글 목록
+	 * @return
 	 */
-	public List<HashMap<String, Object>> searchReserve(String search_option);
+	public List<HashMap<String, Object>> searchName(String keyword);
 
 }

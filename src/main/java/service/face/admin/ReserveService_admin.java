@@ -2,6 +2,7 @@ package service.face.admin;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dto.Reservation;
 import util.Paging;
@@ -31,9 +32,10 @@ public interface ReserveService_admin {
 	/**
 	 * 키워드로 검색
 	 * 
-	 * @param search_option - 검색할 키워드
-	 * @return 조회된 내용
+	 * @param keyword
+	 * @return
 	 */
-	public List<HashMap<String, Object>> searchReserve(String search_option);
+	public List<HashMap<String, Object>> searchName(String keyword);
+
 
 }

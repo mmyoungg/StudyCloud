@@ -35,6 +35,9 @@
 	font-weight: bold;
 }
 
+#sRoomQnaTitle {
+}
+
 #btnSubmit { /* 버튼 */
 	background-color: #6cc4dc;
 	border: none;
@@ -64,40 +67,38 @@
 			<!-- qnaView -->				
             <div id="qnaView">
             
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex flex-row align-items-center">
-                    	<span id="reply">답변</span>
-                    </div>
-                </div>
-                
-                <div class="mt-2 d-flex flex-row">
-                    <div class="reply-wrap">
-                    	<p>제목</p>
-                    	<input type="text" id="sRoomQnaTitle" name="sRoomQnaTitle">
-                    	<p>내용</p>
-                    	<textarea class="form-control" id="sRoomQnaContent" name="sRoomQnaContent"></textarea>
-                        <button class="btn btn-secondary btn-block mt-2 post-btn" id="btnSubmit">작성</button>
-                    </div>
-                </div>
-            
+            	<!-- 문의글 -->
                 <div class="d-flex flex-row mt-4">
                     <div class="ml-2 w-100">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex flex-row align-items-center" id="qnaTitle">
-                            	<span class="font-weight-bold name" id="title">제목 : ${qnaView.sRoomQnaTitle }</span>
+                            	<span id="title">제목 : ${qnaView.sRoomQnaTitle }</span>
                             </div>
                             
                         </div>
                         
-                        <p class="user-comment-text text-justify" id="qnaContent">
+                        <p class="text-justify" id="qnaContent">
                         	${qnaView.sRoomQnaContent }</p>
                     </div>
+                </div><!-- 문의글 end -->
+                
+                <!-- 답변 -->
+                <div class="d-flex flex-row mt-4">
+                    <div class="ml-2 w-100">
+                    	<p id="title">제목</p>
+                    	<input type="text" class="form-control" id="sRoomQnaTitle" name="sRoomQnaTitle"><br>
+                    	
+                    	<p id="title">내용</p>
+                    	<textarea class="form-control" id="sRoomQnaContent" name="sRoomQnaContent"></textarea><br>
+                    </div>
+                </div><!-- 답변 end -->
+                
+                <div class="text-center">
+                	<button class="btn btn-secondary btn-block" id="btnSubmit">작성</button>
                 </div>
             </div>
-
        	</div>
 
-  
 		</div><!-- main row end -->
 	</section>
 </form>

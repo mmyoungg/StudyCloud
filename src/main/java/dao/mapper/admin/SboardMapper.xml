@@ -43,10 +43,18 @@
 	</resultMap>
 		
 	<select id="selectStudyList" resultMap="StudyBoardMap" parameterType="util.Paging">
-		SELECT B.*, M.*
-		FROM studyboard B, member M
-		WHERE B.member_no = M.member_no
-		ORDER BY study_no DESC
+		SELECT * FROM (
+			SELECT rownum rnum, S.* FROM (
+				SELECT B.study_no, B.study_title, B.study_people, B.study_address, B.study_tag, B.study_date
+					, B.study_time, B.study_content, B.study_notify, B.enrollstudy_date
+					, M.member_no, M.member_id, M.member_name, M.member_nick, M.member_email, M.authority, M.member_phone
+				FROM studyboard B
+				JOIN member M
+				ON B.member_no = M.member_no
+				ORDER BY study_no DESC
+			) S
+		) StudyBoard
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
 	</select>
 	
 	<select id="updateStudyMember" parameterType="Member">

@@ -92,7 +92,7 @@ $(document).ready(function() {
 		        <img src="/resources/img/banner(2).jpg" class="d-block w-100">
 		    </div>
 		    <div class="carousel-item">
-		        <img src="/resources/img/banner(1).jpg" class="d-block w-100">
+		        <img src="/resources/img/banner(3).jpg" class="d-block w-100">
 		    </div>
 		</div>
 

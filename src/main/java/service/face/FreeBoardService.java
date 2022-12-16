@@ -64,5 +64,8 @@ public interface FreeBoardService {
 	// 검색결과 리스트 페이징
 	public CmtPaging getSearchPaging(HashMap<String, Object> map);
 	
+	// 게시글 작성시 유저닉네임 불러오기
+	public String getUserNick(int memberNo);
+	
 
 }
