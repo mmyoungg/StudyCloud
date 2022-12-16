@@ -11,7 +11,6 @@
 		SELECT count (*)
 		FROM studyboard
 		WHERE trunc (enrollstudy_date) = trunc (sysdate)
-<!-- 		WHERE enrollstudy_date = ( SELECT sysdate FROM dual ) -->
 	</select>
 
 	<select id="selectCntAll" resultType="int">
@@ -50,10 +49,10 @@
 					, M.member_no, M.member_id, M.member_name, M.member_nick, M.member_email, M.authority, M.member_phone
 				FROM studyboard B
 				JOIN member M
-				ON B.member_no = M.member_no
+				ON ( B.member_no = M.member_no )
 				ORDER BY study_no DESC
 			) S
-		) StudyBoard
+		) STUDYBOARD
 <!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
 	</select>
 	

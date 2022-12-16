@@ -144,7 +144,6 @@ body {
 
 </style>
 
-
 </head>
 <body>
 
@@ -238,31 +237,13 @@ body {
 						   			 </tr>
 								</thead>
 								<tbody class="table-group-divider">
+								<c:forEach items="${preQna }" var="preview">
 								    <tr>
-								        <th scope="row">1</th>
-								        <td>제목1</td>
-								        <td>작성자1</td>
+								        <th>${preview.SROOMQNA_NO }</th> <!-- 게시글 번호 -->
+								        <td>${preview.SROOMQNA_TITLE }</td> <!-- 제목 -->
+								        <td>${preview.MEMBER_NICK }</td> <!-- 작성자 닉네임 -->
 									</tr>
-									<tr>
-									    <th scope="row">2</th>
-									    <td>제목2</td>
-									    <td>작성자2</td>
-									</tr>
-									<tr>
-									    <th scope="row">3</th>
-									    <td>제목3</td>
-									    <td>작성자3</td>
-						            </tr>
-									<tr>
-									    <th scope="row">4</th>
-									    <td>제목4</td>
-									    <td>작성자4</td>
-						            </tr>
-									<tr>
-									    <th scope="row">5</th>
-									    <td>제목5</td>
-									    <td>작성자5</td>
-						            </tr>
+								</c:forEach>
 						        </tbody>
 						    </table>
 	                	</div><!-- card-body end -->
@@ -279,17 +260,17 @@ body {
 		                   <table class="table table-borderless datatable">
 					        <thead>
 					            <tr>
-					                <th scope="col">#</th>
-					                <th scope="col">스터디룸</th>
-					                <th scope="col">예약자</th>
+					                <th>#</th>
+					                <th>스터디룸</th>
+					                <th>예약자</th>
 					   			 </tr>
 							</thead>
 							<tbody class="table-group-divider">
-							<c:forEach items="${preReserve }" var="hashmap">
+							<c:forEach items="${preReserve }" var="preview">
 							    <tr>
-							        <th scope="row">${hashmap.RESERVE_NO }</th>
-							        <td>${hashmap.SROOM_NAME }</td>
-							        <td>${hashmap.MEMBER_NAME }</td>
+							        <th>${preview.RESERVE_NO }</th> <!-- 게시글 번호 -->
+							        <td>${preview.SROOM_NAME }</td> <!-- 스터디룸명 -->
+							        <td>${preview.MEMBER_NAME }</td> <!-- 작성자 이름 -->
 								</tr>
 					        </c:forEach>
 					        </tbody>

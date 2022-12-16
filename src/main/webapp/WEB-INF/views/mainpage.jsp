@@ -8,6 +8,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- 폰트 어썸 -->
+<script src="https://kit.fontawesome.com/b9a24d1314.js" crossorigin="anonymous"></script>
+
 <meta charset="UTF-8">
 <title>StudyCloud</title>
 
@@ -21,6 +25,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
 
 <style type="text/css">
+
+/* 폰트어썸 */
+.fa,.fab,.fad,.fal,.far,.fas{
+	font-weight: 900 !important;
+}
 
 /* 리뷰 */
 .reviewContent {
@@ -42,6 +51,11 @@
 
 .name { /* 수강생 닉네임 */
   font-size: 14px;
+}
+
+/* 폰트어썸 아이콘 */
+.fa-quote-left {
+	color: #6cc4dc;
 }
 
 </style>
@@ -137,6 +151,7 @@ $(document).ready(function() {
 						<!-- 멘토 리스트 -->
 						<c:forEach items="${mtList }" var="mtList">
                             <div class="owl-item active">
+                            <a href="/mtboard/detail?mtboardNo=${mtList.MTBOARD_NO }">
                                 <div class="mento-item">
                                		<img src="/upload/${mtList.FILEUPLOAD_STOR }" alt="mento-img">
                                    	<p class="mento-title">${mtList.MTBOARD_TITLE }</p>
@@ -145,6 +160,7 @@ $(document).ready(function() {
                                    	<button class="mento-field">${mtList.FIELD }</button>
                                 </div>
                             </div>
+                            </a>
 						</c:forEach>
                         </div>
                     </div><!-- 멘토 end -->
@@ -209,12 +225,14 @@ $(document).ready(function() {
                      <!-- 스터디 리스트 -->
                      <c:forEach items="${stList }" var="stList">
                          <div class="owl-item active">
+                         <a href="/sboard/detail?studyNo=${stList.STUDY_NO}">
                              <div class="study-item">
                                	<p class="study-title">${stList.STUDY_TITLE }</p>
                                	<p class="study-name">${stList.MEMBER_NICK } 스터디장</p>
                                	<p class="study-people">${stList.STUDY_PEOPLE } 명</p>
                                	<button class="study-tag">${stList.STUDY_TAG }</button>
                              </div>
+                         </a>
                          </div>
                      </c:forEach>
                      </div>
@@ -293,7 +311,7 @@ $(document).ready(function() {
 		<c:forEach items="${mtReviewList }" var="list">
             <div class="col-md-4">
                 <div class="reviewContent">
-                	<img class="mb-3" id="mark" src="https://i.imgur.com/ECXzJ1k.png" width="40">
+                	<i class="fa-solid fa-quote-left fa-2x"></i>
                     <p class="mtTitle">${list.MTBOARD_TITLE }</p>
                     <p class="mtReviewContent">${list.MTREVIEW_CONTENT }</p>
                     <div class="ml-2 about">

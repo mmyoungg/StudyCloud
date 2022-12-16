@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>admin study apply</title>
 
 <style type="text/css">
 
@@ -18,8 +18,15 @@
     background-color: #6cc4dc;
     font-size: 12px;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 10px;
 }
+
+/* 메인 타이틀 */
+.pagetitle h1 { 
+   font-size: 24px; 
+   margin-bottom: 0;
+   font-weight: bold; 
+} 
 
 /* 테이블 */
 .table {
@@ -29,7 +36,7 @@
 }
 
 .table thead {
-    background-color: #3f92b7;
+    background-color: #aacde5;
 }
 
 .table thead th {
@@ -62,6 +69,26 @@
 	padding: 5px;
 	border: 1px solid #aacde5;
 	border-radius: 10px;
+}
+
+/* 모달창 */
+.modal-header, .modal-body, .modal-footer {
+	background-color:  #e3eff9;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#btnModal {
+	background-color: #6cc4dc;
+	border: none;
+}
+
+/* 페이징 */
+.totalCnt {
+	font-size: 14px;
 }
 
 </style>
@@ -148,28 +175,27 @@ myModal.addEventListener('shown.bs.modal', () => {
 							
 								<!-- 모달 내용 -->
 								<div class="modal-body">
-							  		<p>스터디 목적</p>
+							  		<p class="title">스터디 목적</p>
 							  		<p>${studyboard.studyTitle }</p><hr>
 							
-									<p>인원</p>
+									<p class="title">인원</p>
 									<p>${studyboard.studyPeople } 명</p><hr>
 									
-									<p>장소</p>
+									<p class="title">장소</p>
 									<p>${studyboard.studyAddress }</p><hr>
 									
-									<p>날짜</p>
+									<p class="title">날짜</p>
 									<p>${studyboard.studyDate }</p><hr>
 									
-									<p>시간</p>
+									<p class="title">시간</p>
 									<p>${studyboard.studyTime }</p><hr>
 									
-									<p>소개글</p>
+									<p class="title">소개글</p>
 									<p>${studyboard.studyContent }</p>
 						      	</div>
 						      	
 							    <div class="modal-footer">
-							        <button type="button" class="btn btn-primary">승인</button>
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							        <button type="button" class="btn btn-primary" id="btnModal" data-bs-dismiss="modal">확인</button>
 						      	</div>
 						    </div>
 						  	</div>
@@ -178,9 +204,12 @@ myModal.addEventListener('shown.bs.modal', () => {
                     </c:forEach>
                    	</tbody>
                 </table>
+
+				<!-- 페이징 -->
+				<span class="totalCnt">total : ${paging.totalCount }</span>
+				<c:import url="/WEB-INF/views/admin/studyPaging.jsp" />
+
    			</div><!-- 테이블 row end -->
-			<span class="pull-right">total : ${paging.totalCount }</span>
-			<c:import url="/WEB-INF/views/admin/paging.jsp" />
        	</div>
 		</div><!-- main row end -->
 	</section>

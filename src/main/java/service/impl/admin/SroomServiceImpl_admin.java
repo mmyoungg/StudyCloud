@@ -189,9 +189,9 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 	
 	//QnA 리스트
 	@Override
-	public List<HashMap<String, Object>> qnaList() {
+	public List<HashMap<String, Object>> qnaList(Paging paging) {
 		
-		return sRoomDao_admin.qnaList();
+		return sRoomDao_admin.qnaList(paging);
 	}
 	
 	@Override
@@ -204,13 +204,18 @@ public class SroomServiceImpl_admin implements SroomService_admin {
 		sRoomDao_admin.writeQna(sroomQna);
 	}
 
+	@Override
+	public List<HashMap<String, Object>> previewQna() { //메인페이지 QnA 미리보기
+		return sRoomDao_admin.previewQna();
+	}
+
 	//메인페이지
-	
 	@Override
 	public List<Map<String, Object>> srListWithFile(StudyRoom studyroom) {
 		
 		return sRoomDao_admin.selectMap();
 	}
+
 
 
 

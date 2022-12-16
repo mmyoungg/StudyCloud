@@ -13,15 +13,33 @@
 
 <style type="text/css">
 
+/* 검색 */
+#keyword {
+	width: 20%;
+	float: right;
+	height: 28px;
+}
+
+#btnSearch {
+	float: right;
+	padding: 5px;
+	background-color: #6cc4dc;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 12px;
+}
+
+
+
 /* 테이블 */
 .table {
 	text-align: center;
 	vertical-align: middle;
-	margin-top: 20px;
 }
 
 .table thead {
-    background-color: #3f92b7;
+    background-color: #aacde5;
 }
 
 .table thead th {
@@ -32,7 +50,7 @@
 }
 
 .table tbody td {
-    padding: 5px;
+    padding: 10px;
     margin: 0;
     font-size: 14px;
 }
@@ -50,16 +68,17 @@
    	transition: all 0.3s; 
 } 
 
- /* 메인 타이틀 */
- .pagetitle { */
-   margin-bottom: 10px; 
- } 
-
- .pagetitle h1 { 
+/* 메인 타이틀 */
+ .pagetitle > h1 { 
    font-size: 24px; 
-   margin-bottom: 0;
-   font-weight: bold; 
- } 
+   margin-bottom: 20px;
+   font-weight: bold;
+   display: inline-block;
+}
+
+.totalCnt {
+	font-size: 14px;
+}
 
 </style>
 
@@ -83,7 +102,11 @@ $(document).ready(function() {
   
     <div class="pagetitle">
     	<h1>회원관리</h1>
+    	
+	    <button type="submit" class="btn" id="btnSearch">검색</button>
+	    <input type="text" class="form-control" id="keyword">
     </div>
+    
 
     <section class="memberList">
 
@@ -131,12 +154,14 @@ $(document).ready(function() {
 	                    </c:forEach>
 	                    </tbody>
 	                </table>
-      		</div><!-- 테이블 row end -->
-      		<!-- 페이징 -->
-      		<c:import url="/WEB-INF/views/admin/paging.jsp" />
-       	</div><!-- main row end -->
-	</div><!--  table end -->
-	
+
+	      		<!-- 페이징 -->
+	      		<span class="totalCnt">total : ${paging.totalCount }</span>
+	      		<c:import url="/WEB-INF/views/admin/memberPaging.jsp" />
+
+      			</div>
+       		</div>
+		</div><!--  table end -->
 	</section>
 
 	</div><!-- main container end -->

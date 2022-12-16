@@ -18,7 +18,6 @@ public class AdminInterceptor implements HandlerInterceptor {
 		
 		logger.info("+ + + BoardInterceptor + + +");
 		
-		
 		//세션 객체
 		HttpSession session = request.getSession();
 		

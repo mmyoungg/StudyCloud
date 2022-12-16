@@ -82,7 +82,24 @@
 	</delete>
 	
 	<!-- 스터디룸 QnA 리스트 -->
-	<select id="qnaList" resultType="hashmap">
+<!-- 	<select id="qnaList" resultType="hashmap" parameterType="Paging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, B.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					S.sroom_no, S.sroom_name -->
+<!-- 					, M.member_no, M.member_nick -->
+<!-- 					, Q.sroomqna_no, Q.sroomqna_title, Q.sroomqna_content, Q.sroomqna_date -->
+<!-- 				FROM studyroomqna Q -->
+<!-- 				JOIN studyroom S -->
+<!-- 				ON ( S.sroom_no = Q.sroom_no ) -->
+<!-- 				JOIN member M -->
+<!-- 				ON ( Q.member_no = M.member_no ) -->
+<!-- 			) B -->
+<!-- 		) studyroomqna -->
+<!-- 		WHERE rnum BETWEEN #{startNo }  AND #{endNo } -->
+<!-- 	</select> -->
+
+	<select id="qnaList" resultType="hashmap" parameterType="Paging">
 		SELECT S.*, M.*, Q.*
 		FROM studyroom S
 		JOIN studyroomqna Q
@@ -109,6 +126,20 @@
     	INSERT INTO studyroomqna ( sroomqna_no, sroom_no, member_no, sroomqna_grpno, sroomqna_grpord, sroomqna_step, sroomqna_title, sroomqna_content )
     	VALUES ( studyroomqna_seq.nextval, #{sRoomNo}, #{memberNo}, #{sRoomQnaNo}, #{sRoomQnaGrpOrd }, 1, #{sRoomQnaTitle }, #{sRoomQnaContent } )
    	</insert>
+	
+	<!-- ========== 관리자 메인페이지 ========== -->
+
+	<!-- QnA 게시글 목록 미리보기 -->
+	<select id="previewQna" resultType="hashmap">
+		SELECT S.*, M.*, Q.*
+		FROM studyroom S
+		JOIN studyroomqna Q
+		ON S.sroom_no = Q.sroom_no
+		JOIN member M
+		ON Q.member_no = M.member_no
+		<![CDATA[WHERE rownum <= 5]]> 
+		ORDER BY sroomqna_grpno, sroomqna_grpord, Q.sroomqna_no
+	</select>
 	
 	<!-- ========== 메인페이지 ========== -->
 	

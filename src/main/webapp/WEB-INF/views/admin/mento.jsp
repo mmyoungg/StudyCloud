@@ -21,6 +21,13 @@
     border-radius: 5px;
 }
 
+ /* 메인 타이틀 */
+.pagetitle h1 { 
+   font-size: 24px; 
+   margin-bottom: 0;
+   font-weight: bold; 
+} 
+
 /* 테이블 */
 .table {
 	text-align: center;
@@ -29,7 +36,7 @@
 }
 
 .table thead {
-    background-color: #3f92b7;
+    background-color: #aacde5;
 }
 
 .table thead th {
@@ -62,6 +69,26 @@
 	padding: 5px;
 	border: 1px solid #aacde5;
 	border-radius: 10px;
+}
+
+/* 모달창 */
+.modal-header, .modal-body, .modal-footer {
+	background-color:  #e3eff9;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#btnModal {
+	background-color: #6cc4dc;
+	border: none;
+}
+
+/* 페이징 */
+.totalCnt {
+	font-size: 14px;
 }
 
 </style>
@@ -150,28 +177,27 @@ myModal.addEventListener('shown.bs.modal', () => {
 							
 								<!-- 모달 내용 -->
 								<div class="modal-body">
-							  		<p>Study Cloud 아이디</p>
+							  		<p class="title">Study Cloud 아이디</p>
 							  		<p>${applymt.member.memberId }</p><hr>
 							
-									<p>이메일</p>
+									<p class="title">이메일</p>
 									<p>${applymt.member.memberEmail}</p><hr>
 									
-									<p>이름</p>
+									<p class="title">이름</p>
 									<p>${applymt.member.memberName }</p><hr>
 									
-									<p>연락처</p>
+									<p class="title">연락처</p>
 									<p>${applymt.member.memberPhone }</p><hr>
 									
-									<p>희망분야</p>
+									<p class="title">희망분야</p>
 									<p>${applymt.field }</p><hr>
 									
-									<p>소개글</p>
+									<p class="title">소개글</p>
 									<p>${applymt.applymtContent }</p>
 						      	</div>
 						      	
 							    <div class="modal-footer">
-							        <button type="button" class="btn btn-primary">승인</button>
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							        <button type="button" class="btn btn-primary" id="btnModal" data-bs-dismiss="modal">확인</button>
 						      	</div>
 						    </div>
 						  	</div>
@@ -180,9 +206,13 @@ myModal.addEventListener('shown.bs.modal', () => {
                     </c:forEach>
                    	</tbody>
                 </table>
+
+	   			<!-- 페이징 -->
+				<span class="totalCnt">total : ${paging.totalCount }</span>
+				<div class="clearfix"></div>
+				<c:import url="/WEB-INF/views/admin/mentoPaging.jsp" />
+
    			</div><!-- 테이블 row end -->
-			<span class="pull-right">total : ${paging.totalCount }</span>
-			<c:import url="/WEB-INF/views/admin/paging.jsp" />
        	</div>
 		</div><!-- main row end -->
 	</section>

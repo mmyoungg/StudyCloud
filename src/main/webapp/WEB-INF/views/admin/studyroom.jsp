@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>admin studyroom</title>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -21,6 +21,13 @@ $(document).ready(function() {
 
 <style type="text/css">
 
+/* 메인 타이틀 */
+.pagetitle h1 { 
+   font-size: 24px; 
+   margin-bottom: 0;
+   font-weight: bold; 
+} 
+
 /* 테이블 */
 .table {
 	vertical-align: middle;
@@ -28,7 +35,7 @@ $(document).ready(function() {
 }
 
 .table thead {
-    background-color: #3f92b7;
+    background-color: #aacde5;
 }
 
 .table thead th {
@@ -56,11 +63,17 @@ a:hover{
 
 /* 버튼 */
 #btnWrite {
+	font-size: 12px;
 	background-color: #6cc4dc;
+	float: right;
 	color: #fff;
 	padding: 5px;
 	border: 1px solid #aacde5;
 	border-radius: 10px;
+}
+
+.totalCnt {
+	font-size: 14px;
 }
 
 </style>
@@ -108,11 +121,12 @@ a:hover{
 			
 			</table>
 			
-			<button id="btnWrite" class="btn pull-left">글쓰기</button>
+			<!-- 페이징 -->
+			<span class="totalCnt">total : ${paging.totalCount }</span>
+			<button id="btnWrite" class="btn">글쓰기</button>
 			<div class="clearfix"></div>
-			<span class="pull-right">total : ${paging.totalCount }</span>
 			
-			<c:import url="/WEB-INF/views/admin/paging.jsp" />
+			<c:import url="/WEB-INF/views/admin/studyroomPaging.jsp" />
 
    			</div><!-- 테이블 row end -->
       	</div>

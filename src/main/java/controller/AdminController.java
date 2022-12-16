@@ -109,6 +109,11 @@ public class AdminController {
 		logger.debug("{}", todayStudyApply);
 		model.addAttribute("todayStudyApply", todayStudyApply);
 		
+		//QnA 게시판 미리보기
+		List<HashMap<String, Object>> preQna = sRoomService_admin.previewQna();
+		logger.debug("preQna : {}", preQna);
+		model.addAttribute("preQna", preQna);
+		
 		//예약 미리보기
 		List<HashMap<String, Object>> preReserve = reserveDao_admin.previewReserve();
 		System.out.println( preReserve );
@@ -285,14 +290,17 @@ public class AdminController {
 	
 	//스터디룸 QnA
 	@RequestMapping("/admin/qna")
-	public void qna(StudyRoom studyroom, Model model) {
+	public void qna(
+			@RequestParam(defaultValue = "0" ) int curPage
+			, StudyRoom studyroom, Model model) {
 		
 		logger.info("/admin/qna [GET]");
 		
-		List<HashMap<String, Object>> qna = sRoomService_admin.qnaList();
+		Paging paging = sRoomService_admin.getPaging(curPage);
+		model.addAttribute("paging", paging);
 		
+		List<HashMap<String, Object>> qna = sRoomService_admin.qnaList(paging);
 		logger.info("qna: {}", qna);
-		
 		model.addAttribute("qna", qna);
 		
 	}
@@ -400,9 +408,5 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping("admin/update")
-	public void update() {
-		
-	}
 	
 }

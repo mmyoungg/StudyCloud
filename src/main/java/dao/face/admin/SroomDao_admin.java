@@ -100,7 +100,7 @@ public interface SroomDao_admin {
 	 * @param studyroom - 게시글 번호
 	 * @return QnA 리스트
 	 */
-	public List<HashMap<String, Object>> qnaList();
+	public List<HashMap<String, Object>> qnaList(Paging paging);
 
 	/**
 	 * 게시글 번호를 이용하여 게시글을 조회한다
@@ -116,6 +116,14 @@ public interface SroomDao_admin {
 	 * @param sroomQna - 삽입할 스터디룸 정보
 	 */
 	public void writeQna(SroomQna sroomQna);
+
+	/**
+	 * 게시글 번호를 이용해 QnA 목록을 조회한다
+	 * 
+	 * @return QnA 목록
+	 */
+	public List<HashMap<String, Object>> previewQna();
+
 
 
 
