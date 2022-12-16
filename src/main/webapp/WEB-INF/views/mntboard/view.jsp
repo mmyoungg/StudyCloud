@@ -147,18 +147,14 @@ $(document).ready(function() {
 
 <div class="mnt_allwrap">
 <div class="mnt_wrap1">
-<div class="mnt_hit">조회수 ${mntViewBoard.MNTBOARD_HIT }</div>
+
+
 <div class="mnt_title">
 	<h2 style="font-weight: 600; margin-bottom: 36px;">${mntViewBoard.MNTBOARD_TITLE }</h2>
 </div>
-
-<!-- 분야 -->
-<span class="mnt_id">${mntViewBoard.MEMBER_NICK }</span>
-
 <!-- 로그인시에만 눌리게 / 비로그인시 로그인해주세요 창 띄움-->
 <!-- 찜하기 아작스로 구현 / 찜하기가 완료/취소되었습니다 멘트-->
 <!-- 공유 -->
-
 <div class="func_btn">
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="share">
 <i class="bi bi-share"></i>
@@ -175,13 +171,19 @@ $(document).ready(function() {
 	<i class="bi bi-envelope"></i>
 </button>
 </div>
+<span class="mnt_id">${mntViewBoard.MEMBER_NICK }</span><br>
+<span class="write_date"><fmt:formatDate value="${mntViewBoard.MNTBOARD_DATE }"  type="both" dateStyle="default" timeStyle="short"/></span>
+
+
 
 <br><br>
 <br>
 
-<span class="write_date"><fmt:formatDate value="${mntViewBoard.MNTBOARD_DATE }" pattern="yyyy-MM-dd"/></span>
+<div>
 <button class="select_field">${mntViewBoard.FIELD }</button>
-<hr>
+<span class="mnt_hit">조회수 ${mntViewBoard.MNTBOARD_HIT }</span>
+</div>
+
 </div> <!-- mnt_wrap1 끝 -->
 
 
@@ -190,12 +192,16 @@ $(document).ready(function() {
 <div class="mnt_wrap2">
 
 		
+<hr>
+
 <div class="mnt_content">
 ${mntViewBoard.MNTBOARD_CONTENT }
 </div>
-</div><!-- mnt_wrap2 끝 -->
 
+
+</div><!-- mnt_wrap2 끝 -->
 <hr>	
+
 <div class="mnt_wrap3">
 
 
@@ -207,8 +213,10 @@ ${mntViewBoard.MNTBOARD_CONTENT }
 
 <div class="btn-wrap">
 	<button id="MntbtnList" class="btn btn-primary">목록</button>
+	<c:if test="${member_no eq mntViewBoard.MEMBER_NO}">
 		<button id="MntbtnUpdate" class="btn btn-primary">수정</button>
 		<button id="MntbtnDelete" class="btn btn-primary">삭제</button>
+	</c:if>	
 </div>
 
 </div><!-- mnt_wrap3 끝 -->

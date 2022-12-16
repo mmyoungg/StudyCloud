@@ -6,34 +6,91 @@
     
 <mapper namespace="dao.face.MtBoardDao">
 
-	<select id="CntMtBaord" resultType="int">
-		SELECT COUNT(*) FROM mtboard
-	</select>
-
-	<select id="MtBoardList" resultType="hashmap" parameterType="util.Paging">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
+	<select id="CntMtBaord" resultType="int" parameterType="map">
+		SELECT count(*) FROM (
+			SELECT rownum rnum, B.* 
+			FROM (
 			SELECT n.mtboard_no, m.member_nick, n.field, n.jobduty, n.jobgroup, n.career
 				   , n.mtboard_title, n.mtboard_content , n.mtboard_cmcnt , n.mtboard_hit 
-				   , n.mtboard_date, n.co_name, n.mt_price, n.mark_cnt
+				   , n.mtboard_date, n.co_name, n.mt_price
+				   ,  ( SELECT count(*) FROM mtmark MK WHERE N.mtboard_no = MK.mtboard_no ) mark_cnt
 			FROM mtboard n 
 			JOIN member m
 			ON ( n.member_no = m.member_no )
-			ORDER BY mtboard_no DESC )  B
-			) mtboard
+			WHERE
+				1=1
+			<if test="type != null and type != 'tc'">
+				AND ${type} like  '%' ||  #{keyword} || '%'
+			</if>
+			<if test="type == 'tc'">
+				AND mtboard_title like '%' ||  #{keyword} || '%'
+				OR mtboard_content like '%' ||  #{keyword} || '%'
+			</if>
+			<if test="field != null">
+				AND field = #{field}
+			</if>
+			 )  B
+		) MtBoard
+	</select>
+
+	<select id="MtBoardList" resultType="hashmap" parameterType="map">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* 
+			FROM (
+			SELECT n.mtboard_no, m.member_nick, n.field, n.jobduty, n.jobgroup, n.career
+				   , n.mtboard_title, n.mtboard_content , n.mtboard_cmcnt , n.mtboard_hit 
+				   , n.mtboard_date, n.co_name, n.mt_price
+				   ,  ( SELECT count(*) FROM mtmark MK WHERE N.mtboard_no = MK.mtboard_no ) mark_cnt
+			FROM mtboard n 
+			JOIN member m
+			ON ( n.member_no = m.member_no )
+			WHERE
+				1=1
+			<if test="type != null and type != 'tc'">
+				AND ${type} like  '%' ||  #{keyword} || '%'
+			</if>
+			<if test="type == 'tc'">
+				AND mtboard_title like '%' ||  #{keyword} || '%'
+				OR mtboard_content like '%' ||  #{keyword} || '%'
+			</if>
+			<if test="field != null">
+				AND field = #{field}
+			</if>
+			ORDER BY ${sort} DESC
+			 )  B
+		) MtBoard
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<update id="mtBoardHit" parameterType="dto.MtBoard">
+	<select id="MtBoardListPaging" resultType="hashmap" parameterType="util.PagingVUp">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* 
+			FROM (
+			SELECT n.mtboard_no, m.member_nick, n.field, n.jobduty, n.jobgroup, n.career
+				   , n.mtboard_title, n.mtboard_content , n.mtboard_cmcnt , n.mtboard_hit 
+				   , n.mtboard_date, n.co_name, n.mt_price
+				   , ( SELECT count(*) FROM mtmark MK WHERE N.mtboard_no = MK.mtboard_no ) mark_cnt
+					FROM mtboard n 
+					JOIN member m
+					ON ( n.member_no = m.member_no )
+					ORDER BY mtboard_date DESC
+			 )  B
+		) MtBoard
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<!-- 여기까지 -->
+	<update id="mtBoardHit" parameterType="int">
 		UPDATE mtboard
 		SET mtboard_hit = mtboard_hit + 1
 		WHERE mtboard_no = #{mtboardNo}
 	</update>
 	
-	<select id="selectMtBoard" resultType="hashmap" parameterType="dto.MtBoard">
+	<select id="selectMtBoard" resultType="hashmap" parameterType="int">
 			SELECT n.mtboard_no, m.member_nick, n.field, n.jobduty, n.jobgroup, n.career
 				   , n.mtboard_title, n.mtboard_content , n.mtboard_cmcnt , n.mtboard_hit 
-				   , n.mtboard_date, n.co_name, n.mt_price, n.mark_cnt
+				   , n.mtboard_date, n.co_name, n.mt_price
+				   , ( SELECT count(*) FROM mtmark MK WHERE N.mtboard_no = MK.mtboard_no ) mark_cnt
 			FROM mtboard n 
 			JOIN member m
 			ON (n.member_no = m.member_no)
@@ -67,7 +124,7 @@
 		)
 	</insert>
 	
-	<select id="selectMtBoardFileByBoardNo" resultType="FileUpload" parameterType="dto.MntBoard">
+	<select id="selectMtBoardFileByBoardNo" resultType="FileUpload" parameterType="int">
 		SELECT fileupload_no, mtboard_no, fileupload_ori, fileupload_stor
 		FROM   fileupload
 		WHERE  mtboard_no = #{mtboardNo }
@@ -98,60 +155,94 @@
 		WHERE mtboard_no = #{mtboardNo}
 	</delete>
 	
+	<!-- 게시파 리스트 좋아요수 -->
+	<update id="mntBoardLike" parameterType="dto.MtBoard">
+		UPDATE mtboard m
+		SET m.mark_cnt = 
+		(SELECT COUNT(mtmark_no) FROM mtmark WHERE mtboard_no = #{mtboardNo})
+		WHERE m.mtboard_no = #{mtboardNo}
+	</update>
+
+
+
+
+ <!-- 여기 -->
+ 
+	<!-- 좋아요 -->
+	<select id="selectCntMark" parameterType="dto.MtMark" resultType="int">
+		SELECT count(*)
+		FROM mtmark
+		WHERE mtboard_no = #{mtboardNo}
+			AND member_no = #{memberNo }
+	</select>
 	
-	<!-- 멘토지원 -->
-	<!-- <insert id="applyMt" parameterType="dto.ApplyMt">
-		<selectKey order="BEFORE" resultType="int" keyProperty="applymtNo">
-			SELECT applymt_seq.nextval FROM dual		
-		</selectKey>
-		
-		INSERT INTO applymt (
-			applymt_no, member_no, field, applymt_content, applymt_date
-		)
-		VALUES (
-			#{applymtNo}, #{memberNo}, #{field}, #{applymtContent}, sysdate
-		)
-	</insert> -->
+	<select id="getTotalCntMark" parameterType="dto.MtMark" resultType="int">
+		SELECT count(*)
+		FROM mtmark
+		WHERE member_no = #{memberNo }
+	</select>
 	
-	<!-- 리뷰 -->
-	<!-- <select id="CntReview" parameterType="dto.MtReview" resultType="int">
-        SELECT count(*) 
-        FROM mtreview
-        WHERE mtboard_no = #{mtboardNo}
-    </select>
+	<delete id="deleteMark" parameterType="dto.MtMark">
+		DELETE mtmark
+		WHERE member_no = #{memberNo }
+			AND mtboard_no = #{mtboardNo}
+	</delete>
 	
-	<select id="reviewList" parameterType="hashmap" resultType="hashmap">
-        	SELECT * FROM (
-            SELECT rownum rnum, C.* FROM(
-        	SELECT c.mtreview_no, c.mtboard_no, m.member_no, m.member_nick
-        		 , a.applymnt_no, c.mtreview_content, c.mtreview_date, mtreview_score
-            FROM commt c
-            JOIN member m
-            ON (c.member_no = m.member_no)
-            WHERE mntboard_no = #{mntboardNo} AND commt_no > 0  
-            ORDER BY commt_no DESC ) C
-            ) Commt
-			 WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
-    </select> -->
-	
-	
-	<insert id="applyMnt" parameterType="dto.ApplyMnt">
-		<selectKey order="BEFORE" resultType="int" keyProperty="applymtNo">
-			SELECT applymnt_seq.nextval FROM dual		
-		</selectKey>
-		
-		INSERT INTO applymt (
-			applymnt_no, mtboard_no, member_no, sttime, edtime
-			,mnt_content, total_price, mnt_paydate
-		)
-		VALUES (
-			#{applymntNo}, #{mtboardNo}, #{memberNo}, #{stTime}, #{edTime}
-			, #{mntDate}, #{mntContent}, #{totalPrice}, #{mntPaydate}   
-		)
+	<insert id="inserMark" parameterType="dto.MtMark">
+		INSERT INTO mtmark (mtmark_no, mtboard_no, member_no)
+		VALUES (mtmark_seq.nextval, #{mtboardNo }, #{memberNo })
 	</insert>
-
-
-
+	
+	<select id="getSearchList" parameterType="hashMap" resultType="hashmap">
+		SELECT n.mtboard_no, m.member_nick, n.field, n.jobduty, n.jobgroup, n.career
+				   , n.mtboard_title, n.mtboard_content , n.mtboard_cmcnt , n.mtboard_hit 
+				   , n.mtboard_date, n.co_name, n.mt_price
+				   ,  ( SELECT count(*) FROM mtmark MK WHERE N.mtboard_no = MK.mtboard_no ) mark_cnt
+			FROM mtboard n 
+			JOIN member m
+			ON ( n.member_no = m.member_no )
+		WHERE
+			<foreach collection="list" item="list" separator="AND">
+				<choose>
+					<when test="list == 'mtBoardTitle'.toString()">
+						n.mtboard_title like '%'||#{keyword}||'%'
+					</when>
+					<when test="list == 'mtBoardContent'.toString()">
+						n.mtBoard_content like '%'||#{keyword}||'%'
+					</when>
+					<when test="list == 'memberNo'.toString()">
+						m.member_nick like '%'||#{keyword}||'%'
+					</when>
+				</choose>
+			</foreach>
+			ORDER BY mtBoard_no desc ) B
+		) mtboard
+	WHERE rnum BETWEEN #{startNo} AND #{endNo}	
+	</select>
+	
+	<select id="cntSearchList" resultType="int">
+		SELECT count(*) 
+		FROM mtboard n
+		JOIN  member m
+		ON (n.member_no = m.member_no)
+		WHERE
+		<foreach collection="list" item="list" separator="AND">
+			<choose>
+				<when test="list == 'mtBoardTitle'.toString()">
+					n.mtboard_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="list == 'mtBoardContent'.toString()">
+					n.mtBoard_content like '%'||#{keyword}||'%'
+				</when>
+				
+				<when test="list == 'memberNo'.toString()">
+					m.member_nick like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</foreach>
+		
+	</select>
+	
 
 	
 	

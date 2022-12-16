@@ -125,7 +125,6 @@ public interface MntBoardDao {
 
 	
 	// 좋아요
-
 	public int selectCntLike(MntBoardLike mntboardLike);
 	
 	public void deleteLike(MntBoardLike mntboardLike);

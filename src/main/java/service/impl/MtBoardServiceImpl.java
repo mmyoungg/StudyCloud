@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -19,9 +20,11 @@ import dto.ApplyMnt;
 import dto.ApplyMt;
 import dto.FileUpload;
 import dto.MtBoard;
+import dto.MtMark;
 import service.face.MtBoardService;
 import util.CommtPaging;
 import util.Paging;
+import util.PagingVUp;
 
 @Service
 public class MtBoardServiceImpl implements MtBoardService {
@@ -33,22 +36,28 @@ public class MtBoardServiceImpl implements MtBoardService {
 	
 	// 페이징
 	@Override
-	public Paging getPaging(int curPage) {
+	public PagingVUp getPaging(Map<String, Object> map, int curPage) {
 		
-		  int totalCount = mtBoardDao.CntMtBaord();
-		  Paging paging = new Paging(totalCount, curPage);
+		  int totalCount = mtBoardDao.CntMtBaord(map);
+		  PagingVUp paging = new PagingVUp(totalCount, curPage);
 		  return paging; 
 	}
 
 	// 글목록
 	@Override
-	public List<HashMap<String, Object>> list(Paging paging) {
-		return mtBoardDao.MtBoardList(paging);
+	public List<HashMap<String, Object>> list(Map<String, Object> map) {
+		return mtBoardDao.MtBoardList(map);
 	}
 
+	// 페이징 글목록
+	@Override
+	public List<HashMap<String, Object>> list(PagingVUp paging) {
+		return mtBoardDao.MtBoardListPaging(paging);
+	}
+	
 	// 상세보기
 	@Override
-	public HashMap<String, Object> view(MtBoard viewBoard) {
+	public HashMap<String, Object> view(int viewBoard) {
 		
 		// 조회수 증가
 		mtBoardDao.mtBoardHit(viewBoard);
@@ -103,8 +112,8 @@ public class MtBoardServiceImpl implements MtBoardService {
 	}
 	
 	
-	 @Override public FileUpload getAttachFile(MtBoard viewBoard) { 
-		 return mtBoardDao.selectMtBoardFileByBoardNo(viewBoard); 
+	 @Override public FileUpload getAttachFile(int mtboardNo) { 
+		 return mtBoardDao.selectMtBoardFileByBoardNo(mtboardNo); 
 	 }
 
 	@Override
@@ -169,41 +178,70 @@ public class MtBoardServiceImpl implements MtBoardService {
 		mtBoardDao.deleteMtBoard(mtBoard);
 	}
 
+	
+	// 찜하기
 	@Override
-	public void applyMt(ApplyMt applyMt) {
-		mtBoardDao.applyMt(applyMt);
+	public boolean mark(MtMark mtMark) {
+		int markCnt = mtBoardDao.selectCntMark(mtMark);
+		
+		if(markCnt > 0) {
+				return true;
+		} else {
+			return false;
+		}
 	}
 
-	/*
-	 * @Override public void applyMnt(MtBoard mtBoard) {
-	 * mtBoardDao.applyMnt(mtBoard); }
-	 */
 	@Override
-	public void applyMnt(ApplyMnt applyMnt) {
-		mtBoardDao.applyMnt(applyMnt);
+	public boolean mtboardMark(MtMark mtMark) {
+		if(mark(mtMark)) {
+			mtBoardDao.deleteMark(mtMark);
+			return false;
+	} else {
+		mtBoardDao.inserMark(mtMark);
+	}
+		return true;
 	}
 
-	/*
-	 * @Override public CommtPaging getCommtPaging(int curPage, int mtboardNo) { int
-	 * totalCount = mtBoardDao.CntReview(mtboardNo); CommtPaging commtPaging = new
-	 * CommtPaging(totalCount, curPage); return commtPaging; }
-	 * 
-	 * @Override public List<HashMap<String, Object>> reviewList(CommtPaging
-	 * reviewPaging, int mtboardNo) {
-	 * 
-	 * HashMap<String, Object> map = new HashMap<>(); map.put("paging",
-	 * reviewPaging); map.put("mtboardNo", mtboardNo);
-	 * 
-	 * return mtBoardDao.reviewList(map); }
-	 * 
-	 * @Override public int getCntReview(int mtboardNo) { int totalCount =
-	 * mtBoardDao.CntReview(mtboardNo); return totalCount; }
-	 * 
-	 * // 글목록 리뷰수
-	 * 
-	 * @Override public void mtBoardRvw(int mtboardNo) {
-	 * mtBoardDao.mtBoardRvw(mtboardNo); }
-	 */
+	@Override
+	public int getTotalCntMark(MtMark mtMark) {
+		return mtBoardDao.getTotalCntMark(mtMark);
+	}
+
+
+
+	// 검색
+	@Override
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map) {
+		return mtBoardDao.getSearchList(map);
+	}
+	
+	@Override
+	public CommtPaging getSearchPaging(HashMap<String, Object> map) {
+		int totalCount = mtBoardDao.cntSearchList(map);
+		int curPage = (int) map.get("curPage");
+		CommtPaging paging = new CommtPaging(totalCount, curPage);
+		return paging;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Override
+//	public void applyMt(ApplyMt applyMt) {
+//		mtBoardDao.applyMt(applyMt);
+//	}
+//
+//	@Override
+//	public void applyMnt(ApplyMnt applyMnt) {
+//		mtBoardDao.applyMnt(applyMnt);
+//	}
+
+
+
 
 	 
 
