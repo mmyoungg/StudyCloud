@@ -2,6 +2,7 @@ package service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import dao.face.MemberDao;
 import dao.face.MypageDao;
 import dto.FileUpload;
 import dto.Member;
+import dto.Reservation;
 import service.face.MypageService;
 
 
@@ -113,22 +115,19 @@ import service.face.MypageService;
 	//--------------------------------------------
 	
 	
-	
-
-	
 	}
 
 
 	@Override
-	public void withdrawal(Member member, HttpSession session) {
-		mypageDao.withdrawal(member,session);
+	public void withdrawal(Member member) {
+		mypageDao.withdrawal(member);
 
 	}
 	
 
 	@Override
 	public int passCheck(Member member) {
-		int result = mypageDao.passCheck(member);
+		int result = mypageDao.checkPw(member);
 
 		return result;
 	}
@@ -144,6 +143,12 @@ import service.face.MypageService;
 	public void updateProfile(FileUpload file) {
 		mypageDao.updateProfile(file);
 		
+	}
+
+
+	@Override
+	public List<Reservation> reservationlist(String id) {
+		return mypageDao.reservationlist(id);
 	}
 
 

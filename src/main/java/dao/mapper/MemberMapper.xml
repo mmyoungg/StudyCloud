@@ -9,6 +9,11 @@
 	<select id="selectCntMember" resultType="int" parameterType="Member">
 		SELECT count(*) FROM member
 		WHERE member_id = #{memberId} AND member_pw = #{memberPw}
+		and withdrawal = 'N'
+	</select>
+	
+	<select id="login" resultType="String" parameterType="Member">
+	 select withdrawal from member where member_id = #{memberId} AND member_pw = #{memberPw}
 	</select>
 
 	<select id="selectMemberNick" resultType="string" parameterType="Member">

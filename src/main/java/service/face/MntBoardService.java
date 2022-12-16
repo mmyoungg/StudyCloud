@@ -87,8 +87,6 @@ public interface MntBoardService {
 	
 	
 	// ---------- 검색 -----------
-
-	
 	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map);
 	
 	public CommtPaging getSearchPaging(HashMap<String, Object> map);

@@ -147,7 +147,7 @@ a:hover {
             <div class="card">
                 <div class="card-body text-center">
                     <div class="card-img pt-2 pb-3"> <img src="https://img.icons8.com/cotton/512/card-in-use.png" /> </div>
-                    <div class="name h5"><a href="booklist">예약 내역 </a></div>
+                    <div class="name h5"><a href="/reservationlist">예약 내역 </a></div>
                 </div>
             </div>
         </div>

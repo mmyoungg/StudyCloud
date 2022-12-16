@@ -289,11 +289,19 @@ a {
 								<input class="form-control" type="password" id="memberPw" name="memberPw">
 							</div><br>
 							
-  							<div id="msg_wrapper" style="display:none"> 아이디 또는 비밀번호가 일치하지 않습니다.</div> 
+  							<div id="msg_wrapper" style="display:none"> 아이디 또는 비밀번호가 일치하지 않습니다.</div>
+  							<div id="msg_wrapper_withdrawal" style="display:none">탈퇴한 회원입니다.</div> 
 								
 								<c:if test="${message eq 'error'}">
 								  <script type="text/javascript">
 								    var e = document.getElementById("msg_wrapper");
+								    e.style.display = 'block';
+								    e.style.color = 'red';
+								  </script>
+								</c:if>
+								<c:if test="${message eq 'withdrawal'}">
+								  <script type="text/javascript">
+								    var e = document.getElementById("msg_wrapper_withdrawal");
 								    e.style.display = 'block';
 								    e.style.color = 'red';
 								  </script>
