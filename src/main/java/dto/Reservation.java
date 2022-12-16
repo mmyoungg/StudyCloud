@@ -14,6 +14,7 @@ public class Reservation {
 	private int reservePrice;
 	private String reserveReq;
 	private Date reservePaydate;
+	private String sroomName;
 	
 	public Reservation() {}
 
@@ -32,13 +33,40 @@ public class Reservation {
 		this.reservePaydate = reservePaydate;
 	}
 
+
+	public Reservation(int reserveNo, int sroomNo, int memberNo, String reserveDate, String reserveStime,
+			String reserveEtime, int reservePeople, int reservePrice, String reserveReq, Date reservePaydate,
+			String sroomName) {
+		super();
+		this.reserveNo = reserveNo;
+		this.sroomNo = sroomNo;
+		this.memberNo = memberNo;
+		this.reserveDate = reserveDate;
+		this.reserveStime = reserveStime;
+		this.reserveEtime = reserveEtime;
+		this.reservePeople = reservePeople;
+		this.reservePrice = reservePrice;
+		this.reserveReq = reserveReq;
+		this.reservePaydate = reservePaydate;
+		this.sroomName = sroomName;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reserveNo=" + reserveNo + ", sroomNo=" + sroomNo + ", memberNo=" + memberNo
 				+ ", reserveDate=" + reserveDate + ", reserveStime=" + reserveStime + ", reserveEtime=" + reserveEtime
 				+ ", reservePeople=" + reservePeople + ", reservePrice=" + reservePrice + ", reserveReq=" + reserveReq
-				+ ", reservePaydate=" + reservePaydate + "]";
+				+ ", reservePaydate=" + reservePaydate + ", sroomName=" + sroomName + "]";
 	}
+
+	public String getSroomName() {
+		return sroomName;
+	}
+
+	public void setSroomName(String sroomName) {
+		this.sroomName = sroomName;
+	}
+
 
 	public int getReserveNo() {
 		return reserveNo;

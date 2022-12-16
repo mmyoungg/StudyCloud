@@ -1,5 +1,6 @@
 package dao.face;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import dto.FileUpload;
 import dto.Member;
+import dto.Reservation;
 
 public interface MypageDao {
 	
@@ -43,7 +45,7 @@ public interface MypageDao {
 	 * @param member
 	 * @param session
 	 */
-	public void withdrawal(Member member, HttpSession session);
+	public void withdrawal(Member member);
 
 
 	/**
@@ -52,14 +54,34 @@ public interface MypageDao {
 	 * @param member
 	 * @return
 	 */
-	public int passCheck(Member member);
+	public int checkPw(Member member);
 
 
+	
+	/**
+	 * 프로필사진 보여주기
+	 * 
+	 * @param memberNo
+	 * @return
+	 */
 	public FileUpload selectProfile(int memberNo);
 	
+	
+	/**
+	 * 프로필사진 변경
+	 * 
+	 * @param file
+	 */
 	public void updateProfile(FileUpload file);
 	
-	
+
+	/**
+	 * 예약 목록 조회
+	 * 
+	 * @return
+	 */
+	public List<Reservation> reservationlist(String id);
+
 	
 	
 

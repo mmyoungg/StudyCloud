@@ -94,6 +94,7 @@ public interface MemberService {
 
 	public FileUpload getProfileMemberNo(Member member);
 
+	public String loginMember(Member member);
 	
 	
 }

@@ -45,11 +45,19 @@ public class LoginController {
 		
 		logger.info("{}", member);
 		
-		boolean loginResult = memberService.login(member);
+		String loginResult = memberService.loginMember(member);
 		
 		logger.info("loginResult : {}", loginResult);
 		
-		if( loginResult ) {
+		if(loginResult == null) {
+
+			//req.setAttribute("message", "error");
+			req.setAttribute("url", "/login");
+			rttr.addFlashAttribute("message", "error");
+
+			return "redirect:/login";
+			
+		} else if(loginResult.equals("N")) {
 			
 			logger.info("로그인 성공");
 			
@@ -57,7 +65,7 @@ public class LoginController {
 			logger.info("{}", member);
 			
 			session.setAttribute("login", loginResult);
-//			session.setAttribute("member_id", member.getMemberId());
+			session.setAttribute("loginid", member.getMemberId());
 			session.setAttribute("member_no", member.getMemberNo());
 //			session.setAttribute("member_nick", member.getMemberNick());
 //            session.setAttribute("member_email", member.getMemberEmail() );
@@ -68,12 +76,9 @@ public class LoginController {
 			return "redirect:/mainpage";
 
 		} else {
-
 			logger.info("로그인 실패");
-
-			//req.setAttribute("message", "error");
 			req.setAttribute("url", "/login");
-			rttr.addFlashAttribute("message", "error");
+			rttr.addFlashAttribute("message", "withdrawal");
 
 			return "redirect:/login";
 		}

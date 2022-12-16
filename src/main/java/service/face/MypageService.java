@@ -1,6 +1,6 @@
 package service.face;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dto.FileUpload;
 import dto.Member;
+import dto.Reservation;
 
 public interface MypageService {
 	
@@ -34,7 +35,7 @@ public interface MypageService {
 	 * @param member
 	 * @param session
 	 */
-	public void withdrawal(Member member, HttpSession session);
+	public void withdrawal(Member member);
 
 
 	/**
@@ -48,6 +49,14 @@ public interface MypageService {
 	public FileUpload selectProfile(int memberNo);
 	
 	public void updateProfile(FileUpload file);
+
+
+	public static Reservation selectList(Reservation reservationlist) {
+		return null;
+	}
+
+
+	public List<Reservation> reservationlist(String id);
 	
 	
 }

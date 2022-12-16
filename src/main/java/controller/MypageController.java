@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +25,7 @@ import dao.face.MemberDao;
 import dao.face.MypageDao;
 import dto.FileUpload;
 import dto.Member;
+import dto.Reservation;
 import service.face.MemberService;
 import service.face.MypageService;
 
@@ -45,7 +51,7 @@ public class MypageController {
    
     // 회원 정보 수정 페이지
 	
-	@GetMapping("/edit")
+	@GetMapping("/mypage/edit")
 	public String userUpdate(HttpSession session,  HttpServletRequest req, Model model) {
 			logger.info("/edit [GET]성공");
 			
@@ -67,7 +73,7 @@ public class MypageController {
     
 	// 회원 정보 수정
 	
-	@PostMapping("/edit")
+	@PostMapping("/mypage/edit")
 	public String userUpdate(Member member, HttpSession session, Model model, HttpServletRequest req, MultipartFile file) {
 
 		if(session.getAttribute("member_no") != null) {
@@ -103,25 +109,52 @@ public class MypageController {
 	}
 
 	
+	// 비로그인 유저 접근 막기
 	//회원탈퇴
 	@RequestMapping(value="/withdrawal")
-	public String withdrawal(Member member, HttpSession session) {
+	public String withdrawal() {
 		
-		logger.info("/withdrawal [GET]성공");
+	//	logger.info("/withdrawal [GET]성공");
 		
-		mypageService.withdrawal(member,session);
+	//	mypageService.withdrawal(member,session);
 
 		return "mypage/withdrawal";
 	}
 	
 	//비밀번호 확인
-	@RequestMapping(value="/withdrawal", method=RequestMethod.POST, produces = "application/text; charset=utf8") 
+	@RequestMapping(value="/withdrawal", method=RequestMethod.POST) 
 		@ResponseBody
-		public String passCheck(Member member) {
+		public String passCheck(@RequestParam Map<String, Object> map, HttpServletRequest req) {
+		try {
+			String pw = map.get("memberPw").toString();
+			
+			HttpSession session = req.getSession();
+			
+			Enumeration<String> attributes = session.getAttributeNames();
+			while (attributes.hasMoreElements()) {
+			    String attribute = (String) attributes.nextElement();
+			    System.err.println(attribute+" : "+session.getAttribute(attribute));
+			}
+			
+			int no = ((Integer) session.getAttribute("member_no")).intValue();
+			Member member = new Member();
+			member.setMemberNo(no);
+			member.setMemberPw(pw);
+			
+			int result = mypageService.passCheck(member);
+			
+			if(result > 0) {
+				mypageService.withdrawal(member);
+			}else {
+				return "disaccord";
+			}
+			
+			return "success";
 		
-		int result = mypageService.passCheck(member);
-		
-		return Integer.toString(result);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
 
 	}
 
@@ -136,6 +169,7 @@ public class MypageController {
 		return "mypage/message";
 	
 	}
+	
 	
 	@GetMapping("/wishlist")
 	public String wishlist() {
@@ -155,14 +189,38 @@ public class MypageController {
 		
 	}
 	
-	@GetMapping("/booklist")
-	public String booklist() {
+	
+	// 예약 목록
+	
+//	@RequestMapping(value="/reservationlist")
+//	public String reservationlist(@RequestParam Map<String, Object> paramMap, Reservation reservation, Model model) {
+//
+//		Reservation reservationlist = MypageService.selectList(reservation);
+//
+//		if(reservationlist != null) {
+//
+//			model.addAttribute("reservationlist", reservationlist);
+//
+//			return "/mypage/reservationlist";
+//
+//		} else {
+//
+//			return "/mainpage";
+//		}
+//
+//	}
+	
+	@RequestMapping("/reservationlist")
+	public String reservationlist(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String id = (String) session.getAttribute("loginid");
+		List<Reservation> list = mypageService.reservationlist(id);
+		model.addAttribute("list", list);
+		logger.info("list {} :", list);
 		
-		logger.info("/booklist [GET]성공");
-		
-		return "mypage/booklist";
-		
+		return "mypage/reservationlist";
 	}
+
 	
 	@GetMapping("/likelist")
 	public String likelist() {
