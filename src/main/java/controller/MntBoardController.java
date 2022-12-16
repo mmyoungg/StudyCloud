@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,12 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.Commt;
 import dto.FileUpload;
-import dto.MboardLike;
 import dto.MntBoard;
 import dto.MntBoardLike;
 import service.face.MntBoardService;
 import util.CommtPaging;
-import util.Paging;
 import util.PagingVUp;
 
 @Controller
@@ -49,7 +48,7 @@ public class MntBoardController {
 		session.setAttribute("login", true); 
 		session.setAttribute("member_no", 1); 
 		session.setAttribute("member_nick", "nick"); 
-		Map<String, Object> map =new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		PagingVUp paging = mntBoardService.getPaging(map, curPage);
 		model.addAttribute("paging", paging);  
 		logger.info("paging : {}", paging);
@@ -79,24 +78,9 @@ public class MntBoardController {
 		
 		List<HashMap<String,Object>> list = mntBoardService.list(map);
 		model.addAttribute("mntBoardlist", list);
+		logger.info("list - {} ", list);
 	} 
 	
-//	@ResponseBody
-//	@RequestMapping("/listPaging")
-//	public void mntBoardListPaging(@RequestParam Map<String, Object> curPage, Model model ) { 
-//		
-//		logger.info("curpage - {} ", curPage);
-//		
-//		Paging paging = mntBoardService.getPaging(curPage);
-//		model.addAttribute("paging", paging);  
-//		
-//		List<HashMap<String,Object>> list = mntBoardService.list(paging);
-//		model.addAttribute("mntBoardlist", list);
-//		
-//		
-//	} 
-	
-//	조인으로 불러올 애들만 hash로 구현
 	
 	@RequestMapping("/view")
 	public void view (HttpSession session, Model model,
@@ -317,8 +301,6 @@ public class MntBoardController {
 		  // 좋아요 하트
 		  mntboardLike.setMemberNo((int)session.getAttribute("member_no"));
 		  
-		  // 좋아요 상태 확인
-//		  boolean like = mntBoardService.like(mntboardLike);
 		  
 		  boolean result = mntBoardService.mntboardLike(mntboardLike);
 		  
@@ -345,14 +327,15 @@ public class MntBoardController {
 			
 	    	logger.info("searcharr : {}", searcharr);
 			logger.info("searchKeyword : {}", searchKeyword);
-	    	
+			
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("list", searcharr); // 체크박스 값 담긴 List
 			map.put("keyword", searchKeyword); // 검색 키워드
 			map.put("curPage", curPage); // 페이징처리를 위한 현재페이지
-			
-	    	CommtPaging paging = mntBoardService.getSearchPaging(map);
 	    	
+			CommtPaging paging = mntBoardService.getSearchPaging(map);
+			
+			
 	    	List<HashMap<String, Object>> list = mntBoardService.getSearchList(map);
 			model.addAttribute("paging", paging);
 			

@@ -26,6 +26,22 @@
     height: 1100px;
 }
 
+.btn-secondary {
+	border: solid 1px #d3d3d3!important;  
+	background-color: #fff!important; 
+	color: #696969;
+	box-shadow: 1px 1px 1px #696969;
+    transition-duration: 0.3s;
+}
+
+.btn-secondary:hover {
+	border: solid 1px  #e3eff9!important;  
+	background-color:  #e3eff9!important; 
+	color: #696969!important;
+	box-shadow: 1px 1px 1px #696969;
+    transition-duration: 0.3s;
+}
+
 /* 검색바 */
 .form-control, #searchTypeSel, .searchBtn {
     
@@ -75,7 +91,7 @@ table {
     align-items: center;
     border-spacing: 0px 0px;
 
-    border: solid 1px #e3eff9;
+    border: solid 1px #d3d3d3;
     border-radius: 4px;
     border-collapse: separate;
 
@@ -104,7 +120,6 @@ thead {
 }
 
 .field_tb {
-    background-color: #aacde5;
     width: 183px;
     color: white;
     height: 230px;
@@ -172,16 +187,13 @@ th {
     font-size: 12px;
 }
 
- .pagination, .pagination:hover {
-
+.pagination, .pagination:hover {
     margin-bottom: 36px;
     justify-content: center;
     --bs-pagination-color: #aacde5;
-
 }
 
 .active>.page-link, .page-link.active {
-    
      --bs-pagination-active-color: #fff; 
      --bs-pagination-active-bg: #aacde5; 
      --bs-pagination-active-border-color: #dee2e6; 
@@ -196,4 +208,15 @@ th {
 
     font-size: 14px;
 }
+
+.btn-check:checked+.btn {
+	color: #696969!important;
+}
+
+
+
+
+
+
+
 

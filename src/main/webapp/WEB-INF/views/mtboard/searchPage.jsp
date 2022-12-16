@@ -11,8 +11,7 @@ $(document).ready(function() {
 })
 </script>
 
-
-<table class="table" id="table">
+<table class="table">
 <thead>
 	<tr>
 		<th scope="col" style="width: 7%;">No.</th>
@@ -27,21 +26,21 @@ $(document).ready(function() {
 </thead>
 
 <tbody>
-<c:forEach items="${mtBoardlist }" var="mtboard">
+<c:forEach items="${mtSearchList }" var="mtSearch">
   <tr>
-      <td scope="row" class="no">${mtboard.MTBOARD_NO }</td>
+      <td scope="row" class="no">${mtSearch.mtSearch_NO }</td>
       <td>
-      <a id="boardno" href="/mtboard/detail?mtboardNo=${mtboard.MTBOARD_NO }">${mtboard.MTBOARD_TITLE }</a>
-      <c:if test="${mtboard.MTBOARD_CMCNT  ne 0}">
-		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mtboard.MTBOARD_CMCNT}"/>&nbsp;]</b></small>
+      <a id="boardno" href="/mtSearch/detail?mtSearchNo=${mtSearch.mtSearch_NO }">${mtSearch.mtSearch_TITLE }</a>
+      <c:if test="${mtSearch.mtSearch_CMCNT  ne 0}">
+		<small><b style="color: #ff7760;">[&nbsp;<c:out value="${mtSearch.mtSearch_CMCNT}"/>&nbsp;]</b></small>
 	 </c:if>
       </td>
-      <td>${mtboard.MEMBER_NICK  }</td>
-      <td>${mtboard.JOBDUTY  }</td>
-      <td>${mtboard.CAREER  }</td>
-      <td>${mtboard.MTBOARD_HIT }</td>
-      <td>${mtboard.MARK_CNT }</td>
-      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mtboard.MTBOARD_DATE }"/>
+      <td>${mtSearch.MEMBER_NICK  }</td>
+      <td>${mtSearch.JOBDUTY  }</td>
+      <td>${mtSearch.CAREER  }</td>
+      <td>${mtSearch.mtSearch_HIT }</td>
+      <td>${mtSearch.MARK_CNT }</td>
+      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${mtSearch.mtSearch_DATE }"/>
  </tr>
 </c:forEach>
  

@@ -11,8 +11,8 @@
 <c:import url="../layout/header.jsp" /> 
 
 <!-- css연결 -->
-<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=4"> 
-
+<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=3"> 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,15 +22,17 @@
 <script type="text/javascript">
 	var sort = "mntboard_date";
 	var page = 1;
-
+	
 	var keyword;
 	var type;
+	var field;
 	
 	// 기본값으로 리스트 불러오기(최신순으로 1페이지 리스트)
 	getList()
 	
 
 	function pageMove(page_no) {
+		// 전역변수에 인자 값을 할당
 		page = page_no
 		
 		// 페이지에 맞는 리스트 불러오기 
@@ -38,9 +40,19 @@
 	}
 
 	function pageSort(e){
+		// 전역변수에 인자 값을 할당
 		sort = e
 		
 		// 소팅된 리스트 불러오기
+		getList()
+	}
+	
+	
+	function pageField(e){
+		// 전역변수에 인자 값을 할당
+		field = e.target.value
+		
+		// 분야별 리스트 불러오기
 		getList()
 	}
 
@@ -71,9 +83,11 @@
 		var param = {
 				curPage : page,
 				sort : sort,
+				field: field,
 				keyword: keyword,
 				type: type
 		}
+		console.log(param)
 		$.ajax({
 			type: "Get"
 		   , url: "/mntboard/listPaging"
@@ -104,16 +118,21 @@
 				return;
 			}
 			
-			/* var url = "listPage?page=1"
-				+ "&perPageNum=" + " ${commtPaging.curPage}"
-				+ "&searchType=" + searchTypeVal
-				+ "&keyword=" + encodeURIComponent(keywordVal);
-			window.location.href = url; */
 		})
 	}
+	
+ 
+  	$('.field_reset').click(function(){
+ 		page = undefiend;
+		sort  = undefiend;
+		field = undefiend;
+		keyword = undefiend;
+		type = undefiend;
+		getList()
+ 	}) 
+	
 
 </script>
-
 
 
 <!-- content 전체 wrap -->
@@ -139,41 +158,33 @@
     <div class="field">
     <table class="field_tb">   
     <tr>
-    <th>☁️ 분야 ☁️</th>
+    <th style="background-color: #aacde5;" ><i class="fa-solid fa-caret-down"></i> 분야 별 보기 <i class="fa-solid fa-caret-down"></i></th>
     </tr>
      
     <tr> 
   	<td>
-  	<input type="checkbox" id="field_01" value="개발 · 프로그래밍">
-  	<label>개발 · 프로그래밍</label>
+  	<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value="개발 · 프로그래밍"  onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option1" >개발 · 프로그래밍</label>
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="직무 · 마케팅" onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option2">직무 · 마케팅</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_02" value="어학 · 외국어">
-  	<label>어학 · 외국어</label>
+	<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value="커리어" onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option3">커리어</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_03" value="직무 · 마케팅">
-  	<label>직무 · 마케팅</label>
-	</td>
-	</tr>
-	
-	<tr>
-	<td>
-  	<input type="checkbox" id="field_04" value="커리어">
-  	<label>커리어</label>
-	</td>
-	</tr>
-	
-	<tr>
-	<td>
-  	<input type="checkbox" id="field_05" value="기타">
-  	<label>기타</label>
+  	<input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value="기타" onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option4">기타</label>
 	</td>
 	</tr>
 	</table>
