@@ -11,14 +11,19 @@
 	</select>
 
 	<select id="getListWithPaging" resultType="hashmap" parameterType="util.Paging">
-		select * from (
-			select rownum rnum, B.* from ( 
-				select f.fboard_no, f.category_name, f.fboard_title, m.member_nick, f.fboard_hit, f.fboard_date
-				FROM freeboard f
-                JOIN member m ON ( f.member_no = m.member_no )
-				order by fboard_no desc
+		SELECT * FROM (
+			SELECT rownum rnum, B.* from ( 
+				SELECT f.fboard_no, nvl(c.ccnt, 0) ccnt, f.category_name, f.fboard_title, m.member_nick, f.fboard_hit, f.fboard_date
+				FROM freeBoard f LEFT OUTER JOIN (
+                    SELECT count(commt_no) ccnt, fBoard_no FROM commt
+                    GROUP BY fBoard_no) c
+                ON f.fBoard_no = c.fBoard_no 
+                LEFT OUTER JOIN member m
+                ON f.member_no = m.member_no                   
+                GROUP BY f.fboard_no, ccnt, f.category_name, f.fboard_title, m.member_nick, f.fboard_hit, f.fboard_date
+                order by f.fboard_no desc
 				) B
-			) FreeBoard
+			) freeBoard
 		where rnum BETWEEN #{startNo} AND #{endNo}	 
 	</select>
 	
@@ -163,22 +168,16 @@
 		<foreach collection="list" item="list" separator="AND">
 			<choose>
 				<when test="list == 'fBoardTitle'.toString()">
-					f.fBoard_title like '%'||#{sRoomLoc}||'%'
+					f.fBoard_title like '%'||#{keyword}||'%'
 				</when>
 				<when test="list == 'fBoardContent'.toString()">
 					f.fBoard_content like '%'||#{keyword}||'%'
-				</when>
-		<!-- 		<when test="list == 'fBoardTitle'.toString() and list == 'fBoardContent'.toString()">
-					f.fBoard_title AND f.Board_content like '%'||#{keyword}||'%'
-					AND f.fBoard_content like '%'||#{keyword}||'%'
-				</when> -->
-				
+				</when>				
 				<when test="list == 'memberNo'.toString()">
 					m.member_nick like '%'||#{keyword}||'%'
 				</when>
 			</choose>
 		</foreach>
-		
 	</select>
 	
 	<select id="getNickByMemberNo" parameterType="int" resultType="String">

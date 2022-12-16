@@ -70,99 +70,94 @@ function cmtDelete(cmtNo) {
 	}) // swal
 }	
 		
-	
-
-
-
-
 </script>
-<div class="cmt_header">
-댓글(${fBaordCmtCount })
-</div>
+<div class="cmt_header">댓글(${fBaordCmtCount })</div>
 
 
 <c:choose>
-	<c:when test="${not empty fBaordCmt }"> 
+	<c:when test="${not empty fBaordCmt }">
 		<c:forEach items="${fBaordCmt }" var="cmtList">
 			<div class="cmt_box" id="cont${cmtList.COMMT_NO }">
 				<strong class="cmt_writer">${cmtList.MEMBER_NICK }</strong>
 				<div class="cmt_cont_box">
 					<div class="cmt_cont">${cmtList.COMMT_CONTENT }</div>
 				</div>
-				<p class="cmt_date"><fmt:formatDate value="${cmtList.COMMT_DATE }" pattern="yy-MM-dd HH:mm:ss"/></p>
+				<p class="cmt_date">
+					<fmt:formatDate value="${cmtList.COMMT_DATE }"
+						pattern="yy-MM-dd HH:mm:ss" />
+				</p>
 				<c:if test="${member_no eq cmtList.MEMBER_NO }">
-					<a class="miniBtn" onclick="cmtUpdate(${cmtList.COMMT_NO}, '${cmtList.COMMT_CONTENT }', '${cmtList.MEMBER_NICK }')">수정</a>
+					<a class="miniBtn"
+						onclick="cmtUpdate(${cmtList.COMMT_NO}, '${cmtList.COMMT_CONTENT }', '${cmtList.MEMBER_NICK }')">수정</a>
 					<a class="miniBtn" onclick="cmtDelete(${cmtList.COMMT_NO})">삭제</a>
 				</c:if>
 			</div>
 		</c:forEach>
 
+		<nav aria-label="Page navigation example" style="margin: 20px;">
+			<div class="text-center">
+				<ul class="pagination justify-content-center">
+
+					<%-- 첫 페이지로 이동 --%>
+					<c:if test="${paging.curPage ne 1 }">
+						<li class="page-item"><a class="page-link"
+							onclick="pagingAjax(1, ${fBoardView.FBOARD_NO})">처음으로</a></li>
+					</c:if>
+
+					<%-- 이전 페이징 리스트로 이동 --%>
+					<c:choose>
+						<c:when test="${paging.startPage ne 1 }">
+							<li><a class="page-link"
+								onclick="pagingAjax(${paging.startPage - paging.pageCount },${fBoardView.FBOARD_NO})">&laquo;</a></li>
+						</c:when>
+					</c:choose>
+
+					<%-- 이전 페이지로 가기 --%>
+					<c:if test="${paging.curPage > 1 }">
+						<li><a class="page-link"
+							onclick="pagingAjax(${paging.curPage - 1 },${fBoardView.FBOARD_NO})">&lt;</a></li>
+					</c:if>
 
 
-<nav aria-label="Page navigation example">
-<div class="text-center">
-	<ul class="pagination justify-content-center">
 
-	<%-- 첫 페이지로 이동 --%>
-	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a class="page-link" onclick="pagingAjax(1, ${fBoardView.FBOARD_NO})">처음으로</a></li>	
-	</c:if>
-	
-	<%-- 이전 페이징 리스트로 이동 --%>
-	<c:choose>
-	<c:when test="${paging.startPage ne 1 }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.startPage - paging.pageCount },${fBoardView.FBOARD_NO})">&laquo;</a></li>
+					<%-- 페이징 리스트 --%>
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+						var="i">
+						<c:if test="${paging.curPage eq i }">
+							<li class="active page-item"><a class="page-link"
+								onclick="pagingAjax(${i },${fBoardView.FBOARD_NO})">${i }</a></li>
+						</c:if>
+						<c:if test="${paging.curPage ne i }">
+							<li><a class="page-link" onclick="pagingAjax(${i })">${i }</a></li>
+						</c:if>
+					</c:forEach>
+
+
+
+					<%-- 다음 페이지로 가기 --%>
+					<c:if test="${paging.curPage < paging.totalPage }">
+						<li><a class="page-link"
+							onclick="pagingAjax(${paging.curPage + 1 },${fBoardView.FBOARD_NO})">&gt;</a></li>
+					</c:if>
+
+					<%-- 다음 페이징 리스트로 이동 --%>
+					<c:choose>
+						<c:when test="${paging.endPage ne paging.totalPage }">
+							<li><a class="page-link"
+								onclick="pagingAjax(${paging.startPage + paging.pageCount },${fBoardView.FBOARD_NO})">&raquo;</a></li>
+						</c:when>
+					</c:choose>
+
+					<%-- 끝 페이지로 이동 --%>
+					<c:if test="${paging.curPage ne paging.totalPage }">
+						<li class="page-item"><a class="page-link"
+							onclick="pagingAjax(${paging.totalPage },${fBoardView.FBOARD_NO})">끝으로</a></li>
+					</c:if>
+				</ul>
+			</div>
+		</nav>
 	</c:when>
-<%-- 	<c:when test="${paging.startPage eq 1 }">
-		<li class="disabled"><a class="page-link">&laquo;</a></li>
-	</c:when> --%>
-	</c:choose>
-	
-	<%-- 이전 페이지로 가기 --%>
-	<c:if test="${paging.curPage > 1 }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.curPage - 1 },${fBoardView.FBOARD_NO})">&lt;</a></li>
-	</c:if>
-	
-	
-	
-	<%-- 페이징 리스트 --%>
-	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
-	<c:if test="${paging.curPage eq i }">
-		<li class="active page-item"><a class="page-link" onclick="pagingAjax(${i },${fBoardView.FBOARD_NO})">${i }</a></li>
-	</c:if>
-	<c:if test="${paging.curPage ne i }">
-		<li><a class="page-link" onclick="pagingAjax(${i })">${i }</a></li>
-	</c:if>
-	</c:forEach>
-
-	
-	
-	<%-- 다음 페이지로 가기 --%>
-	<c:if test="${paging.curPage < paging.totalPage }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.curPage + 1 },${fBoardView.FBOARD_NO})">&gt;</a></li>
-	</c:if>
-	
-	<%-- 다음 페이징 리스트로 이동 --%>
-	<c:choose>
-	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li><a class="page-link" onclick="pagingAjax(${paging.startPage + paging.pageCount },${fBoardView.FBOARD_NO})">&raquo;</a></li>
-	</c:when>
-<%-- 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="disabled"><a class="page-link">&raquo;</a></li>
-	</c:when> --%>
-	</c:choose>
-
-	<%-- 끝 페이지로 이동 --%>
-	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a class="page-link" onclick="pagingAjax(${paging.totalPage },${fBoardView.FBOARD_NO})">끝으로</a></li>	
-	</c:if>
-	
-	</ul>
-</div>
-</nav>
-</c:when>
 	<c:otherwise>
 		<div class="cmt_box_empty">🔎 등록된 댓글이 없습니다.</div>
 	</c:otherwise>
-</c:choose> 
- 
+</c:choose>

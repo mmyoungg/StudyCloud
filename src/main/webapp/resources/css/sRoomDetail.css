@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .content { width: 1200px; margin: 0 auto; }
-.detail-wrap { margin: 40px auto; }
+.detail-wrap { margin: 40px auto; height: 3500px; }
 .left { float: left; width: 800px; /* border: 1px solid #e3eff9; */ position: relative;}
 .right { float: left; width: 350px; border: 1px solid #e3eff9; margin-left: 50px; }
 .img-fluid { width: 800px; height: 460px; margin: 30px auto; }
@@ -14,9 +14,7 @@
 .menu-content { width: 100%; font-size: 18px; padding-top: 100px; }
 .sRoom-menu-ul { dispaly: table-cell; position: relative; }
 .sRoom-menu-ul a { text-decoration: none; color: white; }
-
 h2 { margin-top: 40px; }
-/* h3 { position: relative; } */
 .qna_h3 { margin: 70px 0 28px; position: relative; }
 .scroll { padding-top: 150px; }
 .infoBox { margin-top: 30px; }
@@ -24,9 +22,10 @@ h2 { margin-top: 40px; }
 .qna_write_btn, .modal-custom-button { background-color: #6cc4dc; padding: 7px; color: #fff; position: absolute; right: 0;
 				 border-radius: 5px; text-decoration: none; top: -2.5px; border: none;}
 .pimg { width: 80px; height: 80px; border-radius: 80px; position: absolute; left: 0; top: 0; }
-ul li { list-style: none; }
+.sRoom-menu-ul li { list-style: none; }
 .qna_box, .rev_box { position: relative; padding: 0 0 24px 110px; }
 .qna_cont { /* line-height: 23px; */ margin: 10px 0 0 0; }
+.infoBox li { list-style: none; }
 .write_name { color: #3f92b7; font-weight: bold; margin: 10px auto; } 
 .write_date { color: #6cc4dc; font-size: 12px; margin: 0 0 5px 0; font-weight: bold;}
 .miniBtn { background-color: #6CC4DC; border: 0; width: 40px; margin: 1px; 
@@ -41,20 +40,10 @@ ul li { list-style: none; }
      to{top:0; opacity:1}
 }
 @keyframes animatetop{ from{top:-300px; opacity:0} to{top:0; opacity:1} }
-/* .close-modal{color:white; float:right; font-size:28px; font-weight:bold; } */
 .close-modal:hover,.close-modal:focus{color:#000; text-decoration:none; cursor:pointer; }
 .modal-header{padding:2px 16px; background-color:#e3eff9; color:balck; }
 .modal-body{padding:2px 16px; }
 .modal-footer{padding:2px 16px; background-color:#e3eff9; }
-/* .star-rating { display: flex; flex-direction: row-reverse; font-size: 2.25rem; line-height: 2.5rem;
-  			   justify-content: space-around; padding: 0 0.2em; text-align: center; width: 5em; }
-.star-rating input, .star-rating2 input { display: none; }
-.star-rating label { -webkit-text-fill-color: transparent; -webkit-text-stroke-width: 2.3px;
-  					 -webkit-text-stroke-color: #2b2a29; cursor: pointer; }
-.star-rating :checked ~ label, .star-rating2 :checked ~ label { -webkit-text-fill-color: gold;  }
-.star-rating label:hover,
-.star-rating label:hover ~ label { -webkit-text-fill-color: #fff58c; } */
-
 #myform fieldset{
     display: inline-block;
     direction: rtl;
@@ -81,8 +70,6 @@ ul li { list-style: none; }
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 .popup-text { font-weight: bold; color: #3f92b7; }
-/* .star-rating2 { position: absolute; right: 0; top: -6px; font-size: 1.3rem; padding: 0;}
-.star-rating2 .star { color: #6cc4dc; } */
 .review_point { color: #3f92b7 }
 .dot { width: 2px; height: 2px; margin: 0 5px; display: inline-block; background-color: #aacde5; }
 .review_intro { font-weight: bold; text-align: center; height: 40px; }
@@ -99,13 +86,10 @@ ul li { list-style: none; }
 .detail-button, .detail-button-share { border: 1px solid #6CC4DC;; width: 160px; padding: 10px; margin: 5px; 
 		  border-radius: 5px; color: #6cc4dc; background-color: #fff; }
 .detail-button img, .detail-button-share img { width: 17px; height: 17px; margin: 5px; }
-/* .detail-resrve-info { border: 1px solid #ccc;} */
 .detail-right-info {position: relative; margin-top: 5px; padding: 10px 10px 0 10px;}	  
-
 .time-select, .sRoom-cal { width: 92%; margin: 10px 0 10px 13px; height: 40px; font-size: 20px; text-align: center; }     		
 .ui-timepicker { font-size: 20px; } 
 .ui-timepicker-viewport { padding: 0 6px 0 0; width: 200px;} 
-/* .ui-timepicker-viewport:hover { background-color: #e3eff9; } */
 .ui-timepicker-standard a:hover { background-color: #e3eff9; }
 input[type="number"] { -webkit-appearance: textfield; -moz-appearance: textfield; appearance: textfield; }
 input[type=number]::-webkit-inner-spin-button,

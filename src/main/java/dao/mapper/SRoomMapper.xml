@@ -75,7 +75,7 @@
                 ON s.sRoom_no = r.sRoom_no
                 LEFT OUTER JOIN fileUpload f
                 ON s.sRoom_no = f.sRoom_no
-                WHERE s.sRoom_people >= #{sRoompNum}
+                <![CDATA[WHERE s.sRoom_people <= #{sRoompNum}]]>  
                 GROUP BY s.sRoom_no, mcnt, rcnt, avg, s.sRoom_name, s.sRoom_addr, s.sRoom_price, s.sRoom_people, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor
                 order by s.sRoom_no DESC
 				) B
@@ -101,12 +101,12 @@
 	</insert>
 	
 	<select id="getListQnAListBySroomNo" resultType="hashMap" parameterType="int">
-		SELECT m.member_nick, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor, q.*
+		SELECT m.member_nick, m.authority, f.fileUpload_no, f.fileUpload_ori, f.fileUpload_stor, q.*
 		FROM studyRoomQna q
 		LEFT OUTER JOIN member m ON (q.member_no = m.member_no)
 		LEFT OUTER JOIN fileUpload f ON (m.member_no = f.member_no)
 		WHERE q.sRoom_no = #{sRoomNo} 
-		ORDER BY q.sRoomQna_no DESC
+		ORDER BY sRoomQna_grpno DESC, sroomQna_grpord ASC
 	</select>
 	
 	<update id="updateQnaBySroomQnaNo" parameterType="dto.SroomQna">

@@ -121,59 +121,55 @@ function pagingSearchAjax(pageNo, checked, keyword) {
 
 </head>
 <body>
-<div class="content">
+	<div class="content">
+		<div class="button-menu">
+			<span class="button-op">
+				<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">자유게시판💭</button>
+			</span> 
+			<span class="button-op">
+				<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">번개게시판⚡</button>
+			</span>
+		</div>
 
-<div class="button-menu">
-		<span class="button-op">
-			<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">자유게시판💭</button>
-		</span>
-		<span class="button-op">
-			<button type="button" class="btn" data-bs-toggle="button" style="color: #ffffff">번개게시판⚡</button>
-		</span>
-</div>
+		<div class="sRoom_list_top">
+			<h5 style="color: #6cc4dc;">
+				💭<strong>자유게시판</strong>
+			</h5>
+		</div>
 
-<div class="sRoom_list_top">
-	<h5 style="color: #6cc4dc;">💭<strong>자유게시판</strong></h5>
-</div>
+		<div class="fBoard_top_logo">
+			<img src="https://ifh.cc/g/sjLaXa.jpg">
+		</div>
 
+		<form class="row gy-2 gx-3 align-items-center checkBoxWrap" id="fBoard-check">
+			<div class="form-check col-auto" id="fBoard-check-in">
+				<input class="form-check-input change" type="checkbox" value="fBoardTitle" name="fBoardSearch"> 
+				<label class="form-check-label" for="titlecheck">제목</label>
+			</div>
+			<div class="form-check col-auto" id="fBoard-check-in">
+				<input class="form-check-input" type="checkbox" value="fBoardContent" name="fBoardSearch"> 
+				<label class="form-check-label" for="titleContentcheck">제목+내용</label>
+			</div>
+			<div class="form-check col-auto" id="fBoard-check-in">
+				<input class="form-check-input" type="checkbox" value="memberNo" name="fBoardSearch"> 
+				<label class="form-check-label" for="writercheck">작성자</label>
+			</div>
 
-<div class="fBoard_top_logo">
-	<img src="https://ifh.cc/g/sjLaXa.jpg">
-</div>
+			<div class="align-items-center" id="fBoard-searchBar">
+				<div class="col-auto">
+					<input type="text" name="fBoardSKword" id="fBoardSKword"
+						class="form-control" aria-describedby="passwordHelpInline" placeholder="검색어를 입력하세요">
+				</div>
+			</div>
+			<button class="col-auto button" type="button" onclick="search()">검색</button>
 
+		</form>
+		<div id="fBoard_content"></div>
 
-<form class="row gy-2 gx-3 align-items-center checkBoxWrap" id="fBoard-check">
-
-<div class="form-check col-auto" id="fBoard-check-in">
-  <input class="form-check-input change" type="checkbox" value="fBoardTitle" name="fBoardSearch">
-  <label class="form-check-label" for="titlecheck">제목</label>
-</div>
-<div class="form-check col-auto" id="fBoard-check-in">
-  <input class="form-check-input" type="checkbox" value="fBoardContent" name="fBoardSearch">
-  <label class="form-check-label" for="titleContentcheck">제목+내용</label>
-</div>
-<div class="form-check col-auto" id="fBoard-check-in">
-  <input class="form-check-input" type="checkbox" value="memberNo" name="fBoardSearch">
-  <label class="form-check-label" for="writercheck">작성자</label>
-</div>
-
-<div class="align-items-center" id="fBoard-searchBar">
-  <div class="col-auto">
-    <input type="text" name="fBoardSKword" id="fBoardSKword" class="form-control" aria-describedby="passwordHelpInline" placeholder="검색어를 입력하세요">
-  </div>
-</div>
-<button class="col-auto button" type="button" onclick="search()">검색</button>
-
-</form>
-<div id="fBoard_content"></div>
-<%-- <c:import url="/WEB-INF/views/freeBoard/listAjax.jsp" /> --%>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="me-md-2 fBoard-write-button" type="button" id="writeBtn">글쓰기</button>
-</div>
-</div>
-
-
-
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			<button class="me-md-2 fBoard-write-button" type="button" id="writeBtn">글쓰기</button>
+		</div>
+	</div>
+<%@ include file="../layout/footer.jsp"%>	
 </body>
 </html>

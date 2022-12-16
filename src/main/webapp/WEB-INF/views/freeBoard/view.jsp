@@ -11,8 +11,9 @@
 .content { width: 1000px; margin: 70px auto; }
 table { margin: 40px 5px auto; }
 table th { text-align: center; background-color: #E3EFF9;  }
-.miniBtn { background-color: #6CC4DC; border: 0; width: 60px; margin: 1px; 
-		   color: white; font-size: 14px; text-decoration: none; }
+.miniBtn {border: 0; width: 60px; margin: 1px; 
+		   color: black; font-size: 14px; text-decoration: none; }
+.miniBtn:hover { cursor: pointer; color: #3f92b7; }
 .button { background-color: #6CC4DC; border: 0; width: 77px; padding: 5px; margin: 3px; 
 		  border-radius: 5px; color: white; }
 .row { margin: 40px 5px auto; }
@@ -27,7 +28,7 @@ table th { text-align: center; background-color: #E3EFF9;  }
 .active>.page-link { background-color: #3f92b7; border-color: #3f92b7; }
 .cmt_box { position: relative; padding: 0 0 24px 0; margin-top: 8px; }
 .cmt_writer { color: #3f92b7; font-weight: bold; margin: 10px auto; }
-.cmt_cont { position: absolute; left: 150px; top: 2px; height: 70px; width: 85%; border: 1px solid #6cc4dc;}
+.cmt_cont { position: absolute; left: 150px; top: 2px; height: 70px; width: 85%; background-color: #e3eff9; border: none; border-radius: 3px;}
 .cmt_date { color: #6cc4dc; font-size: 12px; margin: 0 0 5px 0; font-weight: bold; }
 .miniBtn { background-color: #6CC4DC; border: 0; width: 60px; margin: 1px; 
 		   color: white; font-size: 14px; text-decoration: none; }
@@ -109,119 +110,96 @@ function pagingAjax(pageNo, BoardNo) {
 	})
 }
 	
-/* function cmtUpdate(cmtno) {
-	
-	console.log("upddate 함수호출 성공, 댓글번호 : " + cmtno);
-	var uArea = '';
-	uArea += '<strong class="cmt_writer">' + ${cmtList.MEMBER_NICK } + '</strong>';
-	uArea += '<div class="cmt_cont_box">';	
-	uArea += '<div class="cmt_cont"><textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt">' + ${cmtList.COMMT_CONTENT } + '</textarea></div>';
-	uArea += '</div>';
-	uArea += '<a class="miniBtn" onclick="commentUpdateProc(' + ${cmtList.COMMT_NO} + ');">수정</a><a class="miniBtn">삭제</a>';
-
-	$('.cmt_box').html(uArea);
-}
-	 */
-
 </script>
 
 <div class="content">
-<h2>자유게시판</h2>
+	<h2>자유게시판</h2>
+	<form action="" method="post">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>작성자</th>
+					<td>${fBoardView.MEMBER_NICK }</td>
+					<th>카테고리</th>
+					<td>${fBoardView.CATEGORY_NAME }</td>
+				</tr>
+				<tr>
+					<th scope="row">작성일시</th>
+					<td><fmt:formatDate value="${fBoardView.FBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
+					<th>조회수</th>
+					<td>${fBoardView.FBOARD_HIT }</td>
+				</tr>
+				<tr>
+					<th scope="row">제목</th>
+					<td colspan="3">${fBoardView.FBOARD_TITLE }</td>
+				</tr>
+				<tr>
+					<th colspan="4">내용</th>
+				</tr>
+				<tr>
+					<td colspan="4" class="fBoard_content">${fBoardView.FBOARD_CONTENT }
+						<c:choose>
+							<c:when test="${not empty fileUpload}">
+								<c:forEach items="${fileUpload }" var="fBoardFileList">
+									<div class="fBoardContentImg">
+										<img src="/upload/${fBoardFileList.fileUploadStor }">
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<div></div>
+							</c:otherwise>
+						</c:choose>
 
 
-<form action="" method="post">
-<table class="table">
-   <tbody>
-    <tr>
-      <th>작성자</th>
-      <td>${fBoardView.MEMBER_NICK }</td>
-      <th>카테고리</th>
-      <td>${fBoardView.CATEGORY_NAME }</td>
-    </tr>
-    <tr>
-      <th scope="row">작성일시</th>
-      <td><fmt:formatDate value="${fBoardView.FBOARD_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
-      <th>조회수</th>
-      <td>${fBoardView.FBOARD_HIT }</td>
-    </tr>
-    <tr>
-      <th scope="row">제목</th>
-      <td colspan="3">${fBoardView.FBOARD_TITLE }</td>
-    </tr>
-    <tr>
-      <th colspan="4">내용</th>
-    </tr>
-    <tr>
-      <td colspan="4" class="fBoard_content">${fBoardView.FBOARD_CONTENT }
-      <c:choose>
-      <c:when test="${not empty fileUpload}">
-	  	<c:forEach items="${fileUpload }" var="fBoardFileList">
-	 		<div class="fBoardContentImg">
-	 			<img src="/upload/${fBoardFileList.fileUploadStor }">
-	 		</div>
-	  	</c:forEach>
-      </c:when>
-      <c:otherwise>
-      <div></div>
-      </c:otherwise>
-      </c:choose>
-      
-      
-      </td>
-    </tr>
-	</table>
+					</td>
+				</tr>
+		</table>
+
+		<div class="fBoard_view_file">
+			<p>첨부파일</p>
+			<c:choose>
+				<c:when test="${fn:length(fileUpload) > 0}">
+					<c:forEach items="${fileUpload }" var="fBoardFileList">
+						<a href="/freeBoard/download?fileUploadNo=${fBoardFileList.fileUploadNo}">${fBoardFileList.fileUploadOri }</a>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<p style="font-size: 12px;">첨부된 파일이 없습니다.</p>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<div class="preview" class="fBoardContent"></div>
+
+		<label for="content" class="fBoard_cmt">comment 작성하기</label>
+		<div class="input-group">
+			<c:choose>
+				<c:when test="${not empty member_no}">
+					<textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt"></textarea>
+					<span class="input-group-btn">
+						<button class="button" type="button" id="commentInsertBtn">등록</button>
+					</span>
+				</c:when>
+				<c:otherwise>
+					<textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt" placeholder="회원만 댓글을 등록할 수 있습니다." disabled></textarea>
+					<span class="input-group-btn"></span>
+				</c:otherwise>
+			</c:choose>
+
+		</div>
+	</form>
+	<div id="fBoardCmtList"></div>
 	
-	<div class="fBoard_view_file">
-	<p>첨부파일</p>
-	<c:choose>
-	<c:when test="${fn:length(fileUpload) > 0}">
-		<c:forEach items="${fileUpload }" var="fBoardFileList">
-		<a href="/freeBoard/download?fileUploadNo=${fBoardFileList.fileUploadNo}">${fBoardFileList.fileUploadOri }</a>
-		</c:forEach>
-	</c:when>
-	<c:otherwise>
-		<p style="font-size: 12px;">첨부된 파일이 없습니다.</p>
-	</c:otherwise>
-	</c:choose>
-	</div>
-	<div class="preview" class="fBoardContent"></div>
-	
-	<label for="content" class="fBoard_cmt">comment 작성하기</label>
-    	<div class="input-group">
-    	<c:choose>
-    	<c:when test="${not empty member_no}">
-        	<textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt"></textarea>
-            <span class="input-group-btn">
-            	<button class="button" type="button" id="commentInsertBtn">등록</button>
-            </span>
-    	</c:when>
-    	<c:otherwise>
-        	<textarea class="form-control" id="fBoardCmt" rows="2" name="fBoardCmt" placeholder="회원만 댓글을 등록할 수 있습니다." disabled></textarea>
-            <span class="input-group-btn">
-            	<!-- <button class="button" type="button">등록</button> -->
-            </span>
-    	</c:otherwise>
-    	</c:choose>
-    	
-        </div>
-</form>
-<div id="fBoardCmtList"></div>
-
-
-
-<div class="row"></div>
+	<div class="row"></div>
 	<div class="col text-center">
-  		<button class="button mx-auto" type="button" id="listBtn">목록</button>
-  		<c:if test="${member_no eq fBoardView.MEMBER_NO}">
-	  		<button class="button mx-auto" type="button" id="fBoardUpdateBtn">수정</button>
-  			<button class="button mx-auto" type="button" id="fBoardDeleteBtn">삭제</button>
-  		</c:if>
+		<button class="button mx-auto" type="button" id="listBtn">목록</button>
+		<c:if test="${member_no eq fBoardView.MEMBER_NO}">
+			<button class="button mx-auto" type="button" id="fBoardUpdateBtn">수정</button>
+			<button class="button mx-auto" type="button" id="fBoardDeleteBtn">삭제</button>
+		</c:if>
 	</div>
 </div>
 
-</div>
-
-
-
+<%@ include file="../layout/footer.jsp"%>
 </body>
 </html>

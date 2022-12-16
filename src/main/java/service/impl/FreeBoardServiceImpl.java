@@ -134,6 +134,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		if( fBoardFile.size() <= 0 ) {
 			return;
 		}
+		
+		for(int i=0; i<fBoardFile.size(); i++) {
+			
+			if(fBoardFile.get(i).getSize() <= 0) {
+				return;
+			}
+		}
 	
 		freeBoardDao.deleteFile(freeBoard);
 				

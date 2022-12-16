@@ -61,6 +61,7 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .keywordArea  p { margin : 10px 0 0 32px; font-size: 23px; font-weight: bold; color: #aacde5; }
 .keywordArea { width: 875px; margin: 15px 0 15px 0; height: 120px;}
 .rnum { padding: 11px; background-color: #e3eff9;  border: 1px solid #e3eff9; border-radius: 15px; }
+.list-group-item:hover { cursor: pointer; background-color: #e3eff9; font-weight: bold; }
 </style>
 
 <script type="text/javascript">
@@ -78,7 +79,11 @@ $(document).ready(function() {
 	var pageNo = ${paging.curPage};
 	console.log(pageNo); // 현재페이지 확인
 	pagingAjax(pageNo);	
-
+	
+	/* 검색 초기화버튼 */
+	$("#searchResetBtn").on("click", function() {
+		$("#totalSearch").val("");
+	})		
 	
 	/* 스터디룸 정보 통합검색 */
 	$("#totalSearchBtn").on("click", function() {
@@ -100,8 +105,6 @@ $(document).ready(function() {
 				$("#searchIntro").html(intro);
 			} 
 		})
-		
-		
 	})
 	
 	
@@ -281,129 +284,130 @@ function pagingAjax(pageNo) {
 		} 
 	})
 }
- 
 
- 
 </script>
-
 </head>
 <body>
-<div class="content">
-
-<div class="sRoom_list_top">
-	<h5 style="color: #6cc4dc;">📖<strong>스터디룸 대여공간</strong></h5>
-</div>
-<div class="sRoom_list_topImage">
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://ifh.cc/g/wnfRd0.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="https://ifh.cc/g/wNLhyw.jpg" class="d-block w-100" alt="...">
-    </div>
-   
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-</div>
-<div class="input-group">
-  <input type="text" class="form-control" placeholder="검색어를 입력하세요." id="totalSearch">
-  <button class="btn btn-outline-secondary" type="button" id="totalSearchBtn">검색</button>
-  <button class="btn btn-outline-secondary" type="button">초기화</button>
-</div>
-<div class="keywordArea">
-	  <p> 👑 실시간 인기검색어 </p>
-	  <ul class="bestkeyword">
-	  	<c:forEach items="${bestKeyword }" var="bestKeyword">
-		  	<li class="rnum" onclick="bestKeywordSearch('${bestKeyword.KEYWORD_WORD }')">${bestKeyword.RNUM }위. ${bestKeyword.KEYWORD_WORD } (${bestKeyword.WCNT }회)</li>
-		</c:forEach>
-	 </ul>
-</div>	  
- 
-<div class="flex-center">
-<div class ="btn-select col-4 form-select" id="toggle" >지역선택</div>
-<div id="menu1" style="display:none; transform: translateX(-105%);" >
-	<ul class="list-group list-group-horizontal list-member sRoomlocation">
-   		<li class="list-group-item list" value="서울">서울</li>
-    	<li class="list-group-item list" value="경기">경기</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="인천">인천</li>
-        <li class="list-group-item list" value="부산">부산</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="광주">광주</li>
-        <li class="list-group-item list" value="대구">대구</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="대전">대전</li>
-        <li class="list-group-item list" value="울산">울산</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="제주">제주</li>
-        <li class="list-group-item list" value="강원">강원</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="경남">경남</li>
-        <li class="list-group-item list" value="경북">경북</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="전남">전남</li>
-        <li class="list-group-item list" value="전북">전북</li>
-    </ul>
-    <ul class="list-group list-group-horizontal list-member sRoomlocation">
-        <li class="list-group-item list" value="충남">충남</li>
-        <li class="list-group-item list" value="충북">충북</li>
-    </ul>
-</div>
-    
-<div class ="btn-select form-select" id="toggle2">인원선택</div>
-<div id="menu2" style="display:none;">
-	<div class="list-member">
-		<div class="number-input">
-			<button class="down" id="down" ></button>
- 			<input class="quantity" name="pNum" min="1" name="quantity" value="1" type="number">
-  			<button class="plus" id="plus"></button>
+	<div class="content">
+		<div class="sRoom_list_top">
+			<h5 style="color: #6cc4dc;">
+				📖<strong>스터디룸 대여공간</strong>
+			</h5>
 		</div>
-		<div class="btnWrap">
-			<button class="numBtn1">초기화</button>
-			<button class="numBtn2" id="sRoomPeopleSearch">적용하기</button>
+		
+		<!-- 이미지 슬라이드 -->
+		<div class="sRoom_list_topImage">
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+				<div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleIndicators" 
+						data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="1" aria-label="Slide 2"></button>
+				</div>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="https://ifh.cc/g/wnfRd0.jpg" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="https://ifh.cc/g/wNLhyw.jpg" class="d-block w-100" alt="...">
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button"
+					data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button"
+					data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
 		</div>
+		
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="검색어를 입력하세요." id="totalSearch">
+			<button class="btn btn-outline-secondary" type="button" id="totalSearchBtn">검색</button>
+			<button class="btn btn-outline-secondary" type="button" id="searchResetBtn">초기화</button>
+		</div>
+		
+		<div class="keywordArea">
+			<p>👑 실시간 인기검색어</p>
+			<ul class="bestkeyword">
+				<c:forEach items="${bestKeyword }" var="bestKeyword">
+					<li class="rnum" onclick="bestKeywordSearch('${bestKeyword.KEYWORD_WORD }')">${bestKeyword.RNUM }위.
+						${bestKeyword.KEYWORD_WORD } (${bestKeyword.WCNT }회)</li>
+				</c:forEach>
+			</ul>
+		</div>
+
+		<div class="flex-center">
+			<div class="btn-select col-4 form-select" id="toggle">지역선택</div>
+			<div id="menu1" style="display: none; transform: translateX(-105%);">
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="서울">서울</li>
+					<li class="list-group-item list" value="경기">경기</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="인천">인천</li>
+					<li class="list-group-item list" value="부산">부산</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="광주">광주</li>
+					<li class="list-group-item list" value="대구">대구</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="대전">대전</li>
+					<li class="list-group-item list" value="울산">울산</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="제주">제주</li>
+					<li class="list-group-item list" value="강원">강원</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="경남">경남</li>
+					<li class="list-group-item list" value="경북">경북</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="전남">전남</li>
+					<li class="list-group-item list" value="전북">전북</li>
+				</ul>
+				<ul class="list-group list-group-horizontal list-member sRoomlocation">
+					<li class="list-group-item list" value="충남">충남</li>
+					<li class="list-group-item list" value="충북">충북</li>
+				</ul>
+			</div>
+
+			<div class="btn-select form-select" id="toggle2">인원선택</div>
+			<div id="menu2" style="display: none;">
+				<div class="list-member">
+					<div class="number-input">
+						<button class="down" id="down"></button>
+						<input class="quantity" name="pNum" min="1" name="quantity" value="1" type="number">
+						<button class="plus" id="plus"></button>
+					</div>
+					<div class="btnWrap">
+						<button class="numBtn1">초기화</button>
+						<button class="numBtn2" id="sRoomPeopleSearch">적용하기</button>
+					</div>
+				</div>
+			</div>
+			
+			<select class="form-select" id="orderBy" aria-label="Default select example" name="sortSelect" style="width: 300px;">
+				<option value="1" selected>최신순</option>
+				<option value="2">인기순</option>
+				<option value="3">평점순</option>
+				<option value="4">리뷰많은순</option>
+				<option value="5">낮은가격순</option>
+				<option value="6">높은가격순</option>
+			</select>
+		</div>
+
+		<p id="searchIntro" style="color: #3f92b7;">📖 다양한 스터디룸을 확인해보세요!</p>
+		<hr>
+
+		<div id="sRoomListContent"></div>
 	</div>
-
-</div>    
-<select class="form-select" id="orderBy"aria-label="Default select example" name="sortSelect" style="width:300px;">
-  <option value="1" selected>최신순</option>
-  <option value="2">인기순</option>
-  <option value="3">평점순</option>
-  <option value="4">리뷰많은순</option>
-  <option value="5">낮은가격순</option>
-  <option value="6">높은가격순</option>
-</select>
-</div>
-
-<p id="searchIntro" style="color: #3f92b7;">📖 다양한 스터디룸을 확인해보세요!</p>
-<hr>
-
-
-<div id="sRoomListContent"></div>
-
-</div>
-
-
-
+<%@ include file="../layout/footer.jsp"%>	
 </body>
 </html>

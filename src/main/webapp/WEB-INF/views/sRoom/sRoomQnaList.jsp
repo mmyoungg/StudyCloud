@@ -13,7 +13,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	moreAndHide()
-	
+
 	// 비밀글 체크여부
 	$("input[name=sRoomQnaUpdateSecret]").change(function() {
 		if( $(this).is(":checked") ) {
@@ -71,21 +71,32 @@ function updateModalPopUp(qnaNo, qnaTitle, qnaContent, sRoomN) {
 	$("#qnaUpdateBtn").attr("onclick", "qnaUpdate(" + qnaNo + "," + sRoomN + ")")
 	$(".updateMyModal").css("display", "block"); 
 }
+
 // QnA 삭제
 function deletesRoomQna(qnaNo, sRoomN) {
 	console.log("삭제모달 클릭");
 	console.log("qna 번호 : " + qnaNo);
 	console.log("qna 스터디룸 번호 : " + sRoomN);
 	
-	$.ajax({
-		url: "/sRoom/sRoomQnaDelete",
-		type: "POST",
-		data: { "sRoomQnaNo" : qnaNo, "sRoomNo": sRoomN },
-		success : function(r) {
-			console.log("[댓글 삭제] AJAX 요청완료");
-			$("#sRoomQnaArea").html(r);
-		}
-	}) // ajax
+	swal({
+		title: "작성하신 QnA를 삭제 하시겠습니까?",
+		showCancleButton: true,
+		confirmButtonColor: "#6cc4dc",
+		buttons: ["아니요", "예"]
+	}).then(function(isConfirm) {
+		if(isConfirm) {
+			$.ajax({
+				url: "/sRoom/sRoomQnaDelete",
+				type: "POST",
+				data: { "sRoomQnaNo" : qnaNo, "sRoomNo": sRoomN },
+				success : function(r) {
+					console.log("[댓글 삭제] AJAX 요청완료");
+					$("#sRoomQnaArea").html(r);
+				}
+			}) // ajax
+		} // isConfirm 
+	})
+	
 }
 	
 function moreAndHide() {
@@ -122,9 +133,23 @@ function moreAndHide() {
 				<c:when test="${not empty qnaList }">
 					<c:forEach items="${qnaList }" var="qnaList">
 						<div class="qna_box" id="qnaCont${qnaList.SROOMQNA_NO }">
-							<span><img src="/upload/${qnaList.FILEUPLOAD_STOR }" class="pimg" onerror="this.src='https://ifh.cc/g/BQ84hH.jpg'"></span>
-							<p class="write_name">${qnaList.MEMBER_NICK }</p>
-							
+							<c:choose>
+								<c:when test="${qnaList.AUTHORITY == 3}">
+									<div></div>
+								</c:when>
+								<c:otherwise>
+									<span><img src="/upload/${qnaList.FILEUPLOAD_STOR }" class="pimg" onerror="this.src='https://ifh.cc/g/BQ84hH.jpg'"></span>
+								</c:otherwise>
+							</c:choose>
+								<c:choose>
+									<c:when test="${qnaList.AUTHORITY == 3}"> <!-- 관리자 답변일 때 -->
+										<p class="write_name" style="color: red;"> &nbsp;&nbsp;&nbsp;ㄴ&nbsp;[관리자 답변] ${qnaList.MEMBER_NICK }</p>
+									</c:when>
+									<c:otherwise>
+										<p class="write_name">${qnaList.MEMBER_NICK }</p>
+									</c:otherwise>
+								</c:choose>
+							<input type="hidden" id="mAuthority" value="${qnaList.AUTHORITY }">
 							<c:choose>
 								<c:when test="${qnaList.SROOMQNA_SECRET eq 1}"> <!-- 비밀글일때 -->
 									<c:choose>
@@ -144,6 +169,7 @@ function moreAndHide() {
 									<p class="write_date"><fmt:formatDate value="${qnaList.SROOMQNA_DATE }" pattern="yy-MM-dd HH:mm:ss"/></p>
 								</c:otherwise>
 							</c:choose>
+									
 							<c:if test="${member_no eq qnaList.MEMBER_NO}">
 							<button class="miniBtn" type="button" onclick="updateModalPopUp(${qnaList.SROOMQNA_NO }, '${qnaList.SROOMQNA_TITLE}', '${qnaList.SROOMQNA_CONTENT }', ${qnaList.SROOM_NO } )">수정</button>
 							<button class="miniBtn" type="button" onclick="deletesRoomQna(${qnaList.SROOMQNA_NO }, ${qnaList.SROOM_NO })">삭제</button>
@@ -162,6 +188,7 @@ function moreAndHide() {
 	<a href="#" id="moreBtn">더보기</a>
 	<a href="#" id="hideBtn">접기</a>
 </div>
+
 			
 			
 				

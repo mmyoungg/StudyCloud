@@ -133,38 +133,52 @@ function deletesRoomRev(reno, srno) {
 	var reno = reno;
 	console.log("[리뷰삭제] 삭제할 리뷰번호 : " + reno);
 	
-	$.ajax({
-		url: "/sRoom/sRoomRevDelete",
-		type: "POST",
-		data: { "sRoomReviewNo" : reno, "sRoomNo" : srno},
-		success : function(r) {
-			console.log("[리뷰 삭제] AJAX 요청완료");
-			$("#sRoomRevArea").html(r);
- 		 
-		}
-	}) // ajax 
+	swal({
+		title: "작성하신 리뷰를 삭제 하시겠습니까?",
+		showCancleButton: true,
+		confirmButtonColor: "#6cc4dc",
+		buttons: ["아니요", "예"]
+	}).then(function(isConfirm) {
+		if(isConfirm) {
+			$.ajax({
+				url: "/sRoom/sRoomRevDelete",
+				type: "POST",
+				data: { "sRoomReviewNo" : reno, "sRoomNo" : srno},
+				success : function(r) {
+					console.log("[리뷰 삭제] AJAX 요청완료");
+					$("#sRoomRevArea").html(r);
+		 		 
+				}
+			}) // ajax 
+		} // isConfirm
+	})
 	
 }
 
 
 </script>
-    
+
 <div class="infoBox">
-					<h6 class="review_intro">후기 개수
-						<strong class="review_point"><em>${reviewInfo.CNT }</em>개</strong>
-						<span class="dot"></span>
-						<span>평균 별점<strong class="review_point"><em>${reviewInfo.AVG }</em></strong></span>
-					</h6>
-					<hr>
+	<h6 class="review_intro"> 후기 개수 
+		<strong class="review_point"><em>${reviewInfo.CNT }</em>개</strong>
+		<span class="dot"></span> 
+		<span>평균 별점
+			<strong class="review_point">
+				<em>${reviewInfo.AVG }</em>
+			</strong>
+		</span>
+	</h6>
+	<hr>
 	<ul class="Qna_list">
-		<li class="qna_hr">
-			<c:choose>
+		<li class="qna_hr"><c:choose>
 				<c:when test="${not empty reviewList }">
 					<c:forEach items="${reviewList }" var="reviewList">
 						<div class="rev_box" id="revCont${reviewList.SROOMREVIEW_NO }">
-							<span><img src="/upload/${reviewList.FILEUPLOAD_STOR }" class="pimg" onerror="this.src='https://ifh.cc/g/BQ84hH.jpg'"></span>
+							<span>
+								<img src="/upload/${reviewList.FILEUPLOAD_STOR }" class="pimg" onerror="this.src='https://ifh.cc/g/BQ84hH.jpg'">
+							</span>
 							<p class="write_name">${reviewList.MEMBER_NICK }</p>
-							
+
 							<c:forEach begin="0" end="4" var="i">
 								<c:choose>
 									<c:when test="${reviewList.SROOMREVIEW_SCORE > i }">
@@ -176,23 +190,26 @@ function deletesRoomRev(reno, srno) {
 								</c:choose>
 							</c:forEach>
 							<p class="qna_cont">${reviewList.SROOMREVIEW_CONTENT }</p>
-							<p class="write_date"><fmt:formatDate value="${reviewList.SROOMREVIEW_DATE }" pattern="yy-MM-dd HH:mm:ss"/></p>
-							
+							<p class="write_date">
+								<fmt:formatDate value="${reviewList.SROOMREVIEW_DATE }" pattern="yy-MM-dd HH:mm:ss" />
+							</p>
+
 							<c:if test="${member_no eq reviewList.MEMBER_NO}">
-								<button class="miniBtn" type="button" onclick="updateRevModalPopUp(${reviewList.SROOMREVIEW_NO }, '${reviewList.SROOMREVIEW_SCORE}', '${reviewList.SROOMREVIEW_CONTENT }', ${reviewList.SROOM_NO } )">수정</button>
-								<button class="miniBtn" type="button" onclick="deletesRoomRev(${reviewList.SROOMREVIEW_NO }, ${reviewList.SROOM_NO })">삭제</button>
+								<button class="miniBtn" type="button"
+									onclick="updateRevModalPopUp(${reviewList.SROOMREVIEW_NO }, '${reviewList.SROOMREVIEW_SCORE}', '${reviewList.SROOMREVIEW_CONTENT }', ${reviewList.SROOM_NO } )">수정</button>
+								<button class="miniBtn" type="button"
+									onclick="deletesRoomRev(${reviewList.SROOMREVIEW_NO }, ${reviewList.SROOM_NO })">삭제</button>
 							</c:if>
 						</div>
-					</c:forEach>							
+					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<div class="qna_box_empty">🔎 등록된 리뷰가 없습니다.</div>
 				</c:otherwise>
 			</c:choose>
 		</li>
-	</ul>				
+	</ul>
 </div>
 <div class="revBtnBox">
-	<a href="#" id="RevmoreBtn">더보기</a>
-	<a href="#" id="RevhideBtn">접기</a>
+	<a href="#" id="RevmoreBtn">더보기</a> <a href="#" id="RevhideBtn" style="margin-bottom: 20px;">접기</a>
 </div>
