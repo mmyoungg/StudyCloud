@@ -17,7 +17,31 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
-<
+<script type="text/javascript">
+function getSearchList(){
+	$.ajax({
+		type: 'GET',
+		url : "/sboard/getSearchList",
+		data : $("form[name=search-form]").serialize(),
+		success : function(result){
+			//테이블 초기화
+			$('#sboard-list > tbody').empty();
+			if(result.length>=1){
+				result.forEach(function(item){
+					str='<ul>'
+					str += "<a href = '/sboard/detail?studyNo=" + studyboard.STUDY_NO + "'>" + "</a>";
+// 					str+="<td><a href = '/sboard/detail?studyNo=" + studyboard.STUDY_NO + "'>"  + "</a></td>";
+					str+="<div>"+studyboard.STUDY_TAG +"</div>";
+					str+="</ul>"
+					$('#boardtable').append(str);
+        		})				 
+			}
+		}
+	})
+}
+
+</script>
+
 <style type="text/css">
 
 
@@ -162,9 +186,9 @@ h4, h6 {
 <div class="container1">
 	
 	<div class="search-tag" style="padding-left: 30px; margin-bottom: 25px;">
-		<form class="d-flex" role="search">
-	        	<input class="form-control me-2" type="search" placeholder="#태그를 검색해보세요." aria-label="Search">
-	        	<button class="btn btn-outline-light" type="submit">search</button>
+		<form name="search-form" autocomplete="off" class="d-flex" role="search">
+	        	<input class="form-control me-2" type="search" placeholder="#태그를 검색해보세요." name="keyword" aria-label="Search">
+	        	<button class="btn btn-outline-light" type="submit" onclick="getSearchList()">search</button>
 	     </form>
 	</div>
 			<div class="nav-option">

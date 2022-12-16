@@ -2,6 +2,7 @@ package service.face;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import dto.Commt;
 import dto.StudyBoard;
@@ -30,6 +31,8 @@ public interface SboardService {
 	public void insertcmmt(Commt commt);
 
 	public void deletecmt(int commtNo);
+
+	public List<StudyBoard> getSearchList(StudyBoard sboard);
 
 
 

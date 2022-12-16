@@ -20,12 +20,13 @@ public class StudyBoard {
 	private Date enrollstudyDate;
 	private int sboardMarkcnt;
 	private Member member;
+	private String keyword;
 	
 	public StudyBoard() {}
 
 	public StudyBoard(int studyNo, int memberNo, String studyTitle, int studyPeople, String studyAddress,
 			String studyTag, Date studyDate, String studyTime, String studyContent, String studyNotify,
-			Date enrollstudyDate, int sboardMarkcnt, Member member) {
+			Date enrollstudyDate, int sboardMarkcnt, Member member, String keyword) {
 		super();
 		this.studyNo = studyNo;
 		this.memberNo = memberNo;
@@ -40,6 +41,7 @@ public class StudyBoard {
 		this.enrollstudyDate = enrollstudyDate;
 		this.sboardMarkcnt = sboardMarkcnt;
 		this.member = member;
+		this.keyword = keyword;
 	}
 
 	@Override
@@ -153,5 +155,15 @@ public class StudyBoard {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	
 
 }

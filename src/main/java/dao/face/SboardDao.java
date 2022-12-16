@@ -2,6 +2,7 @@ package dao.face;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import dto.Commt;
 import dto.StudyBoard;
@@ -30,6 +31,8 @@ public interface SboardDao {
 	public Commt selectCmtByCommtNo(int commtNo);
 
 	public void deletecmt(int commtNo);
+
+	public List<StudyBoard> selectSearchList(StudyBoard sboard);
 
 
 }
