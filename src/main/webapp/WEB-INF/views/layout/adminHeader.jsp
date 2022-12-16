@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -264,12 +263,6 @@ $(document).ready(function() {
 	})
 })
 
-$(document).ready(function() {
-	$("#btnUpdate").click(function() {
-		location.href = "/admin/update"
-	})
-})
-
 </script>
 
 </head>
@@ -288,7 +281,7 @@ $(document).ready(function() {
                 <div class="collapse navbar-collapse" id="menu-wrap">
                     <ul class="navbar-nav me-auto mb-lg-0">
                         <li class="nav-item" id="welcome">
-                        	${info.memberNick } 님 안녕하세요
+                        	${info.memberNick }관리자 님 안녕하세요
                         </li>
                     </ul>
                     
@@ -310,7 +303,7 @@ $(document).ready(function() {
 		<ul class="sidebar-nav" id="sidebar-nav">
 		
 			<li class="nav-item" id="sidebarMenu">
-				<a href="./main" class="nav-link" >
+				<a href="/admin/main" class="nav-link" >
 				  <span>홈</span>
 				</a>
 			</li>
@@ -351,11 +344,6 @@ $(document).ready(function() {
 				</a>
 			</li>
 			
-			<li class="nav-item" id="sidebarMenu">
-				<a id="btnUpdate" class="nav-link collapsed" data-bs-toggle="collapse">
-				  <span>정보 수정</span>
-				</a>
-			</li>
 		</ul>
   
 	</div><!-- container end -->

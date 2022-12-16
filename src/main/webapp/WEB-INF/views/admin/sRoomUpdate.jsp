@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>admin studyroom</title>
 
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>

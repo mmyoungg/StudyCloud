@@ -125,7 +125,7 @@
                         <li class="nav-item"> <a class="nav-link" id="menu" href="/sboard/main">스터디 찾기</a> </li>
 
                         <li class="nav-item dropdown community">
-                            <a class="nav-link dropdown menu" href="#" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
+                            <a class="nav-link dropdown menu" id="navbarDropdown menu" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/freeBoard/list">자유게시판</a></li>
                                 <li><a class="dropdown-item" href="/mboard/main">번개게시판</a></li>

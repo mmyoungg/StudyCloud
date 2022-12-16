@@ -49,14 +49,15 @@
 	<context:component-scan base-package="controller, service" />
 
 	<!-- 인터셉터 설정 -->
-<!-- 	<interceptors> -->
-<!-- 		<interceptor> -->
-				<!-- 인터셉터가 적용될 URL -->
-<!-- 			<mapping path="/admin/**"/> -->
+	<interceptors>
+		<interceptor>
 			
-				<!-- 인터셉터 클래스 지정 -->
-<!-- 			<beans:bean class="interceptor.AdminInterceptor" /> -->
-<!-- 		</interceptor> -->
-<!-- 	</interceptors> -->
+			<!-- 인터셉터가 적용될 URL -->
+			<mapping path="/admin/**"/>
+			
+			<!-- 인터셉터 클래스 지정 -->
+			<beans:bean class="interceptor.AdminInterceptor" />
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

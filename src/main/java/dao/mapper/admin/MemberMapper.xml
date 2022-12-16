@@ -31,12 +31,17 @@
 
 	<!-- 회원관리 -->
 	<select id="selectList" resultType="Member" parameterType="util.Paging">
-		SELECT * FROM member
-		WHERE authority != 4 <!-- 관리자 출력 제외 -->
-		ORDER BY member_no DESC
-<!-- 		WHERE rownum BETWEEN #{startNo } AND #{endNo } -->
+		SELECT * FROM (
+			SELECT rownum rnum, M.* FROM (
+				SELECT
+					member_no, member_id, member_name, member_nick
+					, member_email, member_phone, authority
+				FROM member
+				WHERE authority != 4 <!-- 관리자 출력 제외 -->
+				ORDER BY member_no DESC
+			) M
+		) MEMBER
+		WHERE rownum BETWEEN #{startNo } AND #{endNo }
 	</select>
-	
-	
 
 </mapper>

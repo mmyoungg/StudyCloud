@@ -79,11 +79,11 @@ public interface SroomService_admin {
 	
 	/**
 	 * 게시글 정보로 QnA를 함께 조회한다
+	 * @param paging 
 	 * 
-	 * @param studyroom - 게시글 정보
 	 * @return QnA 리스트
 	 */
-	public List<HashMap<String, Object>> qnaList();
+	public List<HashMap<String, Object>> qnaList(Paging paging);
 
 	/**
 	 * 게시글 상세보기
@@ -99,5 +99,13 @@ public interface SroomService_admin {
 	 * @param sroomQna - 게시글 정보 객체
 	 */
 	public void writeqna(SroomQna sroomQna);
+
+	/**
+	 * 게시글 정보로 QnA를 함께 조회한다
+	 * 
+	 * 
+	 * @return QnA 게시글 목록
+	 */
+	public List<HashMap<String, Object>> previewQna();
 
 }

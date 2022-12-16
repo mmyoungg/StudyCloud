@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin studyroom view</title>
+<title>admin studyroom</title>
 
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>

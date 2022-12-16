@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>admin reservation search</title>
 
 <!-- 데이트 피커 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -95,44 +95,8 @@ $(function() {
 
 <script type="text/javascript">
 
-// DOM이 모두 로드되었을때 
-$(function(){
-   // 기본값은 인사팀 
-   var defalutData = {deptNum : 1}
-   // 인사팀 사원 리스트 조회
-   getMemberByAjax(defalutData)
-});
-
-   const body = document.querySelector('body'),
-   sidebar = body.querySelector('nav'),
-   toggle = body.querySelector(".toggle"),
-   searchBtn = body.querySelector(".search-box"),
-   modeSwitch = body.querySelector(".toggle-switch"), 
-   modeText = body.querySelector(".mode-text");
-   deptNum;
-   deptName;
-
-   toggle.addEventListener("click", () => {
-   sidebar.classList.toggle("close");
-   })
-
-
-   searchBtn.addEventListener("click", () => {
-   sidebar.classList.remove("close");
-   })
-
-   modeSwitch.addEventListener("click", () => {
-   body.classList.toggle("dark");
-
-   if (body.classList.contains("dark")) {
-       modeText.innerText = "Light mode";
-   } else {
-       modeText.innerText = "Dark mode";
-   }
-   });
-
    // 검색 버튼 클릭시 호출되는 함수
-   function searchMember(){
+   function searchName(){
       if( reserveNo === undefined || reserveNo === '' || reserveNo < 1){
     	  reserveNo = 1
       }
@@ -155,7 +119,7 @@ $(function(){
       
       // 혹시 모를 오류 방지를 위해 기본 값 처리
       if(sRoomName === undefined || sRoomName === ''){
-         sRoomName = '인사팀스터디룸'
+         sRoomName = '스터디룸'
       }
       
       // 부서 이름 나타내기      
