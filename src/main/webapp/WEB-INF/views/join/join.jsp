@@ -50,7 +50,6 @@ $(document).ready(function() {
 			$("#joinForm").submit();
 		}
 	})
-	});
 
 
 //카카오 회원가입
@@ -71,8 +70,8 @@ function kakaoLogin() {
     });
 
   }
-
-  $(document).ready(function() {
+  
+//-------------------------------------------
 
       var kakaoInfo = '${kakaoInfo}';
 
@@ -86,11 +85,9 @@ function kakaoLogin() {
           + "\n nickname : " 
           + data['nickname']);
       }
-  });  
   
  //휴대폰 번호 자동 하이픈 추가 
  
-  $(document).ready(function() {
 	   $("#memberPhone").keydown(function(event) {   //입력창에 숫자 입력
 	       var key = event.charCode || event.keyCode || 0;
 	       $text = $(this); 
@@ -104,12 +101,11 @@ function kakaoLogin() {
 	           }
 	       }
 	   })
-  })
   
  
 
 //아이디 중복 체크
-$(document).ready(function() {
+
 	$("#idchk").click(function(e){
 		console.log($("#memberId").val())
 		e.preventDefault()
@@ -140,26 +136,26 @@ $(document).ready(function() {
 	      })
 	})
    
-   
-
-})
-
 
 //비밀번호 일치 확인
-	function passConfirm() {
 
-	var password = document.getElementById('memberPw');					
-	var passwordConfirm = document.getElementById('memberPwchk');	
+	$('#pwchk').click(function(e){
+		e.preventDefault()
+		// 비밀번호 입력 값 가져오기
+		var pw = $('#memberPw').val();
 		
-		if(password.value == passwordConfirm.value){
+		// 비밀번호 확인 입력 값 가져오기
+		var confirmPw = $('#memberPwck').val();
+			
+		if(pw == confirmPw){
 			alert("비밀번호가 일치합니다.");
 		}else{
 			alert("비밀번호가 일치하지 않습니다");
 		}
-	}
+	})
 
 // 가입 전 유효성 검사
-$(document).ready(function() {
+
 	$('#btnjoin').click(function(e) {
 
 	//가입 전에 입력한 항목이 규칙에 따라 정확히 입력되어있는지 확인하기 위해       
@@ -173,8 +169,7 @@ $(document).ready(function() {
 	var pw = $('#memberPw').val();
 	
 	// 비밀번호 확인 입력 값 가져오기
-	var confirmPw = $('#memberPwck')
-			.val();
+	var confirmPw = $('#memberPwck').val();
 	
 	// 핸드폰번호 입력 값 가져오기
 	var phone = $('#memberPhone').val();
@@ -225,7 +220,8 @@ $(document).ready(function() {
 
 	})
 
-})
+});
+	
 </script>
 
 <style type="text/css">
@@ -440,7 +436,7 @@ margin-left: -7%;
 							<div class="form-group">
 								<div class="form-pwck">비밀번호확인</div>
 								<input class="form-control" type="password" id="memberPwck" name="memberPwck">
-								<button class="btn btn-bold btn-primary btnsm" id="pwchk" onclick="passConfirm();" value="N">일치확인</button>
+								<button class="btn btn-bold btn-primary btnsm" id="pwchk" type="button" value="N">일치확인</button>
 								<br>
 							</div>
 							<div class="form-group">

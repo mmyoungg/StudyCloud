@@ -10,18 +10,13 @@ public class Member {
 	private String memberName;
 	private String memberNick;
 	private String memberPhone;
+	private String withdrawal;
 	
 	public Member() {	}
 
-	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberEmail="
-				+ memberEmail + ", authority=" + authority + ", memberName=" + memberName + ", memberNick=" + memberNick
-				+ ", memberPhone=" + memberPhone + "]";
-	}
 
 	public Member(int memberNo, String memberId, String memberPw, String memberEmail, int authority, String memberName,
-			String memberNick, String memberPhone) {
+			String memberNick, String memberPhone, String withdrawal) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -31,7 +26,27 @@ public class Member {
 		this.memberName = memberName;
 		this.memberNick = memberNick;
 		this.memberPhone = memberPhone;
+		this.withdrawal = withdrawal;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberEmail="
+				+ memberEmail + ", authority=" + authority + ", memberName=" + memberName + ", memberNick=" + memberNick
+				+ ", memberPhone=" + memberPhone + ", withdrawal=" + withdrawal + "]";
+	}
+
+
+	public String getWithdrawal() {
+		return withdrawal;
+	}
+
+
+	public void setWithdrawal(String withdrawal) {
+		this.withdrawal = withdrawal;
+	}
+
 
 	public int getMemberNo() {
 		return memberNo;

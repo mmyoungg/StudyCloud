@@ -66,6 +66,19 @@ span.write_date {
 	float: right;
 }
 
+.select_field {
+    color: gray;
+    font-size: 15px;
+    width: 130px;
+    text-align: center;
+    background-color: #fff;
+    border : solid 1px #d3d3d3;
+    border-radius: 6px;
+    box-shadow : 1px 1px 1px #696969;
+    transition-duration: 0.3s;
+    height: 32px;
+}
+
 .info_table {
 	margin-top: 40px;
 	margin-bottom: 25px;
@@ -104,6 +117,11 @@ span.write_date {
 	padding-bottom: 130px;
 	font-size: 15px;
 }
+
+.filedown {
+	float: right!important;
+}
+
 
 
 /* wrap3 */
@@ -301,5 +319,14 @@ textarea::placeholder {
     text-decoration: none;
 }
 
+.btn-wrap {
+	margin-top: 50px;
+	text-align: right;
+}
+
+#page_btn {
+    color:#3f92b7;
+    font-size: 14px;
+}
 
 

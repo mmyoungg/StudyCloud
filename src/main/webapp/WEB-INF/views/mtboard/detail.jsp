@@ -9,10 +9,11 @@
 <title>멘토찾기｜게시글</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:import url="../layout/header.jsp" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link rel="stylesheet" href="/resources/css/mtBoardDetail.css?ver=2"> 
+<link rel="stylesheet" href="/resources/css/mtBoardDetail.css?ver=1"> 
 <script src="../resources/js/mntBoardView.js?ver=1"></script>
 
 <script type="text/javascript">
@@ -27,7 +28,50 @@
 		$("#MtbtnDelete").click(function() {
 			location.href = "/mtboard/delete?mtboardNo=${mtViewBoard.MTBOARD_NO}"
 		}) 
-	})
+		
+		/* 좋아요 버튼 */
+		$(".btn_heart").click(function() {
+			console.log("클릭됨");
+			
+			$.ajax({
+				type: "get"
+				, url: "/mtboard/like"
+				, data: {
+					"memberNo" : '${member_no}'
+					, "mtboardNo": ${param.mtboardNo}
+				}
+				, dataType: "json"
+				, success: function( data ) {
+	 				console.log("성공");
+
+					
+	 				if(data.result) { //좋아요 성공
+						$("#Mheart").css("color", "red");
+						alert('좋아요 성공!')
+					
+					} else { //좋아요 취소 성공
+						$("#Mheart").css("color", "");
+						alert('좋아요 취소!')
+					
+					}
+					
+				}
+				, error: function() {
+					alert('다시 시도해주세요.')
+					console.log("실패");
+				
+				}
+			})	
+			
+		}); //$(".btn_heart").click(function() end
+				
+				
+	if('true' == '${like}') {
+		$("#Mheart").css("color", "red");
+	} else {
+		$("#Mheart").css("color", "");
+	}
+})	
 
 </script>
 </head>
@@ -91,8 +135,8 @@
 </button>
 
 <!-- 찜하기 -->
-<button type="button" class="btn btn-primary" id="heart">
- 	<i class="bi bi-heart"></i>
+<button type="button" class="btn_heart btn btn-primary" id="heart">
+<i id="Mheart" class="fa fa-heart"></i>
 </button>
 
 <!-- 쪽지 -->
@@ -108,11 +152,11 @@
 <table class="info_table">
 <tr>
 	<td class="info_name" scope="row">직무</td>
-	<td>${mtViewBoard.JOBDUTY }</td><%-- <td>${viewBoard.boardNo }</td> --%>
+	<td>${mtViewBoard.JOBDUTY }</td>
 </tr>
 <tr>
 	<td class="info_name" scope="row">경력</td>
-	<td>${mtViewBoard.CAREER }</td><%-- <td>${viewBoard.writerId }</td> --%>
+	<td>${mtViewBoard.CAREER }</td>
 </tr>
 <tr>
 	<td class="info_name" scope="row">현직</td>
@@ -120,9 +164,10 @@
 </tr>
 </table>
 
-<span class="write_date"><fmt:formatDate value="${mtViewBoard.MTBOARD_DATE }" pattern="yyyy-MM-dd"/></span>
-
 <div class="mt_time">1시간 / ${mtViewBoard.MT_PRICE } 원</div>
+<br>
+<button class="select_field">${mtViewBoard.FIELD }</button>
+<span class="write_date"><fmt:formatDate value="${mtViewBoard.MTBOARD_DATE }" type="both" dateStyle="default" timeStyle="short"/></span>
 <hr>
 </div> <!-- mt_wrap1 끝 -->
 <div style="float: right;"><a class="filedown" href="/mtboard/download?fileUploadNo=${fileUpload.fileUploadNo}">${fileUpload.fileUploadOri }</a></div>
@@ -138,7 +183,6 @@ ${mtViewBoard.MTBOARD_CONTENT }
 <a class="btn btn-primary" href="/mtboard/applyMnt" type="button" style="float: right; font-size: 15px;">
 신청하기</a>
 </div><!-- mt_wrap2 끝 -->
-
 <div class="mt_wrap3">
 <h5>후기</h5>
 <hr>

@@ -87,12 +87,13 @@ public interface MemberDao {
 	public Member getMemberByMemberNo(Member member);
 	
 	
+	/**
+	 * 회원탈퇴 여부를 포함한 로그인 쿼리
+	 * 
+	 * @param member
+	 */
+	public String login(Member member);
 	
-
-
-
-
-
 
 	
 }
