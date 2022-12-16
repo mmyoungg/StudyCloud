@@ -2,6 +2,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -112,6 +113,14 @@ public class SboardServiceImpl implements SboardService{
 	@Override
 	public void deletecmt(int commtNo) {
 		sboardDao.deletecmt(commtNo);
+	}
+
+	//----------------------------------------------------------------------
+	
+	
+	@Override
+	public List<StudyBoard> getSearchList(StudyBoard sboard) {
+		return sboardDao.selectSearchList(sboard);
 	}
 
 	

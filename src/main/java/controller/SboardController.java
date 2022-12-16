@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.Commt;
 import dto.Member;
@@ -24,6 +26,7 @@ import util.Paging;
 
 @Controller
 public class SboardController {
+	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -219,7 +222,23 @@ public class SboardController {
 	}
 	
 	
+	//----------------------------------------------------------------------------------------------------
 	
+	@GetMapping("/sboard/getSearchList")
+	@ResponseBody
+	public List<StudyBoard> getSearchList(
+			
+			@RequestParam("keyword") String keyword
+			, Model model
+			
+			) throws Exception {
+		
+		logger.info("keyword {}", keyword);
+		
+		StudyBoard sboard = new StudyBoard();
+		sboard.setKeyword(keyword);
+		return sboardService.getSearchList(sboard);
+	}
 	
 	
 	

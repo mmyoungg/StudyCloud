@@ -52,4 +52,22 @@
 		WHERE study_no = #{studyNo }
 	</delete>
 	
+	<select id="selectSearchList" parameterType="util.Paging" resultType="HashMap">
+	SELECT * FROM ( 
+			SELECT rownum rnum, B.* FROM (
+				SELECT s.study_no, s.member_no, s.study_title, s.study_people, s.study_address, s.study_tag, s.study_date, s.study_time
+						,s.study_content, s.study_notify, s.enrollstudy_date, s.sboard_markcnt
+						,m.member_id, m.member_nick
+				FROM studyboard s
+				JOIN member m ON ( s.member_no = m.member_no ) ORDER BY s.study_no DESC 
+			) B
+		) STUDYMBOARD
+	WHERE rnum between #{startNo } AND #{endNo }
+	<choose>
+		<when test="keyword != null">
+			AND study_tag LIKE CONCAT('%', #{keyword }, '%')
+		</when>
+	</choose>
+	
+	</select>
 	</mapper>

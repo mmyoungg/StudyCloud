@@ -337,7 +337,7 @@ textarea:focus {
 				<h1 class="modal-title fs-5" id="exampleModalLabel">스터디 신청을 환영합니다!</h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-				<form action="/detail/enroll" method="get" class="applyform" name="userInfo" onsubmit="return check()">
+				<form action="/mypage/mystudy" method="post" class="applyform" name="userInfo" onsubmit="return check()">
 			<div class="modal-body">
 					<div class="input-group mb-3">
 						<span class="input-group-text">✔️</span>
