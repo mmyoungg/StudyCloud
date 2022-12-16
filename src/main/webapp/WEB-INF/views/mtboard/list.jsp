@@ -11,34 +11,123 @@
 <c:import url="../layout/header.jsp" /> 
 
 <!-- css연결 -->
-<link rel="stylesheet" href="/resources/css/mtBoardList.css?ver=2"> 
-
+<link rel="stylesheet" href="/resources/css/mntBoardList.css?ver=2"> 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	var curPage = 1;    	
-	console.log(curPage);
-})
+	var sort = "mtboard_date";
+	var page = 1;
 
+	var keyword;
+	var type;
+	var field;
 
-function pageMove(page_no) {
-	$.ajax({
-		type: "Get"
-	   , url: "/mtboard/listPaging"
-	   , data: {
-		   curPage:page_no
-	   }
-	   , dataType: "html"
-	   , success: function( p ) {
-		   $("#listPaging").html(p)
-	   }
+	// 기본값으로 리스트 불러오기(최신순으로 1페이지 리스트)
+	getList()
+
+	
+	function pageMove(page_no) {
+		// 전역변수에 인자 값을 할당
+		page = page_no
 		
-	})
-}
+		// 페이지에 맞는 리스트 불러오기 
+		getList()
+	}
+
+	function pageSort(e){
+		// 전역변수에 인자 값을 할당
+		sort = e
+		
+		// 소팅된 리스트 불러오기
+		getList()
+	}
+	
+	
+	function pageField(e){
+		// 전역변수에 인자 값을 할당
+		field = e.target.value
+		
+		// 분야별 리스트 불러오기
+		getList()
+	}
+
+	function search(e){
+		var searchTypeSel = $('#searchTypeSel').val();
+		var kword = $('#keyword').val();
+		type = searchTypeSel
+		keyword = kword
+		
+		var isExistType = (type !== undefined && type.length > 0)
+		var isExistKeyword = (keyword !== undefined && keyword.length > 0)
+		
+		console.log(isExistKeyword)
+		console.log(isExistType)
+		
+		// 검색 결과 리스트 불러오기
+		if(isExistType && isExistKeyword){
+			getList()
+		}else if (!isExistType){
+			alert("검색 조건을 선택하세요!");
+		}else if(!isExistKeyword) {
+			alert("검색어를 입력하세요!");
+		}
+		
+	}
+
+	function getList(){
+		var param = {
+				curPage : page,
+				sort : sort,
+				field: field,
+				keyword: keyword,
+				type: type
+		}
+		console.log(param)
+		$.ajax({
+			type: "Get"
+		   , url: "/mtboard/listPaging"
+		   , data: param
+		   , dataType: "html"
+		   , success: function( p ) {
+			   $("#listPaging").html(p)
+		   }
+			
+		})
+	}
+	
+	function setSearchTypeSelect(){
+		var $searchTypeSel = $('#searchTypeSel');
+		var $keyword = $('#keyword');
+		
+		//검색 버튼이 눌리면
+		$('#searchBtn').on('click',function(){
+			var searchTypeVal = $searchTypeSel.val();
+			var keywordVal = $keyword.val();
+			
+			if(!searchTypeVal){
+				alert("검색 조건을 선택하세요!");
+				return;
+			}else if(!keywordVal){
+				alert("검색어를 입력하세요!");
+				return;
+			}
+			
+		})
+	}
+	
+ 
+  	$('.field_reset').click(function(){
+ 		page = undefiend;
+		sort  = undefiend;
+		field = undefiend;
+		keyword = undefiend;
+		type = undefiend;
+		getList()
+ 	}) 
 </script>
 
 
@@ -68,41 +157,33 @@ function pageMove(page_no) {
     <div class="field">
     <table class="field_tb">   
     <tr>
-    <th>☁️ 분야 ☁️</th>
+    <th style="background-color: #aacde5;" ><i class="fa-solid fa-caret-down"></i> 분야 별 보기 <i class="fa-solid fa-caret-down"></i></th>
     </tr>
      
     <tr> 
   	<td>
-  	<input type="checkbox" id="field_01" value="1">
-  	<label>개발 · 프로그래밍</label>
+  	<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value="개발 · 프로그래밍"  onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option1" >개발 · 프로그래밍</label>
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="직무 · 마케팅" onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option2">직무 · 마케팅</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_02" value="2">
-  	<label>어학 · 외국어</label>
+	<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value="커리어" onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option3">커리어</label>
 	</td>
 	</tr>
 	
 	<tr>
 	<td>
-  	<input type="checkbox" id="field_03" value="3">
-  	<label>직무 · 마케팅</label>
-	</td>
-	</tr>
-	
-	<tr>
-	<td>
-  	<input type="checkbox" id="field_04" value="4">
-  	<label>커리어</label>
-	</td>
-	</tr>
-	
-	<tr>
-	<td>
-  	<input type="checkbox" id="field_05" value="5">
-  	<label>기타</label>
+  	<input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value="기타" onclick="pageField(event)">
+	<label class="btn btn-secondary" for="option4">기타</label>
 	</td>
 	</tr>
 	</table>
@@ -123,16 +204,20 @@ function pageMove(page_no) {
 
 <div class="radio_bt">	
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked  onclick="pageSort('mtboard_date')">
   <label class="form-check-label" for="flexRadioDefault1">최신순</label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onclick="pageSort('mtboard_cmcnt')">
   <label class="form-check-label" for="flexRadioDefault2">후기 많은 순</label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
-  <label class="form-check-label" for="flexRadioDefault2">좋아요순</label>
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" onclick="pageSort('mark_cnt')" >
+  <label class="form-check-label" for="flexRadioDefault2">찜하기순</label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" onclick="pageSort('mtboard_hit')" >
+  <label class="form-check-label" for="flexRadioDefault2">조회수순</label>
 </div>
 </div>
 
@@ -146,21 +231,25 @@ function pageMove(page_no) {
 </div> <!-- right -->
 
 	<!-- <!-- 검색바 -->
-  <div class="container-fluid">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search"
+  <div class="searchContainer">
+    <form class="search" role="search">
+	<select class="form-select" id="searchTypeSel" name="searchType" >
+		<option value="">검색조건</option>
+		<option value="mtboard_title">제목</option>
+		<option value="mtboard_content">내용</option>
+		<option value="member_nick">작성자</option>
+		<option value="tc">제목+내용</option>
+	</select>
+      <input class="form-control me-2"  type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" aria-label="Search"
       onfocus="this.placeholder=''" onblur="this.placeholder='검색어를 입력하세요'">
-      <button class="btn" type="submit">☁️</button>
+      <button type="button" class="btn searchBtn" onclick="search(this)">☁️</button>
     </form>
-  </div>
-
 </div> <!-- container --> 
 
 
-
+</div>
 </main>
 </main>
-
 <c:import url="../layout/footer.jsp" />  
 </body>
 </html>

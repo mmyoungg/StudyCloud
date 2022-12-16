@@ -44,7 +44,7 @@ public class MntBoardServiceImpl implements MntBoardService {
 		  
 	  }
 
-	 // 페이징 글목록
+	 // 글목록
 	@Override
 	public List<HashMap<String, Object>> list(Map<String, Object> map) {
 		return mntBoardDao.MntBoardList(map);
@@ -63,21 +63,13 @@ public class MntBoardServiceImpl implements MntBoardService {
 		// 조회수 증가
 		mntBoardDao.mntBoardHit(viewBoard);
 		
-		// 좋아요 수 => ? 
-		// mntBoardDao.mntBoardLike(viewBoard);
-		
 		// 상세보기 조회결과 
 		return mntBoardDao.selectMntBoard(viewBoard);
 	}
 
+	// 글쓰기
 	@Override
 	public void write(MntBoard mntBoard, MultipartFile file) {
-		
-//		// 게시글 처리 ( 게시판 제목 Not Null임 )
-//		if("".equals( mntBoard.getMntboardTitle())) {
-//				mntBoard.setMntboardTitle("(제목없음)");
-//		}
-		
 		
 		mntBoardDao.insertBoard(mntBoard);
 		

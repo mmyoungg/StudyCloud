@@ -1,43 +1,78 @@
 package service.face;
 
 import java.util.HashMap;
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import dto.ApplyMnt;
 import dto.ApplyMt;
 import dto.FileUpload;
-import dto.MntBoard;
 import dto.MtBoard;
+import dto.MtMark;
 import util.CommtPaging;
-import util.Paging;
+import util.PagingVUp;
 
 public interface MtBoardService {
 
 	
-	public Paging getPaging(int curPage);
+	public PagingVUp getPaging(Map<String, Object> map, int curPage);
 
-	public List<HashMap<String, Object>> list(Paging paging);
+	public List<HashMap<String, Object>> list(Map<String, Object> map);
 
-	public HashMap<String, Object> view(MtBoard viewBoard);
+	public List<HashMap<String, Object>> list(PagingVUp paging);
+	
+	public HashMap<String, Object> view(int viewBoardNo);
 
 	public void write(MtBoard mtBoard, MultipartFile file);
 	
-	public FileUpload getAttachFile(MtBoard viewBoard);
-
+	// 첨부파일
+	public FileUpload getAttachFile(int viewBoardNo);
 	public FileUpload getFile(FileUpload fileUpload);
 
+	
 	public HashMap<String, Object> updateBoard(MtBoard mtBoard);
 
 	public void update(MtBoard mtBoard, MultipartFile file);
 
 	public void delete(MtBoard mtBoard);
+	
 
-	public void applyMt(ApplyMt applyMt);
+	
+	// 찜하기
+	public boolean mark(MtMark mtMark);
+	
+	public boolean mtboardMark(MtMark mtMark);
+	
+	public int getTotalCntMark(MtMark mtMark);
+	
+	
+	
+	
+	// 검색
+	public List<HashMap<String, Object>> getSearchList(HashMap<String, Object> map);
+	
+	public CommtPaging getSearchPaging(HashMap<String, Object> map);
 
-	// 멘토링신청
-	public void applyMnt(ApplyMnt applyMnt);
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+//	public void applyMt(ApplyMt applyMt);
+//	
+//	// 멘토링신청
+//	public void applyMnt(ApplyMnt applyMnt);
 
 	// 후기
 	//public CommtPaging getCommtPaging(int curPage, int mtboardNo);
