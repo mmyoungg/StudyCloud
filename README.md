@@ -34,11 +34,11 @@
 
 ### 🔵 Tech Stack
 
-##### Language : ```Java``` ```HTML5``` ```JavaScript``` ```jQuery``` ```Ajax``` ```JSON``` ```SQL```
-##### DB & Server : ```Oracle 11g``` ```Apache Tomcat v9.0```
-##### Version Control : ```GIT```
-##### API : ```Bootstrap``` ```smart editor``` ```FlatPickr API``` ```TimePicker API``` ```Kakao API``` ```Iamport API```
-##### Tool & Framework : ```Eclipse``` ```Spring Tool Suite 3``` ```SQL Developer``` ```MyBatis```
+##### ◾ Language : ```Java``` ```HTML5``` ```JavaScript``` ```jQuery``` ```Ajax``` ```JSON``` ```SQL```
+##### ◾ DB & Server : ```Oracle 11g``` ```Apache Tomcat v9.0```
+##### ◾ Version Control : ```GIT```
+##### ◾ API : ```Bootstrap``` ```smart editor``` ```FlatPickr API``` ```TimePicker API``` ```Kakao API``` ```Iamport API```
+##### ◾ Tool & Framework : ```Eclipse``` ```Spring Tool Suite 3``` ```SQL Developer``` ```MyBatis```
 
 * * * 
 
@@ -46,12 +46,15 @@
 #### 🟡 자유게시판
 
 
-https://user-images.githubusercontent.com/110447198/208354295-884fd73a-c7e5-4cd2-a7ef-e9dc606598a2.mp4
+
+https://user-images.githubusercontent.com/110447198/208356112-c954dab3-9143-4678-af86-a4c4bab43feb.mp4
+
+
 
 * * *
 
 #### 🟡 스터디룸 리스트-조회-결제
-https://user-images.githubusercontent.com/110447198/208355125-f8569324-3cde-451b-9380-f73d673efd6f.mp4
+
 
 
 
