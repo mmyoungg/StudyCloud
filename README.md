@@ -43,6 +43,15 @@
 * * * 
 
 ### 🔵 Result((FreeBoard, StudyrRoom)
+#### 🟡 자유게시판
+
+
+https://user-images.githubusercontent.com/110447198/208354295-884fd73a-c7e5-4cd2-a7ef-e9dc606598a2.mp4
+
+* * *
+
+#### 🟡 스터디룸 리스트-조회-결제
+https://user-images.githubusercontent.com/110447198/208355125-f8569324-3cde-451b-9380-f73d673efd6f.mp4
 
 
 
