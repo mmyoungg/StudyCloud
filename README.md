@@ -35,12 +35,12 @@
 * * * 
 
 ### 🔵 맡은 기능
- <h4> [자유게시판]</h3>      
+ <h4> [자유게시판](https://github.com/mmyoungg/StudyCloud/blob/master/src/main/java/controller/FreeBoardController.java) </h3>      
  <h5>◾ 게시글 리스트 페이징</h5>    
  <h5>◾ 다중 첨부파일, 이미지 썸네일, 본문에 첨부한 이미지파일 표시</h5> 
  <h5>◾ 댓글 리스트 페이징, CRUD</h5>  
  <h5>◾ 검색조건 중복체크 검색</h5> 
- <h4> [스터디룸]</h3>      
+ <h4> [스터디룸](https://github.com/mmyoungg/StudyCloud/blob/master/src/main/java/controller/StudyRoomController.java) </h3>      
  <h5>◾ 스터디룸 통합검색</h5>    
  <h5>◾ 인기키워드 상위 5개 노출(키워드 클릭시 해당 키워드로 검색된 리스트 조회)</h5>    
  <h5>◾ 지역선택, 인원선택 조회 & 정렬기능</h5>  
