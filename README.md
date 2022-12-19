@@ -54,16 +54,28 @@
 ### 🔵 Result((FreeBoard, StudyrRoom)
 #### 🟡 자유게시판
 
-
-
 https://user-images.githubusercontent.com/110447198/208356112-c954dab3-9143-4678-af86-a4c4bab43feb.mp4
-
 
 
 * * *
 
-#### 🟡 스터디룸 리스트-조회-결제
+#### 🟡 스터디룸 리스트- 검색, 정렬
 
+
+https://user-images.githubusercontent.com/110447198/208390650-717f7ffc-df9f-4ac3-853f-613b43064cb8.mp4
+
+
+* * *
+
+#### 🟡 스터디룸 상세페이지 1
+
+https://user-images.githubusercontent.com/110447198/208390821-58a7f058-0dd4-4d37-94c2-21238f1d323f.mp4
+
+* * *
+
+#### 🟡 스터디룸 상세페이지 2
+
+https://user-images.githubusercontent.com/110447198/208391896-8d86d908-f7fa-4870-8d35-79cc630a0421.mp4
 
 
 
